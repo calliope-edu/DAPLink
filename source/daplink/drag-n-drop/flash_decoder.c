@@ -30,10 +30,6 @@
 #include "target_config.h"  // for target_device
 #include "settings.h"       // for config_get_automation_allowed
 
-#include "RTL.h"
-#include "rl_usb.h"
-
-
 // Set to 1 to enable debugging
 #define DEBUG_FLASH_DECODER     0
 

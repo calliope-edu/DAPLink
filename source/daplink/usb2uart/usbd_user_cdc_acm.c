@@ -160,8 +160,6 @@ void cdc_process_event()
     if (len_data) {
         len_data = uart_read_data(data, len_data);
     }
-		
-		//HIER WIRD DER USART GELESEN !! ZEICHENERKENNUNG FÜR SELECTOR HIER PRÜFEN
 
     if (len_data) {
         if (USBD_CDC_ACM_DataSend(data , len_data)) {
