@@ -1,5 +1,5 @@
-#ifndef SERIAL_FLASH_H
-#define SERIAL_FLASH_H
+#ifndef IS25LP128F_H
+#define IS25LP128F_H
 
 #include "spi.h"
 
@@ -8,31 +8,31 @@ extern "C" {
 #endif
 
 //status register cmd 0x05
-#define SF_WIP_MASK  1
-#define SF_WIP_BIT	 0
+#define IS25LP128F_WIP_MASK  1
+#define IS25LP128F_WIP_BIT	 0
 
-#define SF_WEL_MASK  2
-#define SF_WEL_BIT   1
+#define IS25LP128F_WEL_MASK  2
+#define IS25LP128F_WEL_BIT   1
 
-#define SF_BP_MASK   (15<<2)
-#define SF_BP_BIT    2
+#define IS25LP128F_BP_MASK   (15<<2)
+#define IS25LP128F_BP_BIT    2
 
-#define SF_QE_MASK   (1<<6)
-#define SF_QE_BIT    6
+#define IS25LP128F_QE_MASK   (1<<6)
+#define IS25LP128F_QE_BIT    6
 
-#define SF_SRWD_MAKS (1<<7)
-#define SF_SRWD_BIT  7
+#define IS25LP128F_SRWD_MAKS (1<<7)
+#define IS25LP128F_SRWD_BIT  7
 
 //bank address register cmd 0x??
-#define SF_EXTADD_MASK (1<<7)
-#define SF_EXTADD_BIT  7
+#define IS25LP128F_EXTADD_MASK (1<<7)
+#define IS25LP128F_EXTADD_BIT  7
 
 //function register
-#define SF_ESUS_MAKS (1<<3)
-#define SF_ESUS_BIT  3
+#define IS25LP128F_ESUS_MAKS (1<<3)
+#define IS25LP128F_ESUS_BIT  3
 
-#define SF_PSUS_MAKS (1<<2)
-#define SF_PSUS_BIT  2
+#define IS25LP128F_PSUS_MAKS (1<<2)
+#define IS25LP128F_PSUS_BIT  2
 
 //Protos
 

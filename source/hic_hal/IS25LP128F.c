@@ -11,7 +11,7 @@ void IS25LP128F_init(void){
 void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 	
 	uint8_t suspend = 0;
-	if(IS25LP128F_status() & SF_WIP_MASK){//suspend if program/erase is in progress
+	if(IS25LP128F_status() & IS25LP128F_WIP_MASK){//suspend if program/erase is in progress
 		IS25LP128F_suspend();
 		suspend = 1;
 	}
@@ -24,7 +24,7 @@ void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 		uint32_t rdlen = len;
 		uint8_t reg = IS25LP128F_bank_reg();
 		spi_cs_low();
-		if ( reg & SF_EXTADD_MASK) {
+		if ( reg & IS25LP128F_EXTADD_MASK) {
 			spi_shift(0x03);
 			spi_shift_16(addr >> 16);
 			spi_shift_16(addr);
@@ -49,7 +49,7 @@ void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len){
 	
 	uint8_t suspend = 0;
-	if(IS25LP128F_func_reg() & SF_PSUS_MAKS){//wait if program is in progress
+	if(IS25LP128F_func_reg() & IS25LP128F_PSUS_MAKS){//wait if program is in progress
 		IS25LP128F_is_busy();
 	}else{//suspend if erase is in progress
 		IS25LP128F_suspend();
@@ -70,7 +70,7 @@ void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len){
 		
 		uint8_t reg = IS25LP128F_bank_reg();
 		spi_cs_low();
-		if ( reg & SF_EXTADD_MASK) {
+		if ( reg & IS25LP128F_EXTADD_MASK) {
 			spi_shift(0x02); // program page command
 			spi_shift_16(addr >> 16);
 			spi_shift_16(addr);
@@ -108,7 +108,7 @@ void IS25LP128F_is_busy(void){
 	uint8_t status;
 	while(1){
 		status = IS25LP128F_status();
-		if(!(status & SF_WIP_MASK)){
+		if(!(status & IS25LP128F_WIP_MASK)){
 			break;
 		}
 	}
@@ -146,7 +146,7 @@ void IS25LP128F_delete_chip(void){
 
 void IS25LP128F_delete_block(uint32_t blk_add){
 	uint8_t suspend = 0;
-	if(IS25LP128F_func_reg() & SF_ESUS_MAKS){//wait if erase is in progress
+	if(IS25LP128F_func_reg() & IS25LP128F_ESUS_MAKS){//wait if erase is in progress
 		IS25LP128F_is_busy();
 	}else{//suspend if programming is in progress
 		IS25LP128F_suspend();
@@ -158,7 +158,7 @@ void IS25LP128F_delete_block(uint32_t blk_add){
 	spi_cs_low();
 	//block erase
 	//D8h=64k 52h=32k
-	if (IS25LP128F_bank_reg() & SF_EXTADD_MASK) {
+	if (IS25LP128F_bank_reg() & IS25LP128F_EXTADD_MASK) {
 		spi_shift(0x52);
 		spi_shift_16(blk_add >> 16);
 		spi_shift_16(blk_add);
@@ -176,7 +176,7 @@ void IS25LP128F_delete_block(uint32_t blk_add){
 void IS25LP128F_delete_sector(uint32_t sec_add){
 	
 	uint8_t suspend = 0;
-	if(IS25LP128F_func_reg() & SF_ESUS_MAKS){//wait if erase is in progress
+	if(IS25LP128F_func_reg() & IS25LP128F_ESUS_MAKS){//wait if erase is in progress
 		IS25LP128F_is_busy();
 	}else{//suspend if programming is in progress
 		IS25LP128F_suspend();
@@ -187,7 +187,7 @@ void IS25LP128F_delete_sector(uint32_t sec_add){
 
 	spi_cs_low();
 	//sector erase D7h/20h
-	if (IS25LP128F_bank_reg() & SF_EXTADD_MASK) {
+	if (IS25LP128F_bank_reg() & IS25LP128F_EXTADD_MASK) {
 		spi_shift(0x20);
 		spi_shift_16(sec_add >> 16);
 		spi_shift_16(sec_add);
@@ -211,7 +211,7 @@ void IS25LP128F_write_enable(void){
 	uint8_t status;
 	while(1){
 		status = IS25LP128F_status();
-		if(status & SF_WEL_MASK){
+		if(status & IS25LP128F_WEL_MASK){
 			break;
 		}
 	}
