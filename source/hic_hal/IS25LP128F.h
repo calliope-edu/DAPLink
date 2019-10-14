@@ -36,21 +36,21 @@ extern "C" {
 
 //Protos
 
-void sf_init(void);
-void sf_read(uint8_t *buf, uint32_t add, uint32_t len);
-void sf_write(uint8_t *buf, uint32_t add, uint32_t len);
-uint8_t sf_sfdp(uint8_t add);
+void IS25LP128F_init(void);
+void IS25LP128F_read(uint8_t *buf, uint32_t add, uint32_t len);
+void IS25LP128F_write(uint8_t *buf, uint32_t add, uint32_t len);
+uint8_t IS25LP128F_sfdp(uint8_t add);
 
-uint8_t sf_status(void);      //05h
-uint8_t sf_bank_reg(void); //16h/C8h
-void sf_is_busy(void);
-void sf_delete_sector(uint32_t sec_add);
-void sf_delete_block(uint32_t blk_add);
-void sf_delete_chip(void);
-void sf_write_enable(void);
-void sf_suspend(void);
-void sf_resume(void);
-uint8_t sf_func_reg(void);
+uint8_t IS25LP128F_status(void);      //05h
+uint8_t IS25LP128F_bank_reg(void); //16h/C8h
+void IS25LP128F_is_busy(void);
+void IS25LP128F_delete_sector(uint32_t sec_add);
+void IS25LP128F_delete_block(uint32_t blk_add);
+void IS25LP128F_delete_chip(void);
+void IS25LP128F_write_enable(void);
+void IS25LP128F_suspend(void);
+void IS25LP128F_resume(void);
+uint8_t IS25LP128F_func_reg(void);
 #ifdef __cplusplus
 }
 #endif
