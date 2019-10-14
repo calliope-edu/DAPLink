@@ -1,5 +1,5 @@
 #include "flash_map.h"
-#include "serial_flash.h"
+#include "IS25LP128F.h"
 
 //code
 //INNFO BLOCK
