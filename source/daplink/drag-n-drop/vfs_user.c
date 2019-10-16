@@ -35,10 +35,11 @@
 #include "gpio.h"           // for gpio_get_sw_reset
 #include "flash_intf.h"     // for flash_intf_target
 #include "cortex_m.h"
+#include "IS25LP128F.h"
 
 // Must be bigger than 4x the flash size of the biggest supported
 // device.  This is to accomodate for hex file programming.
-static const uint32_t disc_size = MB(64+16);
+static uint32_t disc_size = MB(64);
 
 static const char mbed_redirect_file[] =
     "<!doctype html>\r\n"
@@ -86,6 +87,16 @@ void vfs_user_build_filesystem()
 {
     uint32_t file_size;
     vfs_file_t file_handle;
+
+    if (1u == IS25LP128F_detect()){
+        disc_size += IS25LP128F_MEM_SIZE_MB;
+    }
+    else{
+
+    }
+
+
+
     // Setup the filesystem based on target parameters
     vfs_init(daplink_drive_name, disc_size);
     // MBED.HTM
