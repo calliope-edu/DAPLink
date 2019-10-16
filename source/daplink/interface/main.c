@@ -42,6 +42,7 @@
 #include "cortex_m.h"
 #include "sdk.h"
 #include "flash_intf.h"
+#include "IS25LP128F.h"
 
 // Event flags for main task
 // Timers events
@@ -212,6 +213,8 @@ __task void main_task(void)
     gpio_set_hid_led(hid_led_value);
     gpio_set_cdc_led(cdc_led_value);
     gpio_set_msc_led(msc_led_value);
+    // Initialize the SPI and Serial Flash chip
+    IS25LP128F_init();
     // Initialize the DAP
     DAP_Setup();
     // do some init with the target before USB and files are configured
