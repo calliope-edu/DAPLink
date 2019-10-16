@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+#define IS25LP128F_MEM_SIZE_MB 16u
+
 //status register cmd 0x05
 #define IS25LP128F_WIP_MASK  1
 #define IS25LP128F_WIP_BIT	 0
@@ -37,6 +39,7 @@ extern "C" {
 //Protos
 
 void IS25LP128F_init(void);
+uint8_t IS25LP128F_detect(void);
 void IS25LP128F_read(uint8_t *buf, uint32_t add, uint32_t len);
 void IS25LP128F_write(uint8_t *buf, uint32_t add, uint32_t len);
 uint8_t IS25LP128F_sfdp(uint8_t add);

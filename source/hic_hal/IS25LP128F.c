@@ -8,6 +8,23 @@ void IS25LP128F_init(void){
 	PIN_FL_RESET_GPIO->PSOR	= PIN_FL_RESET;
 }
 
+uint8_t IS25LP128F_detect(void){
+
+    uint8_t result = 0u;
+
+    if((IS25LP128F_sfdp(0x00u) == 0x53u)
+    && (IS25LP128F_sfdp(0x01u) == 0x46u)
+    && (IS25LP128F_sfdp(0x02u) == 0x44u)
+    && (IS25LP128F_sfdp(0x03u) == 0x50u)){
+        result = 1u;
+    }
+    else{
+        result = 0u;
+    }
+
+    return result;
+}
+
 void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 	
 	uint8_t suspend = 0;
