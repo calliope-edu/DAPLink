@@ -87,15 +87,15 @@ void vfs_user_build_filesystem()
 {
     uint32_t file_size;
     vfs_file_t file_handle;
+    uint8_t IS25LP128F_detect_status = 0u;
 
     if (1u == IS25LP128F_detect()){
+        IS25LP128F_detect_status = 1u;
         disc_size += IS25LP128F_MEM_SIZE_MB;
     }
     else{
-
+        IS25LP128F_detect_status = 0u;
     }
-
-
 
     // Setup the filesystem based on target parameters
     vfs_init(daplink_drive_name, disc_size);
@@ -131,6 +131,14 @@ void vfs_user_build_filesystem()
         // missing.
         file_size = get_file_size(read_file_need_bl_txt);
         vfs_create_file("NEED_BL TXT", read_file_need_bl_txt, 0, file_size);
+    }
+
+    if (1u == IS25LP128F_detect_status){
+        file_handle = vfs_create_file("Flash      ", 0, 0, 0u);
+        vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
+    }
+    else{
+        /* */
     }
 }
 
