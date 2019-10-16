@@ -110,8 +110,10 @@ static void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
 
 static uint32_t read_mbr(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_fat(uint32_t offset, uint8_t *data, uint32_t size);
-static uint32_t read_dir(uint32_t offset, uint8_t *data, uint32_t size);
-static void write_dir(uint32_t offset, const uint8_t *data, uint32_t size);
+static uint32_t read_root_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+static uint32_t read_dir(root_dir_t *dir, uint32_t dir_index, uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+static void write_root_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+static void write_dir(root_dir_t *dir, uint32_t dir_index, uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
 static void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t change,
                                 vfs_file_t file, vfs_file_t new_file_data);
 static uint32_t cluster_to_sector(uint32_t cluster_idx);
@@ -198,7 +200,7 @@ const virtual_media_t virtual_media_tmpl[] = {
     {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
     {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT1         */
     {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
-    {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
+    {   read_root_dir,  write_root_dir, VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
     /* Raw filesystem contents follow */
 };
 // Keep virtual_media_idx_t in sync with virtual_media_tmpl
@@ -550,11 +552,15 @@ static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 }
 
 /* No need to handle writes to the fat */
-
-static uint32_t read_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+static uint32_t read_root_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
-    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(dir_current)) {
-        // Trying to read too much of the root directory
+    return read_dir(&dir_current, dir_idx, sector_offset, data, num_sectors);
+}
+
+static uint32_t read_dir(root_dir_t *dir, uint32_t dir_index, uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+{
+    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(*dir)) {
+        // Trying to read too much of the directory
         util_assert(0);
         return 0;
     }
@@ -564,13 +570,18 @@ static uint32_t read_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
     if (sector_offset == 0) { //Handle the first 512 bytes
         // Copy data that is actually created in the directory
-        memcpy(data, &dir_current.f[0], dir_idx*sizeof(FatDirectoryEntry_t));
+        memcpy(data, &(dir->f[0]), dir_index*sizeof(FatDirectoryEntry_t));
     }
 
     return num_sectors * VFS_SECTOR_SIZE;
 }
 
-static void write_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+static void write_root_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+{
+    return write_dir(&dir_current, dir_idx, sector_offset, data, num_sectors);
+}
+
+static void write_dir(root_dir_t *dir, uint32_t dir_index, uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
     FatDirectoryEntry_t *old_entry;
     FatDirectoryEntry_t *new_entry;
@@ -578,15 +589,15 @@ static void write_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_
     uint32_t num_entries;
     uint32_t i;
 
-    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(dir_current)) {
-        // Trying to write too much of the root directory
+    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(*dir)) {
+        // Trying to write too much of the directory
         util_assert(0);
         return;
     }
 
     start_index = sector_offset * VFS_SECTOR_SIZE / sizeof(FatDirectoryEntry_t);
     num_entries = num_sectors * VFS_SECTOR_SIZE / sizeof(FatDirectoryEntry_t);
-    old_entry = &dir_current.f[start_index];
+    old_entry = &(dir->f[start_index]);
     new_entry = (FatDirectoryEntry_t *)data;
     // If this is the first sector start at index 1 to get past drive name
     i = 0 == sector_offset ? 1 : 0;
@@ -616,7 +627,7 @@ static void write_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_
         }
     }
 
-    memcpy(&dir_current.f[start_index], data, num_sectors * VFS_SECTOR_SIZE);
+    memcpy(&(dir->f[start_index]), data, num_sectors * VFS_SECTOR_SIZE);
 }
 
 static void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t change, vfs_file_t file, vfs_file_t new_file_data)
