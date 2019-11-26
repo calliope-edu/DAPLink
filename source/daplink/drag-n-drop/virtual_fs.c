@@ -110,6 +110,7 @@ static void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
 
 static uint32_t read_mbr(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_fat(uint32_t offset, uint8_t *data, uint32_t size);
+static void write_fat(uint32_t offset, const uint8_t *data, uint32_t size);
 static uint32_t read_dir(uint32_t offset, uint8_t *data, uint32_t size);
 static void write_dir(uint32_t offset, const uint8_t *data, uint32_t size);
 static void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t change,
@@ -196,8 +197,8 @@ enum virtual_media_idx_t {
 const virtual_media_t virtual_media_tmpl[] = {
     /*  Read CB         Write CB        Region Size                 Region Name     */
     {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
-    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT1         */
-    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
+    {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT1         */
+    {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT2         */
     {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
     /* Raw filesystem contents follow */
 };
@@ -248,7 +249,7 @@ uint32_t data_start;
 // Virtual media must be larger than the template
 COMPILER_ASSERT(sizeof(virtual_media) > sizeof(virtual_media_tmpl));
 
-static void write_fat(file_allocation_table_t *fat, uint32_t idx, uint16_t val)
+static void write_fat_internal(file_allocation_table_t *fat, uint32_t idx, uint16_t val)
 {
     uint32_t low_idx;
     uint32_t high_idx;
@@ -317,9 +318,9 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
 
     // Initialize FAT
     fat_idx = 0;
-    write_fat(&fat, fat_idx, 0xFFF8);    // Media type "media_descriptor"
+    write_fat_internal(&fat, fat_idx, 0xFFF8);    // Media type "media_descriptor"
     fat_idx++;
-    write_fat(&fat, fat_idx, 0xFFFF);    // FAT12 - always 0xFFF (no meaning), FAT16 - dirty/clean (clean = 0xFFFF)
+    write_fat_internal(&fat, fat_idx, 0xFFFF);    // FAT12 - always 0xFFF (no meaning), FAT16 - dirty/clean (clean = 0xFFFF)
     fat_idx++;
     // Initialize root dir
     dir_idx = 0;
@@ -360,11 +361,11 @@ vfs_file_t vfs_create_file(const vfs_filename_t filename, vfs_read_cb_t read_cb,
         first_cluster = fat_idx;
 
         for (i = 0; i < clusters - 1; i++) {
-            write_fat(&fat, fat_idx, fat_idx + 1);
+            write_fat_internal(&fat, fat_idx, fat_idx + 1);
             fat_idx++;
         }
 
-        write_fat(&fat, fat_idx, 0xFFFF);
+        write_fat_internal(&fat, fat_idx, 0xFFFF);
         fat_idx++;
     }
 
@@ -571,7 +572,13 @@ static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
     return read_size;
 }
 
-/* No need to handle writes to the fat */
+static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+{
+    // prototype code
+    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+    //IS25LP128F_write(data, (IS25LP128F_FAT_ADDR+byte_offset), num_bytes);
+}
 
 static uint32_t read_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
