@@ -74,7 +74,8 @@ uint8_t spi_shift(uint8_t data){
 			PIN_MOSI_GPIO->PCOR	= PIN_MOSI;
 		}
 
-		PIN_SCK_GPIO->PSOR	= PIN_SCK;val |= (((PIN_MISO_GPIO->PDIR & PIN_MISO) ? 1 : 0) << (7-i));
+		PIN_SCK_GPIO->PSOR	= PIN_SCK;
+		val |= (((PIN_MISO_GPIO->PDIR & PIN_MISO) ? 1 : 0) << (7-i));
 		PIN_SCK_GPIO->PCOR	= PIN_SCK;
 		
 	}
@@ -91,7 +92,8 @@ uint16_t spi_shift_16(uint16_t data){
 			PIN_MOSI_GPIO->PCOR	= PIN_MOSI;
 		}
 		
-		PIN_SCK_GPIO->PSOR	= PIN_SCK;val |= (((PIN_MISO_GPIO->PDIR & PIN_MISO) ? 1 : 0) << (15-i));
+		PIN_SCK_GPIO->PSOR	= PIN_SCK;
+		val |= (((PIN_MISO_GPIO->PDIR & PIN_MISO) ? 1 : 0) << (15-i));
 		PIN_SCK_GPIO->PCOR	= PIN_SCK;
 		
 	}
