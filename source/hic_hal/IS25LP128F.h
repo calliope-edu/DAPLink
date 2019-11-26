@@ -8,6 +8,8 @@ extern "C" {
 #endif
 
 #define IS25LP128F_MEM_SIZE_MB 16u
+#define IS25LP128F_SECTOR_SIZE 4096u
+#define IS25LP128F_PAGE_SIZE 256u
 
 //status register cmd 0x05
 #define IS25LP128F_WIP_MASK  1
@@ -42,6 +44,7 @@ void IS25LP128F_init(void);
 uint8_t IS25LP128F_detect(void);
 uint8_t IS25LP128F_is_detected(void);
 void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len);
+void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len);
 void IS25LP128F_program(uint8_t *buf, uint32_t addr, uint32_t len);
 uint8_t IS25LP128F_sfdp(uint8_t addr);
 
