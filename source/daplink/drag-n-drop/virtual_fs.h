@@ -101,6 +101,12 @@ void vfs_read(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors);
 // Write one or more sectors to the virtual filesystem
 void vfs_write(uint32_t sector, const uint8_t *buf, uint32_t num_of_sectors);
 
+// Read one or more sectors from the FLASH directory
+uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+
+// Write one or more sectors to the FLASH directory
+void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+
 #ifdef __cplusplus
 }
 #endif

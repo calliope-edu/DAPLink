@@ -507,6 +507,28 @@ void vfs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_secto
     }
 }
 
+uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+{
+#if 0
+    // prototype code
+    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+    IS25_read(IS25LP128F_DIR_ADDR+byte_offset, data, num_bytes);
+	return num_bytes;
+#endif
+	return 0u;
+}
+
+void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+{
+#if 0
+    // prototype code
+    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+    IS25_write(IS25LP128F_DIR_ADDR+byte_offset, data, num_bytes);
+#endif
+}
+
 static uint32_t read_zero(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
     uint32_t read_size = VFS_SECTOR_SIZE * num_sectors;
