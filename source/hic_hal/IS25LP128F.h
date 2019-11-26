@@ -40,9 +40,10 @@ extern "C" {
 
 void IS25LP128F_init(void);
 uint8_t IS25LP128F_detect(void);
-void IS25LP128F_read(uint8_t *buf, uint32_t add, uint32_t len);
-void IS25LP128F_write(uint8_t *buf, uint32_t add, uint32_t len);
-uint8_t IS25LP128F_sfdp(uint8_t add);
+uint8_t IS25LP128F_is_detected(void);
+void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len);
+void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len);
+uint8_t IS25LP128F_sfdp(uint8_t addr);
 
 uint8_t IS25LP128F_status(void);      //05h
 uint8_t IS25LP128F_bank_reg(void); //16h/C8h
@@ -54,6 +55,7 @@ void IS25LP128F_write_enable(void);
 void IS25LP128F_suspend(void);
 void IS25LP128F_resume(void);
 uint8_t IS25LP128F_func_reg(void);
+uint8_t IS25LP128F_extread_reg(void);
 #ifdef __cplusplus
 }
 #endif
