@@ -89,7 +89,7 @@ void vfs_user_build_filesystem()
     vfs_file_t file_handle;
 
     if (IS25LP128F_detect()!=0u){
-        disc_size += IS25LP128F_MEM_SIZE_MB;
+        disc_size += MB(IS25LP128F_MEM_SIZE_MB);
     }
     else{
         /* */
