@@ -27,6 +27,7 @@
 #include "compiler.h"
 #include "macro.h"
 #include "util.h"
+#include "IS25LP128F.h"
 
 // Virtual file system driver
 // Limitations:
@@ -327,6 +328,38 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     dir_current.f[dir_idx] = root_dir_entry;
     memcpy(dir_current.f[dir_idx].filename, drive_name, sizeof(dir_current.f[0].filename));
     dir_idx++;
+
+
+    // Initialize FAT table in the FLASH memory
+    uint8_t cluster_zero[2];
+
+    IS25LP128F_read(cluster_zero, IS25LP128F_FAT_ADDR, 2u);
+
+    if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
+    {
+        // FAT table exists in the FLASH memory, do nothing
+    }
+    else
+    {
+        // FAT table does not exist in the FLASH memory, initialize
+        uint8_t fat_init[256];
+        memset(fat_init, 0, 256);
+
+        for (i = 0u; i < IS25LP128F_FAT_SIZE; i += IS25LP128F_SECTOR_SIZE)
+        {
+            IS25LP128F_delete_sector(IS25LP128F_FAT_ADDR+i);
+        }
+
+        // clusters initialized with zero mean free available cluster, see FAT specs
+        for (i = 0u; i < IS25LP128F_FAT_SIZE; i += IS25LP128F_PAGE_SIZE)
+        {
+            IS25LP128F_program(fat_init, (IS25LP128F_FAT_ADDR+i), IS25LP128F_PAGE_SIZE);
+        }
+
+        // initialize start of FAT in the FLASH memory with FAT from the RAM
+        IS25LP128F_write((uint8_t*)(&fat), IS25LP128F_FAT_ADDR, sizeof(fat));
+    }
+
 }
 
 uint32_t vfs_get_total_size()
