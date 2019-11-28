@@ -344,8 +344,8 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         else
         {
             // FAT table does not exist in the FLASH memory, initialize
-            uint8_t fat_init[256];
-            memset(fat_init, 0, 256);
+            uint8_t fat_init[IS25LP128F_PAGE_SIZE];
+            memset(fat_init, 0, IS25LP128F_PAGE_SIZE);
 
             for (i = 0u; i < IS25LP128F_FAT_SIZE; i += IS25LP128F_SECTOR_SIZE)
             {
@@ -371,8 +371,8 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         if (de.filename[0] == 0xFFu)
         {
             // FLASH directory does not exist in the FLASH memory, initialize
-            uint8_t dir_init[256];
-            memset(dir_init, 0, 256);
+            uint8_t dir_init[IS25LP128F_PAGE_SIZE];
+            memset(dir_init, 0, IS25LP128F_PAGE_SIZE);
 
             for (i = 0u; i < IS25LP128F_DIR_SIZE; i += IS25LP128F_SECTOR_SIZE)
             {
