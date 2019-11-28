@@ -133,6 +133,9 @@ void vfs_user_build_filesystem()
     if (IS25LP128F_is_detected()!=0u){
         file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, VFS_SECTOR_SIZE * 2u);
         vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
+
+        // create entry for handling the space for storing the FLASH files
+        vfs_add_virtualmedia(read_flash_file, write_flash_file, (25u * 512u * 1024u));
     }
     else{
         /* */
