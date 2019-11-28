@@ -361,6 +361,33 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
             // initialize start of FAT in the FLASH memory with FAT from the RAM
             IS25LP128F_write((uint8_t*)(&fat), IS25LP128F_FAT_ADDR, sizeof(fat));
         }
+
+
+        // Initialize FLASH directory in the FLASH memory
+        FatDirectoryEntry_t de;
+
+        IS25LP128F_read((uint8_t*)(&de), IS25LP128F_DIR_ADDR, IS25LP128F_DIR_SIZE);
+
+        if (de.filename[0] == 0xFFu)
+        {
+            // FLASH directory does not exist in the FLASH memory, initialize
+            uint8_t dir_init[256];
+            memset(dir_init, 0, 256);
+
+            for (i = 0u; i < IS25LP128F_DIR_SIZE; i += IS25LP128F_SECTOR_SIZE)
+            {
+                IS25LP128F_delete_sector(IS25LP128F_DIR_ADDR+i);
+            }
+
+            for (i = 0u; i < IS25LP128F_DIR_SIZE; i += IS25LP128F_PAGE_SIZE)
+            {
+                IS25LP128F_program(dir_init, (IS25LP128F_DIR_ADDR+i), IS25LP128F_PAGE_SIZE);
+            }
+        }
+        else
+        {
+            // FLASH directory exists in the FLASH memory, do nothing
+        }
     }
 }
 
