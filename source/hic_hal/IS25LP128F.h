@@ -7,6 +7,10 @@
 extern "C" {
 #endif
 
+#define IS25LP128F_FAT_ADDR 0xC81000u
+#define IS25LP128F_FAT_SIZE 131072u // maximum size for maximum number of clusters allowed
+
+
 #define IS25LP128F_MEM_SIZE_MB 16u
 #define IS25LP128F_SECTOR_SIZE 4096u
 #define IS25LP128F_PAGE_SIZE 256u
