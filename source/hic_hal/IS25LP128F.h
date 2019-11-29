@@ -10,6 +10,9 @@ extern "C" {
 #define IS25LP128F_DIR_ADDR 0x000000u
 #define IS25LP128F_DIR_SIZE 1024u   // size for 32 FatDirectoryEntries (32 bytes each)
 
+#define IS25LP128F_FILE_ADDR 0x1000
+#define IS25LP128F_FILE_SIZE (25u*512u*1024u)   // size for 25 files each of 512k bytes max
+
 #define IS25LP128F_FAT_ADDR 0xC81000u
 #define IS25LP128F_FAT_SIZE 131072u // maximum size for maximum number of clusters allowed
 
