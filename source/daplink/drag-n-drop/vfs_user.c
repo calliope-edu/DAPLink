@@ -109,12 +109,26 @@ void vfs_user_build_filesystem()
         file_size = get_file_size(read_file_fail_txt);
         vfs_create_file("FAIL    TXT", read_file_fail_txt, 0, file_size);
     }
+    else
+    {
+        // create the file nevertheless for keeping fat tables in RAM and FLASH of fixed proportions
+        file_size = get_file_size(read_file_fail_txt);
+        file_handle = vfs_create_file("FAIL    TXT", read_file_fail_txt, 0, file_size);
+        vfs_file_set_attr(file_handle, VFS_FILE_ATTR_HIDDEN);
+    }
 
     // ASSERT.TXT
     if (config_ram_get_assert(assert_buf, sizeof(assert_buf), &assert_line, &assert_source)) {
         file_size = get_file_size(read_file_assert_txt);
         file_handle = vfs_create_file(assert_file, read_file_assert_txt, 0, file_size);
         vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)0); // Remove read only attribute
+    }
+    else
+    {
+        // create the file nevertheless for keeping fat tables in RAM and FLASH of fixed proportions
+        file_size = get_file_size(read_file_assert_txt);
+        file_handle = vfs_create_file(assert_file, read_file_assert_txt, 0, file_size);
+        vfs_file_set_attr(file_handle, VFS_FILE_ATTR_HIDDEN); // Remove read only attribute
     }
 
     // NEED_BL.TXT
@@ -130,6 +144,15 @@ void vfs_user_build_filesystem()
         file_size = get_file_size(read_file_need_bl_txt);
         vfs_create_file("NEED_BL TXT", read_file_need_bl_txt, 0, file_size);
     }
+    else
+    {
+        // create the file nevertheless for keeping fat tables in RAM and FLASH of fixed proportions
+        file_size = get_file_size(read_file_need_bl_txt);
+        file_handle = vfs_create_file("NEED_BL TXT", read_file_need_bl_txt, 0, file_size);
+        vfs_file_set_attr(file_handle, VFS_FILE_ATTR_HIDDEN);
+    }
+
+    // FLASH directory
     if (IS25LP128F_is_detected()!=0u){
         file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, VFS_SECTOR_SIZE * 2u);
         vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
