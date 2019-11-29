@@ -2,7 +2,7 @@
 #include "IS25LP128F.h"
 #include "string.h"
 
-#define IS25LP128F_BACKUP_SECTOR_ADDR (15u * IS25LP128F_SECTOR_SIZE)
+#define IS25LP128F_BACKUP_SECTOR_ADDR 0xCA2000
 
 uint8_t IS25LP128F_detect_status = 0u;
 
