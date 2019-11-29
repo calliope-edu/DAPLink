@@ -676,16 +676,35 @@ static uint32_t read_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
-    uint32_t read_size = sizeof(file_allocation_table_t);
-    COMPILER_ASSERT(sizeof(file_allocation_table_t) <= VFS_SECTOR_SIZE);
+    if (IS25LP128F_is_detected()!=0u)
+    {
+        if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
+        {
+            // use contents of FAT table in the FLASH memory only
+            IS25LP128F_read(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+        }
+        else
+        {
+            // use contents of FAT table in RAM and in FLASH memories
+            IS25LP128F_read(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            memcpy(data, &fat, (2u * fat_idx));
+        }
 
-    if (sector_offset != 0) {
-        // Don't worry about reading other sectors
-        return 0;
+        return num_sectors * VFS_SECTOR_SIZE;
     }
+    else
+    {
+        uint32_t read_size = sizeof(file_allocation_table_t);
+        COMPILER_ASSERT(sizeof(file_allocation_table_t) <= VFS_SECTOR_SIZE);
 
-    memcpy(data, &fat, read_size);
-    return read_size;
+        if (sector_offset != 0) {
+            // Don't worry about reading other sectors
+            return 0;
+        }
+
+        memcpy(data, &fat, read_size);
+        return read_size;
+    }
 }
 
 static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
