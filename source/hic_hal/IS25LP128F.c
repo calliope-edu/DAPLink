@@ -4,7 +4,7 @@
 
 #define IS25LP128F_BACKUP_SECTOR_ADDR 0xCA2000
 
-uint8_t IS25LP128F_detect_status = 0u;
+static uint8_t IS25LP128F_detect_status = 0u;
 
 void IS25LP128F_init(void){
     IS25LP128F_detect_status = 0u;
