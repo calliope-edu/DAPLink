@@ -339,7 +339,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
 
         if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
         {
-            // FAT table exists in the FLASH memory, do nothing
+            // FAT table already exists in the FLASH memory, do nothing
         }
         else
         {
@@ -386,7 +386,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         }
         else
         {
-            // FLASH directory exists in the FLASH memory, do nothing
+            // FLASH directory already exists in the FLASH memory, do nothing
         }
     }
 }
@@ -709,10 +709,23 @@ static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
-    // prototype code
-    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
-    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    //IS25LP128F_write(data, (IS25LP128F_FAT_ADDR+byte_offset), num_bytes);
+    if(IS25LP128F_is_detected()!=0u)
+    {
+        if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
+        {
+            // write data to FAT table in the FLASH memory only
+            IS25LP128F_write(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+        }
+        else
+        {
+            // write data directly to FAT table in the FLASH memory
+            IS25LP128F_write(&(data[2u * fat_idx]), IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
+        }
+    }
+    else
+    {
+        /* */
+    }
 }
 
 static uint32_t read_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
