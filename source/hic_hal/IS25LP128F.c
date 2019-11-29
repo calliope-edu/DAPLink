@@ -62,7 +62,7 @@ void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 	} while (len > 0);
 }
 
-void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len)
+void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
 {
     //return;
     uint32_t sector_iter = 0u;
@@ -239,7 +239,7 @@ void IS25LP128F_write(uint8_t *buf, uint32_t addr, uint32_t len)
     }
 }
 
-void IS25LP128F_program(uint8_t *buf, uint32_t addr, uint32_t len){
+void IS25LP128F_program(uint8_t const *buf, uint32_t addr, uint32_t len){
 	
 	const uint8_t *p = (const uint8_t *)buf;
 	uint32_t max, pagelen;
