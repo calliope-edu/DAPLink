@@ -604,24 +604,17 @@ void vfs_add_virtualmedia(vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32
 
 uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
-#if 0
-    // prototype code
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25_read(IS25LP128F_DIR_ADDR+byte_offset, data, num_bytes);
+    IS25LP128F_read(data, IS25LP128F_DIR_ADDR+byte_offset, num_bytes);
 	return num_bytes;
-#endif
-	return 0u;
 }
 
 void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
-#if 0
-    // prototype code
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25_write(IS25LP128F_DIR_ADDR+byte_offset, data, num_bytes);
-#endif
+    IS25LP128F_write(data, IS25LP128F_DIR_ADDR+byte_offset, num_bytes);
 }
 
 uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
