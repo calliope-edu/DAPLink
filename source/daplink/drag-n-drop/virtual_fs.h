@@ -23,6 +23,7 @@
 #define VIRTUAL_FS_H
 
 #include "stdint.h"
+#include "stdbool.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -115,6 +116,12 @@ uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 // Write one or more sectors to one of the FLASH files
 void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+
+// Set Root dir active or not active flag
+void vfs_set_root_dir_active(bool active);
+
+// Check if Root dir is active (selected by the user)
+bool vfs_get_root_dir_active(void);
 
 #ifdef __cplusplus
 }

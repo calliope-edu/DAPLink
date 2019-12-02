@@ -246,6 +246,7 @@ uint32_t virtual_media_idx;
 uint32_t fat_idx;
 uint32_t dir_idx;
 uint32_t data_start;
+bool root_dir_active_flag;
 
 // Virtual media must be larger than the template
 COMPILER_ASSERT(sizeof(virtual_media) > sizeof(virtual_media_tmpl));
@@ -283,6 +284,9 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     file_change_cb = file_change_cb_stub;
     virtual_media_idx = 0;
     data_start = 0;
+
+    vfs_set_root_dir_active(false);
+
     // Initialize MBR
     memcpy(&mbr, &mbr_tmpl, sizeof(mbr_t));
     total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
@@ -615,6 +619,8 @@ void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_s
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
     IS25LP128F_write(data, IS25LP128F_DIR_ADDR+byte_offset, num_bytes);
+
+    vfs_set_root_dir_active(false);
 }
 
 uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
@@ -630,6 +636,16 @@ void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
     IS25LP128F_write(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+}
+
+void vfs_set_root_dir_active(bool active)
+{
+    root_dir_active_flag = active;
+}
+
+bool vfs_get_root_dir_active(void)
+{
+    return root_dir_active_flag;
 }
 
 static uint32_t read_zero(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
@@ -740,6 +756,8 @@ static void write_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_
     uint32_t start_index;
     uint32_t num_entries;
     uint32_t i;
+
+    vfs_set_root_dir_active(true);
 
     if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(dir_current)) {
         // Trying to write too much of the root directory
