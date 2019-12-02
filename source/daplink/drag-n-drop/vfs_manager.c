@@ -343,6 +343,10 @@ void usbd_msc_write_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors)
     {
         file_data_handler(sector, buf, num_of_sectors);
     }
+    else
+    {
+        // ignore processing the file transfer if it is not regarding the Root directory
+    }
 }
 
 static void sync_init(void)
