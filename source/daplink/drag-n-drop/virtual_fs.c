@@ -633,9 +633,16 @@ uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
-    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
-    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25LP128F_write(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+    if (vfs_get_root_dir_active()!=true)
+    {
+        uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+        uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+        IS25LP128F_write(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+    }
+    else
+    {
+        // ignore writes to flash memory if they are not regarding the FLASH directory
+    }
 }
 
 void vfs_set_root_dir_active(bool active)
@@ -713,15 +720,22 @@ static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_
 {
     if(IS25LP128F_is_detected()!=0u)
     {
-        if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
+        if (vfs_get_root_dir_active()!=true)
         {
-            // write data to FAT table in the FLASH memory only
-            IS25LP128F_write(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
+            {
+                // write data to FAT table in the FLASH memory only
+                IS25LP128F_write(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            }
+            else
+            {
+                // write data directly to FAT table in the FLASH memory
+                IS25LP128F_write(&(data[2u * fat_idx]), IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
+            }
         }
         else
         {
-            // write data directly to FAT table in the FLASH memory
-            IS25LP128F_write(&(data[2u * fat_idx]), IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
+            // ignore writes to FAT if they are not regarding the FLASH directory
         }
     }
     else
