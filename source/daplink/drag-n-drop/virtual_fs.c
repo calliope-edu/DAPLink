@@ -660,8 +660,7 @@ bool vfs_get_root_dir_active(void)
 void vfs_receive_command(char command)
 {
     static uint8_t file_idx = 0u;
-    static vfs_filename_t filenames[26];
-    static uint8_t filenames_max = 26u;
+    static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
     static uint8_t filenames_found = 0u;
 
     if (command == 'P')
@@ -672,11 +671,11 @@ void vfs_receive_command(char command)
     else if (command == 'R')
     {
         // Target micro loaded with "selector" software and ready for operation
-        filenames_found = vfs_get_names_srtd(filenames, filenames_max);
+        filenames_found = vfs_get_names_srtd(filenames, IS25LP128F_FILE_MAX);
 
         if (filenames_found == 0u)
         {
-            vfs_send_command(27u); // FLASH dir is empty, blink central LED
+            vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
         }
         else
         {
@@ -700,7 +699,7 @@ void vfs_receive_command(char command)
             }
             else
             {
-                vfs_send_command(27u); // FLASH dir is empty, blink central LED
+                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
             }
         }
     }
@@ -721,7 +720,7 @@ void vfs_receive_command(char command)
             }
             else
             {
-                vfs_send_command(27u); // FLASH dir is empty, blink central LED
+                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
             }
         }
     }
@@ -734,7 +733,7 @@ void vfs_receive_command(char command)
         }
         else
         {
-            vfs_send_command(27u); // FLASH dir is empty, blink central LED
+            vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
         }
     }
     else
