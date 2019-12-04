@@ -123,6 +123,18 @@ void vfs_set_root_dir_active(bool active);
 // Check if Root dir is active (selected by the user)
 bool vfs_get_root_dir_active(void);
 
+// TODO: add comments
+void vfs_receive_command(char command);
+
+void vfs_send_command(char command);
+
+uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size);
+
+void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
+
+void vfs_program_flash_file(vfs_filename_t filename);
+
+
 #ifdef __cplusplus
 }
 #endif

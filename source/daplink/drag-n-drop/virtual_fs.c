@@ -28,6 +28,8 @@
 #include "macro.h"
 #include "util.h"
 #include "IS25LP128F.h"
+#include "file_stream.h"
+#include "stdlib.h"
 
 // Virtual file system driver
 // Limitations:
@@ -653,6 +655,242 @@ void vfs_set_root_dir_active(bool active)
 bool vfs_get_root_dir_active(void)
 {
     return root_dir_active_flag;
+}
+
+void vfs_receive_command(char command)
+{
+    static uint8_t file_idx = 0u;
+    static vfs_filename_t filenames[26];
+    static uint8_t filenames_max = 26u;
+    static uint8_t filenames_found = 0u;
+
+    if (command == 'P')
+    {
+        // Program target micro with "selector" software
+        vfs_program_flash_file("SELECTR.HEX");
+    }
+    else if (command == 'R')
+    {
+        // Target micro loaded with "selector" software and ready for operation
+        filenames_found = vfs_get_names_srtd(filenames, filenames_max);
+
+        if (filenames_found == 0u)
+        {
+            vfs_send_command(27u); // FLASH dir is empty, blink central LED
+        }
+        else
+        {
+            vfs_send_command(0u); // Disable the LEDs
+        }
+    }
+    else if (command == 'A')
+    {
+        // Button A pressed
+        if ( file_idx < filenames_found )
+        {
+            file_idx ++;
+            vfs_send_command(file_idx);
+        }
+        else
+        {
+            if (filenames_found > 0u)
+            {
+                file_idx = 1u;
+                vfs_send_command(file_idx);
+            }
+            else
+            {
+                vfs_send_command(27u); // FLASH dir is empty, blink central LED
+            }
+        }
+    }
+    else if (command == 'B')
+    {
+        // Button B pressed
+        if (file_idx > 1u)
+        {
+            file_idx --;
+            vfs_send_command(file_idx);
+        }
+        else
+        {
+            if (filenames_found > 0u)
+            {
+                file_idx = filenames_found;
+                vfs_send_command(file_idx);
+            }
+            else
+            {
+                vfs_send_command(27u); // FLASH dir is empty, blink central LED
+            }
+        }
+    }
+    else if ((command == 'C') || (command == 'S'))
+    {
+        // Buttons A+B pressed OR Shake detected
+        if (file_idx != 0u)
+        {
+            vfs_program_flash_file(filenames[file_idx]);
+        }
+        else
+        {
+            vfs_send_command(27u); // FLASH dir is empty, blink central LED
+        }
+    }
+    else
+    {
+        // ignore
+    }
+}
+
+void vfs_send_command(char command)
+{
+    // TODO:
+}
+
+
+static int vfs_strcmp(const void * a, const void * b);
+static int vfs_strcmp(const void * a, const void * b)
+{
+    return strcmp((const char *)a, (const char *)b);
+}
+
+uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
+{
+    uint32_t address = 0u;
+    uint8_t filenames_found = 0u;
+    FatDirectoryEntry_t de;
+
+    for (address = IS25LP128F_DIR_ADDR; address < (IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE); address += sizeof(FatDirectoryEntry_t))
+    {
+        IS25LP128F_read((uint8_t*)(&de), address, sizeof(FatDirectoryEntry_t));
+
+        if (filename_valid(de.filename)!=0u)
+        {
+            if (strcmp(de.filename, "SELECTR.HEX")!=0u)
+            {
+                if (filenames_found < size)
+                {
+                    memcpy(&(filename[filenames_found]), &(de.filename), sizeof(vfs_filename_t));
+                    filenames_found++;
+                }
+                else
+                {
+                    // filename buffer full
+                }
+            }
+            else
+            {
+                // skip the "selector" file
+            }
+        }
+        else
+        {
+            // filename invalid, not a file?
+        }
+    }
+
+    qsort(filename, filenames_found, sizeof(vfs_filename_t), vfs_strcmp);
+
+    return filenames_found;
+}
+
+void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
+{
+    uint32_t address = 0u;
+    FatDirectoryEntry_t de;
+
+    *first_cluster = 0xFFFFu;
+    *filesize = 0u;
+
+    if (filename_valid(filename)!=0u)
+    {
+        for (address = IS25LP128F_DIR_ADDR; address < (IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE); address += sizeof(FatDirectoryEntry_t))
+        {
+            IS25LP128F_read((uint8_t*)(&de), address, sizeof(FatDirectoryEntry_t));
+
+            if (strcmp(de.filename, filename) == 0u)
+            {
+                // filename is matching, finalize
+                *first_cluster = de.first_cluster_low_16;
+                *filesize = de.filesize;
+
+                address = IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE;
+            }
+            else
+            {
+                // filename is not matching, continue searching
+            }
+        }
+    }
+    else
+    {
+        // filename is invalid, skip
+    }
+}
+
+void vfs_program_flash_file(vfs_filename_t filename)
+{
+    uint16_t cluster = 0u;
+    uint32_t filesize = 0u;
+    uint32_t address = 0u;
+    uint8_t buf[IS25LP128F_PAGE_SIZE];
+    uint32_t size = 0u;
+    stream_type_t stream_type = STREAM_TYPE_NONE;
+
+    stream_type = stream_type_from_name(filename);
+
+    if (stream_type != STREAM_TYPE_NONE)
+    {
+        vfs_find_file(filename, &cluster, &filesize);
+
+        if ((cluster >= 0x02u) && (cluster <= 0xFFF8u))
+        {
+            stream_open(stream_type);
+
+            for (size = 0u; size < filesize; size += IS25LP128F_PAGE_SIZE)
+            {
+                address = (cluster - fat_idx) * VFS_CLUSTER_SIZE;
+
+                if (size + IS25LP128F_PAGE_SIZE <= filesize)
+                {
+                    IS25LP128F_read(buf, IS25LP128F_FILE_ADDR + address, IS25LP128F_PAGE_SIZE);
+                    stream_write(buf, IS25LP128F_PAGE_SIZE);
+                }
+                else
+                {
+                    IS25LP128F_read(buf, IS25LP128F_FILE_ADDR + address, (filesize-size));
+                    stream_write(buf, (filesize-size));
+                }
+
+                IS25LP128F_read(buf, IS25LP128F_FAT_ADDR + (cluster * 2u), 2u);
+
+                cluster = buf[1];
+                cluster <<= 8u;
+                cluster |= buf[0];
+
+                if ((cluster >= 0x02u) && (cluster <= 0xFFF8u))
+                {
+                    // continue the for loop
+                }
+                else
+                {
+                    // end of file, terminate the for loop
+                    size = filesize;
+                }
+            }
+
+            stream_close();
+        }
+        else
+        {
+            // invalid cluster number, no action to be performed
+        }
+    }
+    else
+    {
+        // invalid stream type, no action to be performed
+    }
 }
 
 static uint32_t read_zero(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
