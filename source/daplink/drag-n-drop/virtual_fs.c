@@ -372,7 +372,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         // Initialize FLASH directory in the FLASH memory
         FatDirectoryEntry_t de;
 
-        IS25LP128F_read((uint8_t*)(&de), IS25LP128F_DIR_ADDR, IS25LP128F_DIR_SIZE);
+        IS25LP128F_read((uint8_t*)(&de), IS25LP128F_DIR_ADDR, sizeof(FatDirectoryEntry_t));
 
         if (de.filename[0] == 0xFFu)
         {
