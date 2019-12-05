@@ -660,80 +660,95 @@ bool vfs_get_root_dir_active(void)
 void vfs_receive_command(char command)
 {
     static uint8_t file_idx = 0u;
-    static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
     static uint8_t filenames_found = 0u;
+    static uint8_t programming_mode = 0u;
+    static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
 
     if (command == 'P')
     {
         // Program target micro with "selector" software
         vfs_program_flash_file("SELECTR.HEX");
-    }
-    else if (command == 'R')
-    {
-        // Target micro loaded with "selector" software and ready for operation
-        filenames_found = vfs_get_names_srtd(filenames, IS25LP128F_FILE_MAX);
 
-        if (filenames_found == 0u)
-        {
-            vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
-        }
-        else
-        {
-            vfs_send_command(0u); // Disable the LEDs
-        }
+        file_idx = 0u;
+        filenames_found = 0u;
+        programming_mode = 1u;
+        memset(filenames, 0, IS25LP128F_FILE_MAX*(sizeof(vfs_filename_t)));
     }
-    else if (command == 'A')
+
+    if (programming_mode != 0u)
     {
-        // Button A pressed
-        if (file_idx > 1u)
+        if (command == 'R')
         {
-            file_idx --;
-            vfs_send_command(file_idx);
-        }
-        else
-        {
-            if (filenames_found > 0u)
+            // Target micro loaded with "selector" software and ready for operation
+            filenames_found = vfs_get_names_srtd(filenames, IS25LP128F_FILE_MAX);
+
+            if (filenames_found == 0u)
             {
-                file_idx = filenames_found;
+                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+            }
+            else
+            {
+                vfs_send_command(0u); // Disable the LEDs
+            }
+        }
+        else if (command == 'A')
+        {
+            // Button A pressed
+            if (file_idx > 1u)
+            {
+                file_idx --;
                 vfs_send_command(file_idx);
+            }
+            else
+            {
+                if (filenames_found > 0u)
+                {
+                    file_idx = filenames_found;
+                    vfs_send_command(file_idx);
+                }
+                else
+                {
+                    vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                }
+            }
+        }
+        else if (command == 'B')
+        {
+            // Button B pressed
+            if ( file_idx < filenames_found )
+            {
+                file_idx ++;
+                vfs_send_command(file_idx);
+            }
+            else
+            {
+                if (filenames_found > 0u)
+                {
+                    file_idx = 1u;
+                    vfs_send_command(file_idx);
+                }
+                else
+                {
+                    vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                }
+            }
+        }
+        else if ((command == 'C') || (command == 'S'))
+        {
+            // Buttons A+B pressed OR Shake detected
+            if (file_idx != 0u)
+            {
+                vfs_program_flash_file(filenames[file_idx]);
+                programming_mode = 0u;
             }
             else
             {
                 vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
             }
         }
-    }
-    else if (command == 'B')
-    {
-        // Button B pressed
-        if ( file_idx < filenames_found )
-        {
-            file_idx ++;
-            vfs_send_command(file_idx);
-        }
         else
         {
-            if (filenames_found > 0u)
-            {
-                file_idx = 1u;
-                vfs_send_command(file_idx);
-            }
-            else
-            {
-                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
-            }
-        }
-    }
-    else if ((command == 'C') || (command == 'S'))
-    {
-        // Buttons A+B pressed OR Shake detected
-        if (file_idx != 0u)
-        {
-            vfs_program_flash_file(filenames[file_idx]);
-        }
-        else
-        {
-            vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+            // ignore
         }
     }
     else
