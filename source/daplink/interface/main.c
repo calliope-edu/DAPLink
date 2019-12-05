@@ -201,6 +201,7 @@ __task void main_task(void)
     uint32_t usb_no_config_count = USB_CONFIGURE_TIMEOUT;
     // button state
     uint8_t reset_pressed = 0;
+    uint16_t reset_button_timer = 0u;
     // Initialize settings - required for asserts to work
     config_init();
     // Update bootloader if it is out of date
@@ -340,6 +341,27 @@ __task void main_task(void)
                 // Reset button released
                 target_set_state(RESET_RUN);
                 reset_pressed = 0;
+            } else if (reset_pressed && gpio_get_reset_btn_fwrd()) {
+                // Reset button held continuously
+                if (reset_button_timer < 3030u)
+                {
+                    reset_button_timer += 30u;
+
+                    if (reset_button_timer == 3000u)
+                    {
+                        vfs_receive_command('P');
+                    }
+                    else
+                    {
+                        /* */
+                    }
+                }
+                else
+                {
+                    /* */
+                }
+            } else {
+                /* */
             }
 
             // DAP LED
