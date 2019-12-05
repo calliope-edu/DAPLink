@@ -685,16 +685,16 @@ void vfs_receive_command(char command)
     else if (command == 'A')
     {
         // Button A pressed
-        if ( file_idx < filenames_found )
+        if (file_idx > 1u)
         {
-            file_idx ++;
+            file_idx --;
             vfs_send_command(file_idx);
         }
         else
         {
             if (filenames_found > 0u)
             {
-                file_idx = 1u;
+                file_idx = filenames_found;
                 vfs_send_command(file_idx);
             }
             else
@@ -706,16 +706,16 @@ void vfs_receive_command(char command)
     else if (command == 'B')
     {
         // Button B pressed
-        if (file_idx > 1u)
+        if ( file_idx < filenames_found )
         {
-            file_idx --;
+            file_idx ++;
             vfs_send_command(file_idx);
         }
         else
         {
             if (filenames_found > 0u)
             {
-                file_idx = filenames_found;
+                file_idx = 1u;
                 vfs_send_command(file_idx);
             }
             else
