@@ -30,6 +30,7 @@
 #include "IS25LP128F.h"
 #include "file_stream.h"
 #include "stdlib.h"
+#include "uart.h"
 
 // Virtual file system driver
 // Limitations:
@@ -759,7 +760,7 @@ void vfs_receive_command(char command)
 
 void vfs_send_command(char command)
 {
-    // TODO:
+    uart_write_data((uint8_t*)&command, 1u);
 }
 
 
