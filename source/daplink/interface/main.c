@@ -214,8 +214,6 @@ __task void main_task(void)
     gpio_set_hid_led(hid_led_value);
     gpio_set_cdc_led(cdc_led_value);
     gpio_set_msc_led(msc_led_value);
-    // Initialize the SPI and Serial Flash chip
-    IS25LP128F_init();
     // Initialize the DAP
     DAP_Setup();
     // do some init with the target before USB and files are configured
@@ -442,5 +440,31 @@ int main(void)
 #endif
     // initialize vendor sdk
     sdk_init();
+
+    // Initialize the SPI and Serial Flash chip
+    IS25LP128F_init();
+    if (IS25LP128F_detect()!=0u)
+    {
+        uint8_t* com_addr = _util_com_get_buf_addr();
+        _util_com_set_size(0u);
+
+        //memset(com_addr, 0xAA, 256);
+        //IS25LP128F_read(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
+
+        //IS25LP128F_delete_sector(IS25LP128F_SECTOR_SIZE);
+        //IS25LP128F_delete_block(0u);
+        //IS25LP128F_delete_chip();
+
+        //IS25LP128F_program(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
+
+        //IS25LP128F_write(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
+
+        //IS25LP128F_read(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
+        //memset(com_addr, 0xAA, 256);
+
+        com_addr[0]=IS25LP128F_extread_reg();
+        _util_com_set_size(256u);
+    }
+
     os_sys_init_user(main_task, MAIN_TASK_PRIORITY, stk_main_task, MAIN_TASK_STACK);
 }
