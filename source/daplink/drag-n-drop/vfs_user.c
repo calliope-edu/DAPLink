@@ -88,13 +88,6 @@ void vfs_user_build_filesystem()
     uint32_t file_size;
     vfs_file_t file_handle;
 
-    if (IS25LP128F_detect()!=0u){
-        disc_size += MB(IS25LP128F_MEM_SIZE_MB);
-    }
-    else{
-        /* */
-    }
-
     // Setup the filesystem based on target parameters
     vfs_init(daplink_drive_name, disc_size);
     // MBED.HTM
@@ -154,11 +147,11 @@ void vfs_user_build_filesystem()
 
     // FLASH directory
     if (IS25LP128F_is_detected()!=0u){
-        file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, VFS_SECTOR_SIZE * 2u);
+        file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, IS25LP128F_DIR_SIZE);
         vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
 
         // create entry for handling the space for storing the FLASH files
-        vfs_add_virtualmedia(read_flash_file, write_flash_file, (IS25LP128F_FILE_MAX * IS25LP128F_FILE_SIZE));
+        vfs_add_virtualmedia(read_flash_file, write_flash_file, IS25LP128F_FILE_SIZE);
     }
     else{
         /* */
