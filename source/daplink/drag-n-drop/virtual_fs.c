@@ -683,13 +683,14 @@ void vfs_receive_command(char command)
             // Target micro loaded with "selector" software and ready for operation
             filenames_found = vfs_get_names_srtd(filenames, IS25LP128F_FILE_MAX);
 
-            if (filenames_found == 0u)
+            if (filenames_found > 0u)
             {
-                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                file_idx = 1u; // select first program file by default
+                vfs_send_command(file_idx);
             }
             else
             {
-                vfs_send_command(0u); // Disable the LEDs
+                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
             }
         }
         else if (command == 'A')
