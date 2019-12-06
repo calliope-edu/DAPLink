@@ -202,7 +202,7 @@ const virtual_media_t virtual_media_tmpl[] = {
     /*  Read CB         Write CB        Region Size                 Region Name     */
     {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
     {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT1         */
-    {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT2         */
+    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
     {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
     /* Raw filesystem contents follow */
 };
