@@ -834,6 +834,6 @@ static void transfer_update_state(error_t status)
     // If this state change is not from aborting a transfer
     // due to a remount then trigger a remount
     if (!transfer_timeout) {
-        //vfs_mngr_fs_remount();
+        vfs_mngr_fs_remount();
     }
 }
