@@ -151,9 +151,6 @@ error_t stream_open(stream_type_t stream_type)
 
     if (ERROR_SUCCESS != status) {
         state = STREAM_STATE_ERROR;
-    }else{
-			uint8_t num[] = {'S','T','A','R','T'};
-			USBD_CDC_ACM_DataSend(num, 5);
 		}
 
     return status;
@@ -174,9 +171,6 @@ error_t stream_write(const uint8_t *data, uint32_t size)
     stream_thread_assert();
     // Write to stream
     status = current_stream->write(&shared_state, data, size);
-		
-		uint8_t num[] = {'D'};
-		USBD_CDC_ACM_DataSend(num, 1);
 		
     if (ERROR_SUCCESS_DONE == status) {
         state = STREAM_STATE_END;
@@ -206,10 +200,6 @@ error_t stream_close(void)
     // Close stream
     status = current_stream->close(&shared_state);
     state = STREAM_STATE_CLOSED;
-		
-		uint8_t num[] = {'C','L','O','S','E'};
-		USBD_CDC_ACM_DataSend(num, 5);
-		//file_transfer_state = default_transfer_state;
 		
     return status;
 }
@@ -334,7 +324,7 @@ static error_t write_hex(void *state, const uint8_t *data, uint32_t size)
                 status = flash_decoder_write(bin_start_address, hex_state->bin_buffer, bin_buf_written);
             }
 
-            break;
+                break;
         } else if (HEX_PARSE_UNALIGNED == parse_status) {
             if (bin_buf_written > 0) {
                 status = flash_decoder_write(bin_start_address, hex_state->bin_buffer, bin_buf_written);
