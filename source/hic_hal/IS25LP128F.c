@@ -64,7 +64,6 @@ void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len){
 
 void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
 {
-    //return;
     uint32_t sector_iter = 0u;
     uint32_t sector_addr = ((addr / IS25LP128F_SECTOR_SIZE) * IS25LP128F_SECTOR_SIZE);
     uint32_t num_sectors = ((addr + len - sector_addr + IS25LP128F_SECTOR_SIZE - 1u) / IS25LP128F_SECTOR_SIZE);
@@ -76,7 +75,6 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
         // write to the backup sector
         IS25LP128F_delete_sector(IS25LP128F_BACKUP_SECTOR_ADDR);
 
-        // read-modify-write pages within sector's range
         for (page_addr = sector_addr; page_addr < (sector_addr + IS25LP128F_SECTOR_SIZE); page_addr += IS25LP128F_PAGE_SIZE)
         {
             // short legend:
@@ -241,7 +239,7 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
 
 void IS25LP128F_program(uint8_t const *buf, uint32_t addr, uint32_t len){
 	
-	const uint8_t *p = (const uint8_t *)buf;
+    const uint8_t *p = (const uint8_t *)buf;
 	uint32_t max, pagelen;
 
 	 //Serial.printf("WR: addr %08X, len %d\n", addr, len);
@@ -331,10 +329,10 @@ void IS25LP128F_delete_block(uint32_t blk_add){
 	
 	IS25LP128F_write_enable();
 	
+	uint8_t reg = IS25LP128F_bank_reg();
 	spi_cs_low();
-	//block erase
-	//D8h=64k 52h=32k
-	if (IS25LP128F_bank_reg() & IS25LP128F_EXTADD_MASK) {
+	//block erase D8h=64k 52h=32k
+	if (reg & IS25LP128F_EXTADD_MASK) {
 		spi_shift(0x52);
 		spi_shift_16(blk_add >> 16);
 		spi_shift_16(blk_add);
@@ -351,9 +349,10 @@ void IS25LP128F_delete_sector(uint32_t sec_add){
 	
 	IS25LP128F_write_enable();
 
+	uint8_t reg = IS25LP128F_bank_reg();
 	spi_cs_low();
 	//sector erase D7h/20h
-	if (IS25LP128F_bank_reg() & IS25LP128F_EXTADD_MASK) {
+	if (reg & IS25LP128F_EXTADD_MASK) {
 		spi_shift(0x20);
 		spi_shift_16(sec_add >> 16);
 		spi_shift_16(sec_add);
