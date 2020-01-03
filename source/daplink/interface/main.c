@@ -53,6 +53,7 @@
 // Other Events
 #define FLAGS_MAIN_POWERDOWN    (1 << 4)
 #define FLAGS_MAIN_DISABLEDEBUG (1 << 5)
+#define FLAGS_MAIN_FLASHING     (1 << 7)
 #define FLAGS_MAIN_PROC_USB     (1 << 9)
 // Used by cdc when an event occurs
 #define FLAGS_MAIN_CDC_EVENT    (1 << 11)
@@ -208,6 +209,9 @@ __task void main_task(void)
     bootloader_check_and_update();
     // Get a reference to this task
     main_task_id = os_tsk_self();
+    // Initialize the SPI and Serial Flash chip
+    IS25LP128F_init();
+    IS25LP128F_detect();
     // leds
     gpio_init();
     // Turn to LED default settings
@@ -235,6 +239,7 @@ __task void main_task(void)
                        | FLAGS_MAIN_90MS            // 90mS tick
                        | FLAGS_MAIN_30MS            // 30mS tick
                        | FLAGS_MAIN_POWERDOWN       // Power down interface
+                       | FLAGS_MAIN_FLASHING        // Offline flashing
                        | FLAGS_MAIN_DISABLEDEBUG    // Disable target debug
                        | FLAGS_MAIN_PROC_USB        // process usb events
                        | FLAGS_MAIN_CDC_EVENT       // cdc event
@@ -327,6 +332,22 @@ __task void main_task(void)
             }
         }
 
+        if (flags & FLAGS_MAIN_FLASHING) {
+            uint8_t data[16];
+            uint8_t len_data = 0u;
+
+            vfs_program_flash_file_handler();
+
+            len_data = uart_read_data(data, 16u);
+
+            if (len_data) {
+                main_blink_cdc_led(MAIN_LED_FLASH);
+                vfs_receive_command(data[0]);
+            }
+
+            os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
+        }
+
         // 30mS tick used for flashing LED when USB is busy
         if (flags & FLAGS_MAIN_30MS) {
 
@@ -337,8 +358,18 @@ __task void main_task(void)
                 reset_pressed = 1;
             } else if (reset_pressed && !gpio_get_reset_btn_fwrd()) {
                 // Reset button released
-                target_set_state(RESET_RUN);
+
+                if (reset_pressed_timer < 3000u)
+                {
+                    target_set_state(RESET_RUN);
+                }
+                else
+                {
+                    /* */
+                }
+
                 reset_pressed = 0;
+                reset_pressed_timer = 0u;
             } else if (reset_pressed && gpio_get_reset_btn_fwrd()) {
                 // Reset button held continuously
                 if (reset_pressed_timer < 3030u)
@@ -348,6 +379,17 @@ __task void main_task(void)
                     if (reset_pressed_timer == 3000u)
                     {
                         vfs_receive_command('P');
+
+                        UART_Configuration config;
+                        config.Baudrate = 115200u;
+                        config.DataBits = UART_DATA_BITS_8;
+                        config.Parity = UART_PARITY_NONE;
+                        config.StopBits = UART_STOP_BITS_1;
+                        config.FlowControl = UART_FLOW_CONTROL_NONE;
+                        uart_reset();
+                        uart_set_configuration(&config);
+
+                        os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
                     }
                     else
                     {
@@ -440,31 +482,6 @@ int main(void)
 #endif
     // initialize vendor sdk
     sdk_init();
-
-    // Initialize the SPI and Serial Flash chip
-    IS25LP128F_init();
-    if (IS25LP128F_detect()!=0u)
-    {
-        uint8_t* com_addr = _util_com_get_buf_addr();
-        _util_com_set_size(0u);
-
-        //memset(com_addr, 0xAA, 256);
-        //IS25LP128F_read(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
-
-        //IS25LP128F_delete_sector(IS25LP128F_SECTOR_SIZE);
-        //IS25LP128F_delete_block(0u);
-        //IS25LP128F_delete_chip();
-
-        //IS25LP128F_program(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
-
-        //IS25LP128F_write(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
-
-        //IS25LP128F_read(com_addr, IS25LP128F_SECTOR_SIZE, 256u);
-        //memset(com_addr, 0xAA, 256);
-
-        com_addr[0]=IS25LP128F_extread_reg();
-        _util_com_set_size(256u);
-    }
 
     os_sys_init_user(main_task, MAIN_TASK_PRIORITY, stk_main_task, MAIN_TASK_STACK);
 }
