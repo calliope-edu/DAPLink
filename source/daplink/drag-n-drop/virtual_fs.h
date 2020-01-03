@@ -132,8 +132,9 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size);
 
 void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
 
-void vfs_program_flash_file(vfs_filename_t filename);
+void vfs_program_flash_file_start(vfs_filename_t filename);
 
+void vfs_program_flash_file_handler(void);
 
 #ifdef __cplusplus
 }

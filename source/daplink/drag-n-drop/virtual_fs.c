@@ -668,7 +668,7 @@ void vfs_receive_command(char command)
     if (command == 'P')
     {
         // Program target micro with "selector" software
-        vfs_program_flash_file("SELECTR.HEX");
+        vfs_program_flash_file_start("SELECTR HEX");
 
         file_idx = 0u;
         filenames_found = 0u;
@@ -690,7 +690,7 @@ void vfs_receive_command(char command)
             }
             else
             {
-                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                vfs_send_command(13u); // FLASH dir is empty, blink central LED
             }
         }
         else if (command == 'A')
@@ -710,7 +710,7 @@ void vfs_receive_command(char command)
                 }
                 else
                 {
-                    vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
                 }
             }
         }
@@ -731,7 +731,7 @@ void vfs_receive_command(char command)
                 }
                 else
                 {
-                    vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
                 }
             }
         }
@@ -740,12 +740,12 @@ void vfs_receive_command(char command)
             // Buttons A+B pressed OR Shake detected
             if (file_idx != 0u)
             {
-                vfs_program_flash_file(filenames[file_idx]);
+                vfs_program_flash_file_start(filenames[file_idx-1u]);
                 programming_mode = 0u;
             }
             else
             {
-                vfs_send_command(IS25LP128F_FILE_MAX+1u); // FLASH dir is empty, blink central LED
+                vfs_send_command(13u); // FLASH dir is empty, blink central LED
             }
         }
         else
@@ -761,14 +761,16 @@ void vfs_receive_command(char command)
 
 void vfs_send_command(char command)
 {
-    uart_write_data((uint8_t*)&command, 1u);
+    uint8_t data[3] = {(uint8_t)command, 0x0Du, 0x0Au};
+    util_write_uint32(&(data[0]), (uint8_t)command);
+    uart_write_data(data, 3u);
 }
 
 
 static int vfs_strcmp(const void * a, const void * b);
 static int vfs_strcmp(const void * a, const void * b)
 {
-    return strcmp((const char *)a, (const char *)b);
+    return strncmp((const char *)a, (const char *)b, 11);
 }
 
 uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
@@ -783,7 +785,7 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
 
         if (filename_valid(de.filename)!=0u)
         {
-            if (strcmp(de.filename, "SELECTR.HEX")!=0u)
+            if (strncmp((de.filename), "SELECTR HEX", 11)!=0)
             {
                 if (filenames_found < size)
                 {
@@ -825,7 +827,7 @@ void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint
         {
             IS25LP128F_read((uint8_t*)(&de), address, sizeof(FatDirectoryEntry_t));
 
-            if (strcmp(de.filename, filename) == 0u)
+            if (strncmp(de.filename, filename, 11) == 0u)
             {
                 // filename is matching, finalize
                 *first_cluster = de.first_cluster_low_16;
@@ -845,67 +847,125 @@ void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint
     }
 }
 
-void vfs_program_flash_file(vfs_filename_t filename)
+static uint16_t ff_cluster_count = 0u;
+static uint32_t ff_filesize = 0u;
+static uint16_t ff_cluster = 0u;
+
+static uint16_t ff_cluster_counter = 0u;
+static uint32_t ff_size = 0u;
+static uint32_t ff_page_address = 0u;
+static uint32_t ff_sector_address = 0u;
+static uint8_t ff_buf[IS25LP128F_PAGE_SIZE];
+static uint8_t ff_start = 0u;
+
+void vfs_program_flash_file_start(vfs_filename_t filename)
 {
-    uint16_t cluster = 0u;
-    uint32_t filesize = 0u;
-    uint32_t address = 0u;
-    uint8_t buf[IS25LP128F_PAGE_SIZE];
-    uint32_t size = 0u;
     stream_type_t stream_type = STREAM_TYPE_NONE;
 
     stream_type = stream_type_from_name(filename);
 
     if (stream_type != STREAM_TYPE_NONE)
     {
-        vfs_find_file(filename, &cluster, &filesize);
+        vfs_find_file(filename, &ff_cluster, &ff_filesize);
 
-        if ((cluster >= 0x02u) && (cluster <= 0xFFF8u))
+        stream_open(stream_type);
+
+        ff_cluster_count = (ff_filesize + VFS_CLUSTER_SIZE - 1u) / VFS_CLUSTER_SIZE;
+        ff_cluster_counter = 0u;
+        ff_size = 0u;
+        ff_page_address = 0u;
+        ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
+
+        ff_start = 1u;
+    }
+    else
+    {
+        /* */
+    }
+}
+
+void vfs_program_flash_file_handler(void)
+{
+    if (ff_start != 0u)
+    {
+        //for (cluster_cnt = 0u; cluster_cnt < cluster_count; cluster_cnt++)
+        if (ff_cluster_counter < ff_cluster_count)
         {
-            stream_open(stream_type);
-
-            for (size = 0u; size < filesize; size += IS25LP128F_PAGE_SIZE)
+            if (ff_cluster >= 0xFFF8u)
             {
-                address = (cluster - fat_idx) * VFS_CLUSTER_SIZE;
+                //end of chain, last cluster in file
+                //terminate the loop
+                ff_cluster_counter = ff_cluster_count;
+            }
+            else if (ff_cluster >= 0x0002u)
+            {
+                //data cluster, use it to read next part of the file
 
-                if (size + IS25LP128F_PAGE_SIZE <= filesize)
+                //for (ff_address = (ff_cluster - fat_idx) * VFS_CLUSTER_SIZE; ff_address % VFS_SECTOR_SIZE != 0u; ff_address += IS25LP128F_PAGE_SIZE)
+                if (ff_page_address < VFS_CLUSTER_SIZE)
                 {
-                    IS25LP128F_read(buf, IS25LP128F_FILE_ADDR + address, IS25LP128F_PAGE_SIZE);
-                    stream_write(buf, IS25LP128F_PAGE_SIZE);
+                    if (ff_size + IS25LP128F_PAGE_SIZE < ff_filesize)
+                    {
+                        IS25LP128F_read(ff_buf, ff_sector_address + ff_page_address, IS25LP128F_PAGE_SIZE);
+                        stream_write(ff_buf, IS25LP128F_PAGE_SIZE);
+                        ff_size += IS25LP128F_PAGE_SIZE;
+                        ff_page_address += IS25LP128F_PAGE_SIZE;
+                    }
+                    else
+                    {
+                        IS25LP128F_read(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
+                        stream_write(ff_buf, (ff_filesize-ff_size));
+                        ff_size += (ff_filesize-ff_size);
+                        ff_page_address += (ff_filesize-ff_size);
+
+                        //filesize reached, stop further reading/streaming
+                        //terminate the loop
+                        ff_cluster_counter = ff_cluster_count;
+                        ff_page_address = 0u;
+                    }
                 }
                 else
                 {
-                    IS25LP128F_read(buf, IS25LP128F_FILE_ADDR + address, (filesize-size));
-                    stream_write(buf, (filesize-size));
-                }
+                    //read next cluster number
+                    IS25LP128F_read(ff_buf, IS25LP128F_FAT_ADDR + (ff_cluster * 2u), 2u);
 
-                IS25LP128F_read(buf, IS25LP128F_FAT_ADDR + (cluster * 2u), 2u);
+                    ff_cluster = ff_buf[1];
+                    ff_cluster <<= 8u;
+                    ff_cluster |= ff_buf[0];
 
-                cluster = buf[1];
-                cluster <<= 8u;
-                cluster |= buf[0];
+                    ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
 
-                if ((cluster >= 0x02u) && (cluster <= 0xFFF8u))
-                {
-                    // continue the for loop
-                }
-                else
-                {
-                    // end of file, terminate the for loop
-                    size = filesize;
+                    ff_cluster_counter++;
+                    ff_page_address = 0u;
                 }
             }
+            else
+            {
+                //invalid, reserved cluster
+                //terminate the loop
+                ff_cluster_counter = ff_cluster_count;
+            }
 
+        }
+        else if (ff_cluster_counter == ff_cluster_count)
+        {
             stream_close();
+
+            ff_start = 0u;
+
+            //run this block once
+            ff_cluster_counter++;
+
+            main_reset_target(0u);
         }
         else
         {
-            // invalid cluster number, no action to be performed
+            /* */
         }
     }
     else
     {
-        // invalid stream type, no action to be performed
+        /* */
     }
 }
 
