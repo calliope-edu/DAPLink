@@ -267,9 +267,6 @@ error_t flash_decoder_write(uint32_t addr, const uint8_t *data, uint32_t size)
             flash_decoder_printf("    Flushing buffer initial_addr=0x%x, flash_buf_pos=%i, flash_manager_data ret=%i\r\n",
                                  initial_addr, flash_buf_pos, status);
 					
-//					uint8_t buf[6] = "START";
-//					USBD_CDC_ACM_DataSend(buf, 6);
-					
             if (ERROR_SUCCESS != status) {
                 state = DECODER_STATE_ERROR;
                 return status;
@@ -282,8 +279,6 @@ error_t flash_decoder_write(uint32_t addr, const uint8_t *data, uint32_t size)
         status = flash_manager_data(addr, data, size);
         flash_decoder_printf("    Writing data, addr=0x%x, size=0x%x, flash_manager_data ret %i\r\n",
                              addr, size, status);
-//								uint8_t buf[6] = "DATEN";
-//								USBD_CDC_ACM_DataSend(buf, 6);
         if (ERROR_SUCCESS != status) {
             state = DECODER_STATE_ERROR;
             return status;
@@ -292,8 +287,6 @@ error_t flash_decoder_write(uint32_t addr, const uint8_t *data, uint32_t size)
 
     // Check if this is the end of data
     if (flash_decoder_is_at_end(addr, data, size)) {
-//								uint8_t buf[6] = "ENDE!";
-//								USBD_CDC_ACM_DataSend(buf, 6);
         flash_decoder_printf("    End of transfer detected - addr 0x%08x, size 0x%08x\r\n",
                              addr, size);
         state = DECODER_STATE_DONE;
