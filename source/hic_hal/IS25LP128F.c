@@ -3,6 +3,7 @@
 #include "string.h"
 
 #define IS25LP128F_BACKUP_SECTOR_ADDR 0xFF0000u
+#define IS25LP128F_BACKUP_SECTOR_END  0x1000000u
 
 static uint8_t IS25LP128F_detect_status = 0u;
 
@@ -68,12 +69,27 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
     uint32_t sector_addr = ((addr / IS25LP128F_SECTOR_SIZE) * IS25LP128F_SECTOR_SIZE);
     uint32_t num_sectors = ((addr + len - sector_addr + IS25LP128F_SECTOR_SIZE - 1u) / IS25LP128F_SECTOR_SIZE);
     static uint8_t page_buf[IS25LP128F_PAGE_SIZE];
+    static uint32_t backup_addr = IS25LP128F_BACKUP_SECTOR_ADDR;
     uint32_t page_addr = sector_addr;
 
     for (sector_iter = 0u; sector_iter < num_sectors; sector_iter++)
     {
-        // write to the backup sector
-        IS25LP128F_delete_sector(IS25LP128F_BACKUP_SECTOR_ADDR);
+        if (backup_addr >= IS25LP128F_BACKUP_SECTOR_END)
+        {
+            backup_addr = IS25LP128F_BACKUP_SECTOR_ADDR;
+
+            // delete complete 64kB block
+            IS25LP128F_delete_block(IS25LP128F_BACKUP_SECTOR_ADDR);
+        }
+        else if (backup_addr == IS25LP128F_BACKUP_SECTOR_ADDR)
+        {
+            // delete complete 64kB block
+            IS25LP128F_delete_block(IS25LP128F_BACKUP_SECTOR_ADDR);
+        }
+        else
+        {
+            /* */
+        }
 
         for (page_addr = sector_addr; page_addr < (sector_addr + IS25LP128F_SECTOR_SIZE); page_addr += IS25LP128F_PAGE_SIZE)
         {
@@ -88,7 +104,7 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
                 // ........<...> OR ....<...>.
                 // page range outside buffer range, write data from sector only
                 IS25LP128F_read(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
-                IS25LP128F_program(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                IS25LP128F_program(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
             }
             else if (page_addr + IS25LP128F_PAGE_SIZE <= addr + len)
             {
@@ -99,14 +115,14 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
                     //page range partially overlap buffer range, write data from sector and buffer
                     IS25LP128F_read(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
                     memcpy(&(page_buf[addr-page_addr]), &(buf[0]), (page_addr + IS25LP128F_PAGE_SIZE - addr));
-                    IS25LP128F_program(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                    IS25LP128F_program(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
                 }
                 else
                 {
                     // ..[..].. OR ..[..]. OR ...[..]. OR ...[..]
                     // ..<....> OR ..<..>. OR .<.....> OR .<....>
                     // page range inside buffer range completely, write data from buffer only
-                    IS25LP128F_program(&(buf[(page_addr - addr)]), (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                    IS25LP128F_program(&(buf[(page_addr - addr)]), (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
                 }
             }
             else
@@ -120,7 +136,7 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
                     // buffer range inside page range completely, write data from sector and buffer
                     IS25LP128F_read(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
                     memcpy(&(page_buf[addr-page_addr]), &(buf[0]), len);
-                    IS25LP128F_program(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                    IS25LP128F_program(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
                 }
                 else if (page_addr < addr + len)
                 {
@@ -129,7 +145,7 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
                     // page range partially overlap buffer range, write data from sector and buffer
                     IS25LP128F_read(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
                     memcpy(&(page_buf[0]), &(buf[page_addr-addr]), (addr + len - page_addr));
-                    IS25LP128F_program(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                    IS25LP128F_program(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
                 }
                 else
                 {
@@ -137,7 +153,7 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
                     // .<..>...... OR .<...>....
                     // page range outside buffer range, write data from sector only
                     IS25LP128F_read(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
-                    IS25LP128F_program(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+                    IS25LP128F_program(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
                 }
             }
 
@@ -225,15 +241,36 @@ void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len)
         }
 
         // write back to destination sector
-        IS25LP128F_delete_sector(sector_addr);
+            IS25LP128F_delete_sector(sector_addr);
 
         for (page_addr = sector_addr; page_addr < (sector_addr + IS25LP128F_SECTOR_SIZE); page_addr += IS25LP128F_PAGE_SIZE)
         {
-            IS25LP128F_read(page_buf, (IS25LP128F_BACKUP_SECTOR_ADDR + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
+            IS25LP128F_read(page_buf, (backup_addr + (page_addr - sector_addr)), IS25LP128F_PAGE_SIZE);
             IS25LP128F_program(page_buf, page_addr, IS25LP128F_PAGE_SIZE);
         }
 
         sector_addr += IS25LP128F_SECTOR_SIZE;
+        backup_addr += IS25LP128F_SECTOR_SIZE;
+    }
+}
+
+void IS25LP128F_write512(uint8_t const *buf, uint32_t addr, uint32_t len)
+{
+    if ((len == 512u) & (addr % 512u == 0u))
+    {
+        if (addr % IS25LP128F_SECTOR_SIZE == 0u)
+        {
+            IS25LP128F_delete_sector(addr);
+            IS25LP128F_program(buf, addr, len);
+        }
+        else
+        {
+            IS25LP128F_program(buf, addr, len);
+        }
+    }
+    else
+    {
+        IS25LP128F_write(buf, addr, len);
     }
 }
 
@@ -333,11 +370,11 @@ void IS25LP128F_delete_block(uint32_t blk_add){
 	spi_cs_low();
 	//block erase D8h=64k 52h=32k
 	if (reg & IS25LP128F_EXTADD_MASK) {
-		spi_shift(0x52);
+		spi_shift(0xD8);
 		spi_shift_16(blk_add >> 16);
 		spi_shift_16(blk_add);
 	} else {
-		spi_shift_16(0x5200 | ((blk_add >> 16) & 255));
+		spi_shift_16(0xD800 | ((blk_add >> 16) & 255));
 		spi_shift_16(blk_add);
 	}
 	spi_cs_high();
