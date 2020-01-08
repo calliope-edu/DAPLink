@@ -640,7 +640,7 @@ void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_
     {
         uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
         uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-        IS25LP128F_write(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+        IS25LP128F_write512(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
     }
     else
     {
