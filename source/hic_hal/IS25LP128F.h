@@ -58,6 +58,10 @@ uint8_t IS25LP128F_is_detected(void);
 void IS25LP128F_read(uint8_t *buf, uint32_t addr, uint32_t len);
 void IS25LP128F_write(uint8_t const *buf, uint32_t addr, uint32_t len);
 void IS25LP128F_write512(uint8_t const *buf, uint32_t addr, uint32_t len);
+
+// Sector-wise destructive write
+void IS25LP128F_write_sector(uint8_t const *buf, uint32_t addr, uint32_t len);
+
 void IS25LP128F_program(uint8_t const *buf, uint32_t addr, uint32_t len);
 uint8_t IS25LP128F_sfdp(uint8_t addr);
 
@@ -66,6 +70,7 @@ uint8_t IS25LP128F_bank_reg(void); //16h/C8h
 
 // Wait while busy
 void IS25LP128F_is_busy(void);
+
 void IS25LP128F_delete_sector(uint32_t sec_add);
 void IS25LP128F_delete_block(uint32_t blk_add);
 void IS25LP128F_delete_chip(void);

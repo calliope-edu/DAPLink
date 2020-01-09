@@ -188,6 +188,19 @@ void IS25LP128F_write512(uint8_t const *buf, uint32_t addr, uint32_t len)
     }
 }
 
+void IS25LP128F_write_sector(uint8_t const *buf, uint32_t addr, uint32_t len)
+{
+    if (addr % IS25LP128F_SECTOR_SIZE == 0u)
+    {
+        IS25LP128F_delete_sector(addr);
+        IS25LP128F_program(buf, addr, len);
+    }
+    else
+    {
+        IS25LP128F_program(buf, addr, len);
+    }
+}
+
 void IS25LP128F_program(uint8_t const *buf, uint32_t addr, uint32_t len){
 	
     const uint8_t *p = (const uint8_t *)buf;
