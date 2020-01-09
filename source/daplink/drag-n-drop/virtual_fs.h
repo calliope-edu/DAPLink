@@ -124,17 +124,19 @@ void vfs_set_root_dir_active(bool active);
 bool vfs_get_root_dir_active(void);
 
 // TODO: add comments
-void vfs_receive_command(char command);
+uint8_t vfs_start_selector_mode(void);
+
+void vfs_receive_selector_command(char command);
 
 void vfs_send_command(char command);
 
 uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size);
 
-void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
+uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
 
-void vfs_program_flash_file_start(vfs_filename_t filename);
+uint8_t vfs_program_flash_file_start(vfs_filename_t filename);
 
-void vfs_program_flash_file_handler(void);
+uint8_t vfs_program_flash_file_handler(void);
 
 #ifdef __cplusplus
 }

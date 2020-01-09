@@ -333,18 +333,14 @@ __task void main_task(void)
         }
 
         if (flags & FLAGS_MAIN_FLASHING) {
-            uint8_t data[16];
-            uint8_t len_data = 0u;
-
-            vfs_program_flash_file_handler();
-
-            len_data = uart_read_data(data, 16u);
-
-            if (len_data) {
-                main_blink_cdc_led(MAIN_LED_FLASH);
-                vfs_receive_command(data[0]);
+            if (vfs_program_flash_file_handler() != 0u)
+            {
+                os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
             }
-
+            else
+            {
+                os_evt_clr(FLAGS_MAIN_FLASHING, main_task_id);
+            }
             os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
         }
 
@@ -378,18 +374,14 @@ __task void main_task(void)
 
                     if (reset_pressed_timer == 3000u)
                     {
-                        vfs_receive_command('P');
-
-                        UART_Configuration config;
-                        config.Baudrate = 115200u;
-                        config.DataBits = UART_DATA_BITS_8;
-                        config.Parity = UART_PARITY_NONE;
-                        config.StopBits = UART_STOP_BITS_1;
-                        config.FlowControl = UART_FLOW_CONTROL_NONE;
-                        uart_reset();
-                        uart_set_configuration(&config);
-
-                        os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
+                        if (vfs_start_selector_mode() != 0u)
+                        {
+                            os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
+                        }
+                        else
+                        {
+                            /* */
+                        }
                     }
                     else
                     {

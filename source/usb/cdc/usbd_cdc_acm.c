@@ -154,7 +154,7 @@ __weak int32_t USBD_CDC_ACM_Initialize(void)
     ptr_data_received           = USBD_CDC_ACM_ReceiveBuf;
     ptr_data_read               = USBD_CDC_ACM_ReceiveBuf;
     control_line_state          = 0;
-    line_coding.dwDTERate       = 9600;
+    line_coding.dwDTERate       = 115200u;
     line_coding.bCharFormat     = 0;
     line_coding.bParityType     = 0;
     line_coding.bDataBits       = 8;
@@ -206,7 +206,7 @@ __weak int32_t USBD_CDC_ACM_Reset(void)
     ptr_data_read               = USBD_CDC_ACM_ReceiveBuf;
     control_line_state          = 0;
     USBD_CDC_ACM_PortReset();
-    line_coding.dwDTERate       = 9600;
+    line_coding.dwDTERate       = 115200u;
     line_coding.bCharFormat     = 0;
     line_coding.bParityType     = 0;
     line_coding.bDataBits       = 8;

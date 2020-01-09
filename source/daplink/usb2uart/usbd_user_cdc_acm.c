@@ -25,6 +25,7 @@
 #include "target_reset.h"
 #include "uart.h"
 #include "flash_intf.h"
+#include "virtual_fs.h"
 
 UART_Configuration UART_Config;
 
@@ -162,6 +163,8 @@ void cdc_process_event()
     }
 
     if (len_data) {
+        vfs_receive_selector_command(data[0]);
+
         if (USBD_CDC_ACM_DataSend(data , len_data)) {
             main_blink_cdc_led(MAIN_LED_FLASH);
         }

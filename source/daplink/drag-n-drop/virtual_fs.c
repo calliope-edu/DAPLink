@@ -20,7 +20,7 @@
  */
 
 #include "string.h"
-
+#include "main.h"
 #include "virtual_fs.h"
 #include "info.h"
 #include "settings.h"
@@ -658,25 +658,36 @@ bool vfs_get_root_dir_active(void)
     return root_dir_active_flag;
 }
 
-void vfs_receive_command(char command)
+static uint8_t selector_mode = 0u;
+static uint8_t file_idx = 0u;
+static uint8_t filenames_found = 0u;
+static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
+
+uint8_t vfs_start_selector_mode(void)
 {
-    static uint8_t file_idx = 0u;
-    static uint8_t filenames_found = 0u;
-    static uint8_t programming_mode = 0u;
-    static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
+    uint8_t result = 0u;
 
-    if (command == 'P')
+    // Program target micro with "selector" software
+    if (vfs_program_flash_file_start("SELECTR HEX") != 0u)
     {
-        // Program target micro with "selector" software
-        vfs_program_flash_file_start("SELECTR HEX");
-
         file_idx = 0u;
         filenames_found = 0u;
-        programming_mode = 1u;
+        selector_mode = 1u;
         memset(filenames, 0, IS25LP128F_FILE_MAX*(sizeof(vfs_filename_t)));
+
+        result = 1u;
+    }
+    else
+    {
+        result = 0u;
     }
 
-    if (programming_mode != 0u)
+    return result;
+}
+
+void vfs_receive_selector_command(char command)
+{
+    if (selector_mode != 0u)
     {
         if (command == 'R')
         {
@@ -740,8 +751,16 @@ void vfs_receive_command(char command)
             // Buttons A+B pressed OR Shake detected
             if (file_idx != 0u)
             {
-                vfs_program_flash_file_start(filenames[file_idx-1u]);
-                programming_mode = 0u;
+                selector_mode = 0u;
+
+                if (vfs_program_flash_file_start(filenames[file_idx-1u]) != 0u)
+                {
+
+                }
+                else
+                {
+                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                }
             }
             else
             {
@@ -762,7 +781,7 @@ void vfs_receive_command(char command)
 void vfs_send_command(char command)
 {
     uint8_t data[3] = {(uint8_t)command, 0x0Du, 0x0Au};
-    util_write_uint32(&(data[0]), (uint8_t)command);
+    util_write_uint32((char*)(&(data[0])), (uint8_t)command);
     uart_write_data(data, 3u);
 }
 
@@ -813,8 +832,9 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
     return filenames_found;
 }
 
-void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
+uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
 {
+    uint8_t result = 0u;
     uint32_t address = 0u;
     FatDirectoryEntry_t de;
 
@@ -833,18 +853,25 @@ void vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint
                 *first_cluster = de.first_cluster_low_16;
                 *filesize = de.filesize;
 
+                // terminate the for loop
                 address = IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE;
+
+                result = 1u;
             }
             else
             {
                 // filename is not matching, continue searching
+                result = 0u;
             }
         }
     }
     else
     {
         // filename is invalid, skip
+        result = 0u;
     }
+
+    return result;
 }
 
 static uint16_t ff_cluster_count = 0u;
@@ -858,34 +885,47 @@ static uint32_t ff_sector_address = 0u;
 static uint8_t ff_buf[IS25LP128F_PAGE_SIZE];
 static uint8_t ff_start = 0u;
 
-void vfs_program_flash_file_start(vfs_filename_t filename)
+uint8_t vfs_program_flash_file_start(vfs_filename_t filename)
 {
+    uint8_t result = 0u;
+
     stream_type_t stream_type = STREAM_TYPE_NONE;
 
     stream_type = stream_type_from_name(filename);
 
     if (stream_type != STREAM_TYPE_NONE)
     {
-        vfs_find_file(filename, &ff_cluster, &ff_filesize);
+        if (vfs_find_file(filename, &ff_cluster, &ff_filesize) != 0u)
+        {
+            stream_open(stream_type);
 
-        stream_open(stream_type);
+            ff_cluster_count = (ff_filesize + VFS_CLUSTER_SIZE - 1u) / VFS_CLUSTER_SIZE;
+            ff_cluster_counter = 0u;
+            ff_size = 0u;
+            ff_page_address = 0u;
+            ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
 
-        ff_cluster_count = (ff_filesize + VFS_CLUSTER_SIZE - 1u) / VFS_CLUSTER_SIZE;
-        ff_cluster_counter = 0u;
-        ff_size = 0u;
-        ff_page_address = 0u;
-        ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
+            ff_start = 1u;
 
-        ff_start = 1u;
+            result = 1u;
+        }
+        else
+        {
+            result = 0u;
+        }
     }
     else
     {
-        /* */
+        result = 0u;
     }
+
+    return result;
 }
 
-void vfs_program_flash_file_handler(void)
+uint8_t vfs_program_flash_file_handler(void)
 {
+    uint8_t result = 0u;
+
     if (ff_start != 0u)
     {
         //for (cluster_cnt = 0u; cluster_cnt < cluster_count; cluster_cnt++)
@@ -899,6 +939,7 @@ void vfs_program_flash_file_handler(void)
             }
             else if (ff_cluster >= 0x0002u)
             {
+                main_blink_hid_led(MAIN_LED_FLASH);
                 //data cluster, use it to read next part of the file
 
                 //for (ff_address = (ff_cluster - fat_idx) * VFS_CLUSTER_SIZE; ff_address % VFS_SECTOR_SIZE != 0u; ff_address += IS25LP128F_PAGE_SIZE)
@@ -946,6 +987,8 @@ void vfs_program_flash_file_handler(void)
                 ff_cluster_counter = ff_cluster_count;
             }
 
+            result = 1u;
+
         }
         else if (ff_cluster_counter == ff_cluster_count)
         {
@@ -956,17 +999,23 @@ void vfs_program_flash_file_handler(void)
             //run this block once
             ff_cluster_counter++;
 
+            uart_reset();
+
             main_reset_target(0u);
+
+            result = 0u;
         }
         else
         {
-            /* */
+            result = 0u;
         }
     }
     else
     {
-        /* */
+        result = 0u;
     }
+
+    return result;
 }
 
 static uint32_t read_zero(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
