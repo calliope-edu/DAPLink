@@ -210,7 +210,7 @@ __task void main_task(void)
     // Get a reference to this task
     main_task_id = os_tsk_self();
     // Initialize NV memory for filesystem
-    VFS_NVM_init();
+    vfs_nvm_init();
     // leds
     gpio_init();
     // Turn to LED default settings

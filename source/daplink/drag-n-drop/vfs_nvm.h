@@ -26,25 +26,25 @@ extern "C" {
 #define VFS_NVM_FILE_CNT_MAX 26u             // max number of files allowed in the FLASH chip (25 programs + selector program)
 
 
-void VFS_NVM_init(void);
+void vfs_nvm_init(void);
 
-uint8_t VFS_NVM_is_available(void);
+uint8_t vfs_nvm_is_available(void);
 
-void VFS_NVM_read_FAT(uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_read_FAT(uint8_t *buf, uint32_t offset, uint32_t len);
 
-void VFS_NVM_write_FAT(const uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_write_FAT(const uint8_t *buf, uint32_t offset, uint32_t len);
 
-void VFS_NVM_setup_FAT(uint8_t *buf, uint32_t len);
+void vfs_nvm_setup_FAT(uint8_t *buf, uint32_t len);
 
-void VFS_NVM_read_DIR(uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_read_DIR(uint8_t *buf, uint32_t offset, uint32_t len);
 
-void VFS_NVM_write_DIR(const uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_write_DIR(const uint8_t *buf, uint32_t offset, uint32_t len);
 
-void VFS_NVM_setup_DIR(void);
+void vfs_nvm_setup_DIR(void);
 
-void VFS_NVM_read_FILE(uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_read_FILE(uint8_t *buf, uint32_t offset, uint32_t len);
 
-void VFS_NVM_write_FILE(const uint8_t *buf, uint32_t offset, uint32_t len);
+void vfs_nvm_write_FILE(const uint8_t *buf, uint32_t offset, uint32_t len);
 
 #ifdef __cplusplus
 }

@@ -146,7 +146,7 @@ void vfs_user_build_filesystem()
     }
 
     // FLASH directory
-    if (VFS_NVM_is_available()!=0u){
+    if (vfs_nvm_is_available()!=0u){
         file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, VFS_NVM_DIR_SIZE);
         vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
 

@@ -337,12 +337,12 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     dir_idx++;
 
 
-    if (VFS_NVM_is_available()!=0u)
+    if (vfs_nvm_is_available()!=0u)
     {
         // Initialize FAT table in the FLASH memory
         uint8_t cluster_zero[2];
 
-        VFS_NVM_read_FAT(cluster_zero, 0u, 2u);
+        vfs_nvm_read_FAT(cluster_zero, 0u, 2u);
 
         if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
         {
@@ -352,19 +352,19 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         {
             // FAT table does not exist in the FLASH memory
             // initialize start of FAT in the FLASH memory with FAT from the RAM
-            VFS_NVM_setup_FAT((uint8_t*)(&fat), sizeof(fat));
+            vfs_nvm_setup_FAT((uint8_t*)(&fat), sizeof(fat));
         }
 
 
         // Initialize FLASH directory in the FLASH memory
         FatDirectoryEntry_t de;
 
-        VFS_NVM_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
+        vfs_nvm_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
 
         if (de.filename[0] == 0xFFu)
         {
             // FLASH directory does not exist in the FLASH memory, initialize
-            VFS_NVM_setup_DIR();
+            vfs_nvm_setup_DIR();
         }
         else
         {
@@ -589,7 +589,7 @@ uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sect
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
 
-    VFS_NVM_read_DIR(data, byte_offset, num_bytes);
+    vfs_nvm_read_DIR(data, byte_offset, num_bytes);
 
     return num_bytes;
 }
@@ -599,7 +599,7 @@ void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_s
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
 
-    VFS_NVM_write_DIR(data, byte_offset, num_bytes);
+    vfs_nvm_write_DIR(data, byte_offset, num_bytes);
 
     vfs_set_root_dir_active(false);
 }
@@ -609,7 +609,7 @@ uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
 
-    VFS_NVM_read_FILE(data, byte_offset, num_bytes);
+    vfs_nvm_read_FILE(data, byte_offset, num_bytes);
 
     return num_bytes;
 }
@@ -621,7 +621,7 @@ void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_
         uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
         uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
 
-        VFS_NVM_write_FILE(data, byte_offset, num_bytes);
+        vfs_nvm_write_FILE(data, byte_offset, num_bytes);
     }
     else
     {
@@ -781,7 +781,7 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
 
     for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
     {
-        VFS_NVM_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
+        vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
         if (filename_valid(de.filename)!=0u)
         {
@@ -826,7 +826,7 @@ uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, u
     {
         for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
         {
-            VFS_NVM_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
+            vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
             if (strncmp(de.filename, filename, 11) == 0u)
             {
@@ -929,14 +929,14 @@ uint8_t vfs_program_flash_file_handler(void)
                 {
                     if (ff_size + FF_FLASH_BUF < ff_filesize)
                     {
-                        VFS_NVM_read_FILE(ff_buf, ff_sector_address + ff_page_address, FF_FLASH_BUF);
+                        vfs_nvm_read_FILE(ff_buf, ff_sector_address + ff_page_address, FF_FLASH_BUF);
                         stream_write(ff_buf, FF_FLASH_BUF);
                         ff_size += FF_FLASH_BUF;
                         ff_page_address += FF_FLASH_BUF;
                     }
                     else
                     {
-                        VFS_NVM_read_FILE(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
+                        vfs_nvm_read_FILE(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
                         stream_write(ff_buf, (ff_filesize-ff_size));
                         ff_size += (ff_filesize-ff_size);
                         ff_page_address += (ff_filesize-ff_size);
@@ -950,7 +950,7 @@ uint8_t vfs_program_flash_file_handler(void)
                 else
                 {
                     //read next cluster number
-                    VFS_NVM_read_FAT(ff_buf, (ff_cluster * 2u), 2u);
+                    vfs_nvm_read_FAT(ff_buf, (ff_cluster * 2u), 2u);
 
                     ff_cluster = ff_buf[1];
                     ff_cluster <<= 8u;
@@ -1030,17 +1030,17 @@ static uint32_t read_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
-    if (VFS_NVM_is_available()!=0u)
+    if (vfs_nvm_is_available()!=0u)
     {
         if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
         {
             // use contents of FAT table in the FLASH memory only
-            VFS_NVM_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            vfs_nvm_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
         }
         else
         {
             // use contents of FAT table in RAM and in FLASH memories
-            VFS_NVM_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            vfs_nvm_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
             memcpy(data, &fat, (2u * fat_idx));
         }
 
@@ -1063,19 +1063,19 @@ static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
-    if(VFS_NVM_is_available()!=0u)
+    if(vfs_nvm_is_available()!=0u)
     {
         if (vfs_get_root_dir_active()!=true)
         {
             if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
             {
                 // write data to FAT table in the FLASH memory only
-                VFS_NVM_write_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+                vfs_nvm_write_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
             }
             else
             {
                 // write data directly to FAT table in the FLASH memory
-                VFS_NVM_write_FAT(&(data[2u * fat_idx]), (sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
+                vfs_nvm_write_FAT(&(data[2u * fat_idx]), (sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
             }
         }
         else
