@@ -42,7 +42,7 @@
 #include "cortex_m.h"
 #include "sdk.h"
 #include "flash_intf.h"
-#include "IS25LP128F.h"
+#include "vfs_nvm.h"
 
 // Event flags for main task
 // Timers events
@@ -209,9 +209,8 @@ __task void main_task(void)
     bootloader_check_and_update();
     // Get a reference to this task
     main_task_id = os_tsk_self();
-    // Initialize the SPI and Serial Flash chip
-    IS25LP128F_init();
-    IS25LP128F_detect();
+    // Initialize NV memory for filesystem
+    VFS_NVM_init();
     // leds
     gpio_init();
     // Turn to LED default settings

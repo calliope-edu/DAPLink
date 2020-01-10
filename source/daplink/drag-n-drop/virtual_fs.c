@@ -27,7 +27,7 @@
 #include "compiler.h"
 #include "macro.h"
 #include "util.h"
-#include "IS25LP128F.h"
+#include "vfs_nvm.h"
 #include "file_stream.h"
 #include "stdlib.h"
 #include "uart.h"
@@ -337,12 +337,12 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     dir_idx++;
 
 
-    if (IS25LP128F_is_detected()!=0u)
+    if (VFS_NVM_is_available()!=0u)
     {
         // Initialize FAT table in the FLASH memory
         uint8_t cluster_zero[2];
 
-        IS25LP128F_read(cluster_zero, IS25LP128F_FAT_ADDR, 2u);
+        VFS_NVM_read_FAT(cluster_zero, 0u, 2u);
 
         if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
         {
@@ -350,46 +350,21 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         }
         else
         {
-            // FAT table does not exist in the FLASH memory, initialize
-            uint8_t fat_init[IS25LP128F_PAGE_SIZE];
-            memset(fat_init, 0, IS25LP128F_PAGE_SIZE);
-
-            for (i = 0u; i < IS25LP128F_FAT_SIZE; i += IS25LP128F_SECTOR_SIZE)
-            {
-                IS25LP128F_delete_sector(IS25LP128F_FAT_ADDR+i);
-            }
-
-            // clusters initialized with zero mean free available cluster, see FAT specs
-            for (i = 0u; i < IS25LP128F_FAT_SIZE; i += IS25LP128F_PAGE_SIZE)
-            {
-                IS25LP128F_program(fat_init, (IS25LP128F_FAT_ADDR+i), IS25LP128F_PAGE_SIZE);
-            }
-
+            // FAT table does not exist in the FLASH memory
             // initialize start of FAT in the FLASH memory with FAT from the RAM
-            IS25LP128F_write((uint8_t*)(&fat), IS25LP128F_FAT_ADDR, sizeof(fat));
+            VFS_NVM_setup_FAT((uint8_t*)(&fat), sizeof(fat));
         }
 
 
         // Initialize FLASH directory in the FLASH memory
         FatDirectoryEntry_t de;
 
-        IS25LP128F_read((uint8_t*)(&de), IS25LP128F_DIR_ADDR, sizeof(FatDirectoryEntry_t));
+        VFS_NVM_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
 
         if (de.filename[0] == 0xFFu)
         {
             // FLASH directory does not exist in the FLASH memory, initialize
-            uint8_t dir_init[IS25LP128F_PAGE_SIZE];
-            memset(dir_init, 0, IS25LP128F_PAGE_SIZE);
-
-            for (i = 0u; i < IS25LP128F_DIR_SIZE; i += IS25LP128F_SECTOR_SIZE)
-            {
-                IS25LP128F_delete_sector(IS25LP128F_DIR_ADDR+i);
-            }
-
-            for (i = 0u; i < IS25LP128F_DIR_SIZE; i += IS25LP128F_PAGE_SIZE)
-            {
-                IS25LP128F_program(dir_init, (IS25LP128F_DIR_ADDR+i), IS25LP128F_PAGE_SIZE);
-            }
+            VFS_NVM_setup_DIR();
         }
         else
         {
@@ -613,15 +588,18 @@ uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sect
 {
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25LP128F_read(data, IS25LP128F_DIR_ADDR+byte_offset, num_bytes);
-	return num_bytes;
+
+    VFS_NVM_read_DIR(data, byte_offset, num_bytes);
+
+    return num_bytes;
 }
 
 void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25LP128F_write(data, IS25LP128F_DIR_ADDR+byte_offset, num_bytes);
+
+    VFS_NVM_write_DIR(data, byte_offset, num_bytes);
 
     vfs_set_root_dir_active(false);
 }
@@ -630,7 +608,9 @@ uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 {
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-    IS25LP128F_read(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+
+    VFS_NVM_read_FILE(data, byte_offset, num_bytes);
+
     return num_bytes;
 }
 
@@ -640,7 +620,8 @@ void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_
     {
         uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
         uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
-        IS25LP128F_write512(data, IS25LP128F_FILE_ADDR+byte_offset, num_bytes);
+
+        VFS_NVM_write_FILE(data, byte_offset, num_bytes);
     }
     else
     {
@@ -661,7 +642,7 @@ bool vfs_get_root_dir_active(void)
 static uint8_t selector_mode = 0u;
 static uint8_t file_idx = 0u;
 static uint8_t filenames_found = 0u;
-static vfs_filename_t filenames[IS25LP128F_FILE_MAX];
+static vfs_filename_t filenames[VFS_NVM_FILE_CNT_MAX];
 
 uint8_t vfs_start_selector_mode(void)
 {
@@ -673,7 +654,7 @@ uint8_t vfs_start_selector_mode(void)
         file_idx = 0u;
         filenames_found = 0u;
         selector_mode = 1u;
-        memset(filenames, 0, IS25LP128F_FILE_MAX*(sizeof(vfs_filename_t)));
+        memset(filenames, 0, VFS_NVM_FILE_CNT_MAX*(sizeof(vfs_filename_t)));
 
         result = 1u;
     }
@@ -692,7 +673,7 @@ void vfs_receive_selector_command(char command)
         if (command == 'R')
         {
             // Target micro loaded with "selector" software and ready for operation
-            filenames_found = vfs_get_names_srtd(filenames, IS25LP128F_FILE_MAX);
+            filenames_found = vfs_get_names_srtd(filenames, VFS_NVM_FILE_CNT_MAX);
 
             if (filenames_found > 0u)
             {
@@ -794,13 +775,13 @@ static int vfs_strcmp(const void * a, const void * b)
 
 uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
 {
-    uint32_t address = 0u;
+    uint8_t i = 0u;
     uint8_t filenames_found = 0u;
     FatDirectoryEntry_t de;
 
-    for (address = IS25LP128F_DIR_ADDR; address < (IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE); address += sizeof(FatDirectoryEntry_t))
+    for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
     {
-        IS25LP128F_read((uint8_t*)(&de), address, sizeof(FatDirectoryEntry_t));
+        VFS_NVM_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
         if (filename_valid(de.filename)!=0u)
         {
@@ -834,8 +815,8 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
 
 uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
 {
+    uint8_t i = 0u;
     uint8_t result = 0u;
-    uint32_t address = 0u;
     FatDirectoryEntry_t de;
 
     *first_cluster = 0xFFFFu;
@@ -843,9 +824,9 @@ uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, u
 
     if (filename_valid(filename)!=0u)
     {
-        for (address = IS25LP128F_DIR_ADDR; address < (IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE); address += sizeof(FatDirectoryEntry_t))
+        for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
         {
-            IS25LP128F_read((uint8_t*)(&de), address, sizeof(FatDirectoryEntry_t));
+            VFS_NVM_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
             if (strncmp(de.filename, filename, 11) == 0u)
             {
@@ -854,7 +835,7 @@ uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, u
                 *filesize = de.filesize;
 
                 // terminate the for loop
-                address = IS25LP128F_DIR_ADDR + IS25LP128F_DIR_SIZE;
+                i = VFS_NVM_FILE_CNT_MAX;
 
                 result = 1u;
             }
@@ -874,6 +855,8 @@ uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, u
     return result;
 }
 
+#define FF_FLASH_BUF 256u
+
 static uint16_t ff_cluster_count = 0u;
 static uint32_t ff_filesize = 0u;
 static uint16_t ff_cluster = 0u;
@@ -882,7 +865,7 @@ static uint16_t ff_cluster_counter = 0u;
 static uint32_t ff_size = 0u;
 static uint32_t ff_page_address = 0u;
 static uint32_t ff_sector_address = 0u;
-static uint8_t ff_buf[IS25LP128F_PAGE_SIZE];
+static uint8_t ff_buf[FF_FLASH_BUF];
 static uint8_t ff_start = 0u;
 
 uint8_t vfs_program_flash_file_start(vfs_filename_t filename)
@@ -903,7 +886,7 @@ uint8_t vfs_program_flash_file_start(vfs_filename_t filename)
             ff_cluster_counter = 0u;
             ff_size = 0u;
             ff_page_address = 0u;
-            ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
+            ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE);
 
             ff_start = 1u;
 
@@ -942,19 +925,18 @@ uint8_t vfs_program_flash_file_handler(void)
                 main_blink_hid_led(MAIN_LED_FLASH);
                 //data cluster, use it to read next part of the file
 
-                //for (ff_address = (ff_cluster - fat_idx) * VFS_CLUSTER_SIZE; ff_address % VFS_SECTOR_SIZE != 0u; ff_address += IS25LP128F_PAGE_SIZE)
                 if (ff_page_address < VFS_CLUSTER_SIZE)
                 {
-                    if (ff_size + IS25LP128F_PAGE_SIZE < ff_filesize)
+                    if (ff_size + FF_FLASH_BUF < ff_filesize)
                     {
-                        IS25LP128F_read(ff_buf, ff_sector_address + ff_page_address, IS25LP128F_PAGE_SIZE);
-                        stream_write(ff_buf, IS25LP128F_PAGE_SIZE);
-                        ff_size += IS25LP128F_PAGE_SIZE;
-                        ff_page_address += IS25LP128F_PAGE_SIZE;
+                        VFS_NVM_read_FILE(ff_buf, ff_sector_address + ff_page_address, FF_FLASH_BUF);
+                        stream_write(ff_buf, FF_FLASH_BUF);
+                        ff_size += FF_FLASH_BUF;
+                        ff_page_address += FF_FLASH_BUF;
                     }
                     else
                     {
-                        IS25LP128F_read(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
+                        VFS_NVM_read_FILE(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
                         stream_write(ff_buf, (ff_filesize-ff_size));
                         ff_size += (ff_filesize-ff_size);
                         ff_page_address += (ff_filesize-ff_size);
@@ -968,13 +950,13 @@ uint8_t vfs_program_flash_file_handler(void)
                 else
                 {
                     //read next cluster number
-                    IS25LP128F_read(ff_buf, IS25LP128F_FAT_ADDR + (ff_cluster * 2u), 2u);
+                    VFS_NVM_read_FAT(ff_buf, (ff_cluster * 2u), 2u);
 
                     ff_cluster = ff_buf[1];
                     ff_cluster <<= 8u;
                     ff_cluster |= ff_buf[0];
 
-                    ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE) + IS25LP128F_FILE_ADDR;
+                    ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE);
 
                     ff_cluster_counter++;
                     ff_page_address = 0u;
@@ -1048,17 +1030,17 @@ static uint32_t read_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
 {
-    if (IS25LP128F_is_detected()!=0u)
+    if (VFS_NVM_is_available()!=0u)
     {
         if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
         {
             // use contents of FAT table in the FLASH memory only
-            IS25LP128F_read(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            VFS_NVM_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
         }
         else
         {
             // use contents of FAT table in RAM and in FLASH memories
-            IS25LP128F_read(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+            VFS_NVM_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
             memcpy(data, &fat, (2u * fat_idx));
         }
 
@@ -1081,19 +1063,19 @@ static uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
-    if(IS25LP128F_is_detected()!=0u)
+    if(VFS_NVM_is_available()!=0u)
     {
         if (vfs_get_root_dir_active()!=true)
         {
             if ((sector_offset * VFS_SECTOR_SIZE) >= (2u * fat_idx))
             {
                 // write data to FAT table in the FLASH memory only
-                IS25LP128F_write(data, IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+                VFS_NVM_write_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
             }
             else
             {
                 // write data directly to FAT table in the FLASH memory
-                IS25LP128F_write(&(data[2u * fat_idx]), IS25LP128F_FAT_ADDR+(sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
+                VFS_NVM_write_FAT(&(data[2u * fat_idx]), (sector_offset * VFS_SECTOR_SIZE)+(2u * fat_idx), (num_sectors * VFS_SECTOR_SIZE)-(2u * fat_idx));
             }
         }
         else
