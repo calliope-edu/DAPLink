@@ -365,7 +365,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
         {
             // FLASH directory does not exist in the FLASH memory, initialize
             vfs_nvm_setup_DIR();
-        }
+            }
         else
         {
             // FLASH directory already exists in the FLASH memory, do nothing
@@ -591,7 +591,7 @@ uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sect
 
     vfs_nvm_read_DIR(data, byte_offset, num_bytes);
 
-    return num_bytes;
+	return num_bytes;
 }
 
 void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
@@ -644,12 +644,12 @@ static uint8_t file_idx = 0u;
 static uint8_t filenames_found = 0u;
 static vfs_filename_t filenames[VFS_NVM_FILE_CNT_MAX];
 
-uint8_t vfs_start_selector_mode(void)
+uint8_t selectr_start_mode(void)
 {
     uint8_t result = 0u;
 
     // Program target micro with "selector" software
-    if (vfs_program_flash_file_start("SELECTR HEX") != 0u)
+    if (selectr_program_start("SELECTR HEX") != 0u)
     {
         file_idx = 0u;
         filenames_found = 0u;
@@ -666,7 +666,7 @@ uint8_t vfs_start_selector_mode(void)
     return result;
 }
 
-void vfs_receive_selector_command(char command)
+void selectr_read_command(char command)
 {
     if (selector_mode != 0u)
     {
@@ -678,11 +678,11 @@ void vfs_receive_selector_command(char command)
             if (filenames_found > 0u)
             {
                 file_idx = 1u; // select first program file by default
-                vfs_send_command(file_idx);
+                selectr_write_command(file_idx);
             }
             else
             {
-                vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                selectr_write_command(13u); // FLASH dir is empty, blink central LED
             }
         }
         else if (command == 'A')
@@ -691,18 +691,18 @@ void vfs_receive_selector_command(char command)
             if (file_idx > 1u)
             {
                 file_idx --;
-                vfs_send_command(file_idx);
+                selectr_write_command(file_idx);
             }
             else
             {
                 if (filenames_found > 0u)
                 {
                     file_idx = filenames_found;
-                    vfs_send_command(file_idx);
+                    selectr_write_command(file_idx);
                 }
                 else
                 {
-                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                    selectr_write_command(13u); // FLASH dir is empty, blink central LED
                 }
             }
         }
@@ -712,18 +712,18 @@ void vfs_receive_selector_command(char command)
             if ( file_idx < filenames_found )
             {
                 file_idx ++;
-                vfs_send_command(file_idx);
+                selectr_write_command(file_idx);
             }
             else
             {
                 if (filenames_found > 0u)
                 {
                     file_idx = 1u;
-                    vfs_send_command(file_idx);
+                    selectr_write_command(file_idx);
                 }
                 else
                 {
-                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                    selectr_write_command(13u); // FLASH dir is empty, blink central LED
                 }
             }
         }
@@ -734,18 +734,18 @@ void vfs_receive_selector_command(char command)
             {
                 selector_mode = 0u;
 
-                if (vfs_program_flash_file_start(filenames[file_idx-1u]) != 0u)
+                if (selectr_program_start(filenames[file_idx-1u]) != 0u)
                 {
 
                 }
                 else
                 {
-                    vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                    selectr_write_command(13u); // FLASH dir is empty, blink central LED
                 }
             }
             else
             {
-                vfs_send_command(13u); // FLASH dir is empty, blink central LED
+                selectr_write_command(13u); // FLASH dir is empty, blink central LED
             }
         }
         else
@@ -759,7 +759,7 @@ void vfs_receive_selector_command(char command)
     }
 }
 
-void vfs_send_command(char command)
+void selectr_write_command(char command)
 {
     uint8_t data[3] = {(uint8_t)command, 0x0Du, 0x0Au};
     util_write_uint32((char*)(&(data[0])), (uint8_t)command);
@@ -868,7 +868,7 @@ static uint32_t ff_sector_address = 0u;
 static uint8_t ff_buf[FF_FLASH_BUF];
 static uint8_t ff_start = 0u;
 
-uint8_t vfs_program_flash_file_start(vfs_filename_t filename)
+uint8_t selectr_program_start(vfs_filename_t filename)
 {
     uint8_t result = 0u;
 
@@ -905,7 +905,7 @@ uint8_t vfs_program_flash_file_start(vfs_filename_t filename)
     return result;
 }
 
-uint8_t vfs_program_flash_file_handler(void)
+uint8_t selectr_program_handler(void)
 {
     uint8_t result = 0u;
 

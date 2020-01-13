@@ -332,7 +332,7 @@ __task void main_task(void)
         }
 
         if (flags & FLAGS_MAIN_FLASHING) {
-            if (vfs_program_flash_file_handler() != 0u)
+            if (selectr_program_handler() != 0u)
             {
                 os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
             }
@@ -373,7 +373,7 @@ __task void main_task(void)
 
                     if (reset_pressed_timer == 3000u)
                     {
-                        if (vfs_start_selector_mode() != 0u)
+                        if (selectr_start_mode() != 0u)
                         {
                             os_evt_set(FLAGS_MAIN_FLASHING, main_task_id);
                         }

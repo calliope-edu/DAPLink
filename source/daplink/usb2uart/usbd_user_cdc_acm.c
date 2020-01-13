@@ -163,7 +163,7 @@ void cdc_process_event()
     }
 
     if (len_data) {
-        vfs_receive_selector_command(data[0]);
+        selectr_read_command(data[0]);
 
         if (USBD_CDC_ACM_DataSend(data , len_data)) {
             main_blink_cdc_led(MAIN_LED_FLASH);
