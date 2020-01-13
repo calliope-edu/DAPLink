@@ -138,19 +138,21 @@ void selectr_write_command(char command)
     uart_write_data(data, 3u);
 }
 
-#define FF_FLASH_BUF 256u
+#define SELECTR_BUF_SIZE 256u
 
-static uint16_t ff_cluster_count = 0u;
-static uint32_t ff_filesize = 0u;
-static uint16_t ff_cluster = 0u;
+static uint16_t cluster_count = 0u;
+static uint32_t file_size = 0u;
+static uint16_t cluster = 0u;
 
-static uint16_t ff_cluster_counter = 0u;
-static uint32_t ff_size = 0u;
-static uint32_t ff_page_address = 0u;
-static uint32_t ff_sector_address = 0u;
-static uint8_t ff_buf[FF_FLASH_BUF];
-static uint8_t ff_start = 0u;
+static uint16_t cluster_counter = 0u;
+static uint32_t program_size = 0u;
+static uint32_t page_address = 0u;
+static uint32_t sector_address = 0u;
+static uint8_t program_buf[SELECTR_BUF_SIZE];
+static uint8_t program_flag = 0u;
+
 extern uint32_t fat_idx;
+
 uint8_t selectr_program_start(vfs_filename_t filename)
 {
     uint8_t result = 0u;
@@ -161,17 +163,17 @@ uint8_t selectr_program_start(vfs_filename_t filename)
 
     if (stream_type != STREAM_TYPE_NONE)
     {
-        if (vfs_find_file(filename, &ff_cluster, &ff_filesize) != 0u)
+        if (vfs_find_file(filename, &cluster, &file_size) != 0u)
         {
             stream_open(stream_type);
 
-            ff_cluster_count = (ff_filesize + VFS_CLUSTER_SIZE - 1u) / VFS_CLUSTER_SIZE;
-            ff_cluster_counter = 0u;
-            ff_size = 0u;
-            ff_page_address = 0u;
-            ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE);
+            cluster_count = (file_size + VFS_CLUSTER_SIZE - 1u) / VFS_CLUSTER_SIZE;
+            cluster_counter = 0u;
+            program_size = 0u;
+            page_address = 0u;
+            sector_address = ((cluster - fat_idx) * VFS_CLUSTER_SIZE);
 
-            ff_start = 1u;
+            program_flag = 1u;
 
             result = 1u;
         }
@@ -192,77 +194,77 @@ uint8_t selectr_program_handler(void)
 {
     uint8_t result = 0u;
 
-    if (ff_start != 0u)
+    if (program_flag != 0u)
     {
         //for (cluster_cnt = 0u; cluster_cnt < cluster_count; cluster_cnt++)
-        if (ff_cluster_counter < ff_cluster_count)
+        if (cluster_counter < cluster_count)
         {
-            if (ff_cluster >= 0xFFF8u)
+            if (cluster >= 0xFFF8u)
             {
                 //end of chain, last cluster in file
                 //terminate the loop
-                ff_cluster_counter = ff_cluster_count;
+                cluster_counter = cluster_count;
             }
-            else if (ff_cluster >= 0x0002u)
+            else if (cluster >= 0x0002u)
             {
                 main_blink_hid_led(MAIN_LED_FLASH);
                 //data cluster, use it to read next part of the file
 
-                if (ff_page_address < VFS_CLUSTER_SIZE)
+                if (page_address < VFS_CLUSTER_SIZE)
                 {
-                    if (ff_size + FF_FLASH_BUF < ff_filesize)
+                    if (program_size + SELECTR_BUF_SIZE < file_size)
                     {
-                        vfs_nvm_read_FILE(ff_buf, ff_sector_address + ff_page_address, FF_FLASH_BUF);
-                        stream_write(ff_buf, FF_FLASH_BUF);
-                        ff_size += FF_FLASH_BUF;
-                        ff_page_address += FF_FLASH_BUF;
+                        vfs_nvm_read_FILE(program_buf, sector_address + page_address, SELECTR_BUF_SIZE);
+                        stream_write(program_buf, SELECTR_BUF_SIZE);
+                        program_size += SELECTR_BUF_SIZE;
+                        page_address += SELECTR_BUF_SIZE;
                     }
                     else
                     {
-                        vfs_nvm_read_FILE(ff_buf, ff_sector_address + ff_page_address, (ff_filesize-ff_size));
-                        stream_write(ff_buf, (ff_filesize-ff_size));
-                        ff_size += (ff_filesize-ff_size);
-                        ff_page_address += (ff_filesize-ff_size);
+                        vfs_nvm_read_FILE(program_buf, sector_address + page_address, (file_size-program_size));
+                        stream_write(program_buf, (file_size-program_size));
+                        program_size += (file_size-program_size);
+                        page_address += (file_size-program_size);
 
                         //filesize reached, stop further reading/streaming
                         //terminate the loop
-                        ff_cluster_counter = ff_cluster_count;
-                        ff_page_address = 0u;
+                        cluster_counter = cluster_count;
+                        page_address = 0u;
                     }
                 }
                 else
                 {
                     //read next cluster number
-                    vfs_nvm_read_FAT(ff_buf, (ff_cluster * 2u), 2u);
+                    vfs_nvm_read_FAT(program_buf, (cluster * 2u), 2u);
 
-                    ff_cluster = ff_buf[1];
-                    ff_cluster <<= 8u;
-                    ff_cluster |= ff_buf[0];
+                    cluster = program_buf[1];
+                    cluster <<= 8u;
+                    cluster |= program_buf[0];
 
-                    ff_sector_address = ((ff_cluster - fat_idx) * VFS_CLUSTER_SIZE);
+                    sector_address = ((cluster - fat_idx) * VFS_CLUSTER_SIZE);
 
-                    ff_cluster_counter++;
-                    ff_page_address = 0u;
+                    cluster_counter++;
+                    page_address = 0u;
                 }
             }
             else
             {
                 //invalid, reserved cluster
                 //terminate the loop
-                ff_cluster_counter = ff_cluster_count;
+                cluster_counter = cluster_count;
             }
 
             result = 1u;
 
         }
-        else if (ff_cluster_counter == ff_cluster_count)
+        else if (cluster_counter == cluster_count)
         {
             stream_close();
 
-            ff_start = 0u;
+            program_flag = 0u;
 
             //run this block once
-            ff_cluster_counter++;
+            cluster_counter++;
 
             uart_reset();
 
