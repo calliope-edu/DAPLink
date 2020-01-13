@@ -11,10 +11,26 @@
 #include "file_stream.h"
 #include "main.h"
 
+#define SELECTR_BUF_SIZE 256u
+
+
 static uint8_t selector_mode = 0u;
 static uint8_t file_idx = 0u;
 static uint8_t filenames_found = 0u;
 static vfs_filename_t filenames[VFS_NVM_FILE_CNT_MAX];
+
+static uint16_t cluster_count = 0u;
+static uint32_t file_size = 0u;
+static uint16_t cluster = 0u;
+
+static uint16_t cluster_counter = 0u;
+static uint32_t program_size = 0u;
+static uint32_t page_address = 0u;
+static uint32_t sector_address = 0u;
+static uint8_t program_buf[SELECTR_BUF_SIZE];
+static uint8_t program_flag = 0u;
+
+extern uint32_t fat_idx;
 
 uint8_t selectr_start_mode(void)
 {
@@ -137,21 +153,6 @@ void selectr_write_command(char command)
     util_write_uint32((char*)(&(data[0])), (uint8_t)command);
     uart_write_data(data, 3u);
 }
-
-#define SELECTR_BUF_SIZE 256u
-
-static uint16_t cluster_count = 0u;
-static uint32_t file_size = 0u;
-static uint16_t cluster = 0u;
-
-static uint16_t cluster_counter = 0u;
-static uint32_t program_size = 0u;
-static uint32_t page_address = 0u;
-static uint32_t sector_address = 0u;
-static uint8_t program_buf[SELECTR_BUF_SIZE];
-static uint8_t program_flag = 0u;
-
-extern uint32_t fat_idx;
 
 uint8_t selectr_program_start(vfs_filename_t filename)
 {
