@@ -25,7 +25,7 @@
 #include "target_reset.h"
 #include "uart.h"
 #include "flash_intf.h"
-#include "virtual_fs.h"
+#include "selectr.h"
 
 UART_Configuration UART_Config;
 

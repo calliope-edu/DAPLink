@@ -43,6 +43,7 @@
 #include "sdk.h"
 #include "flash_intf.h"
 #include "vfs_nvm.h"
+#include "selectr.h"
 
 // Event flags for main task
 // Timers events
