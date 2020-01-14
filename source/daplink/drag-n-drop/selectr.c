@@ -269,8 +269,6 @@ uint8_t selectr_program_handler(void)
 
             uart_reset();
 
-            main_reset_target(0u);
-
             result = 0u;
         }
         else

@@ -89,7 +89,7 @@ static error_t target_flash_uninit(void)
         target_set_state(RESET_RUN);
     } else {
         // Leave the target halted until a reset occurs
-        target_set_state(RESET_PROGRAM);
+        target_set_state(RESET_RUN);
     }
     // Check to see if anything needs to be done after programming.
     // This is usually a no-op for most targets.
