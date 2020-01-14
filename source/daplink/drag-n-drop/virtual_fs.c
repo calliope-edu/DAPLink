@@ -679,7 +679,7 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
 
         if (filename_valid(de.filename)!=0u)
         {
-            if (vfs_strncmp((de.filename), "SELECTR HEX")!=0)
+            if ((vfs_strncmp((de.filename), "SELECTR HEX")!=0) && ((de.attributes & VFS_FILE_ATTR_HIDDEN) == 0u))
             {
                 if (filenames_found < size)
                 {
@@ -693,7 +693,7 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
             }
             else
             {
-                // skip the "selector" file
+                // skip the "selector" file and hidden files
             }
         }
         else
