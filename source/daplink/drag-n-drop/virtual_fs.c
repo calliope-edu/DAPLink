@@ -107,6 +107,7 @@ typedef struct virtual_media {
     uint32_t length;
 } virtual_media_t;
 
+static int vfs_strcmp(const void * a, const void * b);
 static uint32_t read_zero(uint32_t offset, uint8_t *data, uint32_t size);
 static void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
 
@@ -594,10 +595,39 @@ uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sect
 
 void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
 {
+    FatDirectoryEntry_t old_entry;
+    FatDirectoryEntry_t new_entry;
+
     uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
     uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+    uint32_t idx = 0u;
 
-    vfs_nvm_write_DIR(data, byte_offset, num_bytes);
+    for (idx = 0u; idx < num_bytes; idx += sizeof(FatDirectoryEntry_t))
+    {
+        vfs_nvm_read_DIR((uint8_t*)(&old_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+
+        if (memcmp(&old_entry, &data[idx], sizeof(FatDirectoryEntry_t)) != 0u)
+        {
+            if (vfs_strcmp(&data[idx], "SELECTR HEX") == 0u)
+            {
+                memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
+                new_entry.attributes |= VFS_FILE_ATTR_READ_ONLY
+                                     | VFS_FILE_ATTR_HIDDEN
+                                     | VFS_FILE_ATTR_SYSTEM
+                                     | VFS_FILE_ATTR_ARCHIVE;
+
+                vfs_nvm_write_DIR((uint8_t*)(&new_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+            }
+            else
+            {
+                vfs_nvm_write_DIR(&data[idx], byte_offset + idx, sizeof(FatDirectoryEntry_t));
+            }
+        }
+        else
+        {
+            /* */
+        }
+    }
 
     vfs_set_root_dir_active(false);
 }
@@ -637,7 +667,6 @@ bool vfs_get_root_dir_active(void)
     return root_dir_active_flag;
 }
 
-static int vfs_strcmp(const void * a, const void * b);
 static int vfs_strcmp(const void * a, const void * b)
 {
     return strncmp((const char *)a, (const char *)b, 11);
