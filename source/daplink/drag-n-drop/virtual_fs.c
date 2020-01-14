@@ -107,7 +107,6 @@ typedef struct virtual_media {
     uint32_t length;
 } virtual_media_t;
 
-static int vfs_strcmp(const void * a, const void * b);
 static uint32_t read_zero(uint32_t offset, uint8_t *data, uint32_t size);
 static void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
 
@@ -121,6 +120,7 @@ static void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t
 static uint32_t cluster_to_sector(uint32_t cluster_idx);
 static bool filename_valid(const vfs_filename_t filename);
 static bool filename_character_valid(char character);
+static int vfs_strcmp(const void * a, const void * b);
 
 // If sector size changes update comment below
 COMPILER_ASSERT(0x0200 == VFS_SECTOR_SIZE);
@@ -667,12 +667,7 @@ bool vfs_get_root_dir_active(void)
     return root_dir_active_flag;
 }
 
-static int vfs_strcmp(const void * a, const void * b)
-{
-    return strncmp((const char *)a, (const char *)b, 11);
-}
-
-uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
+uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
 {
     uint8_t i = 0u;
     uint8_t filenames_found = 0u;
@@ -712,7 +707,7 @@ uint8_t vfs_get_names_srtd(vfs_filename_t* filename, uint8_t size)
     return filenames_found;
 }
 
-uint8_t vfs_find_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
+uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
 {
     uint8_t i = 0u;
     uint8_t result = 0u;
@@ -982,4 +977,9 @@ static bool filename_character_valid(char character)
 
     // All of the checks have passed so this is a valid file name character
     return true;
+}
+
+static int vfs_strcmp(const void * a, const void * b)
+{
+    return strncmp((const char *)a, (const char *)b, 11);
 }

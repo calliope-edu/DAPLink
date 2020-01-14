@@ -61,7 +61,7 @@ void selectr_read_command(char command)
         if (command == 'R')
         {
             // Target micro loaded with "selector" software and ready for operation
-            filenames_found = vfs_get_names_srtd(filenames, VFS_NVM_FILE_CNT_MAX);
+            filenames_found = vfs_get_flash_names_srtd(filenames, VFS_NVM_FILE_CNT_MAX);
 
             if (filenames_found > 0u)
             {
@@ -164,7 +164,7 @@ uint8_t selectr_program_start(vfs_filename_t filename)
 
     if (stream_type != STREAM_TYPE_NONE)
     {
-        if (vfs_find_file(filename, &cluster, &file_size) != 0u)
+        if (vfs_find_flash_file(filename, &cluster, &file_size) != 0u)
         {
             stream_open(stream_type);
 
