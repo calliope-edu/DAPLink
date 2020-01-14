@@ -120,7 +120,7 @@ static void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t
 static uint32_t cluster_to_sector(uint32_t cluster_idx);
 static bool filename_valid(const vfs_filename_t filename);
 static bool filename_character_valid(char character);
-static int vfs_strcmp(const void * a, const void * b);
+static int vfs_strncmp(const void * a, const void * b);
 
 // If sector size changes update comment below
 COMPILER_ASSERT(0x0200 == VFS_SECTOR_SIZE);
@@ -608,7 +608,7 @@ void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_s
 
         if (memcmp(&old_entry, &data[idx], sizeof(FatDirectoryEntry_t)) != 0u)
         {
-            if (vfs_strcmp(&data[idx], "SELECTR HEX") == 0u)
+            if (vfs_strncmp(&data[idx], "SELECTR HEX") == 0u)
             {
                 memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
                 new_entry.attributes |= VFS_FILE_ATTR_READ_ONLY
@@ -679,7 +679,7 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
 
         if (filename_valid(de.filename)!=0u)
         {
-            if (strncmp((de.filename), "SELECTR HEX", 11)!=0)
+            if (vfs_strncmp((de.filename), "SELECTR HEX")!=0)
             {
                 if (filenames_found < size)
                 {
@@ -702,7 +702,7 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
         }
     }
 
-    qsort(filename, filenames_found, sizeof(vfs_filename_t), vfs_strcmp);
+    qsort(filename, filenames_found, sizeof(vfs_filename_t), vfs_strncmp);
 
     return filenames_found;
 }
@@ -722,7 +722,7 @@ uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_clus
         {
             vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
-            if (strncmp(de.filename, filename, 11) == 0u)
+            if (vfs_strncmp(de.filename, filename) == 0u)
             {
                 // filename is matching, finalize
                 *first_cluster = de.first_cluster_low_16;
@@ -979,7 +979,7 @@ static bool filename_character_valid(char character)
     return true;
 }
 
-static int vfs_strcmp(const void * a, const void * b)
+static int vfs_strncmp(const void * a, const void * b)
 {
     return strncmp((const char *)a, (const char *)b, 11);
 }
