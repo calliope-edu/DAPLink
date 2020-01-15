@@ -350,6 +350,8 @@ __task void main_task(void)
             // handle reset button without eventing
             if (!reset_pressed && gpio_get_reset_btn_fwrd() && !flash_intf_target->flash_busy()) { //added checking if flashing on target is in progress
                 // Reset button pressed
+                USBD_CDC_ACM_Reset();
+
                 target_set_state(RESET_HOLD);
                 reset_pressed = 1;
             } else if (reset_pressed && !gpio_get_reset_btn_fwrd()) {
