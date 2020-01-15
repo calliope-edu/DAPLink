@@ -67,5 +67,5 @@ void vfs_nvm_read_FILE(uint8_t *buf, uint32_t offset, uint32_t len){
 }
 
 void vfs_nvm_write_FILE(const uint8_t *buf, uint32_t offset, uint32_t len){
-    IS25LP128F_write512(buf, VFS_NVM_FILE_ADDR+offset, len);
+    IS25LP128F_write_sector(buf, VFS_NVM_FILE_ADDR+offset, len);
 }
