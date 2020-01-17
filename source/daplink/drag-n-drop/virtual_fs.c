@@ -338,36 +338,37 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
 
     if (vfs_nvm_is_available()!=0u)
     {
-        // Initialize FAT table in the FLASH memory
+        // Validate FAT table in the FLASH memory
         uint8_t cluster_zero[2];
 
         vfs_nvm_read_FAT(cluster_zero, 0u, 2u);
 
         if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
         {
-            // FAT table already exists in the FLASH memory, do nothing
+            // FAT table already exists in the FLASH memory
+
+            // Validate FLASH directory in the FLASH memory
+            FatDirectoryEntry_t de;
+
+            vfs_nvm_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
+
+            if (de.filename[0] == 0xFFu)
+            {
+                // FLASH directory does not exist in the FLASH memory, initialize
+                vfs_nvm_setup_DIR();
+                }
+            else
+            {
+                // FLASH directory already exists in the FLASH memory, do nothing
+            }
         }
         else
         {
             // FAT table does not exist in the FLASH memory
             // initialize start of FAT in the FLASH memory with FAT from the RAM
+            // also initialize DIR region as it makes no sense to keep old and possibly invalid content
             vfs_nvm_setup_FAT((uint8_t*)(&fat), sizeof(fat));
-        }
-
-
-        // Initialize FLASH directory in the FLASH memory
-        FatDirectoryEntry_t de;
-
-        vfs_nvm_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
-
-        if (de.filename[0] == 0xFFu)
-        {
-            // FLASH directory does not exist in the FLASH memory, initialize
             vfs_nvm_setup_DIR();
-            }
-        else
-        {
-            // FLASH directory already exists in the FLASH memory, do nothing
         }
     }
 }
