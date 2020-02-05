@@ -123,7 +123,7 @@ void vfs_set_root_dir_active(bool active);
 // Check if Root dir is active (selected by the user)
 bool vfs_get_root_dir_active(void);
 
-uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size);
+uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count);
 
 uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
 

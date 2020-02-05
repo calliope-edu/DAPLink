@@ -356,7 +356,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
             {
                 // FLASH directory does not exist in the FLASH memory, initialize
                 vfs_nvm_setup_DIR();
-                }
+            }
             else
             {
                 // FLASH directory already exists in the FLASH memory, do nothing
@@ -367,8 +367,15 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
             // FAT table does not exist in the FLASH memory
             // initialize start of FAT in the FLASH memory with FAT from the RAM
             // also initialize DIR region as it makes no sense to keep old and possibly invalid content
+            FatDirectoryEntry_t de;
+
             vfs_nvm_setup_FAT((uint8_t*)(&fat), sizeof(fat));
             vfs_nvm_setup_DIR();
+
+            memcpy(&de, &dir_entry_tmpl, sizeof(dir_entry_tmpl));
+            de.attributes = VFS_FILE_ATTR_READ_ONLY | VFS_FILE_ATTR_HIDDEN | VFS_FILE_ATTR_SYSTEM | VFS_FILE_ATTR_SUB_DIR;
+            memcpy(&(de.filename), "DONOTREMSYS", 11u);
+            vfs_nvm_write_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
         }
     }
 }
@@ -612,12 +619,24 @@ void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_s
             if (vfs_strncmp(&data[idx], "SELECTR HEX") == 0u)
             {
                 memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
-                new_entry.attributes |= VFS_FILE_ATTR_READ_ONLY
+                new_entry.attributes = VFS_FILE_ATTR_READ_ONLY
                                      | VFS_FILE_ATTR_HIDDEN
                                      | VFS_FILE_ATTR_SYSTEM
                                      | VFS_FILE_ATTR_ARCHIVE;
 
                 vfs_nvm_write_DIR((uint8_t*)(&new_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+            }
+            else if ((((FatDirectoryEntry_t*)(&data[idx]))->attributes & VFS_FILE_ATTR_SUB_DIR) != 0)
+            {
+                /* */
+            }
+            else if (((FatDirectoryEntry_t*)(&data[idx]))->filesize == 0)
+            {
+                /* */
+            }
+            else if (((FatDirectoryEntry_t*)(&data[idx]))->first_cluster_low_16 == 0)
+            {
+                /* */
             }
             else
             {
@@ -668,7 +687,7 @@ bool vfs_get_root_dir_active(void)
     return root_dir_active_flag;
 }
 
-uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
+uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
 {
     uint8_t i = 0u;
     uint8_t filenames_found = 0u;
@@ -678,11 +697,11 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t size)
     {
         vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
 
-        if (filename_valid(de.filename)!=0u)
+        if (filename_valid(de.filename) != 0u)
         {
             if ((vfs_strncmp((de.filename), "SELECTR HEX")!=0) && ((de.attributes & VFS_FILE_ATTR_HIDDEN) == 0u))
             {
-                if (filenames_found < size)
+                if (filenames_found < max_count)
                 {
                     memcpy(&(filename[filenames_found]), &(de.filename), sizeof(vfs_filename_t));
                     filenames_found++;
