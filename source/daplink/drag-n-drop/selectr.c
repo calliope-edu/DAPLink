@@ -200,9 +200,9 @@ uint8_t selectr_program_handler(void)
         //for (cluster_cnt = 0u; cluster_cnt < cluster_count; cluster_cnt++)
         if (cluster_counter < cluster_count)
         {
-            if (cluster >= 0xFFF8u)
+            if (cluster >= 0xFFF0u)
             {
-                //end of chain, last cluster in file
+                //end of chain, last cluster in file, bad sector, reserved...
                 //terminate the loop
                 cluster_counter = cluster_count;
             }
