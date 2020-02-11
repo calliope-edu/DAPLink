@@ -612,40 +612,35 @@ void write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_s
 
     for (idx = 0u; idx < num_bytes; idx += sizeof(FatDirectoryEntry_t))
     {
-        vfs_nvm_read_DIR((uint8_t*)(&old_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
-
-        if (memcmp(&old_entry, &data[idx], sizeof(FatDirectoryEntry_t)) != 0u)
+        if ((idx == 0u) && (sector_offset == 0u))
         {
-            if (vfs_strncmp(&data[idx], "SELECTR HEX") == 0u)
-            {
-                memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
-                new_entry.attributes = VFS_FILE_ATTR_READ_ONLY
-                                     | VFS_FILE_ATTR_HIDDEN
-                                     | VFS_FILE_ATTR_SYSTEM
-                                     | VFS_FILE_ATTR_ARCHIVE;
-
-                vfs_nvm_write_DIR((uint8_t*)(&new_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
-            }
-            else if ((((FatDirectoryEntry_t*)(&data[idx]))->attributes & VFS_FILE_ATTR_SUB_DIR) != 0)
-            {
-                /* */
-            }
-            else if (((FatDirectoryEntry_t*)(&data[idx]))->filesize == 0)
-            {
-                /* */
-            }
-            else if (((FatDirectoryEntry_t*)(&data[idx]))->first_cluster_low_16 == 0)
-            {
-                /* */
-            }
-            else
-            {
-                vfs_nvm_write_DIR(&data[idx], byte_offset + idx, sizeof(FatDirectoryEntry_t));
-            }
+            /* ignore first entry as it is reserved due to MAC OS issues */
         }
         else
         {
-            /* */
+            vfs_nvm_read_DIR((uint8_t*)(&old_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+
+            if (memcmp(&old_entry, &data[idx], sizeof(FatDirectoryEntry_t)) != 0u)
+            {
+                if (vfs_strncmp(&data[idx], "SELECTR HEX") == 0u)
+                {
+                    memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
+                    new_entry.attributes = VFS_FILE_ATTR_READ_ONLY
+                                         | VFS_FILE_ATTR_HIDDEN
+                                         | VFS_FILE_ATTR_SYSTEM
+                                         | VFS_FILE_ATTR_ARCHIVE;
+
+                    vfs_nvm_write_DIR((uint8_t*)(&new_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+                }
+                else
+                {
+                    vfs_nvm_write_DIR(&data[idx], byte_offset + idx, sizeof(FatDirectoryEntry_t));
+                }
+            }
+            else
+            {
+                /* */
+            }
         }
     }
 
