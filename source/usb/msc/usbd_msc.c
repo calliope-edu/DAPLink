@@ -131,7 +131,7 @@ BOOL USBD_MSC_Reset(void)
 
 BOOL USBD_MSC_GetMaxLUN(void)
 {
-    USBD_EP0Buf[0] = 0;                      /* one LUN associated with this device */
+    USBD_EP0Buf[0] = 1;                      /* two LUNs associated with this device */
     return (__TRUE);
 }
 
@@ -863,7 +863,7 @@ void USBD_MSC_GetCBW(void)
         USBD_MSC_CSW.dTag = USBD_MSC_CBW.dTag;
         USBD_MSC_CSW.dDataResidue = USBD_MSC_CBW.dDataLength;
 
-        if ((USBD_MSC_CBW.bLUN      >  0) ||
+        if ((USBD_MSC_CBW.bLUN      >  1) ||
                 (USBD_MSC_CBW.bCBLength <  1) ||
                 (USBD_MSC_CBW.bCBLength > 16)) {
 fail:
