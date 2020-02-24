@@ -30,8 +30,6 @@ static uint32_t sector_address = 0u;
 static uint8_t program_buf[SELECTR_BUF_SIZE];
 static uint8_t program_flag = 0u;
 
-extern uint32_t fat_idx;
-
 uint8_t selectr_start_mode(void)
 {
     uint8_t result = 0u;
@@ -172,7 +170,7 @@ uint8_t selectr_program_start(vfs_filename_t filename)
             cluster_counter = 0u;
             program_size = 0u;
             page_address = 0u;
-            sector_address = ((cluster - fat_idx) * VFS_CLUSTER_SIZE);
+            sector_address = (cluster * VFS_CLUSTER_SIZE);
 
             program_flag = 1u;
 
@@ -242,7 +240,7 @@ uint8_t selectr_program_handler(void)
                     cluster <<= 8u;
                     cluster |= program_buf[0];
 
-                    sector_address = ((cluster - fat_idx) * VFS_CLUSTER_SIZE);
+                    sector_address = (cluster * VFS_CLUSTER_SIZE);
 
                     cluster_counter++;
                     page_address = 0u;
