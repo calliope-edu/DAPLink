@@ -35,7 +35,6 @@
 #include "gpio.h"           // for gpio_get_sw_reset
 #include "flash_intf.h"     // for flash_intf_target
 #include "cortex_m.h"
-#include "vfs_nvm.h"
 
 // Must be bigger than 4x the flash size of the biggest supported
 // device.  This is to accomodate for hex file programming.
@@ -143,18 +142,6 @@ void vfs_user_build_filesystem()
         file_size = get_file_size(read_file_need_bl_txt);
         file_handle = vfs_create_file("NEED_BL TXT", read_file_need_bl_txt, 0, file_size);
         vfs_file_set_attr(file_handle, VFS_FILE_ATTR_HIDDEN);
-    }
-
-    // FLASH directory
-    if (vfs_nvm_is_available()!=0u){
-        file_handle = vfs_create_file("FLASH      ", read_flash_dir, write_flash_dir, VFS_NVM_DIR_SIZE);
-        vfs_file_set_attr(file_handle, (vfs_file_attr_bit_t)(VFS_FILE_ATTR_SUB_DIR));
-
-        // create entry for handling the space for storing the FLASH files
-        vfs_add_virtualmedia(read_flash_file, write_flash_file, VFS_NVM_FILE_SIZE);
-    }
-    else{
-        /* */
     }
 }
 

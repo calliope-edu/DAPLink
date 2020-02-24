@@ -108,9 +108,6 @@ void vfs_write(uint32_t sector, const uint8_t *buf, uint32_t num_of_sectors);
 // Write one or more sectors to the flash filesystem
 void ffs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors);
 
-// Add entry into the virtual media space
-void vfs_add_virtualmedia(vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32_t length);
-
 // Read one or more sectors from the FLASH directory
 uint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
 
@@ -122,12 +119,6 @@ uint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
 
 // Write one or more sectors to one of the FLASH files
 void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
-
-// Set Root dir active or not active flag
-void vfs_set_root_dir_active(bool active);
-
-// Check if Root dir is active (selected by the user)
-bool vfs_get_root_dir_active(void);
 
 uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count);
 
