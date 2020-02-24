@@ -301,7 +301,7 @@ void usbd_msc_init(void)
     USBD_MSC_MediaReady = 0;
 }
 
-void usbd_msc_read_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors)
+void usbd_msc_read_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors, U8 lun)
 {
     sync_assert_usb_thread();
 
@@ -315,7 +315,7 @@ void usbd_msc_read_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors)
     vfs_read(sector, buf, num_of_sectors);
 }
 
-void usbd_msc_write_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors)
+void usbd_msc_write_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors, U8 lun)
 {
     sync_assert_usb_thread();
 

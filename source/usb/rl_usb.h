@@ -47,8 +47,8 @@ extern void  usbd_hid_set_protocol(U8 protocol);
 
 /* USB Device user functions imported to USB Mass Storage Class module        */
 extern void  usbd_msc_init(void);
-extern void  usbd_msc_read_sect(U32 block, U8 *buf, U32 num_of_blocks);
-extern void  usbd_msc_write_sect(U32 block, U8 *buf, U32 num_of_blocks);
+extern void  usbd_msc_read_sect(U32 block, U8 *buf, U32 num_of_blocks, U8 lun);
+extern void  usbd_msc_write_sect(U32 block, U8 *buf, U32 num_of_blocks, U8 lun);
 extern void  usbd_msc_start_stop(BOOL start);
 
 /* USB Device user functions imported to USB Audio Class module               */

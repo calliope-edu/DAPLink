@@ -54,11 +54,11 @@ __weak void usbd_msc_init()
 {
 
 }
-__weak void usbd_msc_read_sect(U32 block, U8 *buf, U32 num_of_blocks)
+__weak void usbd_msc_read_sect(U32 block, U8 *buf, U32 num_of_blocks, U8 lun)
 {
 
 }
-__weak void usbd_msc_write_sect(U32 block, U8 *buf, U32 num_of_blocks)
+__weak void usbd_msc_write_sect(U32 block, U8 *buf, U32 num_of_blocks, U8 lun)
 {
 
 }
@@ -202,7 +202,7 @@ void USBD_MSC_MemoryRead(void)
             m = USBD_MSC_BlockGroup;
         }
 
-        usbd_msc_read_sect(Block, USBD_MSC_BlockBuf, m);
+        usbd_msc_read_sect(Block, USBD_MSC_BlockBuf, m, USBD_MSC_CBW.bLUN);
     }
 
     if (n) {
@@ -272,11 +272,11 @@ void USBD_MSC_MemoryWrite(void)
                 n = USBD_MSC_BlockGroup;
             }
 
-            usbd_msc_write_sect(Block, USBD_MSC_BlockBuf, n);
+            usbd_msc_write_sect(Block, USBD_MSC_BlockBuf, n, USBD_MSC_CBW.bLUN);
             Offset = 0;
             Block += n;
         } else if (Offset == USBD_MSC_BlockGroup * USBD_MSC_BlockSize) {
-            usbd_msc_write_sect(Block, USBD_MSC_BlockBuf, USBD_MSC_BlockGroup);
+            usbd_msc_write_sect(Block, USBD_MSC_BlockBuf, USBD_MSC_BlockGroup, USBD_MSC_CBW.bLUN);
             Offset = 0;
             Block += USBD_MSC_BlockGroup;
         }
@@ -325,7 +325,7 @@ void USBD_MSC_MemoryVerify(void)
                 n = USBD_MSC_BlockGroup;
             }
 
-            usbd_msc_read_sect(Block, USBD_MSC_BlockBuf, n);
+            usbd_msc_read_sect(Block, USBD_MSC_BlockBuf, n, USBD_MSC_CBW.bLUN);
         }
 
         for (n = 0; n < BulkLen; n++) {
