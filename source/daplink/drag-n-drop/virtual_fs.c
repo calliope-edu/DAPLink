@@ -205,8 +205,18 @@ const virtual_media_t virtual_media_tmpl[] = {
     {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
     /* Raw filesystem contents follow */
 };
+
+const virtual_media_t virtual_media_tmpl_ffs[] = {
+    /*  Read CB         Write CB        Region Size                 Region Name     */
+    {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
+    {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT1         */
+    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
+    {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
+    /* Raw filesystem contents follow */
+};
 // Keep virtual_media_idx_t in sync with virtual_media_tmpl
 COMPILER_ASSERT(MEDIA_IDX_COUNT == ELEMENTS_IN_ARRAY(virtual_media_tmpl));
+COMPILER_ASSERT(MEDIA_IDX_COUNT == ELEMENTS_IN_ARRAY(virtual_media_tmpl_ffs));
 
 static const FatDirectoryEntry_t root_dir_entry = {
     /*uint8_t[11] */ .filename = {""},
@@ -241,10 +251,12 @@ static const FatDirectoryEntry_t dir_entry_tmpl = {
 mbr_t mbr;
 file_allocation_table_t fat;
 virtual_media_t virtual_media[16];
+virtual_media_t virtual_media_ffs[16];
 root_dir_t dir_current;
 uint8_t file_count;
 vfs_file_change_cb_t file_change_cb;
 uint32_t virtual_media_idx;
+uint32_t virtual_media_idx_ffs;
 uint32_t fat_idx;
 uint32_t dir_idx;
 uint32_t data_start;
@@ -252,6 +264,7 @@ bool root_dir_active_flag;
 
 // Virtual media must be larger than the template
 COMPILER_ASSERT(sizeof(virtual_media) > sizeof(virtual_media_tmpl));
+COMPILER_ASSERT(sizeof(virtual_media_ffs) > sizeof(virtual_media_tmpl_ffs));
 
 static void write_fat_internal(file_allocation_table_t *fat, uint32_t idx, uint16_t val)
 {
@@ -280,11 +293,13 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     memset(&fat, 0, sizeof(fat));
     fat_idx = 0;
     memset(&virtual_media, 0, sizeof(virtual_media));
+    memset(&virtual_media_ffs, 0, sizeof(virtual_media_ffs));
     memset(&dir_current, 0, sizeof(dir_current));
     dir_idx = 0;
     file_count = 0;
     file_change_cb = file_change_cb_stub;
     virtual_media_idx = 0;
+    virtual_media_idx_ffs = 0u;
     data_start = 0;
 
     vfs_set_root_dir_active(false);
@@ -313,10 +328,12 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     mbr.logical_sectors_per_fat = (num_clusters * 2 + VFS_SECTOR_SIZE - 1) / VFS_SECTOR_SIZE;
     // Initailize virtual media
     memcpy(&virtual_media, &virtual_media_tmpl, sizeof(virtual_media_tmpl));
+    memcpy(&virtual_media_ffs, &virtual_media_tmpl_ffs, sizeof(virtual_media_tmpl_ffs));
     virtual_media[MEDIA_IDX_FAT1].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
     virtual_media[MEDIA_IDX_FAT2].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
     // Initialize indexes
     virtual_media_idx = MEDIA_IDX_COUNT;
+    virtual_media_idx_ffs = MEDIA_IDX_COUNT;
     data_start = 0;
 
     for (i = 0; i < ELEMENTS_IN_ARRAY(virtual_media_tmpl); i++) {
@@ -499,7 +516,7 @@ void vfs_read(uint32_t requested_sector, uint8_t *buf, uint32_t num_sectors)
     memset(buf, 0, num_sectors * VFS_SECTOR_SIZE);
     current_sector = 0;
 
-    for (i = 0; i < ELEMENTS_IN_ARRAY(virtual_media); i++) {
+    for (i = 0; i < virtual_media_idx; i++) {
         uint32_t vm_sectors = virtual_media[i].length / VFS_SECTOR_SIZE;
         uint32_t vm_start = current_sector;
         uint32_t vm_end = current_sector + vm_sectors;
@@ -511,6 +528,41 @@ void vfs_read(uint32_t requested_sector, uint8_t *buf, uint32_t num_sectors)
             sectors_to_write = MIN(sectors_to_write, num_sectors);
             sector_offset = requested_sector - current_sector;
             virtual_media[i].read_cb(sector_offset, buf, sectors_to_write);
+            // Update requested sector
+            requested_sector += sectors_to_write;
+            num_sectors -= sectors_to_write;
+        }
+
+        // If there is no more data to be read then break
+        if (num_sectors == 0) {
+            break;
+        }
+
+        // Move to the next virtual media entry
+        current_sector += vm_sectors;
+    }
+}
+
+void ffs_read(uint32_t requested_sector, uint8_t *buf, uint32_t num_sectors)
+{
+    uint8_t i = 0;
+    uint32_t current_sector;
+    // Zero out the buffer
+    memset(buf, 0, num_sectors * VFS_SECTOR_SIZE);
+    current_sector = 0;
+
+    for (i = 0; i < virtual_media_idx_ffs; i++) {
+        uint32_t vm_sectors = virtual_media_ffs[i].length / VFS_SECTOR_SIZE;
+        uint32_t vm_start = current_sector;
+        uint32_t vm_end = current_sector + vm_sectors;
+
+        // Data can be used in this sector
+        if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+            uint32_t sector_offset;
+            uint32_t sectors_to_write = vm_end - requested_sector;
+            sectors_to_write = MIN(sectors_to_write, num_sectors);
+            sector_offset = requested_sector - current_sector;
+            virtual_media_ffs[i].read_cb(sector_offset, buf, sectors_to_write);
             // Update requested sector
             requested_sector += sectors_to_write;
             num_sectors -= sectors_to_write;
@@ -559,6 +611,38 @@ void vfs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_secto
     }
 }
 
+void ffs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors)
+{
+    uint8_t i = 0;
+    uint32_t current_sector;
+    current_sector = 0;
+
+    for (i = 0; i < virtual_media_idx_ffs; i++) {
+        uint32_t vm_sectors = virtual_media_ffs[i].length / VFS_SECTOR_SIZE;
+        uint32_t vm_start = current_sector;
+        uint32_t vm_end = current_sector + vm_sectors;
+
+        // Data can be used in this sector
+        if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+            uint32_t sector_offset;
+            uint32_t sectors_to_read = vm_end - requested_sector;
+            sectors_to_read = MIN(sectors_to_read, num_sectors);
+            sector_offset = requested_sector - current_sector;
+            virtual_media_ffs[i].write_cb(sector_offset, buf, sectors_to_read);
+            // Update requested sector
+            requested_sector += sectors_to_read;
+            num_sectors -= sectors_to_read;
+        }
+
+        // If there is no more data to be read then break
+        if (num_sectors == 0) {
+            break;
+        }
+
+        // Move to the next virtual media entry
+        current_sector += vm_sectors;
+    }
+}
 
 void vfs_add_virtualmedia(vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32_t length)
 {

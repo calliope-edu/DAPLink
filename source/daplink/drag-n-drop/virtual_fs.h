@@ -99,8 +99,14 @@ void vfs_set_file_change_callback(vfs_file_change_cb_t cb);
 // Read one or more sectors from the virtual filesystem
 void vfs_read(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors);
 
+// Read one or more sectors from the flash filesystem
+void ffs_read(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors);
+
 // Write one or more sectors to the virtual filesystem
 void vfs_write(uint32_t sector, const uint8_t *buf, uint32_t num_of_sectors);
+
+// Write one or more sectors to the flash filesystem
+void ffs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors);
 
 // Add entry into the virtual media space
 void vfs_add_virtualmedia(vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32_t length);

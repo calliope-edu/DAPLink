@@ -319,7 +319,7 @@ void usbd_msc_read_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors, 
     }
     else if (lun == 1u)
     {
-        // TODO: implement flash memory file system
+        ffs_read(sector, buf, num_of_sectors);
     }
     else
     {
@@ -354,7 +354,7 @@ void usbd_msc_write_sect(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors,
     }
     else if (lun == 1u)
     {
-        // TODO: implement flash memory file system
+        ffs_write(sector, buf, num_of_sectors);
     }
     else
     {
