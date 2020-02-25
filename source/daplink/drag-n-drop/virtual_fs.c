@@ -750,14 +750,21 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
         {
             if ((vfs_strncmp((de.filename), "SELECTR HEX")!=0) && ((de.attributes & VFS_FILE_ATTR_HIDDEN) == 0u))
             {
-                if (filenames_found < max_count)
+                if (strncmp("HEX", (const char *)(&(de.filename[8])), 3) == 0)
                 {
-                    memcpy(&(filename[filenames_found]), &(de.filename), sizeof(vfs_filename_t));
-                    filenames_found++;
+                    if (filenames_found < max_count)
+                    {
+                        memcpy(&(filename[filenames_found]), &(de.filename), sizeof(vfs_filename_t));
+                        filenames_found++;
+                    }
+                    else
+                    {
+                        // filename buffer full
+                    }
                 }
                 else
                 {
-                    // filename buffer full
+                    // skip non-HEX files
                 }
             }
             else
