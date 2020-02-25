@@ -170,7 +170,7 @@ uint8_t selectr_program_start(vfs_filename_t filename)
             cluster_counter = 0u;
             program_size = 0u;
             page_address = 0u;
-            sector_address = (cluster * VFS_CLUSTER_SIZE);
+            sector_address = ((cluster - 2u) * VFS_CLUSTER_SIZE);
 
             program_flag = 1u;
 
@@ -240,7 +240,7 @@ uint8_t selectr_program_handler(void)
                     cluster <<= 8u;
                     cluster |= program_buf[0];
 
-                    sector_address = (cluster * VFS_CLUSTER_SIZE);
+                    sector_address = ((cluster - 2u) * VFS_CLUSTER_SIZE);
 
                     cluster_counter++;
                     page_address = 0u;
