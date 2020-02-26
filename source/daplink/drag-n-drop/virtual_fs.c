@@ -138,7 +138,7 @@ static const mbr_t mbr_tmpl = {
     /*uint8_t */.sectors_per_cluster        = 0x08,         // 4k cluser
     /*uint16_t*/.reserved_logical_sectors   = 0x0001,       // mbr is 1 sector
     /*uint8_t */.num_fats                   = 0x02,         // 2 FATs
-    /*uint16_t*/.max_root_dir_entries       = 0x0020,       // 32 dir entries (max)
+    /*uint16_t*/.max_root_dir_entries       = 0x0080,       // 128 dir entries (max)
     /*uint16_t*/.total_logical_sectors      = 0x1f50,       // sector size * # of sectors = drive size
     /*uint8_t */.media_descriptor           = 0xf8,         // fixed disc = F8, removable = F0
     /*uint16_t*/.logical_sectors_per_fat    = 0x0001,       // FAT is 1k - ToDO:need to edit this
@@ -210,12 +210,12 @@ const virtual_media_t virtual_media_tmpl[] = {
 };
 
 const virtual_media_t virtual_media_tmpl_ffs[] = {
-    /*  Read CB         Write CB        Region Size                 Region Name     */
-    {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
-    {   read_flash_fat,       write_flash_fat,      0 /* Set at runtime */  },  /* FAT1         */
-    {   read_flash_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
-    {   read_flash_dir, write_flash_dir,VFS_NVM_DIR_SIZE        },  /* Root Dir     */
-    {   read_flash_file,write_flash_file,VFS_NVM_FILE_SIZE        },  /* Data         */
+    /*  Read CB         Write CB         Region Size                 Region Name     */
+    {   read_mbr,       write_none,      VFS_SECTOR_SIZE         },  /* MBR          */
+    {   read_flash_fat, write_flash_fat, 0 /* Set at runtime */  },  /* FAT1         */
+    {   read_flash_fat, write_none,      0 /* Set at runtime */  },  /* FAT2         */
+    {   read_flash_dir, write_flash_dir, VFS_NVM_DIR_SIZE        },  /* Root Dir     */
+    {   read_flash_file,write_flash_file,VFS_NVM_FILE_SIZE       },  /* Data         */
     /* Raw filesystem contents follow */
 };
 // Keep virtual_media_idx_t in sync with virtual_media_tmpl
@@ -738,13 +738,13 @@ void write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_
 
 uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
 {
-    uint8_t i = 0u;
+    uint16_t addr = 0u;
     uint8_t filenames_found = 0u;
     FatDirectoryEntry_t de;
 
-    for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
+    for (addr = 0u; addr < VFS_NVM_DIR_SIZE; addr+=sizeof(FatDirectoryEntry_t))
     {
-        vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
+        vfs_nvm_read_DIR((uint8_t*)(&de), addr, sizeof(FatDirectoryEntry_t));
 
         if (filename_valid(de.filename) != 0u)
         {
@@ -760,6 +760,8 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
                     else
                     {
                         // filename buffer full
+                        // terminate the for loop
+                        addr = VFS_NVM_DIR_SIZE;
                     }
                 }
                 else
@@ -785,7 +787,7 @@ uint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
 
 uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
 {
-    uint8_t i = 0u;
+    uint16_t addr = 0u;
     uint8_t result = 0u;
     FatDirectoryEntry_t de;
 
@@ -794,9 +796,9 @@ uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_clus
 
     if (filename_valid(filename)!=0u)
     {
-        for (i = 0u; i < VFS_NVM_FILE_CNT_MAX; i++)
+        for (addr = 0u; addr < VFS_NVM_DIR_SIZE; addr+=sizeof(FatDirectoryEntry_t))
         {
-            vfs_nvm_read_DIR((uint8_t*)(&de), i*sizeof(FatDirectoryEntry_t), sizeof(FatDirectoryEntry_t));
+            vfs_nvm_read_DIR((uint8_t*)(&de), addr, sizeof(FatDirectoryEntry_t));
 
             if (vfs_strncmp(de.filename, filename) == 0u)
             {
@@ -805,7 +807,7 @@ uint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_clus
                 *filesize = de.filesize;
 
                 // terminate the for loop
-                i = VFS_NVM_FILE_CNT_MAX;
+                addr = VFS_NVM_DIR_SIZE;
 
                 result = 1u;
             }
