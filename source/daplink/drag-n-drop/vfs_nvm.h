@@ -14,16 +14,14 @@ extern "C" {
 #endif
 
 
-#define VFS_NVM_FAT_ADDR 0xFD0000u       // starting address for FAT table in the FLASH directory
-#define VFS_NVM_FAT_SIZE 131072u         // maximum size for maximum number of 65425 clusters allowed
+#define VFS_NVM_FAT_ADDR 0xFD0000u                              // starting address for FAT table in the FLASH directory
+#define VFS_NVM_FAT_SIZE 131072u                                // maximum size for maximum number of 65425 clusters allowed
 
-#define VFS_NVM_FILE_ADDR 0x1000         // starting address for storage of files in FLASH directory
-#define VFS_NVM_FILE_SIZE (VFS_NVM_FAT_ADDR-VFS_NVM_FILE_ADDR)   // size for files in a FLASH directory
+#define VFS_NVM_FILE_ADDR 0x1000                                // starting address for storage of files in FLASH directory
+#define VFS_NVM_FILE_SIZE (VFS_NVM_FAT_ADDR-VFS_NVM_FILE_ADDR)  // size for files in a FLASH directory
 
-#define VFS_NVM_DIR_ADDR 0x000000u       // starting address for FLASH directory entry
-#define VFS_NVM_DIR_SIZE 1024u           // size for 32 FatDirectoryEntries (32 bytes each)
-
-#define VFS_NVM_FILE_CNT_MAX 26u             // max number of files allowed in the FLASH chip (25 programs + selector program)
+#define VFS_NVM_DIR_ADDR 0x000000u                              // starting address for FLASH directory entry
+#define VFS_NVM_DIR_SIZE (VFS_NVM_FILE_ADDR-VFS_NVM_DIR_ADDR)   // size for 128 FatDirectoryEntries (32 bytes each)
 
 
 void vfs_nvm_init(void);

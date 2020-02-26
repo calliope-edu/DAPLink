@@ -12,7 +12,7 @@
 #include "main.h"
 
 #define SELECTR_BUF_SIZE 256u
-
+#define VFS_NVM_FILE_CNT_MAX 25u        // max number of HEX files allowed in the FLASH chip (25 programs)
 
 static uint8_t selector_mode = 0u;
 static uint8_t file_idx = 0u;
