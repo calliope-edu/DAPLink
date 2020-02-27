@@ -112,6 +112,7 @@ static uint32_t read_zero(uint32_t offset, uint8_t *data, uint32_t size);
 static void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
 
 static uint32_t read_mbr(uint32_t offset, uint8_t *data, uint32_t size);
+static uint32_t read_flash_mbr(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_fat(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_flash_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
 static void write_fat(uint32_t offset, const uint8_t *data, uint32_t size);
@@ -138,7 +139,7 @@ static const mbr_t mbr_tmpl = {
     /*uint8_t */.sectors_per_cluster        = 0x08,         // 4k cluser
     /*uint16_t*/.reserved_logical_sectors   = 0x0001,       // mbr is 1 sector
     /*uint8_t */.num_fats                   = 0x02,         // 2 FATs
-    /*uint16_t*/.max_root_dir_entries       = 0x0080,       // 128 dir entries (max)
+    /*uint16_t*/.max_root_dir_entries       = 0x0020,       // 32 dir entries (max)
     /*uint16_t*/.total_logical_sectors      = 0x1f50,       // sector size * # of sectors = drive size
     /*uint8_t */.media_descriptor           = 0xf8,         // fixed disc = F8, removable = F0
     /*uint16_t*/.logical_sectors_per_fat    = 0x0001,       // FAT is 1k - ToDO:need to edit this
@@ -203,7 +204,7 @@ enum virtual_media_idx_t {
 const virtual_media_t virtual_media_tmpl[] = {
     /*  Read CB         Write CB        Region Size                 Region Name     */
     {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
-    {   read_fat,       write_fat,      0 /* Set at runtime */  },  /* FAT1         */
+    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT1         */
     {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
     {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
     /* Raw filesystem contents follow */
@@ -211,7 +212,7 @@ const virtual_media_t virtual_media_tmpl[] = {
 
 const virtual_media_t virtual_media_tmpl_ffs[] = {
     /*  Read CB         Write CB         Region Size                 Region Name     */
-    {   read_mbr,       write_none,      VFS_SECTOR_SIZE         },  /* MBR          */
+    {   read_flash_mbr, write_none,      VFS_SECTOR_SIZE         },  /* MBR          */
     {   read_flash_fat, write_flash_fat, 0 /* Set at runtime */  },  /* FAT1         */
     {   read_flash_fat, write_none,      0 /* Set at runtime */  },  /* FAT2         */
     {   read_flash_dir, write_flash_dir, VFS_NVM_DIR_SIZE        },  /* Root Dir     */
@@ -238,7 +239,7 @@ static const FatDirectoryEntry_t root_dir_entry = {
 
 static const FatDirectoryEntry_t dir_entry_tmpl = {
     /*uint8_t[11] */ .filename = {""},
-    /*uint8_t */ .attributes = VFS_FILE_ATTR_READ_ONLY,
+    /*uint8_t */ .attributes = 0x00,
     /*uint8_t */ .reserved = 0x00,
     /*uint8_t */ .creation_time_ms = 0x00,
     /*uint16_t*/ .creation_time = 0x0000,
@@ -252,6 +253,7 @@ static const FatDirectoryEntry_t dir_entry_tmpl = {
 };
 
 mbr_t mbr;
+mbr_t mbr_ffs;
 file_allocation_table_t fat;
 virtual_media_t virtual_media[16];
 virtual_media_t virtual_media_ffs[16];
@@ -305,6 +307,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
     // Initialize MBR
     memcpy(&mbr, &mbr_tmpl, sizeof(mbr_t));
     total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
+
     // Make sure this is the right size for a FAT16 volume
     if (total_sectors < FAT_CLUSTERS_MIN * mbr.sectors_per_cluster) {
         util_assert(0);
@@ -357,11 +360,39 @@ static void ffs_init(void)
 {
     if (vfs_nvm_is_available()!=0u)
     {
+        uint32_t num_clusters;
+        uint32_t total_sectors;
+
+        // Initialize MBR
+        memcpy(&mbr_ffs, &mbr_tmpl, sizeof(mbr_t));
+        mbr_ffs.max_root_dir_entries = 128u;
+
+        //total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
+        total_sectors = VFS_NVM_FILE_SIZE / mbr_ffs.bytes_per_sector;
+        // Make sure this is the right size for a FAT16 volume
+        if (total_sectors < FAT_CLUSTERS_MIN * mbr_ffs.sectors_per_cluster) {
+            total_sectors = FAT_CLUSTERS_MIN * mbr_ffs.sectors_per_cluster;
+        } else if (total_sectors > FAT_CLUSTERS_MAX * mbr_ffs.sectors_per_cluster) {
+            total_sectors = FAT_CLUSTERS_MAX * mbr_ffs.sectors_per_cluster;
+        }
+        if (total_sectors >= 0x10000) {
+            mbr_ffs.total_logical_sectors = 0;
+            mbr_ffs.big_sectors_on_drive  = total_sectors;
+        } else {
+            mbr_ffs.total_logical_sectors = total_sectors;
+            mbr_ffs.big_sectors_on_drive  = 0;
+        }
+        // FAT table will likely be larger than needed, but this is allowed by the
+        // fat specification
+        num_clusters = total_sectors / mbr_ffs.sectors_per_cluster;
+        mbr_ffs.logical_sectors_per_fat = (num_clusters * 2 + VFS_SECTOR_SIZE - 1) / VFS_SECTOR_SIZE;
+        // Initailize virtual media
+
         memset(&virtual_media_ffs, 0, sizeof(virtual_media_ffs));
         memcpy(&virtual_media_ffs, &virtual_media_tmpl_ffs, sizeof(virtual_media_tmpl_ffs));
 
-        virtual_media_ffs[MEDIA_IDX_FAT1].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
-        virtual_media_ffs[MEDIA_IDX_FAT2].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
+        virtual_media_ffs[MEDIA_IDX_FAT1].length = VFS_SECTOR_SIZE * mbr_ffs.logical_sectors_per_fat;
+        virtual_media_ffs[MEDIA_IDX_FAT2].length = VFS_SECTOR_SIZE * mbr_ffs.logical_sectors_per_fat;
 
         virtual_media_idx_ffs = 5u;
 
@@ -851,6 +882,20 @@ static uint32_t read_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sec
     }
 
     memcpy(data, &mbr, read_size);
+    return read_size;
+}
+
+static uint32_t read_flash_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+{
+    uint32_t read_size = sizeof(mbr_t);
+    COMPILER_ASSERT(sizeof(mbr_t) <= VFS_SECTOR_SIZE);
+
+    if (sector_offset != 0) {
+        // Don't worry about reading other sectors
+        return 0;
+    }
+
+    memcpy(data, &mbr_ffs, read_size);
     return read_size;
 }
 
