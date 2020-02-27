@@ -14,6 +14,14 @@ extern "C" {
 #endif
 
 
+/* NVM MEMORY LAYOUT
+ * START ADDR   -   NAME           - SIZE
+ * 0x00000000   -   DIR REGION     - 0x00001000
+ * 0x00001000   -   DATA REGION    - 0x00FCF000
+ * 0x00FD0000   -   FAT REGION     - 0x00020000
+ * 0X00FF0000   -   REWRITE BUFFER - 0X00010000
+ */
+
 #define VFS_NVM_FAT_ADDR 0xFD0000u                              // starting address for FAT table in the FLASH directory
 #define VFS_NVM_FAT_SIZE 131072u                                // maximum size for maximum number of 65425 clusters allowed
 

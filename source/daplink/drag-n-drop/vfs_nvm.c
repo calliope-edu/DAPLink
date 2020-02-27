@@ -27,15 +27,15 @@ void vfs_nvm_write_FAT(const uint8_t *buf, uint32_t offset, uint32_t len){
 }
 
 void vfs_nvm_setup_FAT(uint8_t *buf, uint32_t len){
-    uint32_t i = 0u;
+    uint32_t offset = 0u;
     uint8_t data[IS25LP128F_PAGE_SIZE];
 
     memset(data, 0, IS25LP128F_PAGE_SIZE);
 
     // initialize clusters with zero marking a free cluster, see FAT specs
-    for (i = 0u; i < VFS_NVM_FAT_SIZE; i += IS25LP128F_PAGE_SIZE)
+    for (offset = 0u; offset < VFS_NVM_FAT_SIZE; offset += IS25LP128F_PAGE_SIZE)
     {
-        IS25LP128F_write_sector(data, (VFS_NVM_FAT_ADDR+i), IS25LP128F_PAGE_SIZE);
+        IS25LP128F_write_sector(data, (VFS_NVM_FAT_ADDR+offset), IS25LP128F_PAGE_SIZE);
     }
 
     // initialize start of FAT in the FLASH memory with FAT from the RAM
@@ -51,14 +51,14 @@ void vfs_nvm_write_DIR(const uint8_t *buf, uint32_t offset, uint32_t len){
 }
 
 void vfs_nvm_setup_DIR(void){
-    uint32_t i = 0u;
+    uint32_t offset = 0u;
     uint8_t data[IS25LP128F_PAGE_SIZE];
 
     memset(data, 0, IS25LP128F_PAGE_SIZE);
 
-    for (i = 0u; i < VFS_NVM_DIR_SIZE; i += IS25LP128F_PAGE_SIZE)
+    for (offset = 0u; offset < VFS_NVM_DIR_SIZE; offset += IS25LP128F_PAGE_SIZE)
     {
-        IS25LP128F_write_sector(data, (VFS_NVM_DIR_ADDR+i), IS25LP128F_PAGE_SIZE);
+        IS25LP128F_write_sector(data, (VFS_NVM_DIR_ADDR+offset), IS25LP128F_PAGE_SIZE);
     }
 }
 
