@@ -152,38 +152,20 @@ void cdc_process_event()
     int32_t len_data = 0;
     uint8_t data[64];
 
-    len_data = USBD_CDC_ACM_DataFree();
-
-    if (len_data > sizeof(data)) {
-        len_data = sizeof(data);
-    }
-
-    if (len_data) {
-        len_data = uart_read_data(data, len_data);
-    }
+    len_data = uart_read_data(data, sizeof(data));
 
     if (len_data) {
         selectr_read_command(data[0]);
-
-        if (USBD_CDC_ACM_DataSend(data , len_data)) {
-            main_blink_cdc_led(MAIN_LED_FLASH);
-        }
+        USBD_CDC_ACM_DataSend(data , len_data);
+        main_blink_cdc_led(MAIN_LED_FLASH);
     }
 
-    len_data = uart_write_free();
 
-    if (len_data > sizeof(data)) {
-        len_data = sizeof(data);
-    }
+    len_data = USBD_CDC_ACM_DataRead(data, sizeof(data));
 
     if (len_data) {
-        len_data = USBD_CDC_ACM_DataRead(data, len_data);
-    }
-
-    if (len_data) {
-        if (uart_write_data(data, len_data)) {
-            main_blink_cdc_led(MAIN_LED_FLASH);
-        }
+        uart_write_data(data, len_data);
+        main_blink_cdc_led(MAIN_LED_FLASH);
     }
  
     // Always process events
