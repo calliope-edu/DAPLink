@@ -89,6 +89,8 @@
 #define MSC_LED_DEF GPIO_LED_OFF
 #endif
 
+#define RESET_PRESS_TIME 3000u
+
 // Reference to our main task
 OS_TID main_task_id;
 
@@ -350,14 +352,13 @@ __task void main_task(void)
             // handle reset button without eventing
             if (!reset_pressed && gpio_get_reset_btn_fwrd() && !flash_intf_target->flash_busy()) { //added checking if flashing on target is in progress
                 // Reset button pressed
-                USBD_CDC_ACM_Reset();
 
                 target_set_state(RESET_HOLD);
                 reset_pressed = 1;
             } else if (reset_pressed && !gpio_get_reset_btn_fwrd()) {
                 // Reset button released
 
-                if (reset_pressed_timer < 3000u)
+                if (reset_pressed_timer < RESET_PRESS_TIME)
                 {
                     target_set_state(RESET_RUN);
                 }
@@ -370,11 +371,11 @@ __task void main_task(void)
                 reset_pressed_timer = 0u;
             } else if (reset_pressed && gpio_get_reset_btn_fwrd()) {
                 // Reset button held continuously
-                if (reset_pressed_timer < 3030u)
+                if (reset_pressed_timer < RESET_PRESS_TIME)
                 {
                     reset_pressed_timer += 30u;
 
-                    if (reset_pressed_timer == 3000u)
+                    if (reset_pressed_timer == RESET_PRESS_TIME)
                     {
                         if (selectr_start_mode() != 0u)
                         {
