@@ -26,6 +26,7 @@
 #include "usb_for_lib.h"
 #include "util.h"
 #include "macro.h"
+#include "vfs_nvm.h"
 
 BOOL USBD_MSC_MediaReady = __FALSE;
 BOOL USBD_MSC_ReadOnly = __FALSE;
@@ -131,7 +132,15 @@ BOOL USBD_MSC_Reset(void)
 
 BOOL USBD_MSC_GetMaxLUN(void)
 {
-    USBD_EP0Buf[0] = 1;                      /* two LUNs associated with this device */
+    if (vfs_nvm_is_available()!=0u)
+    {
+        USBD_EP0Buf[0] = 1;                      /* two LUNs associated with this device */
+    }
+    else
+    {
+        USBD_EP0Buf[0] = 0;                      /* one LUN associated with this device */
+    }
+
     return (__TRUE);
 }
 
