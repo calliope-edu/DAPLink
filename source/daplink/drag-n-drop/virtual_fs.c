@@ -115,7 +115,6 @@ static uint32_t read_mbr(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_flash_mbr(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_fat(uint32_t offset, uint8_t *data, uint32_t size);
 static uint32_t read_flash_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
-static void write_fat(uint32_t offset, const uint8_t *data, uint32_t size);
 static void write_flash_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
 static uint32_t read_dir(uint32_t offset, uint8_t *data, uint32_t size);
 static void write_dir(uint32_t offset, const uint8_t *data, uint32_t size);
@@ -920,11 +919,6 @@ static uint32_t read_flash_fat(uint32_t sector_offset, uint8_t *data, uint32_t n
     vfs_nvm_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
 
     return num_sectors * VFS_SECTOR_SIZE;
-}
-
-static void write_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
-{
-    // Do nothing
 }
 
 static void write_flash_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
