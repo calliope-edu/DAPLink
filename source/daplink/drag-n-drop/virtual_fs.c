@@ -305,6 +305,7 @@ void vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
 
     // Initialize MBR
     memcpy(&mbr, &mbr_tmpl, sizeof(mbr_t));
+    mbr.signature = 0xAA55u;
     total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
 
     // Make sure this is the right size for a FAT16 volume
@@ -365,6 +366,7 @@ static void ffs_init(void)
         // Initialize MBR
         memcpy(&mbr_ffs, &mbr_tmpl, sizeof(mbr_t));
         mbr_ffs.max_root_dir_entries = 128u;
+        mbr_ffs.signature = 0xAA55u;
 
         //total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
         total_sectors = VFS_NVM_FILE_SIZE / mbr_ffs.bytes_per_sector;
