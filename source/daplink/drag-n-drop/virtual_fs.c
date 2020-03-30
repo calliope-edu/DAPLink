@@ -432,7 +432,7 @@ static void ffs_init(void)
             // also initialize DIR region as it makes no sense to keep old and possibly invalid content
             FatDirectoryEntry_t de;
 
-            vfs_nvm_setup_FAT((uint8_t*)(&fat), sizeof(fat));
+            vfs_nvm_setup_FAT();
             vfs_nvm_setup_DIR();
 
             memcpy(&de, &root_dir_entry, sizeof(root_dir_entry));

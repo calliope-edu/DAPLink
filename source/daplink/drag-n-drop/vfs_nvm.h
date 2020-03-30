@@ -40,7 +40,7 @@ void vfs_nvm_read_FAT(uint8_t *buf, uint32_t offset, uint32_t len);
 
 void vfs_nvm_write_FAT(const uint8_t *buf, uint32_t offset, uint32_t len);
 
-void vfs_nvm_setup_FAT(uint8_t *buf, uint32_t len);
+void vfs_nvm_setup_FAT(void);
 
 void vfs_nvm_read_DIR(uint8_t *buf, uint32_t offset, uint32_t len);
 
