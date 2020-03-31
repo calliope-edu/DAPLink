@@ -22,8 +22,8 @@ extern "C" {
  * 0X00FF0000   -   REWRITE BUFFER - 0X00010000
  */
 
-#define VFS_NVM_FAT_ADDR 0xFEE000u                              // starting address for FAT table in the FLASH directory
-#define VFS_NVM_FAT_SIZE 8192u                                  // maximum size for maximum number of 65425 clusters allowed
+#define VFS_NVM_FAT_ADDR 0xFEC000u                              // starting address for FAT table in the FLASH directory
+#define VFS_NVM_FAT_SIZE 16384u                                 // maximum size for maximum number of 65425 clusters allowed
 
 #define VFS_NVM_FILE_ADDR 0x1000                                // starting address for storage of files in FLASH directory
 #define VFS_NVM_FILE_SIZE (VFS_NVM_FAT_ADDR-VFS_NVM_FILE_ADDR)  // size for files in a FLASH directory
