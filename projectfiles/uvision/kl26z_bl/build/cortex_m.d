@@ -1,0 +1,13 @@
+.\build\cortex_m.o: ..\..\..\source\daplink\cortex_m.c
+.\build\cortex_m.o: ..\..\..\source\daplink\cortex_m.h
+.\build\cortex_m.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\cortex_m.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\cortex_m.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\cortex_m.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\cortex_m.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\cortex_m.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\cortex_m.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\cortex_m.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\cortex_m.o: ..\..\..\source\daplink\compiler.h
+.\build\cortex_m.o: ..\..\..\source\daplink\daplink.h
+.\build\cortex_m.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h

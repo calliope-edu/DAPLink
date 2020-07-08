@@ -1,0 +1,14 @@
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\read_uid.c
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\read_uid.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\read_uid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\read_uid.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\read_uid.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\read_uid.o: ..\..\..\source\daplink\compiler.h
+.\build\read_uid.o: ..\..\..\source\daplink\daplink.h
+.\build\read_uid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\read_uid.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\read_uid.o: ..\..\..\source\hic_hal\read_uid.h

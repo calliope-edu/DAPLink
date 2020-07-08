@@ -1,0 +1,16 @@
+.\build\dap.o: ..\..\..\source\daplink\cmsis-dap\DAP.c
+.\build\dap.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\dap.o: ..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h
+.\build\dap.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\dap.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\dap.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\dap.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\dap.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\dap.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\dap.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\dap.o: ..\..\..\source\daplink\compiler.h
+.\build\dap.o: ..\..\..\source\daplink\daplink.h
+.\build\dap.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\dap.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\dap.o: ..\..\..\source\daplink\cmsis-dap\DAP.h
+.\build\dap.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

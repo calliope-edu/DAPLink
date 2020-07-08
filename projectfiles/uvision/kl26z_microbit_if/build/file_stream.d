@@ -1,0 +1,15 @@
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\file_stream.c
+.\build\file_stream.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\file_stream.h
+.\build\file_stream.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\virtual_fs.h
+.\build\file_stream.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\file_stream.o: ..\..\..\source\daplink\error.h
+.\build\file_stream.o: ..\..\..\source\daplink\util.h
+.\build\file_stream.o: ..\..\..\source\daplink\validation.h
+.\build\file_stream.o: ..\..\..\source\daplink\macro.h
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\intelhex.h
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\flash_decoder.h
+.\build\file_stream.o: ..\..\..\source\daplink\drag-n-drop\flash_intf.h
+.\build\file_stream.o: ..\..\..\source\rtos\RTL.h
+.\build\file_stream.o: ..\..\..\source\daplink\compiler.h

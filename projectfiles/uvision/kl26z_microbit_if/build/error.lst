@@ -1,0 +1,908 @@
+L 1 "..\..\..\source\daplink\error.c"
+N/**
+N * @file    error.c
+N * @brief   Implementation of error.h
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#include "error.h"
+L 1 "..\..\..\source\daplink\error.h" 1
+N/**
+N * @file    error.h
+N * @brief   collection of known errors and accessor for the friendly string
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef ERROR_H
+N#define ERROR_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Keep in sync with the lists error_message and error_type
+Ntypedef enum {
+N    /* Shared errors */
+N    ERROR_SUCCESS = 0,
+N    ERROR_FAILURE,
+N    ERROR_INTERNAL,
+N
+N    /* VFS user errors */
+N    ERROR_ERROR_DURING_TRANSFER,
+N    ERROR_TRANSFER_TIMEOUT,
+N    ERROR_FILE_BOUNDS,
+N    ERROR_OOO_SECTOR,
+N
+N    /* Target flash errors */
+N    ERROR_RESET,
+N    ERROR_ALGO_DL,
+N    ERROR_ALGO_DATA_SEQ,
+N    ERROR_INIT,
+N    ERROR_SECURITY_BITS,
+N    ERROR_UNLOCK,
+N    ERROR_ERASE_SECTOR,
+N    ERROR_ERASE_ALL,
+N    ERROR_WRITE,
+N
+N    /* File stream errors */
+N    ERROR_SUCCESS_DONE,
+N    ERROR_SUCCESS_DONE_OR_CONTINUE,
+N    ERROR_HEX_CKSUM,
+N    ERROR_HEX_PARSER,
+N    ERROR_HEX_PROGRAM,
+N    ERROR_HEX_INVALID_ADDRESS,
+N    ERROR_HEX_INVALID_APP_OFFSET,
+N
+N    /* Flash decoder error */
+N    ERROR_FD_BL_UPDT_ADDR_WRONG,
+N    ERROR_FD_INTF_UPDT_ADDR_WRONG,
+N    ERROR_FD_UNSUPPORTED_UPDATE,
+N
+N    /* Flash IAP interface */
+N    ERROR_IAP_INIT,
+N    ERROR_IAP_UNINIT,
+N    ERROR_IAP_WRITE,
+N    ERROR_IAP_ERASE_SECTOR,
+N    ERROR_IAP_ERASE_ALL,
+N    ERROR_IAP_OUT_OF_BOUNDS,
+N    ERROR_IAP_UPDT_NOT_SUPPORTED,
+N    ERROR_IAP_UPDT_INCOMPLETE,
+N    ERROR_IAP_NO_INTERCEPT,
+N    ERROR_BL_UPDT_BAD_CRC,
+N
+N    // Add new values here
+N
+N    ERROR_COUNT
+N} error_t;
+N
+Nconst char *error_get_string(error_t error);
+N
+Ntypedef unsigned char error_type_t;
+N
+N#define ERROR_TYPE_INTERNAL 0x1
+N#define ERROR_TYPE_TRANSIENT 0x2
+N#define ERROR_TYPE_USER 0x4
+N#define ERROR_TYPE_TARGET 0x8
+N#define ERROR_TYPE_INTERFACE 0x10
+N// If you add another error type:
+N// 1. update error_type_names, used by read_file_fail_txt()
+N// 2. update ERROR_TYPE_MASK
+N// 3. make sure that error type bits still fit inside of error_type_t
+N#define ERROR_TYPE_MASK 0x1F
+N
+Nerror_type_t error_get_type(error_t error);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 23 "..\..\..\source\daplink\error.c" 2
+N#include "util.h"
+L 1 "..\..\..\source\daplink\util.h" 1
+N/**
+N * @file    util.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef UTIL_H
+N#define UTIL_H
+N
+N#include "stdbool.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 26 "..\..\..\source\daplink\util.h" 2
+N#include "stdint.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 27 "..\..\..\source\daplink\util.h" 2
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Write the value to the address specified and return the size
+Nuint32_t util_write_hex8(char *str, uint8_t value);
+Nuint32_t util_write_hex16(char *str, uint16_t value);
+Nuint32_t util_write_hex32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32_zp(char *str, uint32_t value, uint16_t total_size);
+Nuint32_t util_write_string(char *str, const char *data);
+N
+Nuint32_t util_div_round_up(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round_down(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round(uint32_t dividen, uint32_t divisor);
+N
+N#if !(defined(DAPLINK_NO_ASSERT_FILENAMES) && defined(DAPLINK_BL))
+X#if !(1L && 0L)
+N// With the filename enabled.
+N#define util_assert(expression) _util_assert((expression), __FILE__, __LINE__)
+N#else
+S// Filename disabled to save code size.
+S#define util_assert(expression) _util_assert((expression), "(file)", __LINE__)
+N#endif
+Nvoid _util_assert(bool expression, const char *filename, uint16_t line);
+Xvoid _util_assert(_Bool expression, const char *filename, uint16_t line);
+N
+Nvoid util_assert_clear(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 24 "..\..\..\source\daplink\error.c" 2
+N#include "macro.h"
+L 1 "..\..\..\source\daplink\macro.h" 1
+N/**
+N * @file    macro.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef MACRO_H
+N#define MACRO_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define ELEMENTS_IN_ARRAY(array)        (sizeof(array)/sizeof(array[0]))
+N
+N#define MB(size)                        ((size) * 1024 * 1024)
+N
+N#define KB(size)                        ((size) * 1024)
+N
+N#define MIN(a,b)                        ((a) < (b) ? (a) : (b))
+N
+N#define MAX(a,b)                        ((a) > (b) ? (a) : (b))
+N
+N#define ROUND_UP(value, boundary)       ((value) + ((boundary) - (value)) % (boundary))
+N
+N#define ROUND_DOWN(value, boundary)     ((value) - ((value) % (boundary)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 25 "..\..\..\source\daplink\error.c" 2
+N#include "compiler.h"
+L 1 "..\..\..\source\daplink\compiler.h" 1
+N/**
+N * @file    compiler.h
+N * @brief   Special asserts and macros
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef COMPILER_H
+N#define COMPILER_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define COMPILER_CONCAT_(a, b) a##b
+N#define COMPILER_CONCAT(a, b) COMPILER_CONCAT_(a, b)
+N
+N// Divide by zero if the the expression is false.  This
+N// causes an error at compile time.
+N//
+N// The special value '__COUNTER__' is used to create a unique value to
+N// append to 'compiler_assert_' to create a unique token.  This prevents
+N// conflicts resulting from the same enum being declared multiple times.
+N#define COMPILER_ASSERT(e) enum { COMPILER_CONCAT(compiler_assert_, __COUNTER__) = 1/((e) ? 1 : 0) }
+N
+N#define __at(_addr) __attribute__ ((at(_addr)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 26 "..\..\..\source\daplink\error.c" 2
+N
+Nstatic const char *const error_message[] = {
+N
+N    /* Shared errors */
+N
+N    // ERROR_SUCCESS
+N    "Operation was successful",
+N    // ERROR_FAILURE
+N    "An error has occurred",
+N    // ERROR_INTERNAL
+N    "An internal error has occurred",
+N
+N    /* VFS user errors */
+N
+N    // ERROR_ERROR_DURING_TRANSFER
+N    "An error occurred during the transfer",
+N    // ERROR_TRANSFER_TIMEOUT
+N    "The transfer timed out.",
+N    // ERROR_FILE_BOUNDS
+N    "Possible mismatch between file size and size programmed",
+N    // ERROR_OOO_SECTOR
+N    "File sent out of order by PC. Target might not be programmed correctly.",
+N
+N    /* Target flash errors */
+N
+N    // ERROR_RESET
+N    "The interface firmware FAILED to reset/halt the target MCU",
+N    // ERROR_ALGO_DL
+N    "The interface firmware FAILED to download the flash programming algorithms to the target MCU",
+N    // ERROR_ALGO_DATA_SEQ
+N    "The interface firmware FAILED to download the flash data contents to be programmed",
+N    // ERROR_INIT
+N    "The interface firmware FAILED to initialize the target MCU",
+N    // ERROR_SECURITY_BITS
+N    "The interface firmware ABORTED programming. Image is trying to set security bits",
+N    // ERROR_UNLOCK
+N    "The interface firmware FAILED to unlock the target for programming",
+N    // ERROR_ERASE_SECTOR
+N    "Flash algorithm erase sector command FAILURE",
+N    // ERROR_ERASE_ALL
+N    "Flash algorithm erase all command FAILURE",
+N    // ERROR_WRITE
+N    "Flash algorithm write command FAILURE",
+N
+N    /* File stream errors */
+N
+N    // ERROR_SUCCESS_DONE
+N    "End of stream has been reached",
+N    // ERROR_SUCCESS_DONE_OR_CONTINUE
+N    "End of stream is unknown",
+N    // ERROR_HEX_CKSUM
+N    "The hex file cannot be decoded. Checksum calculation failure occurred.",
+N    // ERROR_HEX_PARSER
+N    "The hex file cannot be decoded. Parser logic failure occurred.",
+N    // ERROR_HEX_PROGRAM
+N    "The hex file cannot be programmed. Logic failure occurred.",
+N    // ERROR_HEX_INVALID_ADDRESS
+N    "The hex file you dropped isn't compatible with this mode or device. Are you in MAINTENANCE mode? See HELP FAQ.HTM",
+N    // ERROR_HEX_INVALID_APP_OFFSET
+N    "The hex file offset load address is not correct.",
+N
+N    /* Flash decoder errors */
+N
+N    // ERROR_FD_BL_UPDT_ADDR_WRONG
+N    "The starting address for the bootloader update is wrong.",
+N    // ERROR_FD_INTF_UPDT_ADDR_WRONG
+N    "The starting address for the interface update is wrong.",
+N    // ERROR_FD_UNSUPPORTED_UPDATE
+N    "The application file format is unknown and cannot be parsed and/or processed.",
+N
+N    /* Flash IAP interface */
+N
+N    // ERROR_IAP_INIT
+N    "In application programming initialization failed.",
+N    // ERROR_IAP_UNINIT
+N    "In application programming uninit failed.",
+N    // ERROR_IAP_WRITE
+N    "In application programming write failed.",
+N    // ERROR_IAP_ERASE_SECTOR
+N    "In application programming sector erase failed.",
+N    // ERROR_IAP_ERASE_ALL
+N    "In application programming mass erase failed.",
+N    // ERROR_IAP_OUT_OF_BOUNDS
+N    "In application programming aborted due to an out of bounds address.",
+N    // ERROR_IAP_UPDT_NOT_SUPPORTED
+N    "In application programming not supported on this device.",
+N    // ERROR_IAP_UPDT_INCOMPLETE
+N    "In application programming failed because the update sent was incomplete.",
+N    // ERROR_IAP_NO_INTERCEPT
+N    "",
+N    // ERROR_BL_UPDT_BAD_CRC
+N    "The bootloader CRC did not pass.",
+N
+N};
+N
+Nstatic error_type_t error_type[] = {
+N
+N    /* These should always stay the same for each error type. */
+N
+N    // ERROR_SUCCESS
+N    0,
+N    // ERROR_FAILURE
+N    ERROR_TYPE_INTERNAL,
+X    0x1,
+N    // ERROR_INTERNAL
+N    ERROR_TYPE_INTERNAL,
+X    0x1,
+N
+N    /* VFS user errors */
+N
+N    // ERROR_ERROR_DURING_TRANSFER
+N    ERROR_TYPE_TRANSIENT,
+X    0x2,
+N    // ERROR_TRANSFER_TIMEOUT
+N    ERROR_TYPE_USER | ERROR_TYPE_TRANSIENT,
+X    0x4 | 0x2,
+N    // ERROR_FILE_BOUNDS
+N    ERROR_TYPE_TRANSIENT,
+X    0x2,
+N    // ERROR_OOO_SECTOR
+N    ERROR_TYPE_TRANSIENT,
+X    0x2,
+N
+N    /* Target flash errors */
+N
+N    // ERROR_RESET
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_ALGO_DL
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_ALGO_DATA_SEQ
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_INIT
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_SECURITY_BITS
+N    ERROR_TYPE_USER,
+X    0x4,
+N    // ERROR_UNLOCK
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_ERASE_SECTOR
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_ERASE_ALL
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N    // ERROR_WRITE
+N    ERROR_TYPE_TARGET,
+X    0x8,
+N
+N    /* File stream errors */
+N
+N    // ERROR_SUCCESS_DONE
+N    ERROR_TYPE_INTERNAL,
+X    0x1,
+N    // ERROR_SUCCESS_DONE_OR_CONTINUE
+N    ERROR_TYPE_INTERNAL,
+X    0x1,
+N    // ERROR_HEX_CKSUM
+N    ERROR_TYPE_USER | ERROR_TYPE_TRANSIENT,
+X    0x4 | 0x2,
+N    // ERROR_HEX_PARSER
+N    ERROR_TYPE_USER | ERROR_TYPE_TRANSIENT,
+X    0x4 | 0x2,
+N    // ERROR_HEX_PROGRAM
+N    ERROR_TYPE_USER | ERROR_TYPE_TRANSIENT,
+X    0x4 | 0x2,
+N    // ERROR_HEX_INVALID_ADDRESS
+N    ERROR_TYPE_USER,
+X    0x4,
+N    // ERROR_HEX_INVALID_APP_OFFSET
+N    ERROR_TYPE_USER,
+X    0x4,
+N
+N    /* Flash decoder errors */
+N
+N    // ERROR_FD_BL_UPDT_ADDR_WRONG
+N    ERROR_TYPE_USER,
+X    0x4,
+N    // ERROR_FD_INTF_UPDT_ADDR_WRONG
+N    ERROR_TYPE_USER,
+X    0x4,
+N    // ERROR_FD_UNSUPPORTED_UPDATE
+N    ERROR_TYPE_USER,
+X    0x4,
+N
+N    /* Flash IAP interface */
+N
+N    // ERROR_IAP_INIT
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_UNINIT
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_WRITE
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_ERASE_SECTOR
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_ERASE_ALL
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_OUT_OF_BOUNDS
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_UPDT_NOT_SUPPORTED
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_UPDT_INCOMPLETE
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_IAP_NO_INTERCEPT
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N    // ERROR_BL_UPDT_BAD_CRC
+N    ERROR_TYPE_INTERFACE,
+X    0x10,
+N};
+N
+NCOMPILER_ASSERT(ERROR_COUNT == ELEMENTS_IN_ARRAY(error_message));
+Xenum { compiler_assert_0 = 1/((ERROR_COUNT == (sizeof(error_message)/sizeof(error_message[0]))) ? 1 : 0) };
+N
+Nconst char *error_get_string(error_t error)
+N{
+N    const char *msg = 0;
+N
+N    if (error < ERROR_COUNT) {
+N        msg = error_message[error];
+N    }
+N
+N    if (0 == msg) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\error.c", 225);
+N        msg = "";
+N    }
+N
+N    return msg;
+N}
+N
+Nerror_type_t error_get_type(error_t error)
+N{
+N    error_type_t type = ERROR_TYPE_INTERNAL;
+X    error_type_t type = 0x1;
+N
+N    if (error < ERROR_COUNT) {
+N        type = error_type[error];
+N    }
+N
+N    return type;
+N}

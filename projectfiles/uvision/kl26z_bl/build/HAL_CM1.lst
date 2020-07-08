@@ -1,0 +1,970 @@
+L 1 "..\..\..\source\rtos\cm0\HAL_CM1.c"
+N/**
+N * @file    HAL_CM1.c
+N * @brief   HAL for Cortex-M0(p)
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#include "rt_TypeDef.h"
+L 1 "..\..\..\source\rtos\rt_TypeDef.h" 1
+N/**
+N * @file    rt_TypeDef.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Types */
+Ntypedef char               S8;
+Ntypedef unsigned char      U8;
+Ntypedef short              S16;
+Ntypedef unsigned short     U16;
+Ntypedef int                S32;
+Ntypedef unsigned int       U32;
+Ntypedef long long          S64;
+Ntypedef unsigned long long U64;
+Ntypedef unsigned char      BIT;
+Ntypedef unsigned int       BOOL;
+Ntypedef void               (*FUNCP)(void);
+N
+Ntypedef U32     OS_TID;
+Ntypedef void    *OS_ID;
+Ntypedef U32     OS_RESULT;
+N
+Ntypedef struct OS_TCB {
+N  /* General part: identical for all implementations.                        */
+N  U8     cb_type;                 /* Control Block Type                      */
+N  U8     state;                   /* Task state                              */
+N  U8     prio;                    /* Execution priority                      */
+N  U8     task_id;                 /* Task ID value for optimized TCB access  */
+N  struct OS_TCB *p_lnk;           /* Link pointer for ready/sem. wait list   */
+N  struct OS_TCB *p_rlnk;          /* Link pointer for sem./mbx lst backwards */
+N  struct OS_TCB *p_dlnk;          /* Link pointer for delay list             */
+N  struct OS_TCB *p_blnk;          /* Link pointer for delay list backwards   */
+N  U16    delta_time;              /* Time until time out                     */
+N  U16    interval_time;           /* Time interval for periodic waits        */
+N  U16    events;                  /* Event flags                             */
+N  U16    waits;                   /* Wait flags                              */
+N  void   **msg;                   /* Direct message passing when task waits  */
+N  U8     ret_val;                 /* Return value upon completion of a wait  */
+N
+N  /* Hardware dependant part: specific for CM processor                      */
+N  U8     ret_upd;                 /* Updated return value                    */
+N  U16    priv_stack;              /* Private stack size, 0= system assigned  */
+N  U32    tsk_stack;               /* Current task Stack pointer (R13)        */
+N  U32    *stack;                  /* Pointer to Task Stack memory block      */
+N
+N  /* Task entry point used for uVision debugger                              */
+N  FUNCP  ptask;                   /* Task entry address                      */
+N} *P_TCB;
+N#define TCB_RETVAL      32        /* 'ret_val' offset                        */
+N#define TCB_RETUPD      33        /* 'ret_upd' offset                        */
+N#define TCB_TSTACK      36        /* 'tsk_stack' offset                      */
+N
+Ntypedef struct OS_PSFE {          /* Post Service Fifo Entry                 */
+N  void  *id;                      /* Object Identification                   */
+N  U32    arg;                     /* Object Argument                         */
+N} *P_PSFE;
+N
+Ntypedef struct OS_PSQ {           /* Post Service Queue                      */
+N  U8     first;                   /* FIFO Head Index                         */
+N  U8     last;                    /* FIFO Tail Index                         */
+N  U8     count;                   /* Number of stored items in FIFO          */
+N  U8     size;                    /* FIFO Size                               */
+N  struct OS_PSFE q[1];            /* FIFO Content                            */
+N} *P_PSQ;
+N
+Ntypedef struct OS_TSK {
+N  P_TCB  run;                     /* Current running task                    */
+N  P_TCB  new;                     /* Scheduled task to run                   */
+N} *P_TSK;
+N
+Ntypedef struct OS_ROBIN {         /* Round Robin Control                     */
+N  P_TCB  task;                    /* Round Robin task                        */
+N  U16    time;                    /* Round Robin switch time                 */
+N  U16    tout;                    /* Round Robin timeout                     */
+N} *P_ROBIN;
+N
+Ntypedef struct OS_XCB {
+N  U8     cb_type;                 /* Control Block Type                      */
+N  struct OS_TCB *p_lnk;           /* Link pointer for ready/sem. wait list   */
+N  struct OS_TCB *p_rlnk;          /* Link pointer for sem./mbx lst backwards */
+N  struct OS_TCB *p_dlnk;          /* Link pointer for delay list             */
+N  struct OS_TCB *p_blnk;          /* Link pointer for delay list backwards   */
+N  U16    delta_time;              /* Time until time out                     */
+N} *P_XCB;
+N
+Ntypedef struct OS_MCB {
+N  U8     cb_type;                 /* Control Block Type                      */
+N  U8     isr_st;                  /* State flag variable for isr functions   */
+N  struct OS_TCB *p_lnk;           /* Chain of tasks waiting for message      */
+N  U16    first;                   /* Index of the message list begin         */
+N  U16    last;                    /* Index of the message list end           */
+N  U16    count;                   /* Actual number of stored messages        */
+N  U16    size;                    /* Maximum number of stored messages       */
+N  void   *msg[1];                 /* FIFO for Message pointers 1st element   */
+N} *P_MCB;
+N
+Ntypedef struct OS_SCB {
+N  U8     cb_type;                 /* Control Block Type                      */
+N  U16    tokens;                  /* Semaphore tokens                        */
+N  struct OS_TCB *p_lnk;           /* Chain of tasks waiting for tokens       */
+N} *P_SCB;
+N
+Ntypedef struct OS_MUCB {
+N  U8     cb_type;                 /* Control Block Type                      */
+N  U8     prio;                    /* Owner task default priority             */
+N  U16    level;                   /* Call nesting level                      */
+N  struct OS_TCB *p_lnk;           /* Chain of tasks waiting for mutex        */
+N  struct OS_TCB *owner;           /* Mutex owner task                        */
+N} *P_MUCB;
+N
+Ntypedef struct OS_XTMR {
+N  struct OS_TMR  *next;
+N  U16    tcnt;
+N} *P_XTMR;
+N
+Ntypedef struct OS_TMR {
+N  struct OS_TMR  *next;           /* Link pointer to Next timer              */
+N  U16    tcnt;                    /* Timer delay count                       */
+N  U16    info;                    /* User defined call info                  */
+N} *P_TMR;
+N
+Ntypedef struct OS_BM {
+N  void *free;                     /* Pointer to first free memory block      */
+N  void *end;                      /* Pointer to memory block end             */
+N  U32  blk_size;                  /* Memory block size                       */
+N} *P_BM;
+N
+N/* Definitions */
+N#define __TRUE          1
+N#define __FALSE         0
+N#define NULL            ((void *) 0)
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+L 23 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "RTX_Config.h"
+L 1 "..\..\..\source\rtos\RTX_Config.h" 1
+N/**
+N * @file    RTX_Config.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Error Codes */
+N#define OS_ERR_STK_OVF          1
+N#define OS_ERR_FIFO_OVF         2
+N#define OS_ERR_MBX_OVF          3
+N
+N/* Definitions */
+N#define BOX_ALIGN_8                   0x80000000
+N#define _declare_box(pool,size,cnt)   U32 pool[(((size)+3)/4)*(cnt) + 3]
+N#define _declare_box8(pool,size,cnt)  U64 pool[(((size)+7)/8)*(cnt) + 2]
+N#define _init_box8(pool,size,bsize)   _init_box (pool,size,(bsize) | BOX_ALIGN_8)
+N
+N/* Variables */
+Nextern U32 mp_tcb[];
+Nextern U64 mp_stk[];
+Nextern U32 os_fifo[];
+Nextern void *os_active_TCB[];
+N
+N/* Constants */
+Nextern U16 const os_maxtaskrun;
+Nextern U32 const os_trv;
+Nextern U8  const os_flags;
+Nextern U32 const os_stackinfo;
+Nextern U32 const os_rrobin;
+Nextern U32 const os_clockrate;
+Nextern U32 const os_timernum;
+Nextern U16 const mp_tcb_size;
+Nextern U32 const mp_stk_size;
+Nextern U32 const *m_tmr;
+Nextern U16 const mp_tmr_size;
+Nextern U8  const os_fifo_size;
+N
+N/* Functions */
+Nextern void os_idle_demon   (void);
+Nextern int  os_tick_init    (void);
+Nextern void os_tick_irqack  (void);
+Nextern void os_tmr_call     (U16  info);
+Nextern void os_error        (U32 err_code);
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+L 24 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "rt_System.h"
+L 1 "..\..\..\source\rtos\rt_System.h" 1
+N/**
+N * @file    rt_System.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Variables */
+N#define os_psq  ((P_PSQ)&os_fifo)
+Nextern int os_tick_irqn;
+N
+N/* Functions */
+Nextern U32  rt_suspend    (void);
+Nextern void rt_resume     (U32 sleep_time);
+Nextern void rt_tsk_lock   (void);
+Nextern void rt_tsk_unlock (void);
+Nextern void rt_psh_req    (void);
+Nextern void rt_pop_req    (void);
+Nextern void rt_systick    (void);
+Nextern void rt_stk_check  (void);
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+L 25 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "rt_HAL_CM.h"
+L 1 "..\..\..\source\rtos\rt_HAL_CM.h" 1
+N/**
+N * @file    rt_HAL_CM.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Definitions */
+N#define INITIAL_xPSR    0x01000000
+N#define DEMCR_TRCENA    0x01000000
+N#define ITM_ITMENA      0x00000001
+N#define MAGIC_WORD      0xE25A2EA5
+N
+N// ARMCC has deprecated use for ldrex and strex functions
+N// from C so do not used them on any devices.
+N#if (0)
+S #define __USE_EXCLUSIVE_ACCESS
+N#else
+N #undef  __USE_EXCLUSIVE_ACCESS
+N#endif
+N
+N/* NVIC registers */
+N#define NVIC_ST_CTRL    (*((volatile U32 *)0xE000E010))
+N#define NVIC_ST_RELOAD  (*((volatile U32 *)0xE000E014))
+N#define NVIC_ST_CURRENT (*((volatile U32 *)0xE000E018))
+N#define NVIC_ISER         ((volatile U32 *)0xE000E100)
+N#define NVIC_ICER         ((volatile U32 *)0xE000E180)
+N#if (__TARGET_ARCH_6S_M)
+X#if (1)
+N#define NVIC_IP           ((volatile U32 *)0xE000E400)
+N#else
+S#define NVIC_IP           ((volatile U8  *)0xE000E400)
+N#endif
+N#define NVIC_INT_CTRL   (*((volatile U32 *)0xE000ED04))
+N#define NVIC_AIR_CTRL   (*((volatile U32 *)0xE000ED0C))
+N#define NVIC_SYS_PRI2   (*((volatile U32 *)0xE000ED1C))
+N#define NVIC_SYS_PRI3   (*((volatile U32 *)0xE000ED20))
+N
+N#define OS_PEND_IRQ()   NVIC_INT_CTRL  = (1<<28)
+N#define OS_PENDING      ((NVIC_INT_CTRL >> 26) & (1<<2 | 1))
+N#define OS_UNPEND(fl)   NVIC_INT_CTRL  = (*fl = OS_PENDING) << 25
+N#define OS_PEND(fl,p)   NVIC_INT_CTRL  = (fl | p<<2) << 26
+N#define OS_LOCK()       NVIC_ST_CTRL   =  0x0005
+N#define OS_UNLOCK()     NVIC_ST_CTRL   =  0x0007
+N
+N#define OS_X_PENDING    ((NVIC_INT_CTRL >> 28) & 1)
+N#define OS_X_UNPEND(fl) NVIC_INT_CTRL  = (*fl = OS_X_PENDING) << 27
+N#define OS_X_PEND(fl,p) NVIC_INT_CTRL  = (fl | p) << 28
+N#if (__TARGET_ARCH_6S_M)
+X#if (1)
+N#define OS_X_INIT(n)    NVIC_IP[n>>2] |= 0xFF << (8*(n & 0x03)); \
+N                        NVIC_ISER[n>>5] = 1 << (n & 0x1F)
+X#define OS_X_INIT(n)    NVIC_IP[n>>2] |= 0xFF << (8*(n & 0x03));                         NVIC_ISER[n>>5] = 1 << (n & 0x1F)
+N#else
+S#define OS_X_INIT(n)    NVIC_IP[n] = 0xFF; \
+S                        NVIC_ISER[n>>5] = 1 << (n & 0x1F)
+X#define OS_X_INIT(n)    NVIC_IP[n] = 0xFF;                         NVIC_ISER[n>>5] = 1 << (n & 0x1F)
+N#endif
+N#define OS_X_LOCK(n)    NVIC_ICER[n>>5] = 1 << (n & 0x1F)
+N#define OS_X_UNLOCK(n)  NVIC_ISER[n>>5] = 1 << (n & 0x1F)
+N
+N/* Core Debug registers */
+N#define DEMCR           (*((volatile U32 *)0xE000EDFC))
+N
+N/* ITM registers */
+N#define ITM_CONTROL     (*((volatile U32 *)0xE0000E80))
+N#define ITM_ENABLE      (*((volatile U32 *)0xE0000E00))
+N#define ITM_PORT30_U32  (*((volatile U32 *)0xE0000078))
+N#define ITM_PORT31_U32  (*((volatile U32 *)0xE000007C))
+N#define ITM_PORT31_U16  (*((volatile U16 *)0xE000007C))
+N#define ITM_PORT31_U8   (*((volatile U8  *)0xE000007C))
+N
+N/* Variables */
+Nextern BIT dbg_msg;
+N
+N/* Functions */
+N#ifdef __USE_EXCLUSIVE_ACCESS
+S #define rt_inc(p)     while(__strex((__ldrex(p)+1),p))
+S #define rt_dec(p)     while(__strex((__ldrex(p)-1),p))
+N#else
+N #define rt_inc(p)     __disable_irq();(*p)++;__enable_irq();
+N #define rt_dec(p)     __disable_irq();(*p)--;__enable_irq();
+N#endif
+N
+Nstatic inline U32 rt_inc_qi (U32 size, U8 *count, U8 *first) {
+N  U32 cnt,c2;
+N#ifdef __USE_EXCLUSIVE_ACCESS
+S  do {
+S    if ((cnt = __ldrex(count)) == size) {
+S      __clrex();
+S      return (cnt); }
+S  } while (__strex(cnt+1, count));
+S  do {
+S    c2 = (cnt = __ldrex(first)) + 1;
+S    if (c2 == size) c2 = 0;
+S  } while (__strex(c2, first));
+N#else
+N  __disable_irq();
+N  if ((cnt = *count) < size) {
+N    *count = cnt+1;
+N    c2 = (cnt = *first) + 1;
+N    if (c2 == size) c2 = 0;
+N    *first = c2;
+N  }
+N  __enable_irq ();
+N#endif
+N  return (cnt);
+N}
+N
+Nstatic inline void rt_systick_init (void) {
+N  NVIC_ST_RELOAD  = os_trv;
+X  (*((volatile U32 *)0xE000E014))  = os_trv;
+N  NVIC_ST_CURRENT = 0;
+X  (*((volatile U32 *)0xE000E018)) = 0;
+N  NVIC_ST_CTRL    = 0x0007;
+X  (*((volatile U32 *)0xE000E010))    = 0x0007;
+N  NVIC_SYS_PRI3  |= 0xFF000000;
+X  (*((volatile U32 *)0xE000ED20))  |= 0xFF000000;
+N}
+N
+Nstatic inline void rt_svc_init (void) {
+N#if !(__TARGET_ARCH_6S_M)
+X#if !(1)
+S  int sh,prigroup;
+N#endif
+N  NVIC_SYS_PRI3 |= 0x00FF0000;
+X  (*((volatile U32 *)0xE000ED20)) |= 0x00FF0000;
+N#if (__TARGET_ARCH_6S_M)
+X#if (1)
+N  NVIC_SYS_PRI2 |= (NVIC_SYS_PRI3<<(8+1)) & 0xFC000000;
+X  (*((volatile U32 *)0xE000ED1C)) |= ((*((volatile U32 *)0xE000ED20))<<(8+1)) & 0xFC000000;
+N#else
+S  sh       = 8 - __clz (~((NVIC_SYS_PRI3 << 8) & 0xFF000000));
+S  prigroup = ((NVIC_AIR_CTRL >> 8) & 0x07);
+S  if (prigroup >= sh) {
+S    sh = prigroup + 1;
+S  }
+S  NVIC_SYS_PRI2 = ((0xFEFFFFFF << sh) & 0xFF000000) | (NVIC_SYS_PRI2 & 0x00FFFFFF);
+N#endif
+N}
+N
+Nextern void rt_init_stack (P_TCB p_TCB, FUNCP task_body);
+Nextern void rt_set_PSP (U32 stack);
+Nextern U32  rt_get_PSP (void);
+Nextern void os_set_env (void);
+Nextern void *_alloc_box (void *box_mem);
+Nextern int  _free_box (void *box_mem, void *box);
+N
+Nextern void dbg_init (void);
+Nextern void dbg_task_notify (P_TCB p_tcb, BOOL create);
+Nextern void dbg_task_switch (U32 task_id);
+N
+N#ifdef DBG_MSG
+S#define DBG_INIT() dbg_init()
+S#define DBG_TASK_NOTIFY(p_tcb,create) if (dbg_msg) dbg_task_notify(p_tcb,create)
+S#define DBG_TASK_SWITCH(task_id)      if (dbg_msg && (os_tsk.new!=os_tsk.run)) \
+S                                                   dbg_task_switch(task_id)
+X#define DBG_TASK_SWITCH(task_id)      if (dbg_msg && (os_tsk.new!=os_tsk.run))                                                    dbg_task_switch(task_id)
+N#else
+N#define DBG_INIT()
+N#define DBG_TASK_NOTIFY(p_tcb,create)
+N#define DBG_TASK_SWITCH(task_id)
+N#endif
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+L 26 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "rt_Task.h"
+L 1 "..\..\..\source\rtos\rt_Task.h" 1
+N/**
+N * @file    rt_Task.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Definitions */
+N
+N/* Values for 'state'   */
+N#define INACTIVE        0
+N#define READY           1
+N#define RUNNING         2
+N#define WAIT_DLY        3
+N#define WAIT_ITV        4
+N#define WAIT_OR         5
+N#define WAIT_AND        6
+N#define WAIT_SEM        7
+N#define WAIT_MBX        8
+N#define WAIT_MUT        9
+N
+N/* Return codes */
+N#define OS_R_TMO        0x01
+N#define OS_R_EVT        0x02
+N#define OS_R_SEM        0x03
+N#define OS_R_MBX        0x04
+N#define OS_R_MUT        0x05
+N
+N#define OS_R_OK         0x00
+N#define OS_R_NOK        0xff
+N
+N/* Variables */
+Nextern struct OS_TSK os_tsk;
+Nextern struct OS_TCB os_idle_TCB;
+N
+N/* Functions */
+Nextern void      rt_switch_req (P_TCB p_new);
+Nextern void      rt_dispatch   (P_TCB next_TCB);
+Nextern void      rt_block      (U16 timeout, U8 block_state);
+Nextern void      rt_tsk_pass   (void);
+Nextern OS_TID    rt_tsk_self   (void);
+Nextern OS_RESULT rt_tsk_prio   (OS_TID task_id, U8 new_prio);
+Nextern OS_TID    rt_tsk_create (FUNCP task, U32 prio_stksz, void *stk, void *argv);
+Nextern OS_RESULT rt_tsk_delete (OS_TID task_id);
+Nextern void      rt_sys_init   (FUNCP first_task, U32 prio_stksz, void *stk);
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+N
+N
+N
+N
+N
+L 27 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "rt_List.h"
+L 1 "..\..\..\source\rtos\rt_List.h" 1
+N/**
+N * @file    rt_List.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Definitions */
+N
+N/* Values for 'cb_type' */
+N#define TCB             0
+N#define MCB             1
+N#define SCB             2
+N#define MUCB            3
+N#define HCB             4
+N
+N/* Variables */
+Nextern struct OS_XCB os_rdy;
+Nextern struct OS_XCB os_dly;
+N
+N/* Functions */
+Nextern void  rt_put_prio      (P_XCB p_CB, P_TCB p_task);
+Nextern P_TCB rt_get_first     (P_XCB p_CB);
+Nextern void  rt_put_rdy_first (P_TCB p_task);
+Nextern P_TCB rt_get_same_rdy_prio (void);
+Nextern void  rt_resort_prio   (P_TCB p_task);
+Nextern void  rt_put_dly       (P_TCB p_task, U16 delay);
+Nextern void  rt_dec_dly       (void);
+Nextern void  rt_rmv_list      (P_TCB p_task);
+Nextern void  rt_rmv_dly       (P_TCB p_task);
+Nextern void  rt_psq_enq       (OS_ID entry, U32 arg);
+N
+N/* This is a fast macro generating in-line code */
+N#define rt_rdy_prio(void) (os_rdy.p_lnk->prio)
+N
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+L 28 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N#include "rt_MemBox.h"
+L 1 "..\..\..\source\rtos\rt_MemBox.h" 1
+N/**
+N * @file    rt_MemBox.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N/* Functions */
+N#define rt_init_box     _init_box
+N#define rt_calloc_box   _calloc_box
+Nextern int     _init_box   (void *box_mem, U32 box_size, U32 blk_size);
+Nextern void *rt_alloc_box  (void *box_mem);
+Nextern void *  _calloc_box (void *box_mem);
+Nextern int   rt_free_box   (void *box_mem, void *box);
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N
+L 29 "..\..\..\source\rtos\cm0\HAL_CM1.c" 2
+N
+N
+N/*----------------------------------------------------------------------------
+N *      Functions
+N *---------------------------------------------------------------------------*/
+N
+N
+N/*--------------------------- rt_set_PSP ------------------------------------*/
+N
+N__asm void rt_set_PSP (U32 stack) {
+N        MSR     PSP,R0
+N        BX      LR
+N}
+N
+N
+N/*--------------------------- rt_get_PSP ------------------------------------*/
+N
+N__asm U32 rt_get_PSP (void) {
+N        MRS     R0,PSP
+N        BX      LR
+N}
+N
+N
+N/*--------------------------- os_set_env ------------------------------------*/
+N
+N__asm void os_set_env (void) {
+N   /* Switch to Unprivileged/Privileged Thread mode, use PSP. */
+N        MOV     R0,SP                   ; PSP = MSP
+N        MSR     PSP,R0
+N        LDR     R0,=__cpp(&os_flags)
+N        LDRB    R0,[R0]
+N        LSLS    R0,#31
+N        BNE     PrivilegedE
+N        MOVS    R0,#0x03                ; Unprivileged Thread mode, use PSP
+N        MSR     CONTROL,R0
+N        BX      LR
+NPrivilegedE
+N        MOVS    R0,#0x02                ; Privileged Thread mode, use PSP
+N        MSR     CONTROL,R0
+N        BX      LR
+N
+N        ALIGN
+N}
+N
+N
+N/*--------------------------- _alloc_box ------------------------------------*/
+N
+N__asm void *_alloc_box (void *box_mem) {
+N   /* Function wrapper for Unprivileged/Privileged mode. */
+N        LDR     R3,=__cpp(rt_alloc_box)
+N        MOV     R12,R3
+N        MRS     R3,IPSR
+N        LSLS    R3,#24
+N        BNE     PrivilegedA
+N        MRS     R3,CONTROL
+N        LSLS    R3,#31
+N        BEQ     PrivilegedA
+N        SVC     0
+N        BX      LR
+NPrivilegedA
+N        BX      R12
+N
+N        ALIGN
+N}
+N
+N
+N/*--------------------------- _free_box -------------------------------------*/
+N
+N__asm int _free_box (void *box_mem, void *box) {
+N   /* Function wrapper for Unprivileged/Privileged mode. */
+N        LDR     R3,=__cpp(rt_free_box)
+N        MOV     R12,R3
+N        MRS     R3,IPSR
+N        LSLS    R3,#24
+N        BNE     PrivilegedF
+N        MRS     R3,CONTROL
+N        LSLS    R3,#31
+N        BEQ     PrivilegedF
+N        SVC     0
+N        BX      LR
+NPrivilegedF
+N        BX      R12
+N
+N        ALIGN
+N}
+N
+N
+N/*-------------------------- SVC_Handler ------------------------------------*/
+N
+N__asm void SVC_Handler (void) {
+N        PRESERVE8
+N
+N        IMPORT  SVC_Count
+N        IMPORT  SVC_Table
+N        IMPORT  rt_stk_check
+N
+N        MRS     R0,PSP                  ; Read PSP
+N        LDR     R1,[R0,#24]             ; Read Saved PC from Stack
+N        SUBS    R1,R1,#2                ; Point to SVC Instruction
+N        LDRB    R1,[R1]                 ; Load SVC Number
+N        CMP     R1,#0
+N        BNE     SVC_User                ; User SVC Number > 0
+N
+N        MOV     LR,R4
+N        LDMIA   R0,{R0-R3,R4}           ; Read R0-R3,R12 from stack
+N        MOV     R12,R4
+N        MOV     R4,LR
+N        BLX     R12                     ; Call SVC Function
+N
+N        LDR     R3,=__cpp(&os_tsk)
+N        LDMIA   R3!,{R1,R2}             ; os_tsk.run, os_tsk.new
+N        CMP     R1,R2
+N        BEQ     SVC_Exit                ; no task switch
+N
+N        SUBS    R3,#8
+N        CMP     R1,#0                   ; Runtask deleted?
+N        BEQ     SVC_Restore
+N
+N        PUSH    {R2,R3}
+N        ADDS    R1,#32                  ; for STRB offset < 32
+N        MOVS    R3,#1
+N        STRB    R3,[R1,#TCB_RETUPD-32]  ; os_tsk.run->ret_upd = 1
+X        STRB    R3,[R1,#33-32]  ; os_tsk.run->ret_upd = 1
+N
+N        MRS     R3,PSP                  ; Read PSP
+N        SUBS    R3,R3,#32               ; Adjust Start Address
+N        STR     R3,[R1,#TCB_TSTACK-32]  ; Update os_tsk.run->tsk_stack
+X        STR     R3,[R1,#36-32]  ; Update os_tsk.run->tsk_stack
+N        STMIA   R3!,{R4-R7}             ; Save old context (R4-R7)
+N        MOV     R4,R8
+N        MOV     R5,R9
+N        MOV     R6,R10
+N        MOV     R7,R11
+N        STMIA   R3!,{R4-R7}             ; Save old context (R8-R11)
+N        BL      rt_stk_check            ; Check for Stack overflow
+N        POP     {R2,R3}
+N
+NSVC_Restore
+N        STR     R2,[R3]                 ; os_tsk.run = os_tsk.new
+N
+N        ADDS    R2,#32                  ; for STRB offset < 32
+N        LDR     R3,[R2,#TCB_TSTACK-32]  ; os_tsk.new->tsk_stack
+X        LDR     R3,[R2,#36-32]  ; os_tsk.new->tsk_stack
+N        ADDS    R3,R3,#16               ; Adjust Start Address
+N        LDMIA   R3!,{R4-R7}             ; Restore new Context (R8-R11)
+N        MOV     R8,R4
+N        MOV     R9,R5
+N        MOV     R10,R6
+N        MOV     R11,R7
+N        MSR     PSP,R3                  ; Write PSP
+N        SUBS    R3,R3,#32               ; Adjust Start Address
+N        LDMIA   R3!,{R4-R7}             ; Restore new Context (R4-R7)
+N
+N        LDRB    R0,[R2,#TCB_RETUPD-32]  ; Update ret_val ?
+X        LDRB    R0,[R2,#33-32]  ; Update ret_val ?
+N        CMP     R0,#0
+N        BEQ     SVC_Return
+N        LDRB    R0,[R2,#TCB_RETVAL-32]  ; Write os_tsk.new->ret_val
+X        LDRB    R0,[R2,#32-32]  ; Write os_tsk.new->ret_val
+N
+NSVC_Exit
+N        MRS     R3,PSP                  ; Read PSP
+N        STR     R0,[R3]                 ; Function return value
+N
+NSVC_Return
+N        MOVS    R3,#:NOT:0xFFFFFFFD     ; Set EXC_RETURN value
+N        MVNS    R3,R3
+N        BX      R3                      ; RETI to Thread Mode, use PSP
+N
+N        /*------------------- User SVC ------------------------------*/
+N
+NSVC_User
+N        PUSH    {R4,LR}                 ; Save Registers
+N        LDR     R2,=SVC_Count
+N        LDR     R2,[R2]
+N        CMP     R1,R2
+N        BHI     SVC_Done                ; Overflow
+N
+N        LDR     R4,=SVC_Table-4
+N        LSLS    R1,R1,#2
+N        LDR     R4,[R4,R1]              ; Load SVC Function Address
+N        MOV     LR,R4
+N
+N        LDMIA   R0,{R0-R3,R4}           ; Read R0-R3,R12 from stack
+N        MOV     R12,R4
+N        BLX     LR                      ; Call SVC Function
+N
+N        MRS     R4,PSP                  ; Read PSP
+N        STMIA   R4!,{R0-R3}             ; Function return values
+NSVC_Done
+N        POP     {R4,PC}                 ; RETI
+N
+N        ALIGN
+N}
+N
+N
+N/*-------------------------- PendSV_Handler ---------------------------------*/
+N
+N__asm void PendSV_Handler (void) {
+N        PRESERVE8
+N
+N        BL      __cpp(rt_pop_req)
+N
+NSys_Switch
+N        LDR     R3,=__cpp(&os_tsk)
+N        LDMIA   R3!,{R1,R2}             ; os_tsk.run, os_tsk.new
+N        CMP     R1,R2
+N        BEQ     Sys_Exit                ; no task switch
+N
+N        SUBS    R3,#8
+N        PUSH    {R2,R3}
+N        ADDS    R1,#32                  ; for STRB offset < 32
+N
+N        MOVS    R3,#0
+N        STRB    R3,[R1,#TCB_RETUPD-32]  ; os_tsk.run->ret_upd = 0
+X        STRB    R3,[R1,#33-32]  ; os_tsk.run->ret_upd = 0
+N        MRS     R3,PSP                  ; Read PSP
+N        SUBS    R3,R3,#32               ; Adjust Start Address
+N        STR     R3,[R1,#TCB_TSTACK-32]  ; Update os_tsk.run->tsk_stack
+X        STR     R3,[R1,#36-32]  ; Update os_tsk.run->tsk_stack
+N        STMIA   R3!,{R4-R7}             ; Save old context (R4-R7)
+N        MOV     R4,R8
+N        MOV     R5,R9
+N        MOV     R6,R10
+N        MOV     R7,R11
+N        STMIA   R3!,{R4-R7}             ; Save old context (R8-R11)
+N        BL      rt_stk_check            ; Check for Stack overflow
+N
+N        POP     {R2,R3}
+N        STR     R2,[R3]                 ; os_tsk.run = os_tsk.new
+N        ADDS    R2,#32                  ; for STRB offset < 32
+N
+N        LDR     R3,[R2,#TCB_TSTACK-32]  ; os_tsk.new->tsk_stack
+X        LDR     R3,[R2,#36-32]  ; os_tsk.new->tsk_stack
+N        ADDS    R3,R3,#16               ; Adjust Start Address
+N        LDMIA   R3!,{R4-R7}             ; Restore new Context (R8-R11)
+N        MOV     R8,R4
+N        MOV     R9,R5
+N        MOV     R10,R6
+N        MOV     R11,R7
+N        MSR     PSP,R3                  ; Write PSP
+N        SUBS    R3,R3,#32               ; Adjust Start Address
+N        LDMIA   R3!,{R4-R7}             ; Restore new Context (R4-R7)
+N
+N        LDRB    R0,[R2,#TCB_RETUPD-32]  ; Update ret_val ?
+X        LDRB    R0,[R2,#33-32]  ; Update ret_val ?
+N        CMP     R0,#0
+N        BEQ     Sys_Exit
+N        LDRB    R0,[R2,#TCB_RETVAL-32]  ; Write os_tsk.new->ret_val
+X        LDRB    R0,[R2,#32-32]  ; Write os_tsk.new->ret_val
+N        STR     R0,[R3,#16]
+NSys_Exit
+N        MOVS    R3,#:NOT:0xFFFFFFFD     ; Set EXC_RETURN value
+N        MVNS    R3,R3
+N        BX      R3                      ; RETI to Thread Mode, use PSP
+N
+N        ALIGN
+N}
+N
+N
+N/*-------------------------- SysTick_Handler --------------------------------*/
+N
+N__asm void SysTick_Handler (void) {
+N        PRESERVE8
+N
+N        BL      __cpp(rt_systick)
+N        B       Sys_Switch
+N
+N        ALIGN
+N}
+N
+N
+N/*-------------------------- OS_Tick_Handler --------------------------------*/
+N
+N__asm void OS_Tick_Handler (void) {
+N        PRESERVE8
+N
+N        BL      __cpp(os_tick_irqack)
+N        BL      __cpp(rt_systick)
+N        B       Sys_Switch
+N
+N        ALIGN
+N}
+N
+N
+N/*--------------------------- rt_init_stack ---------------------------------*/
+N
+Nvoid rt_init_stack (P_TCB p_TCB, FUNCP task_body) {
+N  /* Prepare TCB and saved context for a first time start of a task. */
+N  U32 *stk,i,size;
+N
+N  /* Prepare a complete interrupt frame for first task start */
+N  size = p_TCB->priv_stack >> 2;
+N  if (size == 0) {
+N    size = (U16)os_stackinfo >> 2;
+N  }
+N
+N  /* Write to the top of stack. */
+N  stk = &p_TCB->stack[size];
+N
+N  /* Auto correct to 8-byte ARM stack alignment. */
+N  if ((U32)stk & 0x04) {
+N    stk--;
+N  }
+N
+N  stk -= 16;
+N
+N  /* Default xPSR and initial PC */
+N  stk[15] = INITIAL_xPSR;
+X  stk[15] = 0x01000000;
+N  stk[14] = (U32)task_body;
+N
+N  /* Clear R1-R12,LR registers. */
+N  for (i = 0; i < 14; i++) {
+N    stk[i] = 0;
+N  }
+N
+N  /* Assign a void pointer to R0. */
+N  stk[8] = (U32)p_TCB->msg;
+N
+N  /* Initial Task stack pointer. */
+N  p_TCB->tsk_stack = (U32)stk;
+N
+N  /* Task entry point. */
+N  p_TCB->ptask = task_body;
+N
+N  /* Set a magic word for checking of stack overflow. */
+N  p_TCB->stack[0] = MAGIC_WORD;
+X  p_TCB->stack[0] = 0xE25A2EA5;
+N}
+N
+N
+N/*----------------------------------------------------------------------------
+N * end of file
+N *---------------------------------------------------------------------------*/
+N

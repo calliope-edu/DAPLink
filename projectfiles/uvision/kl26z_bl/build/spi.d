@@ -1,0 +1,13 @@
+.\build\spi.o: ..\..\..\source\hic_hal\freescale\kl26z\spi.c
+.\build\spi.o: ..\..\..\source\hic_hal\spi.h
+.\build\spi.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\spi.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\spi.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\spi.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\spi.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\spi.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\spi.o: ..\..\..\source\daplink\compiler.h
+.\build\spi.o: ..\..\..\source\daplink\daplink.h
+.\build\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\spi.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h

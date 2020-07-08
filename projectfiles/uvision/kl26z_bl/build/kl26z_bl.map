@@ -1,0 +1,1603 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    kl26z_bl.o(.data) refers to kl26z_bl.o(.conststring) for .conststring
+    circ_buf.o(i.circ_buf_count_free) refers to circ_buf.o(i.circ_buf_count_used) for circ_buf_count_used
+    circ_buf.o(i.circ_buf_pop) refers to util.o(i._util_assert) for _util_assert
+    circ_buf.o(i.circ_buf_push) refers to util.o(i._util_assert) for _util_assert
+    circ_buf.o(i.circ_buf_read) refers to circ_buf.o(i.circ_buf_count_used) for circ_buf_count_used
+    circ_buf.o(i.circ_buf_read) refers to circ_buf.o(i.circ_buf_pop) for circ_buf_pop
+    circ_buf.o(i.circ_buf_write) refers to circ_buf.o(i.circ_buf_count_free) for circ_buf_count_free
+    circ_buf.o(i.circ_buf_write) refers to circ_buf.o(i.circ_buf_push) for circ_buf_push
+    crc16.o(i.crc16) refers to crc16.o(i.reflect) for reflect
+    crc32.o(i.crc32) refers to crc32.o(i.reflect) for reflect
+    crc32.o(i.crc32_continue) refers to crc32.o(i.reflect) for reflect
+    daplink.o(.constdata) refers to daplink.o(.conststring) for .conststring
+    error.o(i.error_get_string) refers to util.o(i._util_assert) for _util_assert
+    error.o(i.error_get_string) refers to error.o(.constdata) for .constdata
+    error.o(i.error_get_type) refers to error.o(.data) for .data
+    error.o(.constdata) refers to error.o(.conststring) for .conststring
+    flash_hal.o(i.flash_erase_sector) refers to flashprg.o(i.EraseSector) for EraseSector
+    flash_hal.o(i.flash_program_page) refers to flashprg.o(i.ProgramPage) for ProgramPage
+    hardfault_handler.o(i.HardFault_Handler) refers to settings.o(i.config_ram_add_hexdump) for config_ram_add_hexdump
+    hardfault_handler.o(i.HardFault_Handler) refers to cortex_m.o(i.SystemReset) for SystemReset
+    info.o(i.info_crc_compute) refers to crc32.o(i.crc32) for crc32
+    info.o(i.info_crc_compute) refers to info.o(.data) for .data
+    info.o(i.info_get_board_id) refers to info.o(.data) for .data
+    info.o(i.info_get_bootloader_version) refers to info.o(i.info_get_bootloader_present) for info_get_bootloader_present
+    info.o(i.info_get_crc_bootloader) refers to info.o(.data) for .data
+    info.o(i.info_get_crc_config_admin) refers to info.o(.data) for .data
+    info.o(i.info_get_crc_config_user) refers to info.o(.data) for .data
+    info.o(i.info_get_crc_interface) refers to info.o(.data) for .data
+    info.o(i.info_get_hic_id) refers to info.o(.bss) for .bss
+    info.o(i.info_get_host_id) refers to info.o(.bss) for .bss
+    info.o(i.info_get_interface_version) refers to info.o(i.info_get_interface_present) for info_get_interface_present
+    info.o(i.info_get_mac) refers to info.o(.bss) for .bss
+    info.o(i.info_get_target_id) refers to info.o(.bss) for .bss
+    info.o(i.info_get_unique_id) refers to info.o(.bss) for .bss
+    info.o(i.info_get_unique_id_string_descriptor) refers to info.o(.bss) for .bss
+    info.o(i.info_get_version) refers to info.o(.data) for .data
+    info.o(i.info_init) refers to info.o(i.info_crc_compute) for info_crc_compute
+    info.o(i.info_init) refers to read_uid.o(i.read_unique_id) for read_unique_id
+    info.o(i.info_init) refers to info.o(i.setup_basics) for setup_basics
+    info.o(i.info_init) refers to rt_memclr.o(.text) for __aeabi_memclr4
+    info.o(i.info_init) refers to strcat.o(.text) for strcat
+    info.o(i.info_init) refers to strlen.o(.text) for strlen
+    info.o(i.info_init) refers to info.o(.bss) for .bss
+    info.o(i.info_init) refers to info.o(.data) for .data
+    info.o(i.info_set_uuid_target) refers to util.o(i.util_write_hex16) for util_write_hex16
+    info.o(i.info_set_uuid_target) refers to util.o(i.util_write_hex32) for util_write_hex32
+    info.o(i.info_set_uuid_target) refers to info.o(.bss) for .bss
+    info.o(i.setup_basics) refers to rt_memclr.o(.text) for __aeabi_memclr
+    info.o(i.setup_basics) refers to util.o(i.util_write_hex32) for util_write_hex32
+    info.o(i.setup_basics) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    info.o(i.setup_basics) refers to info.o(.data) for .data
+    info.o(i.setup_basics) refers to info.o(.bss) for .bss
+    info.o(i.setup_basics) refers to kl26z_bl.o(.data) for board_id
+    main.o(i.USBD_SignalHandler) refers to rt_event.o(i.isr_evt_set) for isr_evt_set
+    main.o(i.USBD_SignalHandler) refers to main.o(.data) for .data
+    main.o(i.main) refers to sdk_stub.o(i.sdk_init) for sdk_init
+    main.o(i.main) refers to gpio.o(i.gpio_init) for gpio_init
+    main.o(i.main) refers to settings.o(i.config_init) for config_init
+    main.o(i.main) refers to gpio.o(i.gpio_get_reset_btn_no_fwrd) for gpio_get_reset_btn_no_fwrd
+    main.o(i.main) refers to gpio.o(i.gpio_get_reset_btn_fwrd) for gpio_get_reset_btn_fwrd
+    main.o(i.main) refers to validation.o(i.validate_bin_nvic) for validate_bin_nvic
+    main.o(i.main) refers to settings.o(i.config_ram_get_initial_hold_in_bl) for config_ram_get_initial_hold_in_bl
+    main.o(i.main) refers to main.o(.emb_text) for modify_stack_pointer_and_start_app
+    main.o(i.main) refers to hal_cm1.o(.emb_text) for os_set_env
+    main.o(i.main) refers to kl26z_bl.o(.data) for target_device
+    main.o(i.main) refers to main.o(.bss) for .bss
+    main.o(i.main) refers to main.o(i.main_task) for main_task
+    main.o(i.main) refers to rt_task.o(i.rt_sys_init) for rt_sys_init
+    main.o(i.main_blink_msc_led) refers to main.o(.data) for .data
+    main.o(i.main_task) refers to settings.o(i.config_ram_get_initial_hold_in_bl) for config_ram_get_initial_hold_in_bl
+    main.o(i.main_task) refers to gpio.o(i.gpio_set_hid_led) for gpio_set_hid_led
+    main.o(i.main_task) refers to gpio.o(i.gpio_set_cdc_led) for gpio_set_cdc_led
+    main.o(i.main_task) refers to gpio.o(i.gpio_set_msc_led) for gpio_set_msc_led
+    main.o(i.main_task) refers to info.o(i.info_init) for info_init
+    main.o(i.main_task) refers to usbd_core.o(i.usbd_init) for usbd_init
+    main.o(i.main_task) refers to vfs_manager.o(i.vfs_mngr_init) for vfs_mngr_init
+    main.o(i.main_task) refers to usbd_core.o(i.usbd_connect) for usbd_connect
+    main.o(i.main_task) refers to usbd_kinetis.o(i.USBD_Handler) for USBD_Handler
+    main.o(i.main_task) refers to vfs_manager.o(i.vfs_mngr_periodic) for vfs_mngr_periodic
+    main.o(i.main_task) refers to usbd_core.o(i.usbd_configured) for usbd_configured
+    main.o(i.main_task) refers to cortex_m.o(i.SystemReset) for SystemReset
+    main.o(i.main_task) refers to rt_time.o(i.rt_dly_wait) for rt_dly_wait
+    main.o(i.main_task) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    main.o(i.main_task) refers to main.o(.data) for .data
+    main.o(i.main_task) refers to main.o(.bss) for .bss
+    main.o(i.main_task) refers to main.o(i.timer_task_30mS) for timer_task_30mS
+    main.o(i.main_task) refers to rt_task.o(i.rt_tsk_create) for rt_tsk_create
+    main.o(i.main_task) refers to rt_event.o(i.rt_evt_wait) for rt_evt_wait
+    main.o(i.main_task) refers to rt_event.o(i.rt_evt_get) for rt_evt_get
+    main.o(i.timer_task_30mS) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    main.o(i.timer_task_30mS) refers to rt_time.o(i.rt_itv_set) for rt_itv_set
+    main.o(i.timer_task_30mS) refers to main.o(.data) for .data
+    main.o(i.timer_task_30mS) refers to rt_time.o(i.rt_itv_wait) for rt_itv_wait
+    main.o(i.timer_task_30mS) refers to rt_event.o(i.rt_evt_set) for rt_evt_set
+    rtx_config.o(i.__user_perthread_libspace) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    rtx_config.o(i.__user_perthread_libspace) refers to rtx_config.o(.bss) for .bss
+    rtx_config.o(i.__user_perthread_libspace) refers to libspace.o(.bss) for __libspace_start
+    rtx_config.o(i._mutex_acquire) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    rtx_config.o(i._mutex_acquire) refers to rt_mutex.o(i.rt_mut_wait) for rt_mut_wait
+    rtx_config.o(i._mutex_initialize) refers to rt_mutex.o(i.rt_mut_init) for rt_mut_init
+    rtx_config.o(i._mutex_initialize) refers to rtx_config.o(.data) for .data
+    rtx_config.o(i._mutex_initialize) refers to rtx_config.o(.bss) for .bss
+    rtx_config.o(i._mutex_release) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    rtx_config.o(i._mutex_release) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    rtx_config.o(i.os_error) refers to util.o(i._util_assert) for _util_assert
+    rtx_config.o(i.os_error) refers to cortex_m.o(i.SystemReset) for SystemReset
+    util.o(i._util_assert) refers to settings.o(i.config_ram_get_assert) for config_ram_get_assert
+    util.o(i._util_assert) refers to settings.o(i.config_ram_set_assert) for config_ram_set_assert
+    util.o(i._util_assert) refers to vfs_manager.o(i.vfs_mngr_fs_remount) for vfs_mngr_fs_remount
+    util.o(i._util_com_debug) refers to strlen.o(.text) for strlen
+    util.o(i._util_com_debug) refers to rt_memclr.o(.text) for __aeabi_memclr
+    util.o(i._util_com_debug) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    util.o(i._util_com_debug) refers to util.o(i.util_write_uint32) for util_write_uint32
+    util.o(i._util_com_debug) refers to util.o(.data) for .data
+    util.o(i._util_com_debug) refers to util.o(.bss) for .bss
+    util.o(i._util_com_get_buf_addr) refers to util.o(.bss) for .bss
+    util.o(i._util_com_send) refers to util.o(.data) for .data
+    util.o(i._util_com_send) refers to util.o(.bss) for .bss
+    util.o(i._util_com_set_size) refers to util.o(.data) for .data
+    util.o(i.util_assert_clear) refers to settings.o(i.config_ram_clear_assert) for config_ram_clear_assert
+    util.o(i.util_div_round) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    util.o(i.util_div_round_down) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    util.o(i.util_div_round_up) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    util.o(i.util_write_hex16) refers to util.o(i.util_write_hex8) for util_write_hex8
+    util.o(i.util_write_hex32) refers to util.o(i.util_write_hex8) for util_write_hex8
+    util.o(i.util_write_hex8) refers to util.o(.constdata) for .constdata
+    util.o(i.util_write_uint32) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    util.o(i.util_write_uint32_zp) refers to util.o(i.util_write_uint32) for util_write_uint32
+    util.o(i.util_write_uint32_zp) refers to aeabi_memset.o(.text) for __aeabi_memset
+    validation.o(i.validate_bin_nvic) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    validation.o(i.validate_bin_nvic) refers to validation.o(i.test_range) for test_range
+    validation.o(i.validate_bin_nvic) refers to kl26z_bl.o(.data) for target_device
+    file_stream.o(i.close_bin) refers to flash_decoder.o(i.flash_decoder_close) for flash_decoder_close
+    file_stream.o(i.close_hex) refers to flash_decoder.o(i.flash_decoder_close) for flash_decoder_close
+    file_stream.o(i.detect_bin) refers to flash_decoder.o(i.flash_decoder_detect_type) for flash_decoder_detect_type
+    file_stream.o(i.detect_hex) refers to validation.o(i.validate_hexfile) for validate_hexfile
+    file_stream.o(i.open_bin) refers to flash_decoder.o(i.flash_decoder_open) for flash_decoder_open
+    file_stream.o(i.open_hex) refers to rt_memclr.o(.text) for __aeabi_memclr
+    file_stream.o(i.open_hex) refers to intelhex.o(i.reset_hex_parser) for reset_hex_parser
+    file_stream.o(i.open_hex) refers to flash_decoder.o(i.flash_decoder_open) for flash_decoder_open
+    file_stream.o(i.stream_close) refers to file_stream.o(i.stream_thread_assert) for stream_thread_assert
+    file_stream.o(i.stream_close) refers to util.o(i._util_assert) for _util_assert
+    file_stream.o(i.stream_close) refers to file_stream.o(.data) for .data
+    file_stream.o(i.stream_close) refers to file_stream.o(.bss) for .bss
+    file_stream.o(i.stream_open) refers to util.o(i._util_assert) for _util_assert
+    file_stream.o(i.stream_open) refers to rt_memclr.o(.text) for __aeabi_memclr4
+    file_stream.o(i.stream_open) refers to file_stream.o(.data) for .data
+    file_stream.o(i.stream_open) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    file_stream.o(i.stream_open) refers to file_stream.o(.bss) for .bss
+    file_stream.o(i.stream_start_identify) refers to file_stream.o(.data) for .data
+    file_stream.o(i.stream_thread_assert) refers to util.o(i._util_assert) for _util_assert
+    file_stream.o(i.stream_thread_assert) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    file_stream.o(i.stream_thread_assert) refers to file_stream.o(.data) for .data
+    file_stream.o(i.stream_type_from_name) refers to strncmp.o(.text) for strncmp
+    file_stream.o(i.stream_write) refers to util.o(i._util_assert) for _util_assert
+    file_stream.o(i.stream_write) refers to file_stream.o(i.stream_thread_assert) for stream_thread_assert
+    file_stream.o(i.stream_write) refers to file_stream.o(.data) for .data
+    file_stream.o(i.stream_write) refers to file_stream.o(.bss) for .bss
+    file_stream.o(i.write_bin) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    file_stream.o(i.write_bin) refers to flash_decoder.o(i.flash_decoder_detect_type) for flash_decoder_detect_type
+    file_stream.o(i.write_bin) refers to flash_decoder.o(i.flash_decoder_get_flash) for flash_decoder_get_flash
+    file_stream.o(i.write_bin) refers to flash_decoder.o(i.flash_decoder_write) for flash_decoder_write
+    file_stream.o(i.write_hex) refers to intelhex.o(i.parse_hex_blob) for parse_hex_blob
+    file_stream.o(i.write_hex) refers to flash_decoder.o(i.flash_decoder_write) for flash_decoder_write
+    file_stream.o(i.write_hex) refers to util.o(i._util_assert) for _util_assert
+    file_stream.o(.data) refers to file_stream.o(i.detect_bin) for detect_bin
+    file_stream.o(.data) refers to file_stream.o(i.open_bin) for open_bin
+    file_stream.o(.data) refers to file_stream.o(i.write_bin) for write_bin
+    file_stream.o(.data) refers to file_stream.o(i.close_bin) for close_bin
+    file_stream.o(.data) refers to file_stream.o(i.detect_hex) for detect_hex
+    file_stream.o(.data) refers to file_stream.o(i.open_hex) for open_hex
+    file_stream.o(.data) refers to file_stream.o(i.write_hex) for write_hex
+    file_stream.o(.data) refers to file_stream.o(i.close_hex) for close_hex
+    flash_decoder.o(i.flash_decoder_close) refers to flash_manager.o(i.flash_manager_uninit) for flash_manager_uninit
+    flash_decoder.o(i.flash_decoder_close) refers to util.o(i._util_assert) for _util_assert
+    flash_decoder.o(i.flash_decoder_close) refers to flash_decoder.o(.data) for .data
+    flash_decoder.o(i.flash_decoder_detect_type) refers to util.o(i._util_assert) for _util_assert
+    flash_decoder.o(i.flash_decoder_detect_type) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    flash_decoder.o(i.flash_decoder_detect_type) refers to validation.o(i.validate_bin_nvic) for validate_bin_nvic
+    flash_decoder.o(i.flash_decoder_get_flash) refers to daplink.o(i.daplink_is_bootloader) for daplink_is_bootloader
+    flash_decoder.o(i.flash_decoder_get_flash) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    flash_decoder.o(i.flash_decoder_get_flash) refers to settings_rom_stub.o(i.config_get_automation_allowed) for config_get_automation_allowed
+    flash_decoder.o(i.flash_decoder_get_flash) refers to util.o(i._util_assert) for _util_assert
+    flash_decoder.o(i.flash_decoder_get_flash) refers to iap_flash_intf.o(.constdata) for flash_intf_iap_protected
+    flash_decoder.o(i.flash_decoder_get_flash) refers to kl26z_bl.o(.data) for target_device
+    flash_decoder.o(i.flash_decoder_get_flash) refers to flash_intf.o(.constdata) for flash_intf_target
+    flash_decoder.o(i.flash_decoder_open) refers to util.o(i._util_assert) for _util_assert
+    flash_decoder.o(i.flash_decoder_open) refers to aeabi_memset.o(.text) for __aeabi_memset
+    flash_decoder.o(i.flash_decoder_open) refers to flash_decoder.o(.data) for .data
+    flash_decoder.o(i.flash_decoder_open) refers to flash_decoder.o(.bss) for .bss
+    flash_decoder.o(i.flash_decoder_write) refers to util.o(i._util_assert) for _util_assert
+    flash_decoder.o(i.flash_decoder_write) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    flash_decoder.o(i.flash_decoder_write) refers to flash_decoder.o(i.flash_decoder_detect_type) for flash_decoder_detect_type
+    flash_decoder.o(i.flash_decoder_write) refers to flash_decoder.o(i.flash_decoder_get_flash) for flash_decoder_get_flash
+    flash_decoder.o(i.flash_decoder_write) refers to flash_manager.o(i.flash_manager_init) for flash_manager_init
+    flash_decoder.o(i.flash_decoder_write) refers to flash_manager.o(i.flash_manager_data) for flash_manager_data
+    flash_decoder.o(i.flash_decoder_write) refers to flash_decoder.o(.data) for .data
+    flash_decoder.o(i.flash_decoder_write) refers to flash_decoder.o(.bss) for .bss
+    flash_decoder.o(i.flash_decoder_write) refers to kl26z_bl.o(.data) for target_device
+    flash_manager.o(i.flash_manager_data) refers to util.o(i._util_assert) for _util_assert
+    flash_manager.o(i.flash_manager_data) refers to flash_manager.o(i.setup_next_sector) for setup_next_sector
+    flash_manager.o(i.flash_manager_data) refers to aeabi_memset.o(.text) for __aeabi_memset
+    flash_manager.o(i.flash_manager_data) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    flash_manager.o(i.flash_manager_data) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    flash_manager.o(i.flash_manager_data) refers to flash_manager.o(.data) for .data
+    flash_manager.o(i.flash_manager_data) refers to flash_manager.o(.bss) for .bss
+    flash_manager.o(i.flash_manager_init) refers to aeabi_memset.o(.text) for __aeabi_memset
+    flash_manager.o(i.flash_manager_init) refers to util.o(i._util_assert) for _util_assert
+    flash_manager.o(i.flash_manager_init) refers to flash_manager.o(.data) for .data
+    flash_manager.o(i.flash_manager_init) refers to flash_manager.o(.bss) for .bss
+    flash_manager.o(i.flash_manager_set_page_erase) refers to flash_manager.o(.data) for .data
+    flash_manager.o(i.flash_manager_uninit) refers to util.o(i._util_assert) for _util_assert
+    flash_manager.o(i.flash_manager_uninit) refers to aeabi_memset.o(.text) for __aeabi_memset
+    flash_manager.o(i.flash_manager_uninit) refers to flash_manager.o(.data) for .data
+    flash_manager.o(i.flash_manager_uninit) refers to flash_manager.o(.bss) for .bss
+    flash_manager.o(i.setup_next_sector) refers to util.o(i._util_assert) for _util_assert
+    flash_manager.o(i.setup_next_sector) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    flash_manager.o(i.setup_next_sector) refers to aeabi_memset.o(.text) for __aeabi_memset
+    flash_manager.o(i.setup_next_sector) refers to flash_manager.o(.data) for .data
+    flash_manager.o(i.setup_next_sector) refers to flash_manager.o(.bss) for .bss
+    iap_flash_intf.o(i.critical_erase_and_program) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.critical_erase_and_program) refers to flash_hal.o(i.flash_erase_sector) for flash_erase_sector
+    iap_flash_intf.o(i.critical_erase_and_program) refers to flash_hal.o(i.flash_program_page) for flash_program_page
+    iap_flash_intf.o(i.erase_chip) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.erase_chip) refers to iap_flash_intf.o(i.erase_sector) for erase_sector
+    iap_flash_intf.o(i.erase_chip) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.erase_sector) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.erase_sector) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    iap_flash_intf.o(i.erase_sector) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    iap_flash_intf.o(i.erase_sector) refers to iap_flash_intf.o(i.critical_erase_and_program) for critical_erase_and_program
+    iap_flash_intf.o(i.erase_sector) refers to flash_hal.o(i.flash_erase_sector) for flash_erase_sector
+    iap_flash_intf.o(i.erase_sector) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.init) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.init) refers to flashprg.o(i.Init) for Init
+    iap_flash_intf.o(i.init) refers to rt_memclr.o(.text) for __aeabi_memclr
+    iap_flash_intf.o(i.init) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.init) refers to iap_flash_intf.o(.bss) for .bss
+    iap_flash_intf.o(i.intercept_page_write) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.intercept_page_write) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    iap_flash_intf.o(i.intercept_page_write) refers to crc32.o(i.crc32_continue) for crc32_continue
+    iap_flash_intf.o(i.intercept_page_write) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    iap_flash_intf.o(i.intercept_page_write) refers to uread4.o(.text) for __aeabi_uread4
+    iap_flash_intf.o(i.intercept_page_write) refers to flash_hal.o(i.flash_program_page) for flash_program_page
+    iap_flash_intf.o(i.intercept_page_write) refers to iap_flash_intf.o(i.critical_erase_and_program) for critical_erase_and_program
+    iap_flash_intf.o(i.intercept_page_write) refers to info.o(i.info_crc_compute) for info_crc_compute
+    iap_flash_intf.o(i.intercept_page_write) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.intercept_page_write) refers to iap_flash_intf.o(.bss) for .bss
+    iap_flash_intf.o(i.program_page) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.program_page) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    iap_flash_intf.o(i.program_page) refers to iap_flash_intf.o(i.intercept_page_write) for intercept_page_write
+    iap_flash_intf.o(i.program_page) refers to flash_hal.o(i.flash_program_page) for flash_program_page
+    iap_flash_intf.o(i.program_page) refers to info.o(i.info_crc_compute) for info_crc_compute
+    iap_flash_intf.o(i.program_page) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.target_flash_busy) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(i.uninit) refers to flashprg.o(i.UnInit) for UnInit
+    iap_flash_intf.o(i.uninit) refers to util.o(i._util_assert) for _util_assert
+    iap_flash_intf.o(i.uninit) refers to daplink.o(i.daplink_is_bootloader) for daplink_is_bootloader
+    iap_flash_intf.o(i.uninit) refers to iap_flash_intf.o(.data) for .data
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.init) for init
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.uninit) for uninit
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.program_page) for program_page
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.erase_sector) for erase_sector
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.erase_chip) for erase_chip
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.program_page_min_size) for program_page_min_size
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.erase_sector_size) for erase_sector_size
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(i.target_flash_busy) for target_flash_busy
+    iap_flash_intf.o(.constdata) refers to iap_flash_intf.o(.constdata) for flash_intf
+    intelhex.o(i.parse_hex_blob) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    intelhex.o(i.parse_hex_blob) refers to intelhex.o(i.ctoh) for ctoh
+    intelhex.o(i.parse_hex_blob) refers to aeabi_memset.o(.text) for __aeabi_memset
+    intelhex.o(i.parse_hex_blob) refers to rt_memclr.o(.text) for __aeabi_memclr
+    intelhex.o(i.parse_hex_blob) refers to intelhex.o(.data) for .data
+    intelhex.o(i.parse_hex_blob) refers to intelhex.o(.bss) for .bss
+    intelhex.o(i.reset_hex_parser) refers to rt_memclr.o(.text) for __aeabi_memclr
+    intelhex.o(i.reset_hex_parser) refers to intelhex.o(.bss) for .bss
+    intelhex.o(i.reset_hex_parser) refers to intelhex.o(.data) for .data
+    vfs_manager.o(i.build_filesystem) refers to rt_memcpy.o(.emb_text) for __aeabi_memcpy4
+    vfs_manager.o(i.build_filesystem) refers to vfs_user.o(i.vfs_user_build_filesystem) for vfs_user_build_filesystem
+    vfs_manager.o(i.build_filesystem) refers to virtual_fs.o(i.vfs_set_file_change_callback) for vfs_set_file_change_callback
+    vfs_manager.o(i.build_filesystem) refers to virtual_fs.o(i.vfs_get_total_size) for vfs_get_total_size
+    vfs_manager.o(i.build_filesystem) refers to vfs_manager.o(.constdata) for .constdata
+    vfs_manager.o(i.build_filesystem) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.build_filesystem) refers to vfs_manager.o(i.file_change_handler) for file_change_handler
+    vfs_manager.o(i.build_filesystem) refers to usbd_msc.o(.data) for USBD_MSC_MemorySize
+    vfs_manager.o(i.build_filesystem) refers to usbd_msc.o(.data) for USBD_MSC_BlockSize
+    vfs_manager.o(i.changing_state) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.file_change_handler) refers to vfs_user.o(i.vfs_user_file_change_handler) for vfs_user_file_change_handler
+    vfs_manager.o(i.file_change_handler) refers to vfs_manager.o(i.transfer_reset_file_info) for transfer_reset_file_info
+    vfs_manager.o(i.file_change_handler) refers to virtual_fs.o(i.vfs_file_get_size) for vfs_file_get_size
+    vfs_manager.o(i.file_change_handler) refers to virtual_fs.o(i.vfs_file_get_start_sector) for vfs_file_get_start_sector
+    vfs_manager.o(i.file_change_handler) refers to file_stream.o(i.stream_type_from_name) for stream_type_from_name
+    vfs_manager.o(i.file_change_handler) refers to virtual_fs.o(i.vfs_file_get_attr) for vfs_file_get_attr
+    vfs_manager.o(i.file_change_handler) refers to vfs_manager.o(i.transfer_update_file_info) for transfer_update_file_info
+    vfs_manager.o(i.file_change_handler) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.file_data_handler) refers to file_stream.o(i.stream_start_identify) for stream_start_identify
+    vfs_manager.o(i.file_data_handler) refers to vfs_manager.o(i.transfer_stream_open) for transfer_stream_open
+    vfs_manager.o(i.file_data_handler) refers to vfs_manager.o(i.transfer_update_state) for transfer_update_state
+    vfs_manager.o(i.file_data_handler) refers to vfs_manager.o(i.transfer_stream_data) for transfer_stream_data
+    vfs_manager.o(i.file_data_handler) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.ready_for_state_change) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.ready_for_state_change) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.ready_for_state_change) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.sync_assert_usb_thread) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.sync_assert_usb_thread) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    vfs_manager.o(i.sync_assert_usb_thread) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.sync_lock) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.sync_lock) refers to rt_mutex.o(i.rt_mut_wait) for rt_mut_wait
+    vfs_manager.o(i.transfer_reset_file_info) refers to rt_memcpy.o(.emb_text) for __aeabi_memcpy4
+    vfs_manager.o(i.transfer_reset_file_info) refers to vfs_manager.o(i.sync_lock) for sync_lock
+    vfs_manager.o(i.transfer_reset_file_info) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.transfer_reset_file_info) refers to vfs_manager.o(.constdata) for .constdata
+    vfs_manager.o(i.transfer_reset_file_info) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.transfer_reset_file_info) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    vfs_manager.o(i.transfer_stream_data) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.transfer_stream_data) refers to file_stream.o(i.stream_write) for stream_write
+    vfs_manager.o(i.transfer_stream_data) refers to vfs_manager.o(i.transfer_update_state) for transfer_update_state
+    vfs_manager.o(i.transfer_stream_data) refers to file_stream.o(i.stream_close) for stream_close
+    vfs_manager.o(i.transfer_stream_data) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.transfer_stream_data) refers to vfs_manager.o(i.sync_assert_usb_thread) for i.sync_assert_usb_thread
+    vfs_manager.o(i.transfer_stream_open) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.transfer_stream_open) refers to file_stream.o(i.stream_open) for stream_open
+    vfs_manager.o(i.transfer_stream_open) refers to vfs_manager.o(i.transfer_update_state) for transfer_update_state
+    vfs_manager.o(i.transfer_stream_open) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.transfer_stream_open) refers to vfs_manager.o(i.sync_assert_usb_thread) for i.sync_assert_usb_thread
+    vfs_manager.o(i.transfer_update_file_info) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.transfer_update_file_info) refers to vfs_manager.o(i.transfer_update_state) for transfer_update_state
+    vfs_manager.o(i.transfer_update_file_info) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.transfer_update_state) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.transfer_update_state) refers to file_stream.o(i.stream_close) for stream_close
+    vfs_manager.o(i.transfer_update_state) refers to vfs_manager.o(i.vfs_mngr_fs_remount) for vfs_mngr_fs_remount
+    vfs_manager.o(i.transfer_update_state) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.transfer_update_state) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.usbd_msc_init) refers to vfs_manager.o(i.build_filesystem) for build_filesystem
+    vfs_manager.o(i.usbd_msc_init) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    vfs_manager.o(i.usbd_msc_init) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.usbd_msc_init) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.usbd_msc_init) refers to rt_mutex.o(i.rt_mut_init) for rt_mut_init
+    vfs_manager.o(i.usbd_msc_init) refers to usbd_msc.o(.data) for USBD_MSC_MediaReady
+    vfs_manager.o(i.usbd_msc_read_sect) refers to vfs_manager.o(i.sync_assert_usb_thread) for sync_assert_usb_thread
+    vfs_manager.o(i.usbd_msc_read_sect) refers to main.o(i.main_blink_msc_led) for main_blink_msc_led
+    vfs_manager.o(i.usbd_msc_read_sect) refers to virtual_fs.o(i.vfs_read) for vfs_read
+    vfs_manager.o(i.usbd_msc_read_sect) refers to usbd_msc.o(.data) for USBD_MSC_MediaReady
+    vfs_manager.o(i.usbd_msc_write_sect) refers to vfs_manager.o(i.sync_assert_usb_thread) for sync_assert_usb_thread
+    vfs_manager.o(i.usbd_msc_write_sect) refers to main.o(i.main_blink_msc_led) for main_blink_msc_led
+    vfs_manager.o(i.usbd_msc_write_sect) refers to virtual_fs.o(i.vfs_write) for vfs_write
+    vfs_manager.o(i.usbd_msc_write_sect) refers to virtual_fs.o(i.vfs_get_root_dir_active) for vfs_get_root_dir_active
+    vfs_manager.o(i.usbd_msc_write_sect) refers to vfs_manager.o(i.file_data_handler) for file_data_handler
+    vfs_manager.o(i.usbd_msc_write_sect) refers to usbd_msc.o(.data) for USBD_MSC_MediaReady
+    vfs_manager.o(i.usbd_msc_write_sect) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.usbd_msc_write_sect) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.vfs_mngr_fs_enable) refers to vfs_manager.o(i.sync_lock) for sync_lock
+    vfs_manager.o(i.vfs_mngr_fs_enable) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.vfs_mngr_fs_enable) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.vfs_mngr_fs_enable) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    vfs_manager.o(i.vfs_mngr_fs_remount) refers to vfs_manager.o(i.sync_lock) for sync_lock
+    vfs_manager.o(i.vfs_mngr_fs_remount) refers to vfs_manager.o(i.changing_state) for changing_state
+    vfs_manager.o(i.vfs_mngr_fs_remount) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.vfs_mngr_fs_remount) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.vfs_mngr_fs_remount) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    vfs_manager.o(i.vfs_mngr_get_transfer_status) refers to vfs_manager.o(i.sync_assert_usb_thread) for sync_assert_usb_thread
+    vfs_manager.o(i.vfs_mngr_get_transfer_status) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.vfs_mngr_init) refers to vfs_manager.o(i.sync_assert_usb_thread) for sync_assert_usb_thread
+    vfs_manager.o(i.vfs_mngr_init) refers to vfs_manager.o(i.build_filesystem) for build_filesystem
+    vfs_manager.o(i.vfs_mngr_init) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.vfs_mngr_init) refers to usbd_msc.o(.data) for USBD_MSC_MediaReady
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.sync_assert_usb_thread) for sync_assert_usb_thread
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.sync_lock) for sync_lock
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.changing_state) for changing_state
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.ready_for_state_change) for ready_for_state_change
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.transfer_update_state) for transfer_update_state
+    vfs_manager.o(i.vfs_mngr_periodic) refers to util.o(i._util_assert) for _util_assert
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_user.o(i.vfs_user_disconnecting) for vfs_user_disconnecting
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(i.build_filesystem) for build_filesystem
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(.data) for .data
+    vfs_manager.o(i.vfs_mngr_periodic) refers to vfs_manager.o(.bss) for .bss
+    vfs_manager.o(i.vfs_mngr_periodic) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    vfs_manager.o(i.vfs_mngr_periodic) refers to usbd_msc.o(.data) for USBD_MSC_MediaReady
+    vfs_user.o(i.expand_info) refers to strlen.o(.text) for strlen
+    vfs_user.o(i.expand_info) refers to rt_memmove.o(.text) for __aeabi_memmove
+    vfs_user.o(i.expand_info) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_mac) for info_get_mac
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_unique_id) for info_get_unique_id
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_board_id) for info_get_board_id
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_host_id) for info_get_host_id
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_target_id) for info_get_target_id
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_hic_id) for info_get_hic_id
+    vfs_user.o(i.expand_info) refers to info.o(i.info_get_version) for info_get_version
+    vfs_user.o(i.expand_info) refers to daplink.o(.constdata) for daplink_target_url
+    vfs_user.o(i.get_file_size) refers to vfs_user.o(.bss) for .bss
+    vfs_user.o(i.read_file_assert_txt) refers to util.o(i.util_write_string) for util_write_string
+    vfs_user.o(i.read_file_assert_txt) refers to util.o(i.util_write_uint32) for util_write_uint32
+    vfs_user.o(i.read_file_assert_txt) refers to settings.o(i.config_ram_get_hexdumps) for config_ram_get_hexdumps
+    vfs_user.o(i.read_file_assert_txt) refers to util.o(i.util_write_hex32) for util_write_hex32
+    vfs_user.o(i.read_file_assert_txt) refers to vfs_user.o(.data) for .data
+    vfs_user.o(i.read_file_assert_txt) refers to vfs_user.o(.bss) for .bss
+    vfs_user.o(i.read_file_details_txt) refers to vfs_user.o(i.update_details_txt_file) for update_details_txt_file
+    vfs_user.o(i.read_file_fail_txt) refers to vfs_manager.o(i.vfs_mngr_get_transfer_status) for vfs_mngr_get_transfer_status
+    vfs_user.o(i.read_file_fail_txt) refers to error.o(i.error_get_string) for error_get_string
+    vfs_user.o(i.read_file_fail_txt) refers to error.o(i.error_get_type) for error_get_type
+    vfs_user.o(i.read_file_fail_txt) refers to util.o(i.util_write_string) for util_write_string
+    vfs_user.o(i.read_file_fail_txt) refers to vfs_user.o(.constdata) for .constdata
+    vfs_user.o(i.read_file_mbed_htm) refers to rt_memclr.o(.text) for __aeabi_memclr
+    vfs_user.o(i.read_file_mbed_htm) refers to strlen.o(.text) for strlen
+    vfs_user.o(i.read_file_mbed_htm) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    vfs_user.o(i.read_file_mbed_htm) refers to vfs_user.o(i.expand_info) for expand_info
+    vfs_user.o(i.read_file_mbed_htm) refers to vfs_user.o(.constdata) for .constdata
+    vfs_user.o(i.read_file_need_bl_txt) refers to strlen.o(.text) for strlen
+    vfs_user.o(i.read_file_need_bl_txt) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    vfs_user.o(i.read_file_need_bl_txt) refers to vfs_user.o(.conststring) for .conststring
+    vfs_user.o(i.update_details_txt_file) refers to rt_memclr.o(.text) for __aeabi_memclr
+    vfs_user.o(i.update_details_txt_file) refers to util.o(i.util_write_string) for util_write_string
+    vfs_user.o(i.update_details_txt_file) refers to settings_rom_stub.o(i.config_get_auto_rst) for config_get_auto_rst
+    vfs_user.o(i.update_details_txt_file) refers to settings_rom_stub.o(i.config_get_automation_allowed) for config_get_automation_allowed
+    vfs_user.o(i.update_details_txt_file) refers to settings_rom_stub.o(i.config_get_overflow_detect) for config_get_overflow_detect
+    vfs_user.o(i.update_details_txt_file) refers to daplink.o(i.daplink_is_bootloader) for daplink_is_bootloader
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_bootloader_present) for info_get_bootloader_present
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_bootloader_version) for info_get_bootloader_version
+    vfs_user.o(i.update_details_txt_file) refers to util.o(i.util_write_uint32_zp) for util_write_uint32_zp
+    vfs_user.o(i.update_details_txt_file) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_interface_present) for info_get_interface_present
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_interface_version) for info_get_interface_version
+    vfs_user.o(i.update_details_txt_file) refers to util.o(i.util_write_uint32) for util_write_uint32
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_crc_bootloader) for info_get_crc_bootloader
+    vfs_user.o(i.update_details_txt_file) refers to util.o(i.util_write_hex32) for util_write_hex32
+    vfs_user.o(i.update_details_txt_file) refers to info.o(i.info_get_crc_interface) for info_get_crc_interface
+    vfs_user.o(i.update_details_txt_file) refers to vfs_user.o(i.expand_info) for expand_info
+    vfs_user.o(i.update_details_txt_file) refers to vfs_user.o(.data) for .data
+    vfs_user.o(i.vfs_user_build_filesystem) refers to is25lp128f.o(i.IS25LP128F_detect) for IS25LP128F_detect
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.vfs_init) for vfs_init
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.get_file_size) for get_file_size
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.vfs_create_file) for vfs_create_file
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_manager.o(i.vfs_mngr_get_transfer_status) for vfs_mngr_get_transfer_status
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.vfs_file_set_attr) for vfs_file_set_attr
+    vfs_user.o(i.vfs_user_build_filesystem) refers to settings.o(i.config_ram_get_assert) for config_ram_get_assert
+    vfs_user.o(i.vfs_user_build_filesystem) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    vfs_user.o(i.vfs_user_build_filesystem) refers to memcmp.o(.text) for memcmp
+    vfs_user.o(i.vfs_user_build_filesystem) refers to is25lp128f.o(i.IS25LP128F_is_detected) for IS25LP128F_is_detected
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.vfs_add_virtualmedia) for vfs_add_virtualmedia
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(.data) for .data
+    vfs_user.o(i.vfs_user_build_filesystem) refers to daplink.o(.constdata) for daplink_drive_name
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.read_file_mbed_htm) for read_file_mbed_htm
+    vfs_user.o(i.vfs_user_build_filesystem) refers to daplink.o(.constdata) for daplink_url_name
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.read_file_details_txt) for read_file_details_txt
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.read_file_fail_txt) for read_file_fail_txt
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(.bss) for .bss
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.read_file_assert_txt) for read_file_assert_txt
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(.constdata) for .constdata
+    vfs_user.o(i.vfs_user_build_filesystem) refers to vfs_user.o(i.read_file_need_bl_txt) for read_file_need_bl_txt
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.write_flash_dir) for write_flash_dir
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.read_flash_dir) for read_flash_dir
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.write_flash_file) for write_flash_file
+    vfs_user.o(i.vfs_user_build_filesystem) refers to virtual_fs.o(i.read_flash_file) for read_flash_file
+    vfs_user.o(i.vfs_user_disconnecting) refers to daplink.o(i.daplink_is_bootloader) for daplink_is_bootloader
+    vfs_user.o(i.vfs_user_disconnecting) refers to vfs_manager.o(i.vfs_mngr_get_transfer_status) for vfs_mngr_get_transfer_status
+    vfs_user.o(i.vfs_user_disconnecting) refers to cortex_m.o(i.SystemReset) for SystemReset
+    vfs_user.o(i.vfs_user_disconnecting) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    vfs_user.o(i.vfs_user_disconnecting) refers to settings.o(i.config_ram_get_hold_in_bl) for config_ram_get_hold_in_bl
+    vfs_user.o(i.vfs_user_disconnecting) refers to vfs_user.o(.data) for .data
+    vfs_user.o(i.vfs_user_file_change_handler) refers to gpio.o(i.gpio_get_reset_btn_no_fwrd) for gpio_get_reset_btn_no_fwrd
+    vfs_user.o(i.vfs_user_file_change_handler) refers to gpio.o(i.gpio_get_reset_btn_fwrd) for gpio_get_reset_btn_fwrd
+    vfs_user.o(i.vfs_user_file_change_handler) refers to settings_rom_stub.o(i.config_get_automation_allowed) for config_get_automation_allowed
+    vfs_user.o(i.vfs_user_file_change_handler) refers to memcmp.o(.text) for memcmp
+    vfs_user.o(i.vfs_user_file_change_handler) refers to util.o(i.util_assert_clear) for util_assert_clear
+    vfs_user.o(i.vfs_user_file_change_handler) refers to vfs_manager.o(i.vfs_mngr_fs_remount) for vfs_mngr_fs_remount
+    vfs_user.o(i.vfs_user_file_change_handler) refers to settings_rom_stub.o(i.config_set_overflow_detect) for config_set_overflow_detect
+    vfs_user.o(i.vfs_user_file_change_handler) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    vfs_user.o(i.vfs_user_file_change_handler) refers to settings.o(i.config_ram_set_hold_in_bl) for config_ram_set_hold_in_bl
+    vfs_user.o(i.vfs_user_file_change_handler) refers to settings_rom_stub.o(i.config_set_auto_rst) for config_set_auto_rst
+    vfs_user.o(i.vfs_user_file_change_handler) refers to util.o(i._util_assert) for _util_assert
+    vfs_user.o(i.vfs_user_file_change_handler) refers to settings_rom_stub.o(i.config_set_automation_allowed) for config_set_automation_allowed
+    vfs_user.o(i.vfs_user_file_change_handler) refers to vfs_user.o(.constdata) for .constdata
+    vfs_user.o(i.vfs_user_file_change_handler) refers to daplink.o(.constdata) for daplink_mode_file_name
+    vfs_user.o(i.vfs_user_file_change_handler) refers to flash_intf.o(.constdata) for flash_intf_target
+    vfs_user.o(.constdata) refers to vfs_user.o(.conststring) for .conststring
+    virtual_fs.o(i.read_dir) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.read_dir) refers to rt_memclr.o(.text) for __aeabi_memclr
+    virtual_fs.o(i.read_dir) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.read_dir) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.read_dir) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.read_fat) refers to is25lp128f.o(i.IS25LP128F_is_detected) for IS25LP128F_is_detected
+    virtual_fs.o(i.read_fat) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    virtual_fs.o(i.read_fat) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.read_fat) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.read_fat) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.read_flash_dir) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    virtual_fs.o(i.read_flash_file) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    virtual_fs.o(i.read_mbr) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.read_mbr) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.read_zero) refers to rt_memclr.o(.text) for __aeabi_memclr
+    virtual_fs.o(i.vfs_add_virtualmedia) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.vfs_add_virtualmedia) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_add_virtualmedia) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_add_virtualmedia) refers to virtual_fs.o(i.read_zero) for read_zero
+    virtual_fs.o(i.vfs_add_virtualmedia) refers to virtual_fs.o(i.write_none) for write_none
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(i.filename_valid) for filename_valid
+    virtual_fs.o(i.vfs_create_file) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.vfs_create_file) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(i.write_fat_internal) for write_fat_internal
+    virtual_fs.o(i.vfs_create_file) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.vfs_create_file) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(.constdata) for .constdata
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(i.read_zero) for read_zero
+    virtual_fs.o(i.vfs_create_file) refers to virtual_fs.o(i.write_none) for write_none
+    virtual_fs.o(i.vfs_file_get_size) refers to uread4.o(.text) for __aeabi_uread4
+    virtual_fs.o(i.vfs_file_get_start_sector) refers to virtual_fs.o(i.vfs_file_get_size) for vfs_file_get_size
+    virtual_fs.o(i.vfs_file_get_start_sector) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    virtual_fs.o(i.vfs_file_get_start_sector) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_file_get_start_sector) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_get_root_dir_active) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_get_total_size) refers to uread4.o(.text) for __aeabi_uread4
+    virtual_fs.o(i.vfs_get_total_size) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.vfs_get_total_size) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_init) refers to rt_memclr.o(.text) for __aeabi_memclr4
+    virtual_fs.o(i.vfs_init) refers to rt_memcpy.o(.emb_text) for __aeabi_memcpy4
+    virtual_fs.o(i.vfs_init) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    virtual_fs.o(i.vfs_init) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.vfs_init) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    virtual_fs.o(i.vfs_init) refers to virtual_fs.o(i.write_fat_internal) for write_fat_internal
+    virtual_fs.o(i.vfs_init) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.vfs_init) refers to is25lp128f.o(i.IS25LP128F_is_detected) for IS25LP128F_is_detected
+    virtual_fs.o(i.vfs_init) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    virtual_fs.o(i.vfs_init) refers to is25lp128f.o(i.IS25LP128F_delete_sector) for IS25LP128F_delete_sector
+    virtual_fs.o(i.vfs_init) refers to is25lp128f.o(i.IS25LP128F_program) for IS25LP128F_program
+    virtual_fs.o(i.vfs_init) refers to is25lp128f.o(i.IS25LP128F_write) for IS25LP128F_write
+    virtual_fs.o(i.vfs_init) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_init) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_init) refers to virtual_fs.o(i.file_change_cb_stub) for file_change_cb_stub
+    virtual_fs.o(i.vfs_init) refers to virtual_fs.o(.constdata) for .constdata
+    virtual_fs.o(i.vfs_read) refers to rt_memclr.o(.text) for __aeabi_memclr
+    virtual_fs.o(i.vfs_read) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_set_file_change_callback) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_set_root_dir_active) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.vfs_write) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.vfs_write) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.write_dir) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.write_dir) refers to memcmp.o(.text) for memcmp
+    virtual_fs.o(i.write_dir) refers to virtual_fs.o(i.filename_valid) for filename_valid
+    virtual_fs.o(i.write_dir) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    virtual_fs.o(i.write_dir) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.write_dir) refers to virtual_fs.o(.bss) for .bss
+    virtual_fs.o(i.write_fat) refers to is25lp128f.o(i.IS25LP128F_is_detected) for IS25LP128F_is_detected
+    virtual_fs.o(i.write_fat) refers to is25lp128f.o(i.IS25LP128F_write) for IS25LP128F_write
+    virtual_fs.o(i.write_fat) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.write_fat_internal) refers to util.o(i._util_assert) for _util_assert
+    virtual_fs.o(i.write_flash_dir) refers to is25lp128f.o(i.IS25LP128F_write) for IS25LP128F_write
+    virtual_fs.o(i.write_flash_dir) refers to virtual_fs.o(.data) for .data
+    virtual_fs.o(i.write_flash_file) refers to is25lp128f.o(i.IS25LP128F_write) for IS25LP128F_write
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.read_mbr) for read_mbr
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.write_none) for write_none
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.read_fat) for read_fat
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.write_fat) for write_fat
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.read_dir) for read_dir
+    virtual_fs.o(.constdata) refers to virtual_fs.o(i.write_dir) for write_dir
+    flashprg.o(i.EraseChip) refers to fsl_flash.o(i.FLASH_EraseAll) for FLASH_EraseAll
+    flashprg.o(i.EraseChip) refers to fsl_flash.o(i.FLASH_VerifyEraseAll) for FLASH_VerifyEraseAll
+    flashprg.o(i.EraseChip) refers to flashprg.o(.bss) for .bss
+    flashprg.o(i.EraseSector) refers to fsl_flash.o(i.FLASH_Erase) for FLASH_Erase
+    flashprg.o(i.EraseSector) refers to fsl_flash.o(i.FLASH_VerifyErase) for FLASH_VerifyErase
+    flashprg.o(i.EraseSector) refers to flashprg.o(.bss) for .bss
+    flashprg.o(i.Init) refers to fsl_flash.o(i.FLASH_Init) for FLASH_Init
+    flashprg.o(i.Init) refers to flashprg.o(.bss) for .bss
+    flashprg.o(i.ProgramPage) refers to fsl_flash.o(i.FLASH_Program) for FLASH_Program
+    flashprg.o(i.ProgramPage) refers to fsl_flash.o(i.FLASH_VerifyProgram) for FLASH_VerifyProgram
+    flashprg.o(i.ProgramPage) refers to flashprg.o(.bss) for .bss
+    fsl_flash.o(i.FLASH_Erase) refers to fsl_flash.o(i.flash_get_matched_operation_info) for flash_get_matched_operation_info
+    fsl_flash.o(i.FLASH_Erase) refers to fsl_flash.o(i.flash_check_range) for flash_check_range
+    fsl_flash.o(i.FLASH_Erase) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    fsl_flash.o(i.FLASH_Erase) refers to fsl_flash.o(i.flash_check_user_key) for flash_check_user_key
+    fsl_flash.o(i.FLASH_Erase) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.FLASH_Erase) refers to fsl_flash.o(i.flash_cache_clear) for flash_cache_clear
+    fsl_flash.o(i.FLASH_EraseAll) refers to fsl_flash.o(i.flash_check_user_key) for flash_check_user_key
+    fsl_flash.o(i.FLASH_EraseAll) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.FLASH_EraseAll) refers to fsl_flash.o(i.flash_cache_clear) for flash_cache_clear
+    fsl_flash.o(i.FLASH_Init) refers to fsl_flash.o(i.flash_check_execute_in_ram_function_info) for flash_check_execute_in_ram_function_info
+    fsl_flash.o(i.FLASH_Init) refers to fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) for FLASH_PrepareExecuteInRamFunctions
+    fsl_flash.o(i.FLASH_Init) refers to fsl_flash.o(.constdata) for .constdata
+    fsl_flash.o(i.FLASH_Init) refers to fsl_flash.o(.bss) for .bss
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to abort.o(.text) for abort
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to fsl_flash.o(i.flash_run_command) for flash_run_command
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to fsl_flash.o(i.flash_run_command_end) for flash_run_command_end
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to fsl_flash.o(.data) for .data
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to fsl_flash.o(i.flash_cache_clear_command) for flash_cache_clear_command
+    fsl_flash.o(i.FLASH_PrepareExecuteInRamFunctions) refers to fsl_flash.o(i.flash_cache_clear_command_end) for flash_cache_clear_command_end
+    fsl_flash.o(i.FLASH_Program) refers to fsl_flash.o(i.flash_get_matched_operation_info) for flash_get_matched_operation_info
+    fsl_flash.o(i.FLASH_Program) refers to fsl_flash.o(i.flash_check_range) for flash_check_range
+    fsl_flash.o(i.FLASH_Program) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.FLASH_Program) refers to fsl_flash.o(i.flash_cache_clear) for flash_cache_clear
+    fsl_flash.o(i.FLASH_VerifyErase) refers to fsl_flash.o(i.flash_get_matched_operation_info) for flash_get_matched_operation_info
+    fsl_flash.o(i.FLASH_VerifyErase) refers to fsl_flash.o(i.flash_check_range) for flash_check_range
+    fsl_flash.o(i.FLASH_VerifyErase) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    fsl_flash.o(i.FLASH_VerifyErase) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.FLASH_VerifyEraseAll) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.FLASH_VerifyProgram) refers to fsl_flash.o(i.flash_get_matched_operation_info) for flash_get_matched_operation_info
+    fsl_flash.o(i.FLASH_VerifyProgram) refers to fsl_flash.o(i.flash_check_range) for flash_check_range
+    fsl_flash.o(i.FLASH_VerifyProgram) refers to fsl_flash.o(i.flash_command_sequence) for flash_command_sequence
+    fsl_flash.o(i.flash_cache_clear) refers to fsl_flash.o(i.flash_check_execute_in_ram_function_info) for flash_check_execute_in_ram_function_info
+    fsl_flash.o(i.flash_cache_clear) refers to fsl_flash.o(.data) for callFlashCacheClearCommand
+    fsl_flash.o(i.flash_command_sequence) refers to fsl_flash.o(i.flash_check_execute_in_ram_function_info) for flash_check_execute_in_ram_function_info
+    fsl_flash.o(i.flash_command_sequence) refers to fsl_flash.o(.data) for .data
+    fsl_flash.o(i.flash_get_matched_operation_info) refers to rt_memclr.o(.text) for __aeabi_memclr4
+    fsl_flash.o(i.flash_get_matched_operation_info) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    flash_map.o(i.map_init) refers to is25lp128f.o(i.IS25LP128F_init) for IS25LP128F_init
+    flash_map.o(i.map_read_prog_data) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    flash_map.o(i.map_read_prog_entry) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    flash_map.o(i.map_write_prog_data) refers to is25lp128f.o(i.IS25LP128F_program) for IS25LP128F_program
+    flash_map.o(i.map_write_prog_entry) refers to is25lp128f.o(i.IS25LP128F_program) for IS25LP128F_program
+    gpio.o(i.gpio_init) refers to gpio.o(i.gpio_set_hid_led) for gpio_set_hid_led
+    gpio.o(i.gpio_init) refers to gpio.o(i.gpio_set_cdc_led) for gpio_set_cdc_led
+    gpio.o(i.gpio_init) refers to gpio.o(i.gpio_set_msc_led) for gpio_set_msc_led
+    spi.o(i.spi_read) refers to spi.o(i.spi_shift) for spi_shift
+    spi.o(i.spi_read_16) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    spi.o(i.spi_write) refers to spi.o(i.spi_shift) for spi_shift
+    spi.o(i.spi_write_16) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    startup_mkl26z4.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mkl26z4.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mkl26z4.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mkl26z4.o(RESET) refers to startup_mkl26z4.o(STACK) for __initial_sp
+    startup_mkl26z4.o(RESET) refers to startup_mkl26z4.o(.text) for Reset_Handler
+    startup_mkl26z4.o(RESET) refers to hardfault_handler.o(i.HardFault_Handler) for HardFault_Handler
+    startup_mkl26z4.o(RESET) refers to hal_cm1.o(.emb_text) for SVC_Handler
+    startup_mkl26z4.o(RESET) refers to uart.o(i.UART1_IRQHandler) for UART1_IRQHandler
+    startup_mkl26z4.o(RESET) refers to usbd_kinetis.o(i.USB0_IRQHandler) for USB0_IRQHandler
+    startup_mkl26z4.o(.ARM.__at_0x400 ) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mkl26z4.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mkl26z4.o(.text) refers to system_mkl26z4.o(i.SystemInit) for SystemInit
+    startup_mkl26z4.o(.text) refers to __main.o(!!!main) for __main
+    startup_mkl26z4.o(.text) refers to startup_mkl26z4.o(HEAP) for Heap_Mem
+    startup_mkl26z4.o(.text) refers to startup_mkl26z4.o(STACK) for Stack_Mem
+    system_mkl26z4.o(i.SystemCoreClockUpdate) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    system_mkl26z4.o(i.SystemCoreClockUpdate) refers to system_mkl26z4.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    system_mkl26z4.o(i.SystemCoreClockUpdate) refers to system_mkl26z4.o(.data) for .data
+    uart.o(i.UART1_IRQHandler) refers to circ_buf.o(i.circ_buf_count_used) for circ_buf_count_used
+    uart.o(i.UART1_IRQHandler) refers to util.o(i._util_assert) for _util_assert
+    uart.o(i.UART1_IRQHandler) refers to circ_buf.o(i.circ_buf_pop) for circ_buf_pop
+    uart.o(i.UART1_IRQHandler) refers to circ_buf.o(i.circ_buf_count_free) for circ_buf_count_free
+    uart.o(i.UART1_IRQHandler) refers to circ_buf.o(i.circ_buf_push) for circ_buf_push
+    uart.o(i.UART1_IRQHandler) refers to settings_rom_stub.o(i.config_get_overflow_detect) for config_get_overflow_detect
+    uart.o(i.UART1_IRQHandler) refers to circ_buf.o(i.circ_buf_write) for circ_buf_write
+    uart.o(i.UART1_IRQHandler) refers to uart.o(.bss) for .bss
+    uart.o(i.clear_buffers) refers to util.o(i._util_assert) for _util_assert
+    uart.o(i.clear_buffers) refers to circ_buf.o(i.circ_buf_init) for circ_buf_init
+    uart.o(i.clear_buffers) refers to uart.o(.bss) for .bss
+    uart.o(i.uart_initialize) refers to uart.o(i.clear_buffers) for clear_buffers
+    uart.o(i.uart_read_data) refers to circ_buf.o(i.circ_buf_read) for circ_buf_read
+    uart.o(i.uart_read_data) refers to uart.o(.bss) for .bss
+    uart.o(i.uart_reset) refers to uart.o(i.clear_buffers) for clear_buffers
+    uart.o(i.uart_set_configuration) refers to uart.o(i.clear_buffers) for clear_buffers
+    uart.o(i.uart_set_configuration) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    uart.o(i.uart_set_configuration) refers to system_mkl26z4.o(.data) for SystemCoreClock
+    uart.o(i.uart_uninitialize) refers to uart.o(i.clear_buffers) for clear_buffers
+    uart.o(i.uart_write_data) refers to circ_buf.o(i.circ_buf_write) for circ_buf_write
+    uart.o(i.uart_write_data) refers to circ_buf.o(i.circ_buf_count_used) for circ_buf_count_used
+    uart.o(i.uart_write_data) refers to uart.o(.bss) for .bss
+    uart.o(i.uart_write_free) refers to circ_buf.o(i.circ_buf_count_free) for circ_buf_count_free
+    uart.o(i.uart_write_free) refers to uart.o(.bss) for .bss
+    usb_config.o(i.usbd_class_init) refers to vfs_manager.o(i.usbd_msc_init) for usbd_msc_init
+    usb_config.o(.constdata) refers to usbd_core.o(i.USBD_EndPoint0) for USBD_EndPoint0
+    usb_config.o(.constdata) refers to usbd_msc.o(i.USBD_MSC_EP_BULK_Event) for USBD_MSC_EP_BULK_Event
+    usb_config.o(.data) refers to usb_config.o(.conststring) for .conststring
+    usbd_kinetis.o(i.USB0_IRQHandler) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    usbd_kinetis.o(i.USB0_IRQHandler) refers to usbd_kinetis.o(i.protected_or) for protected_or
+    usbd_kinetis.o(i.USB0_IRQHandler) refers to main.o(i.USBD_SignalHandler) for USBD_SignalHandler
+    usbd_kinetis.o(i.USB0_IRQHandler) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USB0_IRQHandler) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_ClrStallEP) refers to usbd_kinetis.o(i.USBD_ResetEP) for USBD_ResetEP
+    usbd_kinetis.o(i.USBD_ConfigEP) refers to usbd_kinetis.o(i.USBD_ResetEP) for USBD_ResetEP
+    usbd_kinetis.o(i.USBD_ConfigEP) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_kinetis.o(i.USBD_Reset) for USBD_Reset
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_core.o(i.usbd_reset_core) for usbd_reset_core
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_kinetis.o(i.USBD_Suspend) for USBD_Suspend
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_kinetis.o(i.USBD_Resume) for USBD_Resume
+    usbd_kinetis.o(i.USBD_Handler) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_Reset_Event
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_Suspend_Event
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_Resume_Event
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_SOF_Event
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_Error_Event
+    usbd_kinetis.o(i.USBD_Handler) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_Handler) refers to usb_config.o(.constdata) for USBD_P_EP
+    usbd_kinetis.o(i.USBD_Init) refers to usbd_kinetis.o(i.USBD_IntrEna) for USBD_IntrEna
+    usbd_kinetis.o(i.USBD_Init) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_Init) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_Init) refers to usb_config.o(.constdata) for USBD_P_SOF_Event
+    usbd_kinetis.o(i.USBD_Init) refers to usb_config.o(.constdata) for USBD_P_Error_Event
+    usbd_kinetis.o(i.USBD_ReadEP) refers to usbd_kinetis.o(i.protected_xor) for protected_xor
+    usbd_kinetis.o(i.USBD_ReadEP) refers to util.o(i._util_assert) for _util_assert
+    usbd_kinetis.o(i.USBD_ReadEP) refers to usbd_kinetis.o(i.protected_and) for protected_and
+    usbd_kinetis.o(i.USBD_ReadEP) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_ReadEP) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_Reset) refers to rt_memclr.o(.text) for __aeabi_memclr4
+    usbd_kinetis.o(i.USBD_Reset) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_Reset) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_ResetEP) refers to usbd_kinetis.o(i.protected_or) for protected_or
+    usbd_kinetis.o(i.USBD_ResetEP) refers to usbd_kinetis.o(i.protected_and) for protected_and
+    usbd_kinetis.o(i.USBD_ResetEP) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_ResetEP) refers to usbd_kinetis.o(.data) for .data
+    usbd_kinetis.o(i.USBD_WakeUp) refers to usbd_core.o(.data) for USBD_DeviceStatus
+    usbd_kinetis.o(i.USBD_WriteEP) refers to usbd_kinetis.o(i.protected_xor) for protected_xor
+    usbd_kinetis.o(i.USBD_WriteEP) refers to usbd_kinetis.o(.bss) for .bss
+    usbd_kinetis.o(i.USBD_WriteEP) refers to usbd_kinetis.o(.data) for .data
+    is25lp128f.o(i.IS25LP128F_bank_reg) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_bank_reg) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_bank_reg) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to is25lp128f.o(i.IS25LP128F_is_busy) for IS25LP128F_is_busy
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to is25lp128f.o(i.IS25LP128F_write_enable) for IS25LP128F_write_enable
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to is25lp128f.o(i.IS25LP128F_bank_reg) for IS25LP128F_bank_reg
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    is25lp128f.o(i.IS25LP128F_delete_block) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_delete_chip) refers to is25lp128f.o(i.IS25LP128F_is_busy) for IS25LP128F_is_busy
+    is25lp128f.o(i.IS25LP128F_delete_chip) refers to is25lp128f.o(i.IS25LP128F_write_enable) for IS25LP128F_write_enable
+    is25lp128f.o(i.IS25LP128F_delete_chip) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_delete_chip) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_delete_chip) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to is25lp128f.o(i.IS25LP128F_is_busy) for IS25LP128F_is_busy
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to is25lp128f.o(i.IS25LP128F_write_enable) for IS25LP128F_write_enable
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to is25lp128f.o(i.IS25LP128F_bank_reg) for IS25LP128F_bank_reg
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    is25lp128f.o(i.IS25LP128F_delete_sector) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_detect) refers to is25lp128f.o(i.IS25LP128F_sfdp) for IS25LP128F_sfdp
+    is25lp128f.o(i.IS25LP128F_detect) refers to is25lp128f.o(.data) for .data
+    is25lp128f.o(i.IS25LP128F_extread_reg) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_extread_reg) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_extread_reg) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_func_reg) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_func_reg) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_func_reg) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_init) refers to spi.o(i.spi_init) for spi_init
+    is25lp128f.o(i.IS25LP128F_init) refers to is25lp128f.o(.data) for .data
+    is25lp128f.o(i.IS25LP128F_is_busy) refers to is25lp128f.o(i.IS25LP128F_status) for IS25LP128F_status
+    is25lp128f.o(i.IS25LP128F_is_detected) refers to is25lp128f.o(.data) for .data
+    is25lp128f.o(i.IS25LP128F_program) refers to is25lp128f.o(i.IS25LP128F_is_busy) for IS25LP128F_is_busy
+    is25lp128f.o(i.IS25LP128F_program) refers to is25lp128f.o(i.IS25LP128F_write_enable) for IS25LP128F_write_enable
+    is25lp128f.o(i.IS25LP128F_program) refers to is25lp128f.o(i.IS25LP128F_bank_reg) for IS25LP128F_bank_reg
+    is25lp128f.o(i.IS25LP128F_program) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_program) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_program) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    is25lp128f.o(i.IS25LP128F_program) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_read) refers to is25lp128f.o(i.IS25LP128F_is_busy) for IS25LP128F_is_busy
+    is25lp128f.o(i.IS25LP128F_read) refers to is25lp128f.o(i.IS25LP128F_bank_reg) for IS25LP128F_bank_reg
+    is25lp128f.o(i.IS25LP128F_read) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_read) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_read) refers to spi.o(i.spi_shift_16) for spi_shift_16
+    is25lp128f.o(i.IS25LP128F_read) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_resume) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_resume) refers to spi.o(i.spi_write) for spi_write
+    is25lp128f.o(i.IS25LP128F_resume) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_sfdp) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_sfdp) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_sfdp) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_status) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_status) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_status) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_suspend) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_suspend) refers to spi.o(i.spi_write) for spi_write
+    is25lp128f.o(i.IS25LP128F_suspend) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_write) refers to is25lp128f.o(i.IS25LP128F_delete_sector) for IS25LP128F_delete_sector
+    is25lp128f.o(i.IS25LP128F_write) refers to is25lp128f.o(i.IS25LP128F_read) for IS25LP128F_read
+    is25lp128f.o(i.IS25LP128F_write) refers to is25lp128f.o(i.IS25LP128F_program) for IS25LP128F_program
+    is25lp128f.o(i.IS25LP128F_write) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    is25lp128f.o(i.IS25LP128F_write) refers to is25lp128f.o(.bss) for .bss
+    is25lp128f.o(i.IS25LP128F_write_enable) refers to spi.o(i.spi_cs_low) for spi_cs_low
+    is25lp128f.o(i.IS25LP128F_write_enable) refers to spi.o(i.spi_shift) for spi_shift
+    is25lp128f.o(i.IS25LP128F_write_enable) refers to spi.o(i.spi_cs_high) for spi_cs_high
+    is25lp128f.o(i.IS25LP128F_write_enable) refers to is25lp128f.o(i.IS25LP128F_status) for IS25LP128F_status
+    hal_cm1.o(.emb_text) refers to rtx_config.o(.constdata) for os_flags
+    hal_cm1.o(.emb_text) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    hal_cm1.o(.emb_text) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    hal_cm1.o(.emb_text) refers to rt_system.o(i.rt_stk_check) for rt_stk_check
+    hal_cm1.o(.emb_text) refers to rt_task.o(.data) for os_tsk
+    hal_cm1.o(.emb_text) refers to svc_table.o(SVC_TABLE) for SVC_Count
+    hal_cm1.o(.emb_text) refers to rt_system.o(i.rt_pop_req) for rt_pop_req
+    hal_cm1.o(.emb_text) refers to rt_system.o(i.rt_systick) for rt_systick
+    hal_cm1.o(.emb_text) refers to rt_system.o(i.os_tick_irqack) for os_tick_irqack
+    hal_cm1.o(i.rt_init_stack) refers to rtx_config.o(.constdata) for os_stackinfo
+    rt_event.o(i.isr_evt_set) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_event.o(i.isr_evt_set) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_event.o(i.isr_evt_set) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_clr) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_get) refers to rt_task.o(.data) for os_tsk
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_event.o(i.rt_evt_set) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_event.o(i.rt_evt_set) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_event.o(i.rt_evt_set) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_event.o(i.rt_evt_wait) refers to rt_task.o(.data) for os_tsk
+    rt_list.o(i.rt_dec_dly) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_list.o(i.rt_dec_dly) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_dec_dly) refers to rt_time.o(.data) for os_time
+    rt_list.o(i.rt_get_same_rdy_prio) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_get_same_rdy_prio) refers to rt_task.o(.data) for os_tsk
+    rt_list.o(i.rt_psq_enq) refers to rtx_config.o(i.os_error) for os_error
+    rt_list.o(i.rt_psq_enq) refers to rtx_config.o(.bss) for os_fifo
+    rt_list.o(i.rt_put_dly) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_put_rdy_first) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(i.rt_rmv_list) for rt_rmv_list
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_rmv_list) refers to rt_list.o(.bss) for .bss
+    rt_mailbox.o(i.isr_mbx_receive) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_mailbox.o(i.isr_mbx_receive) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_mailbox.o(i.isr_mbx_send) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_mailbox.o(i.isr_mbx_send) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_psh) refers to rtx_config.o(i.os_error) for os_error
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(.data) for os_tsk
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(.data) for os_tsk
+    rt_membox.o(i._calloc_box) refers to hal_cm1.o(.emb_text) for _alloc_box
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mutex.o(i.rt_mut_release) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mutex.o(i.rt_mut_release) refers to rt_task.o(.data) for os_tsk
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(.bss) for os_rdy
+    rt_mutex.o(i.rt_mut_wait) refers to rt_list.o(i.rt_resort_prio) for rt_resort_prio
+    rt_mutex.o(i.rt_mut_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mutex.o(i.rt_mut_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mutex.o(i.rt_mut_wait) refers to rt_task.o(.data) for os_tsk
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_robin.o(i.rt_chk_robin) refers to rt_robin.o(.data) for .data
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(.bss) for os_rdy
+    rt_robin.o(i.rt_chk_robin) refers to rt_time.o(.data) for os_time
+    rt_robin.o(i.rt_init_robin) refers to rt_robin.o(.data) for .data
+    rt_robin.o(i.rt_init_robin) refers to rtx_config.o(.constdata) for os_rrobin
+    rt_semaphore.o(i.isr_sem_send) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_semaphore.o(i.isr_sem_send) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_semaphore.o(i.rt_sem_send) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_semaphore.o(i.rt_sem_send) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_semaphore.o(i.rt_sem_send) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_semaphore.o(i.rt_sem_send) refers to rt_task.o(.data) for os_tsk
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.os_tick_init) refers to rtx_config.o(.constdata) for os_trv
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_system.o(i.rt_pop_req) refers to rt_semaphore.o(i.rt_sem_psh) for rt_sem_psh
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_system.o(i.rt_pop_req) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_system.o(i.rt_pop_req) refers to rt_event.o(i.rt_evt_psh) for rt_evt_psh
+    rt_system.o(i.rt_pop_req) refers to rt_mailbox.o(i.rt_mbx_psh) for rt_mbx_psh
+    rt_system.o(i.rt_pop_req) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_pop_req) refers to rtx_config.o(.bss) for os_fifo
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(.bss) for os_rdy
+    rt_system.o(i.rt_psh_req) refers to rt_system.o(.data) for .data
+    rt_system.o(i.rt_resume) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_system.o(i.rt_resume) refers to rt_list.o(i.rt_dec_dly) for rt_dec_dly
+    rt_system.o(i.rt_resume) refers to rt_timer.o(i.rt_tmr_tick) for rt_tmr_tick
+    rt_system.o(i.rt_resume) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_system.o(i.rt_resume) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_system.o(i.rt_resume) refers to rt_system.o(i.rt_tsk_unlock) for rt_tsk_unlock
+    rt_system.o(i.rt_resume) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_resume) refers to rt_robin.o(.data) for os_robin
+    rt_system.o(i.rt_resume) refers to rt_list.o(.bss) for os_dly
+    rt_system.o(i.rt_resume) refers to rt_time.o(.data) for os_time
+    rt_system.o(i.rt_resume) refers to rt_timer.o(.data) for os_tmr
+    rt_system.o(i.rt_stk_check) refers to rtx_config.o(i.os_error) for os_error
+    rt_system.o(i.rt_stk_check) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_suspend) refers to rt_system.o(i.rt_tsk_lock) for rt_tsk_lock
+    rt_system.o(i.rt_suspend) refers to rt_list.o(.bss) for os_dly
+    rt_system.o(i.rt_suspend) refers to rt_timer.o(.data) for os_tmr
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_system.o(i.rt_systick) refers to rtx_config.o(i.rt_chk_robin) for rt_chk_robin
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_dec_dly) for rt_dec_dly
+    rt_system.o(i.rt_systick) refers to rt_timer.o(i.rt_tmr_tick) for rt_tmr_tick
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_system.o(i.rt_systick) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_system.o(i.rt_systick) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_systick) refers to rt_time.o(.data) for os_time
+    rt_system.o(i.rt_systick) refers to rt_list.o(.bss) for os_rdy
+    rt_system.o(i.rt_tsk_lock) refers to rt_system.o(.data) for .data
+    rt_system.o(i.rt_tsk_unlock) refers to rt_system.o(.data) for .data
+    rt_task.o(i.rt_block) refers to rt_list.o(i.rt_put_dly) for rt_put_dly
+    rt_task.o(i.rt_block) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_block) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_block) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_block) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_task.o(i.rt_dispatch) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_dispatch) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_init_context) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_task.o(i.rt_init_context) refers to hal_cm1.o(i.rt_init_stack) for rt_init_stack
+    rt_task.o(i.rt_init_context) refers to rtx_config.o(.bss) for mp_stk
+    rt_task.o(i.rt_switch_req) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_sys_init) refers to rt_membox.o(i._init_box) for _init_box
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(i.rt_init_context) for rt_init_context
+    rt_task.o(i.rt_sys_init) refers to hal_cm1.o(.emb_text) for rt_set_PSP
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(i.rt_init_robin) for rt_init_robin
+    rt_task.o(i.rt_sys_init) refers to rt_system.o(i.os_tick_init) for os_tick_init
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(i.rt_tsk_create) for rt_tsk_create
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for mp_tcb_size
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.bss) for mp_tcb
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for os_stackinfo
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for mp_stk_size
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.bss) for mp_stk
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for mp_tmr_size
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.data) for m_tmr
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(.bss) for .bss
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(i.os_idle_demon) for os_idle_demon
+    rt_task.o(i.rt_sys_init) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.bss) for os_fifo
+    rt_task.o(i.rt_sys_init) refers to rtx_config.o(.constdata) for os_fifo_size
+    rt_task.o(i.rt_sys_init) refers to rt_system.o(.data) for os_tick_irqn
+    rt_task.o(i.rt_tsk_create) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_task.o(i.rt_tsk_create) refers to rt_task.o(i.rt_init_context) for rt_init_context
+    rt_task.o(i.rt_tsk_create) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_create) refers to rtx_config.o(.bss) for mp_tcb
+    rt_task.o(i.rt_tsk_create) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_tsk_create) refers to rtx_config.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_create) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_delete) refers to hal_cm1.o(.emb_text) for rt_get_PSP
+    rt_task.o(i.rt_tsk_delete) refers to rt_system.o(i.rt_stk_check) for rt_stk_check
+    rt_task.o(i.rt_tsk_delete) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_task.o(i.rt_tsk_delete) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_delete) refers to rt_list.o(i.rt_rmv_list) for rt_rmv_list
+    rt_task.o(i.rt_tsk_delete) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_task.o(i.rt_tsk_delete) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_delete) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_tsk_delete) refers to rtx_config.o(.bss) for mp_stk
+    rt_task.o(i.rt_tsk_delete) refers to rtx_config.o(.bss) for mp_tcb
+    rt_task.o(i.rt_tsk_delete) refers to rtx_config.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(i.rt_get_same_rdy_prio) for rt_get_same_rdy_prio
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_tsk_pass) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_tsk_pass) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_resort_prio) for rt_resort_prio
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_tsk_prio) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_prio) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_prio) refers to rtx_config.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_prio) refers to rtx_config.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_tsk_self) refers to rt_task.o(.data) for .data
+    rt_time.o(i.rt_dly_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_time.o(i.rt_itv_set) refers to rt_task.o(.data) for os_tsk
+    rt_time.o(i.rt_itv_set) refers to rt_time.o(.data) for .data
+    rt_time.o(i.rt_itv_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_time.o(i.rt_itv_wait) refers to rt_task.o(.data) for os_tsk
+    rt_time.o(i.rt_itv_wait) refers to rt_time.o(.data) for .data
+    rt_time.o(i.rt_time_get) refers to rt_time.o(.data) for .data
+    rt_timer.o(i.rt_tmr_create) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_timer.o(i.rt_tmr_create) refers to rtx_config.o(.data) for m_tmr
+    rt_timer.o(i.rt_tmr_create) refers to rt_timer.o(.data) for .data
+    rt_timer.o(i.rt_tmr_kill) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_timer.o(i.rt_tmr_kill) refers to rt_timer.o(.data) for .data
+    rt_timer.o(i.rt_tmr_kill) refers to rtx_config.o(.data) for m_tmr
+    rt_timer.o(i.rt_tmr_tick) refers to rtx_config.o(i.os_tmr_call) for os_tmr_call
+    rt_timer.o(i.rt_tmr_tick) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_timer.o(i.rt_tmr_tick) refers to rt_timer.o(.data) for .data
+    rt_timer.o(i.rt_tmr_tick) refers to rtx_config.o(.data) for m_tmr
+    settings.o(i.config_init) refers to rt_memclr.o(.text) for __aeabi_memclr
+    settings.o(i.config_init) refers to uread4.o(.text) for __aeabi_uread4
+    settings.o(i.config_init) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    settings.o(i.config_init) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    settings.o(i.config_init) refers to settings_rom_stub.o(i.config_rom_init) for config_rom_init
+    settings.o(i.config_init) refers to settings.o(.bss) for .bss
+    settings.o(i.config_init) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_add_hexdump) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    settings.o(i.config_ram_add_hexdump) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_clear_assert) refers to rt_memclr.o(.text) for __aeabi_memclr
+    settings.o(i.config_ram_clear_assert) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_get_assert) refers to strlen.o(.text) for strlen
+    settings.o(i.config_ram_get_assert) refers to rt_memclr.o(.text) for __aeabi_memclr
+    settings.o(i.config_ram_get_assert) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    settings.o(i.config_ram_get_assert) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_get_hexdumps) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_get_hold_in_bl) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_get_initial_hold_in_bl) refers to settings.o(.bss) for .bss
+    settings.o(i.config_ram_set_assert) refers to strlen.o(.text) for strlen
+    settings.o(i.config_ram_set_assert) refers to rt_memclr.o(.text) for __aeabi_memclr
+    settings.o(i.config_ram_set_assert) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    settings.o(i.config_ram_set_assert) refers to daplink.o(i.daplink_is_bootloader) for daplink_is_bootloader
+    settings.o(i.config_ram_set_assert) refers to daplink.o(i.daplink_is_interface) for daplink_is_interface
+    settings.o(i.config_ram_set_assert) refers to settings.o(cfgram) for cfgram
+    settings.o(i.config_ram_set_hold_in_bl) refers to settings.o(cfgram) for cfgram
+    usbd_core.o(i.USBD_DataInStage) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_core.o(i.USBD_DataInStage) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_DataInStage) refers to usb_config.o(.constdata) for usbd_max_packet0
+    usbd_core.o(i.USBD_DataOutStage) refers to usbd_kinetis.o(i.USBD_ReadEP) for USBD_ReadEP
+    usbd_core.o(i.USBD_DataOutStage) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_SetupStage) for USBD_SetupStage
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_kinetis.o(i.USBD_DirCtrlEP) for USBD_DirCtrlEP
+    usbd_core.o(i.USBD_EndPoint0) refers to system_mkl26z4.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_ReqGetStatus) for USBD_ReqGetStatus
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_DataInStage) for USBD_DataInStage
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_StatusInStage) for USBD_StatusInStage
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_ReqSetClrFeature) for USBD_ReqSetClrFeature
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_kinetis.o(i.USBD_SetAddress) for USBD_SetAddress
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_ReqGetDescriptor) for USBD_ReqGetDescriptor
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_ReqSetConfiguration) for USBD_ReqSetConfiguration
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_ReqSetInterface) for USBD_ReqSetInterface
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Setup_HID_ReqToIF) for USBD_EndPoint0_Setup_HID_ReqToIF
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) for USBD_EndPoint0_Setup_MSC_ReqToIF
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Setup_CDC_ReqToIF) for USBD_EndPoint0_Setup_CDC_ReqToIF
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Setup_WebUSB_ReqToDevice) for USBD_EndPoint0_Setup_WebUSB_ReqToDevice
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Setup_WinUSB_ReqToDevice) for USBD_EndPoint0_Setup_WinUSB_ReqToDevice
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_kinetis.o(i.USBD_SetStallEP) for USBD_SetStallEP
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_StatusOutStage) for USBD_StatusOutStage
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(i.USBD_DataOutStage) for USBD_DataOutStage
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Out_HID_ReqToIF) for USBD_EndPoint0_Out_HID_ReqToIF
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(i.USBD_EndPoint0_Out_CDC_ReqToIF) for USBD_EndPoint0_Out_CDC_ReqToIF
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_kinetis.o(i.USBD_ClrStallEP) for USBD_ClrStallEP
+    usbd_core.o(i.USBD_EndPoint0) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(.constdata) for USBD_P_Feature_Event
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(.constdata) for USBD_P_Configure_Event
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(.data) for USBD_AltSetting
+    usbd_core.o(i.USBD_EndPoint0) refers to usb_config.o(.constdata) for USBD_P_Interface_Event
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to info.o(i.info_get_unique_id_string_descriptor) for info_get_unique_id_string_descriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(i.USBD_ReqGetDescriptor_HID) for USBD_ReqGetDescriptor_HID
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for usbd_hs_enable
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_DeviceDescriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_DeviceQualifier_HS
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_DeviceQualifier
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor_HS
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_OtherSpeedConfigDescriptor_HS
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_OtherSpeedConfigDescriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_StringDescriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for usbd_bos_enable
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for USBD_BinaryObjectStoreDescriptor
+    usbd_core.o(i.USBD_ReqGetDescriptor) refers to usb_config.o(.constdata) for usbd_max_packet0
+    usbd_core.o(i.USBD_ReqGetStatus) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_ReqGetStatus) refers to usb_config.o(.bss) for USBD_EP0Buf
+    usbd_core.o(i.USBD_ReqSetClrFeature) refers to usbd_kinetis.o(i.USBD_WakeUpCfg) for USBD_WakeUpCfg
+    usbd_core.o(i.USBD_ReqSetClrFeature) refers to usbd_kinetis.o(i.USBD_SetStallEP) for USBD_SetStallEP
+    usbd_core.o(i.USBD_ReqSetClrFeature) refers to usbd_kinetis.o(i.USBD_ClrStallEP) for USBD_ClrStallEP
+    usbd_core.o(i.USBD_ReqSetClrFeature) refers to usbd_core_msc.o(i.USBD_ReqClrFeature_MSC) for USBD_ReqClrFeature_MSC
+    usbd_core.o(i.USBD_ReqSetClrFeature) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_kinetis.o(i.USBD_DisableEP) for USBD_DisableEP
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_kinetis.o(i.USBD_Configure) for USBD_Configure
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_kinetis.o(i.USBD_ConfigEP) for USBD_ConfigEP
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_kinetis.o(i.USBD_EnableEP) for USBD_EnableEP
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_kinetis.o(i.USBD_ResetEP) for USBD_ResetEP
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usb_config.o(.constdata) for usbd_hs_enable
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor_HS
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usb_config.o(.data) for USBD_AltSetting
+    usbd_core.o(i.USBD_ReqSetConfiguration) refers to usb_config.o(.constdata) for usbd_if_num
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usbd_kinetis.o(i.USBD_ConfigEP) for USBD_ConfigEP
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usbd_kinetis.o(i.USBD_EnableEP) for USBD_EnableEP
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usbd_kinetis.o(i.USBD_ResetEP) for USBD_ResetEP
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usbd_kinetis.o(i.USBD_DisableEP) for USBD_DisableEP
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usb_config.o(.constdata) for usbd_hs_enable
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor_HS
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usb_config.o(.constdata) for USBD_ConfigDescriptor
+    usbd_core.o(i.USBD_ReqSetInterface) refers to usb_config.o(.data) for USBD_AltSetting
+    usbd_core.o(i.USBD_SetupStage) refers to usbd_kinetis.o(i.USBD_ReadEP) for USBD_ReadEP
+    usbd_core.o(i.USBD_SetupStage) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.USBD_StatusInStage) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_core.o(i.USBD_StatusOutStage) refers to usbd_kinetis.o(i.USBD_ReadEP) for USBD_ReadEP
+    usbd_core.o(i.USBD_StatusOutStage) refers to usb_config.o(.constdata) for usbd_max_packet0
+    usbd_core.o(i.USBD_StatusOutStage) refers to usb_config.o(.bss) for USBD_EP0Buf
+    usbd_core.o(i.usbd_configured) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.usbd_connect) refers to usbd_kinetis.o(i.USBD_Connect) for USBD_Connect
+    usbd_core.o(i.usbd_init) refers to usb_config.o(i.usbd_class_init) for usbd_class_init
+    usbd_core.o(i.usbd_init) refers to usb_config.o(i.USBD_RTX_TaskInit) for USBD_RTX_TaskInit
+    usbd_core.o(i.usbd_init) refers to usbd_kinetis.o(i.USBD_Init) for USBD_Init
+    usbd_core.o(i.usbd_init) refers to usbd_core.o(.data) for .data
+    usbd_core.o(i.usbd_reset_core) refers to usb_config.o(.constdata) for usbd_power
+    usbd_core.o(i.usbd_reset_core) refers to usbd_core.o(.data) for .data
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usbd_msc.o(i.USBD_MSC_Reset) for USBD_MSC_Reset
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usbd_core.o(i.USBD_StatusInStage) for USBD_StatusInStage
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usbd_msc.o(i.USBD_MSC_GetMaxLUN) for USBD_MSC_GetMaxLUN
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usbd_core.o(i.USBD_DataInStage) for USBD_DataInStage
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usbd_core.o(.data) for USBD_SetupPacket
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usb_config.o(.constdata) for usbd_msc_if_num
+    usbd_core_msc.o(i.USBD_EndPoint0_Setup_MSC_ReqToIF) refers to usb_config.o(.bss) for USBD_EP0Buf
+    usbd_core_msc.o(i.USBD_ReqClrFeature_MSC) refers to usbd_msc.o(i.USBD_MSC_ClrStallEP) for USBD_MSC_ClrStallEP
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_ATAPassThrough) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usbd_msc.o(i.USBD_MSC_MemoryRead) for USBD_MSC_MemoryRead
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_BulkIn) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(i.USBD_MSC_GetCBW) for USBD_MSC_GetCBW
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(i.USBD_MSC_MemoryWrite) for USBD_MSC_MemoryWrite
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(i.USBD_MSC_MemoryVerify) for USBD_MSC_MemoryVerify
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to util.o(i._util_assert) for _util_assert
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_BulkOut) refers to usbd_core.o(.data) for USBD_EndPointHalt
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_CheckMedia) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_ClrStallEP) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ClrStallEP) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_ClrStallEP) refers to usbd_core.o(.data) for USBD_SetupPacket
+    usbd_msc.o(i.USBD_MSC_ClrStallEP) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_ClrStallEP) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_DataInFormat) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_DataInFormat) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_DataInFormat) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_DataInFormat) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_DataInFormat) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_DataInTransfer) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_EP_BULKIN_Event) refers to usbd_msc.o(i.USBD_MSC_BulkIn) for USBD_MSC_BulkIn
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usbd_kinetis.o(i.USBD_ReadEP) for USBD_ReadEP
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usbd_msc.o(i.USBD_MSC_BulkOut) for USBD_MSC_BulkOut
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usb_config.o(.constdata) for USBD_MSC_BulkBufSize
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_EP_BULK_Event) refers to usbd_msc.o(i.USBD_MSC_EP_BULKOUT_Event) for USBD_MSC_EP_BULKOUT_Event
+    usbd_msc.o(i.USBD_MSC_EP_BULK_Event) refers to usbd_msc.o(i.USBD_MSC_BulkIn) for USBD_MSC_BulkIn
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_RequestSense) for USBD_MSC_RequestSense
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_Inquiry) for USBD_MSC_Inquiry
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_MediaRemoval) for USBD_MSC_MediaRemoval
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_SynchronizeCache) for USBD_MSC_SynchronizeCache
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_RWSetup) for USBD_MSC_RWSetup
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_TestUnitReady) for USBD_MSC_TestUnitReady
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_StartStopUnit) for USBD_MSC_StartStopUnit
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ModeSense6) for USBD_MSC_ModeSense6
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ModeSense10) for USBD_MSC_ModeSense10
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) for USBD_MSC_ReadFormatCapacity
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ReadCapacity) for USBD_MSC_ReadCapacity
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ATAPassThrough) for USBD_MSC_ATAPassThrough
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_ServiceActionIn16) for USBD_MSC_ServiceActionIn16
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_MemoryRead) for USBD_MSC_MemoryRead
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_GetCBW) refers to usbd_core.o(.data) for USBD_EndPointStall
+    usbd_msc.o(i.USBD_MSC_GetMaxLUN) refers to usb_config.o(.bss) for USBD_EP0Buf
+    usbd_msc.o(i.USBD_MSC_Inquiry) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_Inquiry) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_Inquiry) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_Inquiry) refers to usb_config.o(.data) for usbd_msc_inquiry_data
+    usbd_msc.o(i.USBD_MSC_Inquiry) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_MediaRemoval) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_MediaRemoval) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to vfs_manager.o(i.usbd_msc_read_sect) for usbd_msc_read_sect
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usbd_core.o(.data) for USBD_HighSpeed
+    usbd_msc.o(i.USBD_MSC_MemoryRead) refers to usb_config.o(.constdata) for usbd_msc_maxpacketsize
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to vfs_manager.o(i.usbd_msc_read_sect) for usbd_msc_read_sect
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_MemoryVerify) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to util.o(i._util_assert) for _util_assert
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to vfs_manager.o(i.usbd_msc_write_sect) for usbd_msc_write_sect
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_MemoryWrite) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ModeSense10) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ModeSense6) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_RWSetup) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    usbd_msc.o(i.USBD_MSC_ReadCapacity) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ReadCapacity) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_ReadCapacity) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_ReadCapacity) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ReadCapacity) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ReadFormatCapacity) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_RequestSense) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_RequestSense) refers to usbd_msc.o(i.USBD_MSC_DataInTransfer) for USBD_MSC_DataInTransfer
+    usbd_msc.o(i.USBD_MSC_RequestSense) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_RequestSense) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_RequestSense) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_Reset) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_Reset) refers to usbd_core.o(.data) for USBD_EndPointStall
+    usbd_msc.o(i.USBD_MSC_Reset) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_Reset) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_Reset_Event) refers to usbd_msc.o(i.USBD_MSC_Reset) for USBD_MSC_Reset
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usbd_msc.o(i.USBD_MSC_DataInFormat) for USBD_MSC_DataInFormat
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usb_config.o(.bss) for USBD_MSC_BulkBuf
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_ServiceActionIn16) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_SetCSW) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    usbd_msc.o(i.USBD_MSC_SetCSW) refers to usbd_kinetis.o(i.USBD_WriteEP) for USBD_WriteEP
+    usbd_msc.o(i.USBD_MSC_SetCSW) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_SetCSW) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_SetCSW) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_SetStallEP) refers to usbd_kinetis.o(i.USBD_SetStallEP) for USBD_SetStallEP
+    usbd_msc.o(i.USBD_MSC_SetStallEP) refers to usbd_core.o(.data) for USBD_EndPointHalt
+    usbd_msc.o(i.USBD_MSC_StartStopUnit) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_StartStopUnit) refers to usbd_msc.o(i.usbd_msc_start_stop) for usbd_msc_start_stop
+    usbd_msc.o(i.USBD_MSC_StartStopUnit) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_StartStopUnit) refers to usbd_msc.o(.data) for .data
+    usbd_msc.o(i.USBD_MSC_SynchronizeCache) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_SynchronizeCache) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to uread4.o(.text) for __aeabi_uread4
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usbd_msc.o(i.USBD_MSC_SetStallEP) for USBD_MSC_SetStallEP
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usbd_msc.o(i.USBD_MSC_CheckMedia) for USBD_MSC_CheckMedia
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usbd_msc.o(i.USBD_MSC_SetCSW) for USBD_MSC_SetCSW
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usbd_msc.o(.bss) for .bss
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkin
+    usbd_msc.o(i.USBD_MSC_TestUnitReady) refers to usb_config.o(.constdata) for usbd_msc_ep_bulkout
+    libspace.o(.text) refers to libspace.o(.bss) for __libspace_start
+    abort.o(.text) refers to defsig_abrt_outer.o(.text) for __rt_SIGABRT
+    abort.o(.text) refers (Weak) to libshutdown.o(.ARM.Collect$$libshutdown$$00000000) for __rt_lib_shutdown
+    abort.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    rt_memcpy.o(.text) refers to rt_memcpy.o(.emb_text) for __aeabi_memcpy4
+    rt_memmove.o(.text) refers to rt_memcpy.o(.emb_text) for __aeabi_memcpy4
+    rt_memmove.o(.text) refers to rt_memcpy.o(.text) for __aeabi_memcpy
+    aeabi_memset.o(.text) refers to rt_memclr.o(.text) for _memset
+    __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
+    sys_exit.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_exit.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000C) for __rt_entry_postli_1
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$00000009) for __rt_entry_postsh_1
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$00000002) for __rt_entry_presh_1
+    __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry4.o(.ARM.Collect$$rtentry$$00000004) for __rt_entry_sh
+    aeabi_idiv0_sigfpe.o(.text) refers to rt_div0.o(.text) for __rt_div0
+    defsig_abrt_outer.o(.text) refers to defsig_abrt_inner.o(.text) for __rt_SIGABRT_inner
+    defsig_abrt_outer.o(.text) refers to defsig_exit.o(.text) for __sig_exit
+    defsig_abrt_formal.o(.text) refers to rt_raise.o(.text) for __rt_raise
+    __rtentry2.o(.ARM.Collect$$rtentry$$00000008) refers to boardinit2.o(.text) for _platform_post_stackheap_init
+    __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) refers to libinit.o(.ARM.Collect$$libinit$$00000000) for __rt_lib_init
+    __rtentry2.o(.ARM.Collect$$rtentry$$0000000B) refers to boardinit3.o(.text) for _platform_post_lib_init
+    __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to main.o(i.main) for main
+    __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to exit.o(.text) for exit
+    __rtentry2.o(.ARM.exidx) refers to __rtentry2.o(.ARM.Collect$$rtentry$$00000001) for .ARM.Collect$$rtentry$$00000001
+    __rtentry2.o(.ARM.exidx) refers to __rtentry2.o(.ARM.Collect$$rtentry$$00000008) for .ARM.Collect$$rtentry$$00000008
+    __rtentry2.o(.ARM.exidx) refers to __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for .ARM.Collect$$rtentry$$0000000A
+    __rtentry2.o(.ARM.exidx) refers to __rtentry2.o(.ARM.Collect$$rtentry$$0000000B) for .ARM.Collect$$rtentry$$0000000B
+    __rtentry2.o(.ARM.exidx) refers to __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for .ARM.Collect$$rtentry$$0000000D
+    __rtentry4.o(.ARM.Collect$$rtentry$$00000004) refers to sys_stackheap_outer.o(.text) for __user_setup_stackheap
+    __rtentry4.o(.ARM.exidx) refers to __rtentry4.o(.ARM.Collect$$rtentry$$00000004) for .ARM.Collect$$rtentry$$00000004
+    rt_div0.o(.text) refers to defsig_fpe_outer.o(.text) for __rt_SIGFPE
+    rt_raise.o(.text) refers to __raise.o(.text) for __raise
+    rt_raise.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    defsig_exit.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    defsig_abrt_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    sys_stackheap_outer.o(.text) refers to libspace.o(.text) for __user_perproc_libspace
+    sys_stackheap_outer.o(.text) refers to startup_mkl26z4.o(.text) for __user_initial_stackheap
+    sys_stackheap_outer.o(__vectab_stack_and_reset_area) refers to tempstk.o(.text) for __temporary_stack_top
+    sys_stackheap_outer.o(__vectab_stack_and_reset_area) refers to __main.o(!!!main) for __main
+    exit.o(.text) refers to rtexit.o(.ARM.Collect$$rtexit$$00000000) for __rt_exit
+    __raise.o(.text) refers to defsig.o(CL$$defsig) for __default_signal_handler
+    defsig_general.o(.text) refers to sys_wrch.o(.text) for _ttywrch
+    defsig_fpe_outer.o(.text) refers to defsig_fpe_inner.o(.text) for __rt_SIGFPE_inner
+    defsig_fpe_outer.o(.text) refers to defsig_exit.o(.text) for __sig_exit
+    defsig_fpe_formal.o(.text) refers to rt_raise.o(.text) for __rt_raise
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002E) for __rt_lib_init_alloca_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002C) for __rt_lib_init_argv_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001B) for __rt_lib_init_atexit_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000021) for __rt_lib_init_clock_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000032) for __rt_lib_init_cpp_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000030) for __rt_lib_init_exceptions_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000002) for __rt_lib_init_fp_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001F) for __rt_lib_init_fp_trap_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000023) for __rt_lib_init_getenv_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000A) for __rt_lib_init_heap_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000011) for __rt_lib_init_lc_collate_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000013) for __rt_lib_init_lc_ctype_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000015) for __rt_lib_init_lc_monetary_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000017) for __rt_lib_init_lc_numeric_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000019) for __rt_lib_init_lc_time_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000004) for __rt_lib_init_preinit_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000E) for __rt_lib_init_rand_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000033) for __rt_lib_init_return
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001D) for __rt_lib_init_signal_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000025) for __rt_lib_init_stdio_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000C) for __rt_lib_init_user_alloc_1
+    sys_wrch.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_wrch.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for __rt_exit_exit
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for __rt_exit_ls
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000002) for __rt_exit_prels_1
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for __rt_exit_exit
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for __rt_exit_ls
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000002) for __rt_exit_prels_1
+    rtexit.o(.ARM.exidx) refers to rtexit.o(.ARM.Collect$$rtexit$$00000000) for .ARM.Collect$$rtexit$$00000000
+    defsig_fpe_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig.o(CL$$defsig) refers to defsig_abrt_inner.o(.text) for __rt_SIGABRT_inner
+    defsig.o(CL$$defsig) refers to defsig_fpe_inner.o(.text) for __rt_SIGFPE_inner
+    defsig.o(CL$$defsig) refers to defsig_rtmem_inner.o(.text) for __rt_SIGRTMEM_inner
+    libinit2.o(.ARM.Collect$$libinit$$00000010) refers to libinit2.o(.ARM.Collect$$libinit$$0000000F) for .ARM.Collect$$libinit$$0000000F
+    libinit2.o(.ARM.Collect$$libinit$$00000012) refers to libinit2.o(.ARM.Collect$$libinit$$0000000F) for .ARM.Collect$$libinit$$0000000F
+    libinit2.o(.ARM.Collect$$libinit$$00000014) refers to libinit2.o(.ARM.Collect$$libinit$$0000000F) for .ARM.Collect$$libinit$$0000000F
+    libinit2.o(.ARM.Collect$$libinit$$00000016) refers to libinit2.o(.ARM.Collect$$libinit$$0000000F) for .ARM.Collect$$libinit$$0000000F
+    libinit2.o(.ARM.Collect$$libinit$$00000018) refers to libinit2.o(.ARM.Collect$$libinit$$0000000F) for .ARM.Collect$$libinit$$0000000F
+    libinit2.o(.ARM.Collect$$libinit$$00000026) refers to argv_veneer.o(.text) for __ARM_argv_veneer
+    libinit2.o(.ARM.Collect$$libinit$$00000027) refers to argv_veneer.o(.text) for __ARM_argv_veneer
+    rtexit2.o(.ARM.Collect$$rtexit$$00000003) refers to libshutdown.o(.ARM.Collect$$libshutdown$$00000000) for __rt_lib_shutdown
+    rtexit2.o(.ARM.Collect$$rtexit$$00000004) refers to sys_exit.o(.text) for _sys_exit
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000001) for .ARM.Collect$$rtexit$$00000001
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for .ARM.Collect$$rtexit$$00000003
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for .ARM.Collect$$rtexit$$00000004
+    defsig_rtred_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_rtmem_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_stak_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_pvfn_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_cppl_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_segv_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_other.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    _get_argv_nomalloc.o(.text) refers (Special) to hrguard.o(.text) for __heap_region$guard
+    _get_argv_nomalloc.o(.text) refers to defsig_rtmem_outer.o(.text) for __rt_SIGRTMEM
+    _get_argv_nomalloc.o(.text) refers to sys_command.o(.text) for _sys_command_string
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000002) for __rt_lib_shutdown_cpp_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000007) for __rt_lib_shutdown_fp_trap_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F) for __rt_lib_shutdown_heap_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000010) for __rt_lib_shutdown_return
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A) for __rt_lib_shutdown_signal_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000004) for __rt_lib_shutdown_stdio_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C) for __rt_lib_shutdown_user_alloc_1
+    sys_command.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_command.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    defsig_rtmem_outer.o(.text) refers to defsig_rtmem_inner.o(.text) for __rt_SIGRTMEM_inner
+    defsig_rtmem_outer.o(.text) refers to defsig_exit.o(.text) for __sig_exit
+    defsig_rtmem_formal.o(.text) refers to rt_raise.o(.text) for __rt_raise
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing circ_buf.o(.rev16_text), (4 bytes).
+    Removing circ_buf.o(.revsh_text), (4 bytes).
+    Removing circ_buf.o(i.circ_buf_init), (28 bytes).
+    Removing circ_buf.o(i.circ_buf_read), (42 bytes).
+    Removing cortex_m.o(.rev16_text), (4 bytes).
+    Removing cortex_m.o(.revsh_text), (4 bytes).
+    Removing crc16.o(i.crc16), (76 bytes).
+    Removing crc16.o(i.reflect), (38 bytes).
+    Removing flash_hal.o(.rev16_text), (4 bytes).
+    Removing flash_hal.o(.revsh_text), (4 bytes).
+    Removing hardfault_handler.o(.rev16_text), (4 bytes).
+    Removing hardfault_handler.o(.revsh_text), (4 bytes).
+    Removing info.o(i.info_get_config_admin_present), (4 bytes).
+    Removing info.o(i.info_get_config_user_present), (4 bytes).
+    Removing info.o(i.info_get_crc_config_admin), (12 bytes).
+    Removing info.o(i.info_get_crc_config_user), (12 bytes).
+    Removing info.o(i.info_set_uuid_target), (60 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing rtx_config.o(.rev16_text), (4 bytes).
+    Removing rtx_config.o(.revsh_text), (4 bytes).
+    Removing rtx_config.o(i.__user_perthread_libspace), (36 bytes).
+    Removing rtx_config.o(i._mutex_initialize), (40 bytes).
+    Removing rtx_config.o(.bss), (396 bytes).
+    Removing rtx_config.o(.constdata), (4 bytes).
+    Removing rtx_config.o(.data), (4 bytes).
+    Removing util.o(.rev16_text), (4 bytes).
+    Removing util.o(.revsh_text), (4 bytes).
+    Removing util.o(i._util_com_debug), (108 bytes).
+    Removing util.o(i._util_com_get_buf_addr), (8 bytes).
+    Removing util.o(i._util_com_send), (40 bytes).
+    Removing util.o(i._util_com_set_size), (12 bytes).
+    Removing util.o(i.util_div_round), (12 bytes).
+    Removing util.o(i.util_div_round_down), (8 bytes).
+    Removing util.o(i.util_div_round_up), (12 bytes).
+    Removing util.o(i.util_write_hex16), (26 bytes).
+    Removing util.o(.bss), (256 bytes).
+    Removing util.o(.data), (2 bytes).
+    Removing flash_intf.o(.constdata), (4 bytes).
+    Removing flash_intf.o(.constdata), (4 bytes).
+    Removing flash_manager.o(i.flash_manager_set_page_erase), (12 bytes).
+    Removing vfs_manager.o(.rev16_text), (4 bytes).
+    Removing vfs_manager.o(.revsh_text), (4 bytes).
+    Removing vfs_manager.o(i.vfs_mngr_fs_enable), (52 bytes).
+    Removing vfs_user.o(.rev16_text), (4 bytes).
+    Removing vfs_user.o(.revsh_text), (4 bytes).
+    Removing virtual_fs.o(.rev16_text), (4 bytes).
+    Removing virtual_fs.o(.revsh_text), (4 bytes).
+    Removing virtual_fs.o(i.vfs_set_root_dir_active), (12 bytes).
+    Removing flashdev.o(.constdata), (4256 bytes).
+    Removing flashprg.o(.rev16_text), (4 bytes).
+    Removing flashprg.o(.revsh_text), (4 bytes).
+    Removing flashprg.o(i.EraseChip), (48 bytes).
+    Removing fsl_flash.o(.rev16_text), (4 bytes).
+    Removing fsl_flash.o(.revsh_text), (4 bytes).
+    Removing fsl_flash.o(i.FLASH_EraseAll), (52 bytes).
+    Removing fsl_flash.o(i.FLASH_SetCallback), (14 bytes).
+    Removing fsl_flash.o(i.FLASH_VerifyEraseAll), (36 bytes).
+    Removing fsl_flash.o(.constdata), (4 bytes).
+    Removing fsl_flash.o(.constdata), (4 bytes).
+    Removing flash_map.o(.rev16_text), (4 bytes).
+    Removing flash_map.o(.revsh_text), (4 bytes).
+    Removing flash_map.o(i.map_init), (8 bytes).
+    Removing flash_map.o(i.map_read_prog_data), (28 bytes).
+    Removing flash_map.o(i.map_read_prog_entry), (16 bytes).
+    Removing flash_map.o(i.map_write_prog_data), (28 bytes).
+    Removing flash_map.o(i.map_write_prog_entry), (16 bytes).
+    Removing gpio.o(.rev16_text), (4 bytes).
+    Removing gpio.o(.revsh_text), (4 bytes).
+    Removing gpio.o(i.gpio_set_board_power), (2 bytes).
+    Removing read_uid.o(.rev16_text), (4 bytes).
+    Removing read_uid.o(.revsh_text), (4 bytes).
+    Removing spi.o(.rev16_text), (4 bytes).
+    Removing spi.o(.revsh_text), (4 bytes).
+    Removing spi.o(i.spi_init), (108 bytes).
+    Removing spi.o(i.spi_read), (24 bytes).
+    Removing spi.o(i.spi_read_16), (28 bytes).
+    Removing spi.o(i.spi_write), (20 bytes).
+    Removing spi.o(i.spi_write_16), (20 bytes).
+    Removing system_mkl26z4.o(.rev16_text), (4 bytes).
+    Removing system_mkl26z4.o(.revsh_text), (4 bytes).
+    Removing system_mkl26z4.o(i.SystemCoreClockUpdate), (248 bytes).
+    Removing system_mkl26z4.o(.data), (4 bytes).
+    Removing uart.o(.rev16_text), (4 bytes).
+    Removing uart.o(.revsh_text), (4 bytes).
+    Removing uart.o(i.clear_buffers), (72 bytes).
+    Removing uart.o(i.uart_enable_flow_control), (2 bytes).
+    Removing uart.o(i.uart_get_configuration), (4 bytes).
+    Removing uart.o(i.uart_initialize), (112 bytes).
+    Removing uart.o(i.uart_read_data), (20 bytes).
+    Removing uart.o(i.uart_reset), (44 bytes).
+    Removing uart.o(i.uart_set_configuration), (156 bytes).
+    Removing uart.o(i.uart_uninitialize), (32 bytes).
+    Removing uart.o(i.uart_write_data), (64 bytes).
+    Removing uart.o(i.uart_write_free), (16 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Out_ADC_ReqToEP), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Out_ADC_ReqToIF), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Out_CLS_ReqToDEV), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Out_CLS_ReqToEP), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Out_CLS_ReqToIF), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Setup_ADC_ReqToEP), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Setup_ADC_ReqToIF), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Setup_CLS_ReqToDEV), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Setup_CLS_ReqToEP), (4 bytes).
+    Removing usb_config.o(i.USBD_EndPoint0_Setup_CLS_ReqToIF), (4 bytes).
+    Removing usb_config.o(i.usbd_os_evt_get), (4 bytes).
+    Removing usb_config.o(i.usbd_os_evt_set), (2 bytes).
+    Removing usb_config.o(i.usbd_os_evt_wait_or), (4 bytes).
+    Removing usb_config.o(.constdata), (1 bytes).
+    Removing usb_config.o(.constdata), (4 bytes).
+    Removing usb_config.o(.constdata), (4 bytes).
+    Removing usb_config.o(.constdata), (4 bytes).
+    Removing usb_config.o(.constdata), (33 bytes).
+    Removing usb_config.o(.constdata), (2 bytes).
+    Removing usb_config.o(.constdata), (2 bytes).
+    Removing usb_config.o(.constdata), (1 bytes).
+    Removing usb_config.o(.data), (1 bytes).
+    Removing usb_config.o(.data), (1 bytes).
+    Removing usb_config.o(.data), (1 bytes).
+    Removing usbd_kinetis.o(.rev16_text), (4 bytes).
+    Removing usbd_kinetis.o(.revsh_text), (4 bytes).
+    Removing usbd_kinetis.o(i.USBD_ClearEPBuf), (2 bytes).
+    Removing usbd_kinetis.o(i.USBD_GetFrame), (20 bytes).
+    Removing usbd_kinetis.o(i.USBD_WakeUp), (52 bytes).
+    Removing is25lp128f.o(.rev16_text), (4 bytes).
+    Removing is25lp128f.o(.revsh_text), (4 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_delete_block), (62 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_delete_chip), (26 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_extread_reg), (28 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_func_reg), (28 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_init), (32 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_resume), (18 bytes).
+    Removing is25lp128f.o(i.IS25LP128F_suspend), (18 bytes).
+    Removing rt_event.o(i.rt_evt_clr), (28 bytes).
+    Removing rt_list.o(i.rt_get_same_rdy_prio), (36 bytes).
+    Removing rt_mailbox.o(i.isr_mbx_receive), (74 bytes).
+    Removing rt_mailbox.o(i.isr_mbx_send), (12 bytes).
+    Removing rt_mailbox.o(i.rt_mbx_check), (8 bytes).
+    Removing rt_mailbox.o(i.rt_mbx_init), (32 bytes).
+    Removing rt_mailbox.o(i.rt_mbx_send), (156 bytes).
+    Removing rt_mailbox.o(i.rt_mbx_wait), (176 bytes).
+    Removing rt_membox.o(i._calloc_box), (32 bytes).
+    Removing rt_robin.o(i.rt_chk_robin), (68 bytes).
+    Removing rt_robin.o(i.rt_init_robin), (24 bytes).
+    Removing rt_robin.o(.data), (8 bytes).
+    Removing rt_semaphore.o(i.isr_sem_send), (14 bytes).
+    Removing rt_semaphore.o(i.rt_sem_init), (12 bytes).
+    Removing rt_semaphore.o(i.rt_sem_send), (60 bytes).
+    Removing rt_semaphore.o(i.rt_sem_wait), (68 bytes).
+    Removing rt_system.o(.emb_text), (0 bytes).
+    Removing rt_system.o(i.rt_resume), (176 bytes).
+    Removing rt_system.o(i.rt_suspend), (52 bytes).
+    Removing rt_system.o(i.rt_tsk_lock), (84 bytes).
+    Removing rt_system.o(i.rt_tsk_unlock), (84 bytes).
+    Removing rt_task.o(i.rt_tsk_delete), (156 bytes).
+    Removing rt_task.o(i.rt_tsk_pass), (44 bytes).
+    Removing rt_task.o(i.rt_tsk_prio), (132 bytes).
+    Removing rt_time.o(i.rt_time_get), (12 bytes).
+    Removing rt_timer.o(i.rt_tmr_create), (80 bytes).
+    Removing rt_timer.o(i.rt_tmr_kill), (52 bytes).
+    Removing settings.o(.rev16_text), (4 bytes).
+    Removing settings.o(.revsh_text), (4 bytes).
+    Removing usbd_core.o(.emb_text), (0 bytes).
+    Removing usbd_msc.o(i.USBD_MSC_EP_BULKIN_Event), (8 bytes).
+    Removing usbd_msc.o(i.USBD_MSC_Reset_Event), (8 bytes).
+    Removing usbd_msc.o(i.usbd_msc_init), (2 bytes).
+    Removing usbd_msc.o(i.usbd_msc_read_sect), (2 bytes).
+    Removing usbd_msc.o(i.usbd_msc_write_sect), (2 bytes).
+
+168 unused section(s) (total 9070 bytes) removed from the image.

@@ -1,0 +1,1629 @@
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_manager.c"
+N/**
+N * @file    flash_manager.c
+N * @brief   Implementation of flash_manager.h
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#include "string.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h" 1
+N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
+N/* Copyright (C) Codemist Ltd., 1988-1993.                        */
+N/* Copyright 1991-1993 ARM Limited. All rights reserved.          */
+N/* version 0.04 */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N */
+N
+N/*
+N * string.h declares one type and several functions, and defines one macro
+N * useful for manipulating character arrays and other objects treated as
+N * character arrays. Various methods are used for determining the lengths of
+N * the arrays, but in all cases a char * or void * argument points to the
+N * initial (lowest addresses) character of the array. If an array is written
+N * beyond the end of an object, the behaviour is undefined.
+N */
+N
+N#ifndef __string_h
+N#define __string_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N#define _ARMABI __declspec(__nothrow)
+N
+N  #ifndef __STRING_DECLS
+N  #define __STRING_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+Nextern _ARMABI void *memcpy(void * __restrict /*s1*/,
+Xextern __declspec(__nothrow) void *memcpy(void * __restrict  ,
+N                    const void * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI void *memmove(void * /*s1*/,
+Xextern __declspec(__nothrow) void *memmove(void *  ,
+N                    const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. Copying takes place as if the n characters from the
+N    * object pointed to by s2 are first copied into a temporary array of n
+N    * characters that does not overlap the objects pointed to by s1 and s2,
+N    * and then the n characters from the temporary array are copied into the
+N    * object pointed to by s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strcpy(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string pointed to by s2 (including the terminating nul
+N    * character) into the array pointed to by s1. If copying takes place
+N    * between objects that overlap, the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncpy(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies not more than n characters (characters that follow a null
+N    * character are not copied) from the array pointed to by s2 into the array
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+N
+Nextern _ARMABI char *strcat(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends a copy of the string pointed to by s2 (including the terminating
+N    * null character) to the end of the string pointed to by s1. The initial
+N    * character of s2 overwrites the null character at the end of s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncat(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends not more than n characters (a null character and characters that
+N    * follow it are not appended) from the array pointed to by s2 to the end of
+N    * the string pointed to by s1. The initial character of s2 overwrites the
+N    * null character at the end of s1. A terminating null character is always
+N    * appended to the result.
+N    * Returns: the value of s1.
+N    */
+N
+N/*
+N * The sign of a nonzero value returned by the comparison functions is
+N * determined by the sign of the difference between the values of the first
+N * pair of characters (both interpreted as unsigned char) that differ in the
+N * objects being compared.
+N */
+N
+Nextern _ARMABI int memcmp(const void * /*s1*/, const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the first n characters of the object pointed to by s1 to the
+N    * first n characters of the object pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the object pointed to by s1 is greater than, equal to, or
+N    *          less than the object pointed to by s2.
+N    */
+Nextern _ARMABI int strcmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcasecmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2,
+N    * case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncasecmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2, case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcoll(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2, both
+N    * interpreted as appropriate to the LC_COLLATE category of the current
+N    * locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2 when both are interpreted
+N    *          as appropriate to the current locale.
+N    */
+N
+Nextern _ARMABI size_t strxfrm(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * transforms the string pointed to by s2 and places the resulting string
+N    * into the array pointed to by s1. The transformation function is such that
+N    * if the strcmp function is applied to two transformed strings, it returns
+N    * a value greater than, equal to or less than zero, corresponding to the
+N    * result of the strcoll function applied to the same two original strings.
+N    * No more than n characters are placed into the resulting array pointed to
+N    * by s1, including the terminating null character. If n is zero, s1 is
+N    * permitted to be a null pointer. If copying takes place between objects
+N    * that overlap, the behaviour is undefined.
+N    * Returns: The length of the transformed string is returned (not including
+N    *          the terminating null character). If the value returned is n or
+N    *          more, the contents of the array pointed to by s1 are
+N    *          indeterminate.
+N    */
+N
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Sextern "C++" void *memchr(void * __s, int __c, size_t __n) __attribute__((__nonnull__(1)));
+Sextern "C++" inline void *memchr(void * __s, int __c, size_t __n)
+S    { return const_cast<void *>(memchr(const_cast<const void *>(__s), __c, __n)); }
+N#else
+Nextern _ARMABI void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an unsigned char) in the
+N    * initial n characters (each interpreted as unsigned char) of the object
+N    * pointed to by s.
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the object.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strchr(char * __s, int __c)
+S    { return const_cast<char *>(strchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an char) in the string
+N    * pointed to by s (including the terminating null character).
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strcspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters not from the string pointed to by
+N    * s2. The terminating null character is not considered part of s2.
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strpbrk(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strpbrk(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strpbrk(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of any
+N    * character from the string pointed to by s2.
+N    * Returns: returns a pointer to the character, or a null pointer if no
+N    *          character form s2 occurs in s1.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strrchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strrchr(char * __s, int __c)
+S    { return const_cast<char *>(strrchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the last occurence of c (converted to a char) in the string
+N    * pointed to by s. The terminating null character is considered part of
+N    * the string.
+N    * Returns: returns a pointer to the character, or a null pointer if c does
+N    *          not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters from the string pointed to by S2
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strstr(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strstr(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strstr(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of the
+N    * sequence of characters (excluding the terminating null character) in the
+N    * string pointed to by s2.
+N    * Returns: a pointer to the located string, or a null pointer if the string
+N    *          is not found.
+N    */
+N
+Nextern _ARMABI char *strtok(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
+Nextern _ARMABI char *_strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#ifndef __STRICT_ANSI__
+Nextern _ARMABI char *strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#endif
+N   /*
+N    * A sequence of calls to the strtok function breaks the string pointed to
+N    * by s1 into a sequence of tokens, each of which is delimited by a
+N    * character from the string pointed to by s2. The first call in the
+N    * sequence has s1 as its first argument, and is followed by calls with a
+N    * null pointer as their first argument. The separator string pointed to by
+N    * s2 may be different from call to call.
+N    * The first call in the sequence searches for the first character that is
+N    * not contained in the current separator string s2. If no such character
+N    * is found, then there are no tokens in s1 and the strtok function returns
+N    * a null pointer. If such a character is found, it is the start of the
+N    * first token.
+N    * The strtok function then searches from there for a character that is
+N    * contained in the current separator string. If no such character is found,
+N    * the current token extends to the end of the string pointed to by s1, and
+N    * subsequent searches for a token will fail. If such a character is found,
+N    * it is overwritten by a null character, which terminates the current
+N    * token. The strtok function saves a pointer to the following character,
+N    * from which the next search for a token will start.
+N    * Each subsequent call, with a null pointer as the value for the first
+N    * argument, starts searching from the saved pointer and behaves as
+N    * described above.
+N    * Returns: pointer to the first character of a token, or a null pointer if
+N    *          there is no token.
+N    *
+N    * strtok_r() is a common extension which works exactly like
+N    * strtok(), but instead of storing its state in a hidden
+N    * library variable, requires the user to pass in a pointer to a
+N    * char * variable which will be used instead. Any sequence of
+N    * calls to strtok_r() passing the same char ** pointer should
+N    * behave exactly like the corresponding sequence of calls to
+N    * strtok(). This means that strtok_r() can safely be used in
+N    * multi-threaded programs, and also that you can tokenise two
+N    * strings in parallel.
+N    */
+N
+Nextern _ARMABI void *memset(void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * copies the value of c (converted to an unsigned char) into each of the
+N    * first n charactes of the object pointed to by s.
+N    * Returns: the value of s.
+N    */
+Nextern _ARMABI char *strerror(int /*errnum*/);
+Xextern __declspec(__nothrow) char *strerror(int  );
+N   /*
+N    * maps the error number in errnum to an error message string.
+N    * Returns: a pointer to the string, the contents of which are
+N    *          implementation-defined. The array pointed to shall not be
+N    *          modified by the program, but may be overwritten by a
+N    *          subsequent call to the strerror function.
+N    */
+Nextern _ARMABI size_t strlen(const char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * computes the length of the string pointed to by s.
+N    * Returns: the number of characters that precede the terminating null
+N    *          character.
+N    */
+N
+Nextern _ARMABI size_t strlcpy(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string src into the string dst, using no more than
+N    * len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src. Thus, the operation
+N    * succeeded without truncation if and only if ret < len;
+N    * otherwise, the value in ret tells you how big to make dst if
+N    * you decide to reallocate it. (That value does _not_ include
+N    * the NUL.)
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI size_t strlcat(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * concatenates the string src to the string dst, using no more
+N    * than len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src plus the original length
+N    * of dst. Thus, the operation succeeded without truncation if
+N    * and only if ret < len; otherwise, the value in ret tells you
+N    * how big to make dst if you decide to reallocate it. (That
+N    * value does _not_ include the NUL.)
+N    * 
+N    * If no NUL is encountered within the first len bytes of dst,
+N    * then the length of dst is considered to have been equal to
+N    * len for the purposes of the return value (as if there were a
+N    * NUL at dst[len]). Thus, the return value in this case is len
+N    * + strlen(src).
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI void _membitcpybl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpybb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+N    /*
+N     * Copies or moves a piece of memory from one place to another,
+N     * with one-bit granularity. So you can start or finish a copy
+N     * part way through a byte, and you can copy between regions
+N     * with different alignment within a byte.
+N     * 
+N     * All these functions have the same prototype: two void *
+N     * pointers for destination and source, then two integers
+N     * giving the bit offset from those pointers, and finally the
+N     * number of bits to copy.
+N     * 
+N     * Just like memcpy and memmove, the "cpy" functions copy as
+N     * fast as they can in the assumption that the memory regions
+N     * do not overlap, while the "move" functions cope correctly
+N     * with overlap.
+N     *
+N     * Treating memory as a stream of individual bits requires
+N     * defining a convention about what order those bits are
+N     * considered to be arranged in. The above functions support
+N     * multiple conventions:
+N     * 
+N     *  - the "bl" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in little-endian fashion, so that the LSB comes
+N     *    first. (For example, membitcpybl(a,b,0,7,1) would copy
+N     *    the MSB of the byte at b to the LSB of the byte at a.)
+N     * 
+N     *  - the "bb" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in big-endian fashion, so that the MSB comes
+N     *    first.
+N     * 
+N     *  - the "hl" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in little-endian fashion.
+N     * 
+N     *  - the "hb" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in big-endian fashion.
+N     * 
+N     *  - the "wl" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in little-endian fashion.
+N     * 
+N     *  - the "wb" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in big-endian fashion.
+N     */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STRING_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STRING_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::memcpy;
+S      using ::std::memmove;
+S      using ::std::strcpy;
+S      using ::std::strncpy;
+S      using ::std::strcat;
+S      using ::std::strncat;
+S      using ::std::memcmp;
+S      using ::std::strcmp;
+S      using ::std::strncmp;
+S      using ::std::strcasecmp;
+S      using ::std::strncasecmp;
+S      using ::std::strcoll;
+S      using ::std::strxfrm;
+S      using ::std::memchr;
+S      using ::std::strchr;
+S      using ::std::strcspn;
+S      using ::std::strpbrk;
+S      using ::std::strrchr;
+S      using ::std::strspn;
+S      using ::std::strstr;
+S      using ::std::strtok;
+S#ifndef __STRICT_ANSI__
+S      using ::std::strtok_r;
+S#endif
+S      using ::std::_strtok_r;
+S      using ::std::memset;
+S      using ::std::strerror;
+S      using ::std::strlen;
+S      using ::std::strlcpy;
+S      using ::std::strlcat;
+S      using ::std::_membitcpybl;
+S      using ::std::_membitcpybb;
+S      using ::std::_membitcpyhl;
+S      using ::std::_membitcpyhb;
+S      using ::std::_membitcpywl;
+S      using ::std::_membitcpywb;
+S      using ::std::_membitmovebl;
+S      using ::std::_membitmovebb;
+S      using ::std::_membitmovehl;
+S      using ::std::_membitmovehb;
+S      using ::std::_membitmovewl;
+S      using ::std::_membitmovewb;
+S    #endif /* __STRING_NO_EXPORTS */
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of string.h */
+N
+L 23 "..\..\..\source\daplink\drag-n-drop\flash_manager.c" 2
+N#include "stdbool.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 24 "..\..\..\source\daplink\drag-n-drop\flash_manager.c" 2
+N
+N#include "flash_manager.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_manager.h" 1
+N/**
+N * @file    flash_manager.h
+N * @brief   Handling of file steam decode and prep for writing
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_MANAGER_H
+N#define FLASH_MANAGER_H
+N
+N#include "stdint.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 26 "..\..\..\source\daplink\drag-n-drop\flash_manager.h" 2
+N#include "stdbool.h"
+N#include "flash_intf.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_intf.h" 1
+N/**
+N * @file    flash_intf.h
+N * @brief   Interface for implementing differet ways to write an image into memory
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_INTF_H
+N#define FLASH_INTF_H
+N
+N#include "stdint.h"
+N
+N#include "error.h"
+L 1 "..\..\..\source\daplink\error.h" 1
+N/**
+N * @file    error.h
+N * @brief   collection of known errors and accessor for the friendly string
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef ERROR_H
+N#define ERROR_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Keep in sync with the lists error_message and error_type
+Ntypedef enum {
+N    /* Shared errors */
+N    ERROR_SUCCESS = 0,
+N    ERROR_FAILURE,
+N    ERROR_INTERNAL,
+N
+N    /* VFS user errors */
+N    ERROR_ERROR_DURING_TRANSFER,
+N    ERROR_TRANSFER_TIMEOUT,
+N    ERROR_FILE_BOUNDS,
+N    ERROR_OOO_SECTOR,
+N
+N    /* Target flash errors */
+N    ERROR_RESET,
+N    ERROR_ALGO_DL,
+N    ERROR_ALGO_DATA_SEQ,
+N    ERROR_INIT,
+N    ERROR_SECURITY_BITS,
+N    ERROR_UNLOCK,
+N    ERROR_ERASE_SECTOR,
+N    ERROR_ERASE_ALL,
+N    ERROR_WRITE,
+N
+N    /* File stream errors */
+N    ERROR_SUCCESS_DONE,
+N    ERROR_SUCCESS_DONE_OR_CONTINUE,
+N    ERROR_HEX_CKSUM,
+N    ERROR_HEX_PARSER,
+N    ERROR_HEX_PROGRAM,
+N    ERROR_HEX_INVALID_ADDRESS,
+N    ERROR_HEX_INVALID_APP_OFFSET,
+N
+N    /* Flash decoder error */
+N    ERROR_FD_BL_UPDT_ADDR_WRONG,
+N    ERROR_FD_INTF_UPDT_ADDR_WRONG,
+N    ERROR_FD_UNSUPPORTED_UPDATE,
+N
+N    /* Flash IAP interface */
+N    ERROR_IAP_INIT,
+N    ERROR_IAP_UNINIT,
+N    ERROR_IAP_WRITE,
+N    ERROR_IAP_ERASE_SECTOR,
+N    ERROR_IAP_ERASE_ALL,
+N    ERROR_IAP_OUT_OF_BOUNDS,
+N    ERROR_IAP_UPDT_NOT_SUPPORTED,
+N    ERROR_IAP_UPDT_INCOMPLETE,
+N    ERROR_IAP_NO_INTERCEPT,
+N    ERROR_BL_UPDT_BAD_CRC,
+N
+N    // Add new values here
+N
+N    ERROR_COUNT
+N} error_t;
+N
+Nconst char *error_get_string(error_t error);
+N
+Ntypedef unsigned char error_type_t;
+N
+N#define ERROR_TYPE_INTERNAL 0x1
+N#define ERROR_TYPE_TRANSIENT 0x2
+N#define ERROR_TYPE_USER 0x4
+N#define ERROR_TYPE_TARGET 0x8
+N#define ERROR_TYPE_INTERFACE 0x10
+N// If you add another error type:
+N// 1. update error_type_names, used by read_file_fail_txt()
+N// 2. update ERROR_TYPE_MASK
+N// 3. make sure that error type bits still fit inside of error_type_t
+N#define ERROR_TYPE_MASK 0x1F
+N
+Nerror_type_t error_get_type(error_t error);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\flash_intf.h" 2
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Ntypedef error_t (*flash_intf_init_cb_t)(void);
+Ntypedef error_t (*flash_intf_uninit_cb_t)(void);
+Ntypedef error_t (*flash_intf_program_page_cb_t)(uint32_t addr, const uint8_t *buf, uint32_t size);
+Ntypedef error_t (*flash_intf_erase_sector_cb_t)(uint32_t sector);
+Ntypedef error_t (*flash_intf_erase_chip_cb_t)(void);
+Ntypedef uint32_t (*flash_program_page_min_size_cb_t)(uint32_t addr);
+Ntypedef uint32_t (*flash_erase_sector_size_cb_t)(uint32_t addr);
+Ntypedef uint8_t (*flash_busy_cb_t)(void);
+N
+Ntypedef struct {
+N    flash_intf_init_cb_t init;
+N    flash_intf_uninit_cb_t uninit;
+N    flash_intf_program_page_cb_t program_page;
+N    flash_intf_erase_sector_cb_t erase_sector;
+N    flash_intf_erase_chip_cb_t erase_chip;
+N    flash_program_page_min_size_cb_t program_page_min_size;
+N    flash_erase_sector_size_cb_t erase_sector_size;
+N    flash_busy_cb_t flash_busy;
+N} flash_intf_t;
+N
+N// All flash interfaces.  Unsupported interfaces are NULL.
+Nextern const flash_intf_t *const flash_intf_iap_protected;
+Nextern const flash_intf_t *const flash_intf_target;
+Nextern const flash_intf_t *const flash_intf_target_custom;
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\flash_manager.h" 2
+N#include "error.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Nerror_t flash_manager_init(const flash_intf_t *flash_intf);
+Nerror_t flash_manager_data(uint32_t addr, const uint8_t *data, uint32_t size);
+Nerror_t flash_manager_uninit(void);
+Nvoid flash_manager_set_page_erase(bool enabled);
+Xvoid flash_manager_set_page_erase(_Bool enabled);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 26 "..\..\..\source\daplink\drag-n-drop\flash_manager.c" 2
+N#include "util.h"
+L 1 "..\..\..\source\daplink\util.h" 1
+N/**
+N * @file    util.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef UTIL_H
+N#define UTIL_H
+N
+N#include "stdbool.h"
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Write the value to the address specified and return the size
+Nuint32_t util_write_hex8(char *str, uint8_t value);
+Nuint32_t util_write_hex16(char *str, uint16_t value);
+Nuint32_t util_write_hex32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32_zp(char *str, uint32_t value, uint16_t total_size);
+Nuint32_t util_write_string(char *str, const char *data);
+N
+Nuint32_t util_div_round_up(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round_down(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round(uint32_t dividen, uint32_t divisor);
+N
+N#if !(defined(DAPLINK_NO_ASSERT_FILENAMES) && defined(DAPLINK_BL))
+X#if !(1L && 1L)
+S// With the filename enabled.
+S#define util_assert(expression) _util_assert((expression), __FILE__, __LINE__)
+N#else
+N// Filename disabled to save code size.
+N#define util_assert(expression) _util_assert((expression), "(file)", __LINE__)
+N#endif
+Nvoid _util_assert(bool expression, const char *filename, uint16_t line);
+Xvoid _util_assert(_Bool expression, const char *filename, uint16_t line);
+N
+Nvoid util_assert_clear(void);
+N
+Nuint8_t* _util_com_get_buf_addr(void);
+N
+Nvoid _util_com_set_size(uint16_t size);
+N
+N#define util_com_debug(label) _util_com_debug(__FILE__, __LINE__, (label))
+N
+Nvoid _util_com_debug(const char *filename, uint16_t line, const char *label);
+N
+Nvoid _util_com_send(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 27 "..\..\..\source\daplink\drag-n-drop\flash_manager.c" 2
+N#include "macro.h"
+L 1 "..\..\..\source\daplink\macro.h" 1
+N/**
+N * @file    macro.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef MACRO_H
+N#define MACRO_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define ELEMENTS_IN_ARRAY(array)        (sizeof(array)/sizeof(array[0]))
+N
+N#define MB(size)                        ((size) * 1024 * 1024)
+N
+N#define KB(size)                        ((size) * 1024)
+N
+N#define MIN(a,b)                        ((a) < (b) ? (a) : (b))
+N
+N#define MAX(a,b)                        ((a) > (b) ? (a) : (b))
+N
+N#define ROUND_UP(value, boundary)       ((value) + ((boundary) - (value)) % (boundary))
+N
+N#define ROUND_DOWN(value, boundary)     ((value) - ((value) % (boundary)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\flash_manager.c" 2
+N#include "error.h"
+N
+N// Set to 1 to enable debugging
+N#define DEBUG_FLASH_MANAGER     0
+N
+N#if DEBUG_FLASH_MANAGER
+X#if 0
+S#include "daplink_debug.h"
+S#define flash_manager_printf    debug_msg
+N#else
+N#define flash_manager_printf(...)
+N#endif
+N
+Ntypedef enum {
+N    STATE_CLOSED,
+N    STATE_OPEN,
+N    STATE_ERROR
+N} state_t;
+N
+N// Target programming expects buffer
+N// passed in to be 4 byte aligned
+N__attribute__((aligned(4)))
+Nstatic uint8_t buf[1024];
+Nstatic bool buf_empty;
+Xstatic _Bool buf_empty;
+Nstatic bool current_sector_valid;
+Xstatic _Bool current_sector_valid;
+Nstatic bool page_erase_enabled = false;
+Xstatic _Bool page_erase_enabled = 0;
+Nstatic uint32_t current_write_block_addr;
+Nstatic uint32_t current_write_block_size;
+Nstatic uint32_t current_sector_addr;
+Nstatic uint32_t current_sector_size;
+Nstatic uint32_t last_addr;
+Nstatic const flash_intf_t *intf;
+Nstatic state_t state = STATE_CLOSED;
+N
+Nstatic bool flash_intf_valid(const flash_intf_t *flash_intf);
+Xstatic _Bool flash_intf_valid(const flash_intf_t *flash_intf);
+Nstatic error_t setup_next_sector(uint32_t addr);
+N
+Nerror_t flash_manager_init(const flash_intf_t *flash_intf)
+N{
+N    error_t status;
+N    // Assert that interface has been properly uninitialized
+N    flash_manager_printf("flash_manager_init()\r\n");
+X    ;
+N
+N    if (state != STATE_CLOSED) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 71);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Check for a valid flash interface
+N    if (!flash_intf_valid(flash_intf)) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 77);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Initialize variables
+N    memset(buf, 0xFF, sizeof(buf));
+N    buf_empty = true;
+X    buf_empty = 1;
+N    current_sector_valid = false;
+X    current_sector_valid = 0;
+N    current_write_block_addr = 0;
+N    current_write_block_size = 0;
+N    current_sector_addr = 0;
+N    current_sector_size = 0;
+N    last_addr = 0;
+N    intf = flash_intf;
+N    // Initialize flash
+N    status = intf->init();
+N    flash_manager_printf("    intf->init ret=%i\r\n", status);
+X    ;
+N
+N    if (ERROR_SUCCESS != status) {
+N        return status;
+N    }
+N
+N    if (!page_erase_enabled) {
+N        // Erase flash and unint if there are errors
+N        status = intf->erase_chip();
+N        flash_manager_printf("    intf->erase_chip ret=%i\r\n", status);
+X        ;
+N
+N        if (ERROR_SUCCESS != status) {
+N            intf->uninit();
+N            return status;
+N        }
+N    }
+N
+N    state = STATE_OPEN;
+N    return status;
+N}
+N
+Nerror_t flash_manager_data(uint32_t addr, const uint8_t *data, uint32_t size)
+N{
+N    uint32_t size_left;
+N    uint32_t copy_size;
+N    uint32_t pos;
+N    error_t status = ERROR_SUCCESS;
+N    flash_manager_printf("flash_manager_data(addr=0x%x size=0x%x)\r\n", addr, size);
+X    ;
+N
+N    if (state != STATE_OPEN) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 123);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Enforce that addresses are sequential.  Currently flash manager
+N    // only supports sequential addresses.  In the future flash manager
+N    // could be updated to support this.
+N    if (addr < last_addr) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 131);
+N        state = STATE_ERROR;
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Setup the current sector if it is not setup already
+N    if (!current_sector_valid) {
+N        status = setup_next_sector(addr);
+N
+N        if (ERROR_SUCCESS != status) {
+N            state = STATE_ERROR;
+N            return status;
+N        }
+N        current_sector_valid = true;
+X        current_sector_valid = 1;
+N    }
+N
+N    while (true) {
+X    while (1) {
+N        // flush if necessary
+N        if (addr >= current_write_block_addr + current_write_block_size) {
+N
+N            // Write out current buffer if there is data in it
+N            if (!buf_empty) {
+N                status = intf->program_page(current_write_block_addr, buf, current_write_block_size);
+N                flash_manager_printf("    intf->program_page(addr=0x%x, size=0x%x) ret=%i\r\n", current_write_block_addr, current_write_block_size, status);
+X                ;
+N
+N                if (ERROR_SUCCESS != status) {
+N                    state = STATE_ERROR;
+N                    return status;
+N                }
+N                buf_empty = true;
+X                buf_empty = 1;
+N            }
+N
+N            // Setup for next page
+N            memset(buf, 0xFF, current_write_block_size);
+N            current_write_block_addr = ROUND_DOWN(addr,current_write_block_size);
+X            current_write_block_addr = ((addr) - ((addr) % (current_write_block_size)));
+N        }
+N
+N        // Check for end
+N        if (size <= 0) {
+N            break;
+N        }
+N
+N        // Change sector if necessary
+N        if (addr >= current_sector_addr + current_sector_size) {
+N            status = setup_next_sector(addr);
+N
+N            if (ERROR_SUCCESS != status) {
+N                state = STATE_ERROR;
+N                return status;
+N            }
+N        }
+N
+N        // write buffer
+N        pos = addr - current_write_block_addr;
+N        size_left = current_write_block_size - pos;
+N        copy_size = MIN(size, size_left);
+X        copy_size = ((size) < (size_left) ? (size) : (size_left));
+N        memcpy(buf + pos, data, copy_size);
+N        buf_empty = copy_size == 0;
+N        // Update variables
+N        addr += copy_size;
+N        data += copy_size;
+N        size -= copy_size;
+N    }
+N
+N    last_addr = addr;
+N    return status;
+N}
+N
+Nerror_t flash_manager_uninit(void)
+N{
+N    error_t flash_uninit_error;
+N    error_t flash_write_error = ERROR_SUCCESS;
+N    flash_manager_printf("flash_manager_uninit()\r\n");
+X    ;
+N
+N    if (STATE_CLOSED == state) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 206);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Write out current page
+N    if ((STATE_OPEN == state) && (!buf_empty)) {
+N        flash_write_error = intf->program_page(current_write_block_addr, buf, current_write_block_size);
+N        flash_manager_printf("    intf->program_page(addr=0x%x, size=0x%x) ret=%i\r\n",
+N                             current_write_block_addr, current_write_block_size, flash_write_error);
+X        ;
+N    }
+N
+N    // Close flash interface (even if there was an error during program_page)
+N    flash_uninit_error = intf->uninit();
+N    flash_manager_printf("    intf->uninit() ret=%i\r\n", flash_uninit_error);
+X    ;
+N    // Reset variables to catch accidental use
+N    memset(buf, 0xFF, sizeof(buf));
+N    buf_empty = true;
+X    buf_empty = 1;
+N    current_sector_valid = false;
+X    current_sector_valid = 0;
+N    current_write_block_addr = 0;
+N    current_write_block_size = 0;
+N    current_sector_addr = 0;
+N    current_sector_size = 0;
+N    last_addr = 0;
+N    state = STATE_CLOSED;
+N
+N    // Make sure an error from a page write or from an
+N    // uninit gets propagated
+N    if (flash_uninit_error != ERROR_SUCCESS) {
+N        return flash_uninit_error;
+N    }
+N
+N    if (flash_write_error != ERROR_SUCCESS) {
+N        return flash_write_error;
+N    }
+N
+N    return ERROR_SUCCESS;
+N}
+N
+Nvoid flash_manager_set_page_erase(bool enabled)
+Xvoid flash_manager_set_page_erase(_Bool enabled)
+N{
+N    page_erase_enabled = enabled;
+N}
+N
+Nstatic bool flash_intf_valid(const flash_intf_t *flash_intf)
+Xstatic _Bool flash_intf_valid(const flash_intf_t *flash_intf)
+N{
+N    // Check for all requried members
+N    if (0 == flash_intf) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->uninit) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->program_page) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->erase_sector) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->erase_chip) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->program_page_min_size) {
+N        return false;
+X        return 0;
+N    }
+N
+N    if (0 == flash_intf->erase_sector_size) {
+N        return false;
+X        return 0;
+N    }
+N    
+N    if (0 == flash_intf->flash_busy) {
+N        return false;
+X        return 0;
+N    }
+N
+N    return true;
+X    return 1;
+N}
+N
+Nstatic error_t setup_next_sector(uint32_t addr)
+N{
+N    uint32_t min_prog_size;
+N    uint32_t sector_size;
+N    error_t status;
+N    min_prog_size = intf->program_page_min_size(addr);
+N    sector_size = intf->erase_sector_size(addr);
+N
+N    if ((min_prog_size <= 0) || (sector_size <= 0)) {
+N        // Either of these conditions could cause divide by 0 error
+N        util_assert(0);
+X        _util_assert((0), "(file)", 297);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Assert required size and alignment
+N    util_assert(sizeof(buf) >= min_prog_size);
+X    _util_assert((sizeof(buf) >= min_prog_size), "(file)", 302);
+N    util_assert(sizeof(buf) % min_prog_size == 0);
+X    _util_assert((sizeof(buf) % min_prog_size == 0), "(file)", 303);
+N    util_assert(sector_size >= min_prog_size);
+X    _util_assert((sector_size >= min_prog_size), "(file)", 304);
+N    util_assert(sector_size % min_prog_size == 0);
+X    _util_assert((sector_size % min_prog_size == 0), "(file)", 305);
+N    // Setup global variables
+N    current_sector_addr = ROUND_DOWN(addr, sector_size);
+X    current_sector_addr = ((addr) - ((addr) % (sector_size)));
+N    current_sector_size = sector_size;
+N    current_write_block_addr = current_sector_addr;
+N    current_write_block_size = MIN(sector_size, sizeof(buf));
+X    current_write_block_size = ((sector_size) < (sizeof(buf)) ? (sector_size) : (sizeof(buf)));
+N
+N    if(page_erase_enabled) {
+N        // Erase the current sector
+N        status = intf->erase_sector(current_sector_addr);
+N        flash_manager_printf("    intf->erase_sector(addr=0x%x) ret=%i\r\n", current_sector_addr);
+X        ;
+N        if (ERROR_SUCCESS != status) {
+N            intf->uninit();
+N            return status;
+N        }         
+N    }
+N
+N    // Clear out buffer in case block size changed
+N    memset(buf, 0xFF, current_write_block_size);
+N    flash_manager_printf("    setup_next_sector(addr=0x%x) sect_addr=0x%x, write_addr=0x%x,\r\n",
+N                         addr, current_sector_addr, current_write_block_addr);
+X    ;
+N    flash_manager_printf("        actual_write_size=0x%x, sector_size=0x%x, min_write=0x%x\r\n",
+N                         current_write_block_size, current_sector_size, min_prog_size);
+X    ;
+N    return ERROR_SUCCESS;
+N}

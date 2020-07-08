@@ -1,0 +1,2349 @@
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c"
+N/**
+N * @file    flash_decoder.c
+N * @brief   Implementation of flash_decoder.h
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#include "string.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h" 1
+N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
+N/* Copyright (C) Codemist Ltd., 1988-1993.                        */
+N/* Copyright 1991-1993 ARM Limited. All rights reserved.          */
+N/* version 0.04 */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N */
+N
+N/*
+N * string.h declares one type and several functions, and defines one macro
+N * useful for manipulating character arrays and other objects treated as
+N * character arrays. Various methods are used for determining the lengths of
+N * the arrays, but in all cases a char * or void * argument points to the
+N * initial (lowest addresses) character of the array. If an array is written
+N * beyond the end of an object, the behaviour is undefined.
+N */
+N
+N#ifndef __string_h
+N#define __string_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N#define _ARMABI __declspec(__nothrow)
+N
+N  #ifndef __STRING_DECLS
+N  #define __STRING_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+Nextern _ARMABI void *memcpy(void * __restrict /*s1*/,
+Xextern __declspec(__nothrow) void *memcpy(void * __restrict  ,
+N                    const void * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI void *memmove(void * /*s1*/,
+Xextern __declspec(__nothrow) void *memmove(void *  ,
+N                    const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. Copying takes place as if the n characters from the
+N    * object pointed to by s2 are first copied into a temporary array of n
+N    * characters that does not overlap the objects pointed to by s1 and s2,
+N    * and then the n characters from the temporary array are copied into the
+N    * object pointed to by s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strcpy(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string pointed to by s2 (including the terminating nul
+N    * character) into the array pointed to by s1. If copying takes place
+N    * between objects that overlap, the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncpy(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies not more than n characters (characters that follow a null
+N    * character are not copied) from the array pointed to by s2 into the array
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+N
+Nextern _ARMABI char *strcat(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends a copy of the string pointed to by s2 (including the terminating
+N    * null character) to the end of the string pointed to by s1. The initial
+N    * character of s2 overwrites the null character at the end of s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncat(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends not more than n characters (a null character and characters that
+N    * follow it are not appended) from the array pointed to by s2 to the end of
+N    * the string pointed to by s1. The initial character of s2 overwrites the
+N    * null character at the end of s1. A terminating null character is always
+N    * appended to the result.
+N    * Returns: the value of s1.
+N    */
+N
+N/*
+N * The sign of a nonzero value returned by the comparison functions is
+N * determined by the sign of the difference between the values of the first
+N * pair of characters (both interpreted as unsigned char) that differ in the
+N * objects being compared.
+N */
+N
+Nextern _ARMABI int memcmp(const void * /*s1*/, const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the first n characters of the object pointed to by s1 to the
+N    * first n characters of the object pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the object pointed to by s1 is greater than, equal to, or
+N    *          less than the object pointed to by s2.
+N    */
+Nextern _ARMABI int strcmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcasecmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2,
+N    * case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncasecmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2, case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcoll(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2, both
+N    * interpreted as appropriate to the LC_COLLATE category of the current
+N    * locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2 when both are interpreted
+N    *          as appropriate to the current locale.
+N    */
+N
+Nextern _ARMABI size_t strxfrm(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * transforms the string pointed to by s2 and places the resulting string
+N    * into the array pointed to by s1. The transformation function is such that
+N    * if the strcmp function is applied to two transformed strings, it returns
+N    * a value greater than, equal to or less than zero, corresponding to the
+N    * result of the strcoll function applied to the same two original strings.
+N    * No more than n characters are placed into the resulting array pointed to
+N    * by s1, including the terminating null character. If n is zero, s1 is
+N    * permitted to be a null pointer. If copying takes place between objects
+N    * that overlap, the behaviour is undefined.
+N    * Returns: The length of the transformed string is returned (not including
+N    *          the terminating null character). If the value returned is n or
+N    *          more, the contents of the array pointed to by s1 are
+N    *          indeterminate.
+N    */
+N
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Sextern "C++" void *memchr(void * __s, int __c, size_t __n) __attribute__((__nonnull__(1)));
+Sextern "C++" inline void *memchr(void * __s, int __c, size_t __n)
+S    { return const_cast<void *>(memchr(const_cast<const void *>(__s), __c, __n)); }
+N#else
+Nextern _ARMABI void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an unsigned char) in the
+N    * initial n characters (each interpreted as unsigned char) of the object
+N    * pointed to by s.
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the object.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strchr(char * __s, int __c)
+S    { return const_cast<char *>(strchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an char) in the string
+N    * pointed to by s (including the terminating null character).
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strcspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters not from the string pointed to by
+N    * s2. The terminating null character is not considered part of s2.
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strpbrk(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strpbrk(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strpbrk(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of any
+N    * character from the string pointed to by s2.
+N    * Returns: returns a pointer to the character, or a null pointer if no
+N    *          character form s2 occurs in s1.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strrchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strrchr(char * __s, int __c)
+S    { return const_cast<char *>(strrchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the last occurence of c (converted to a char) in the string
+N    * pointed to by s. The terminating null character is considered part of
+N    * the string.
+N    * Returns: returns a pointer to the character, or a null pointer if c does
+N    *          not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters from the string pointed to by S2
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strstr(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strstr(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strstr(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of the
+N    * sequence of characters (excluding the terminating null character) in the
+N    * string pointed to by s2.
+N    * Returns: a pointer to the located string, or a null pointer if the string
+N    *          is not found.
+N    */
+N
+Nextern _ARMABI char *strtok(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
+Nextern _ARMABI char *_strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#ifndef __STRICT_ANSI__
+Nextern _ARMABI char *strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#endif
+N   /*
+N    * A sequence of calls to the strtok function breaks the string pointed to
+N    * by s1 into a sequence of tokens, each of which is delimited by a
+N    * character from the string pointed to by s2. The first call in the
+N    * sequence has s1 as its first argument, and is followed by calls with a
+N    * null pointer as their first argument. The separator string pointed to by
+N    * s2 may be different from call to call.
+N    * The first call in the sequence searches for the first character that is
+N    * not contained in the current separator string s2. If no such character
+N    * is found, then there are no tokens in s1 and the strtok function returns
+N    * a null pointer. If such a character is found, it is the start of the
+N    * first token.
+N    * The strtok function then searches from there for a character that is
+N    * contained in the current separator string. If no such character is found,
+N    * the current token extends to the end of the string pointed to by s1, and
+N    * subsequent searches for a token will fail. If such a character is found,
+N    * it is overwritten by a null character, which terminates the current
+N    * token. The strtok function saves a pointer to the following character,
+N    * from which the next search for a token will start.
+N    * Each subsequent call, with a null pointer as the value for the first
+N    * argument, starts searching from the saved pointer and behaves as
+N    * described above.
+N    * Returns: pointer to the first character of a token, or a null pointer if
+N    *          there is no token.
+N    *
+N    * strtok_r() is a common extension which works exactly like
+N    * strtok(), but instead of storing its state in a hidden
+N    * library variable, requires the user to pass in a pointer to a
+N    * char * variable which will be used instead. Any sequence of
+N    * calls to strtok_r() passing the same char ** pointer should
+N    * behave exactly like the corresponding sequence of calls to
+N    * strtok(). This means that strtok_r() can safely be used in
+N    * multi-threaded programs, and also that you can tokenise two
+N    * strings in parallel.
+N    */
+N
+Nextern _ARMABI void *memset(void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * copies the value of c (converted to an unsigned char) into each of the
+N    * first n charactes of the object pointed to by s.
+N    * Returns: the value of s.
+N    */
+Nextern _ARMABI char *strerror(int /*errnum*/);
+Xextern __declspec(__nothrow) char *strerror(int  );
+N   /*
+N    * maps the error number in errnum to an error message string.
+N    * Returns: a pointer to the string, the contents of which are
+N    *          implementation-defined. The array pointed to shall not be
+N    *          modified by the program, but may be overwritten by a
+N    *          subsequent call to the strerror function.
+N    */
+Nextern _ARMABI size_t strlen(const char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * computes the length of the string pointed to by s.
+N    * Returns: the number of characters that precede the terminating null
+N    *          character.
+N    */
+N
+Nextern _ARMABI size_t strlcpy(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string src into the string dst, using no more than
+N    * len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src. Thus, the operation
+N    * succeeded without truncation if and only if ret < len;
+N    * otherwise, the value in ret tells you how big to make dst if
+N    * you decide to reallocate it. (That value does _not_ include
+N    * the NUL.)
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI size_t strlcat(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * concatenates the string src to the string dst, using no more
+N    * than len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src plus the original length
+N    * of dst. Thus, the operation succeeded without truncation if
+N    * and only if ret < len; otherwise, the value in ret tells you
+N    * how big to make dst if you decide to reallocate it. (That
+N    * value does _not_ include the NUL.)
+N    * 
+N    * If no NUL is encountered within the first len bytes of dst,
+N    * then the length of dst is considered to have been equal to
+N    * len for the purposes of the return value (as if there were a
+N    * NUL at dst[len]). Thus, the return value in this case is len
+N    * + strlen(src).
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI void _membitcpybl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpybb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+N    /*
+N     * Copies or moves a piece of memory from one place to another,
+N     * with one-bit granularity. So you can start or finish a copy
+N     * part way through a byte, and you can copy between regions
+N     * with different alignment within a byte.
+N     * 
+N     * All these functions have the same prototype: two void *
+N     * pointers for destination and source, then two integers
+N     * giving the bit offset from those pointers, and finally the
+N     * number of bits to copy.
+N     * 
+N     * Just like memcpy and memmove, the "cpy" functions copy as
+N     * fast as they can in the assumption that the memory regions
+N     * do not overlap, while the "move" functions cope correctly
+N     * with overlap.
+N     *
+N     * Treating memory as a stream of individual bits requires
+N     * defining a convention about what order those bits are
+N     * considered to be arranged in. The above functions support
+N     * multiple conventions:
+N     * 
+N     *  - the "bl" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in little-endian fashion, so that the LSB comes
+N     *    first. (For example, membitcpybl(a,b,0,7,1) would copy
+N     *    the MSB of the byte at b to the LSB of the byte at a.)
+N     * 
+N     *  - the "bb" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in big-endian fashion, so that the MSB comes
+N     *    first.
+N     * 
+N     *  - the "hl" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in little-endian fashion.
+N     * 
+N     *  - the "hb" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in big-endian fashion.
+N     * 
+N     *  - the "wl" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in little-endian fashion.
+N     * 
+N     *  - the "wb" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in big-endian fashion.
+N     */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STRING_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STRING_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::memcpy;
+S      using ::std::memmove;
+S      using ::std::strcpy;
+S      using ::std::strncpy;
+S      using ::std::strcat;
+S      using ::std::strncat;
+S      using ::std::memcmp;
+S      using ::std::strcmp;
+S      using ::std::strncmp;
+S      using ::std::strcasecmp;
+S      using ::std::strncasecmp;
+S      using ::std::strcoll;
+S      using ::std::strxfrm;
+S      using ::std::memchr;
+S      using ::std::strchr;
+S      using ::std::strcspn;
+S      using ::std::strpbrk;
+S      using ::std::strrchr;
+S      using ::std::strspn;
+S      using ::std::strstr;
+S      using ::std::strtok;
+S#ifndef __STRICT_ANSI__
+S      using ::std::strtok_r;
+S#endif
+S      using ::std::_strtok_r;
+S      using ::std::memset;
+S      using ::std::strerror;
+S      using ::std::strlen;
+S      using ::std::strlcpy;
+S      using ::std::strlcat;
+S      using ::std::_membitcpybl;
+S      using ::std::_membitcpybb;
+S      using ::std::_membitcpyhl;
+S      using ::std::_membitcpyhb;
+S      using ::std::_membitcpywl;
+S      using ::std::_membitcpywb;
+S      using ::std::_membitmovebl;
+S      using ::std::_membitmovebb;
+S      using ::std::_membitmovehl;
+S      using ::std::_membitmovehb;
+S      using ::std::_membitmovewl;
+S      using ::std::_membitmovewb;
+S    #endif /* __STRING_NO_EXPORTS */
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of string.h */
+N
+L 23 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N
+N#include "flash_decoder.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_decoder.h" 1
+N/**
+N * @file    flash_decoder.h
+N * @brief   Steam handling of different image types that are supported
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_DECODER_H
+N#define FLASH_DECODER_H
+N
+N#include "stdint.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 26 "..\..\..\source\daplink\drag-n-drop\flash_decoder.h" 2
+N#include "stdbool.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 27 "..\..\..\source\daplink\drag-n-drop\flash_decoder.h" 2
+N
+N#include "flash_intf.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_intf.h" 1
+N/**
+N * @file    flash_intf.h
+N * @brief   Interface for implementing differet ways to write an image into memory
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_INTF_H
+N#define FLASH_INTF_H
+N
+N#include "stdint.h"
+N
+N#include "error.h"
+L 1 "..\..\..\source\daplink\error.h" 1
+N/**
+N * @file    error.h
+N * @brief   collection of known errors and accessor for the friendly string
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef ERROR_H
+N#define ERROR_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Keep in sync with the lists error_message and error_type
+Ntypedef enum {
+N    /* Shared errors */
+N    ERROR_SUCCESS = 0,
+N    ERROR_FAILURE,
+N    ERROR_INTERNAL,
+N
+N    /* VFS user errors */
+N    ERROR_ERROR_DURING_TRANSFER,
+N    ERROR_TRANSFER_TIMEOUT,
+N    ERROR_FILE_BOUNDS,
+N    ERROR_OOO_SECTOR,
+N
+N    /* Target flash errors */
+N    ERROR_RESET,
+N    ERROR_ALGO_DL,
+N    ERROR_ALGO_DATA_SEQ,
+N    ERROR_INIT,
+N    ERROR_SECURITY_BITS,
+N    ERROR_UNLOCK,
+N    ERROR_ERASE_SECTOR,
+N    ERROR_ERASE_ALL,
+N    ERROR_WRITE,
+N
+N    /* File stream errors */
+N    ERROR_SUCCESS_DONE,
+N    ERROR_SUCCESS_DONE_OR_CONTINUE,
+N    ERROR_HEX_CKSUM,
+N    ERROR_HEX_PARSER,
+N    ERROR_HEX_PROGRAM,
+N    ERROR_HEX_INVALID_ADDRESS,
+N    ERROR_HEX_INVALID_APP_OFFSET,
+N
+N    /* Flash decoder error */
+N    ERROR_FD_BL_UPDT_ADDR_WRONG,
+N    ERROR_FD_INTF_UPDT_ADDR_WRONG,
+N    ERROR_FD_UNSUPPORTED_UPDATE,
+N
+N    /* Flash IAP interface */
+N    ERROR_IAP_INIT,
+N    ERROR_IAP_UNINIT,
+N    ERROR_IAP_WRITE,
+N    ERROR_IAP_ERASE_SECTOR,
+N    ERROR_IAP_ERASE_ALL,
+N    ERROR_IAP_OUT_OF_BOUNDS,
+N    ERROR_IAP_UPDT_NOT_SUPPORTED,
+N    ERROR_IAP_UPDT_INCOMPLETE,
+N    ERROR_IAP_NO_INTERCEPT,
+N    ERROR_BL_UPDT_BAD_CRC,
+N
+N    // Add new values here
+N
+N    ERROR_COUNT
+N} error_t;
+N
+Nconst char *error_get_string(error_t error);
+N
+Ntypedef unsigned char error_type_t;
+N
+N#define ERROR_TYPE_INTERNAL 0x1
+N#define ERROR_TYPE_TRANSIENT 0x2
+N#define ERROR_TYPE_USER 0x4
+N#define ERROR_TYPE_TARGET 0x8
+N#define ERROR_TYPE_INTERFACE 0x10
+N// If you add another error type:
+N// 1. update error_type_names, used by read_file_fail_txt()
+N// 2. update ERROR_TYPE_MASK
+N// 3. make sure that error type bits still fit inside of error_type_t
+N#define ERROR_TYPE_MASK 0x1F
+N
+Nerror_type_t error_get_type(error_t error);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\flash_intf.h" 2
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Ntypedef error_t (*flash_intf_init_cb_t)(void);
+Ntypedef error_t (*flash_intf_uninit_cb_t)(void);
+Ntypedef error_t (*flash_intf_program_page_cb_t)(uint32_t addr, const uint8_t *buf, uint32_t size);
+Ntypedef error_t (*flash_intf_erase_sector_cb_t)(uint32_t sector);
+Ntypedef error_t (*flash_intf_erase_chip_cb_t)(void);
+Ntypedef uint32_t (*flash_program_page_min_size_cb_t)(uint32_t addr);
+Ntypedef uint32_t (*flash_erase_sector_size_cb_t)(uint32_t addr);
+Ntypedef uint8_t (*flash_busy_cb_t)(void);
+N
+Ntypedef struct {
+N    flash_intf_init_cb_t init;
+N    flash_intf_uninit_cb_t uninit;
+N    flash_intf_program_page_cb_t program_page;
+N    flash_intf_erase_sector_cb_t erase_sector;
+N    flash_intf_erase_chip_cb_t erase_chip;
+N    flash_program_page_min_size_cb_t program_page_min_size;
+N    flash_erase_sector_size_cb_t erase_sector_size;
+N    flash_busy_cb_t flash_busy;
+N} flash_intf_t;
+N
+N// All flash interfaces.  Unsupported interfaces are NULL.
+Nextern const flash_intf_t *const flash_intf_iap_protected;
+Nextern const flash_intf_t *const flash_intf_target;
+Nextern const flash_intf_t *const flash_intf_target_custom;
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 29 "..\..\..\source\daplink\drag-n-drop\flash_decoder.h" 2
+N#include "error.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Enough space for 12 vectors
+N#define FLASH_DECODER_MIN_SIZE      0x30
+N
+Ntypedef enum {
+N    FLASH_DECODER_TYPE_UNKNOWN,
+N    FLASH_DECODER_TYPE_BOOTLOADER,
+N    FLASH_DECODER_TYPE_INTERFACE,
+N    FLASH_DECODER_TYPE_TARGET,
+N} flash_decoder_type_t;
+N
+Nflash_decoder_type_t flash_decoder_detect_type(const uint8_t *data, uint32_t size, uint32_t addr, bool addr_valid);
+Xflash_decoder_type_t flash_decoder_detect_type(const uint8_t *data, uint32_t size, uint32_t addr, _Bool addr_valid);
+Nerror_t flash_decoder_get_flash(flash_decoder_type_t type, uint32_t addr, bool addr_valid, uint32_t *start_addr, const flash_intf_t **flash_intf);
+Xerror_t flash_decoder_get_flash(flash_decoder_type_t type, uint32_t addr, _Bool addr_valid, uint32_t *start_addr, const flash_intf_t **flash_intf);
+N
+Nerror_t flash_decoder_open(void);
+Nerror_t flash_decoder_write(uint32_t addr, const uint8_t *data, uint32_t size);
+Nerror_t flash_decoder_close(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 25 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "util.h"
+L 1 "..\..\..\source\daplink\util.h" 1
+N/**
+N * @file    util.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef UTIL_H
+N#define UTIL_H
+N
+N#include "stdbool.h"
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Write the value to the address specified and return the size
+Nuint32_t util_write_hex8(char *str, uint8_t value);
+Nuint32_t util_write_hex16(char *str, uint16_t value);
+Nuint32_t util_write_hex32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32_zp(char *str, uint32_t value, uint16_t total_size);
+Nuint32_t util_write_string(char *str, const char *data);
+N
+Nuint32_t util_div_round_up(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round_down(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round(uint32_t dividen, uint32_t divisor);
+N
+N#if !(defined(DAPLINK_NO_ASSERT_FILENAMES) && defined(DAPLINK_BL))
+X#if !(1L && 1L)
+S// With the filename enabled.
+S#define util_assert(expression) _util_assert((expression), __FILE__, __LINE__)
+N#else
+N// Filename disabled to save code size.
+N#define util_assert(expression) _util_assert((expression), "(file)", __LINE__)
+N#endif
+Nvoid _util_assert(bool expression, const char *filename, uint16_t line);
+Xvoid _util_assert(_Bool expression, const char *filename, uint16_t line);
+N
+Nvoid util_assert_clear(void);
+N
+Nuint8_t* _util_com_get_buf_addr(void);
+N
+Nvoid _util_com_set_size(uint16_t size);
+N
+N#define util_com_debug(label) _util_com_debug(__FILE__, __LINE__, (label))
+N
+Nvoid _util_com_debug(const char *filename, uint16_t line, const char *label);
+N
+Nvoid _util_com_send(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 26 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "macro.h"
+L 1 "..\..\..\source\daplink\macro.h" 1
+N/**
+N * @file    macro.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef MACRO_H
+N#define MACRO_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define ELEMENTS_IN_ARRAY(array)        (sizeof(array)/sizeof(array[0]))
+N
+N#define MB(size)                        ((size) * 1024 * 1024)
+N
+N#define KB(size)                        ((size) * 1024)
+N
+N#define MIN(a,b)                        ((a) < (b) ? (a) : (b))
+N
+N#define MAX(a,b)                        ((a) > (b) ? (a) : (b))
+N
+N#define ROUND_UP(value, boundary)       ((value) + ((boundary) - (value)) % (boundary))
+N
+N#define ROUND_DOWN(value, boundary)     ((value) - ((value) % (boundary)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 27 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "daplink.h"
+L 1 "..\..\..\source\daplink\daplink.h" 1
+N/**
+N * @file    daplink.h
+N * @brief   Information about different Hardware Interface Circuits the firmware runs
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef DAPLINK_H
+N#define DAPLINK_H
+N
+N#include "stdbool.h"
+N#include "stdint.h"
+N
+N#include "daplink_addr.h"
+L 1 "..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h" 1
+N/**
+N * @file    daplink_addr.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N
+N#ifndef DAPLINK_ADDR_H
+N#define DAPLINK_ADDR_H
+N
+N/* Device sizes */
+N
+N#define DAPLINK_ROM_START               0x00000000
+N#define DAPLINK_ROM_SIZE                0x00020000
+N
+N#define DAPLINK_RAM_START               0x1FFFF000
+N#define DAPLINK_RAM_SIZE                0x00004000
+N
+N/* ROM sizes */
+N
+N#define DAPLINK_ROM_BL_START            0x00000000
+N#define DAPLINK_ROM_BL_SIZE             0x00007C00
+N
+N#define DAPLINK_ROM_CONFIG_ADMIN_START  0x00007C00
+N#define DAPLINK_ROM_CONFIG_ADMIN_SIZE   0x00000400
+N
+N#define DAPLINK_ROM_IF_START            0x00008000
+N#define DAPLINK_ROM_IF_SIZE             0x00017C00
+N
+N#define DAPLINK_ROM_CONFIG_USER_START   0x0001FC00
+N#define DAPLINK_ROM_CONFIG_USER_SIZE    0x00000400
+N
+N/* RAM sizes */
+N
+N#define DAPLINK_RAM_APP_START           0x1FFFF000
+N#define DAPLINK_RAM_APP_SIZE            0x00003F00
+N
+N#define DAPLINK_RAM_SHARED_START        0x20002F00
+N#define DAPLINK_RAM_SHARED_SIZE         0x00000100
+N
+N/* Flash Programming Info */
+N
+N#define DAPLINK_SECTOR_SIZE             0x00000400
+N#define DAPLINK_MIN_WRITE_SIZE          0x00000100
+N
+N/* Current build */
+N
+N#if defined(DAPLINK_BL)
+X#if 1L
+N
+N#define DAPLINK_ROM_APP_START            DAPLINK_ROM_BL_START
+N#define DAPLINK_ROM_APP_SIZE             DAPLINK_ROM_BL_SIZE
+N#define DAPLINK_ROM_UPDATE_START         DAPLINK_ROM_IF_START
+N#define DAPLINK_ROM_UPDATE_SIZE          DAPLINK_ROM_IF_SIZE
+N
+N#elif defined(DAPLINK_IF)
+X#elif 0L
+S
+S#define DAPLINK_ROM_APP_START            DAPLINK_ROM_IF_START
+S#define DAPLINK_ROM_APP_SIZE             DAPLINK_ROM_IF_SIZE
+S#define DAPLINK_ROM_UPDATE_START         DAPLINK_ROM_BL_START
+S#define DAPLINK_ROM_UPDATE_SIZE          DAPLINK_ROM_BL_SIZE
+S
+S#else
+S
+S#error "Build must be either bootloader or interface"
+S
+N#endif
+N
+N#endif
+L 29 "..\..\..\source\daplink\daplink.h" 2
+N#include "compiler.h"
+L 1 "..\..\..\source\daplink\compiler.h" 1
+N/**
+N * @file    compiler.h
+N * @brief   Special asserts and macros
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef COMPILER_H
+N#define COMPILER_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define COMPILER_CONCAT_(a, b) a##b
+N#define COMPILER_CONCAT(a, b) COMPILER_CONCAT_(a, b)
+N
+N// Divide by zero if the the expression is false.  This
+N// causes an error at compile time.
+N//
+N// The special value '__COUNTER__' is used to create a unique value to
+N// append to 'compiler_assert_' to create a unique token.  This prevents
+N// conflicts resulting from the same enum being declared multiple times.
+N#define COMPILER_ASSERT(e) enum { COMPILER_CONCAT(compiler_assert_, __COUNTER__) = 1/((e) ? 1 : 0) }
+N
+N#define __at(_addr) __attribute__ ((at(_addr)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 30 "..\..\..\source\daplink\daplink.h" 2
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Assert that regions are sequential with no gaps
+N// and that they take up all available space
+N
+N// ROM check
+NCOMPILER_ASSERT(DAPLINK_ROM_BL_START == DAPLINK_ROM_START);
+Xenum { compiler_assert_0 = 1/((0x00000000 == 0x00000000) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_ROM_BL_START + DAPLINK_ROM_BL_SIZE == DAPLINK_ROM_CONFIG_ADMIN_START);
+Xenum { compiler_assert_1 = 1/((0x00000000 + 0x00007C00 == 0x00007C00) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_ROM_CONFIG_ADMIN_START + DAPLINK_ROM_CONFIG_ADMIN_SIZE == DAPLINK_ROM_IF_START);
+Xenum { compiler_assert_2 = 1/((0x00007C00 + 0x00000400 == 0x00008000) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_ROM_IF_START + DAPLINK_ROM_IF_SIZE == DAPLINK_ROM_CONFIG_USER_START);
+Xenum { compiler_assert_3 = 1/((0x00008000 + 0x00017C00 == 0x0001FC00) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_ROM_CONFIG_USER_START + DAPLINK_ROM_CONFIG_USER_SIZE == DAPLINK_ROM_START + DAPLINK_ROM_SIZE);
+Xenum { compiler_assert_4 = 1/((0x0001FC00 + 0x00000400 == 0x00000000 + 0x00020000) ? 1 : 0) };
+N
+N// RAM check
+NCOMPILER_ASSERT(DAPLINK_RAM_APP_START == DAPLINK_RAM_START);
+Xenum { compiler_assert_5 = 1/((0x1FFFF000 == 0x1FFFF000) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_RAM_APP_START + DAPLINK_RAM_APP_SIZE == DAPLINK_RAM_SHARED_START);
+Xenum { compiler_assert_6 = 1/((0x1FFFF000 + 0x00003F00 == 0x20002F00) ? 1 : 0) };
+NCOMPILER_ASSERT(DAPLINK_RAM_SHARED_START + DAPLINK_RAM_SHARED_SIZE == DAPLINK_RAM_START + DAPLINK_RAM_SIZE);
+Xenum { compiler_assert_7 = 1/((0x20002F00 + 0x00000100 == 0x1FFFF000 + 0x00004000) ? 1 : 0) };
+N
+N#define DAPLINK_BUILD_KEY_IF        0x9B939E8F
+N#define DAPLINK_BUILD_KEY_BL        0x9B939D93
+N
+N//! @name HIC IDs
+N//@{
+N#define DAPLINK_HIC_ID_K20DX        0x97969900
+N#define DAPLINK_HIC_ID_KL26         0x97969901
+N#define DAPLINK_HIC_ID_LPC11U35     0x97969902
+N#define DAPLINK_HIC_ID_SAM3U2C      0x97969903
+N#define DAPLINK_HIC_ID_MAX32620     0x97969904
+N#define DAPLINK_HIC_ID_LPC4322      0x97969905
+N#define DAPLINK_HIC_ID_MAX32625     0x97969906
+N#define DAPLINK_HIC_ID_MAX32550     0x97969907
+N#define DAPLINK_HIC_ID_STM32F103XB  0x97969908
+N#define DAPLINK_HIC_ID_K26F         0x97969909
+N#define DAPLINK_HIC_ID_K22F         0x9796990A
+N#define DAPLINK_HIC_ID_KL27Z        0x9796990B // reserving for future use
+N#define DAPLINK_HIC_ID_LPC54606     0x9796990C // reserving for future use
+N#define DAPLINK_HIC_ID_STM32F723IE  0x9796990D // reserving for future use
+N#define DAPLINK_HIC_ID_LPC55S69     0x97969920 // reserving for future use
+N#define DAPLINK_HIC_ID_PSOC5        0x2E127069
+N//@}
+N
+N#define DAPLINK_INFO_OFFSET         0x20
+N
+Ntypedef struct {
+N    uint32_t build_key;
+N    uint32_t hic_id;
+N    uint32_t version;
+N} daplink_info_t;
+N
+Nbool daplink_is_bootloader(void);
+X_Bool daplink_is_bootloader(void);
+Nbool daplink_is_interface(void);
+X_Bool daplink_is_interface(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "validation.h"
+L 1 "..\..\..\source\daplink\validation.h" 1
+N/**
+N * @file    validation.h
+N * @brief   Helper functions to determine if a hex or binary file is valid
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef VALIDATION_H
+N#define VALIDATION_H
+N
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Nuint8_t validate_bin_nvic(const uint8_t *buf);
+Nuint8_t validate_hexfile(const uint8_t *buf);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+N
+L 29 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "flash_manager.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\flash_manager.h" 1
+N/**
+N * @file    flash_manager.h
+N * @brief   Handling of file steam decode and prep for writing
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_MANAGER_H
+N#define FLASH_MANAGER_H
+N
+N#include "stdint.h"
+N#include "stdbool.h"
+N#include "flash_intf.h"
+N#include "error.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Nerror_t flash_manager_init(const flash_intf_t *flash_intf);
+Nerror_t flash_manager_data(uint32_t addr, const uint8_t *data, uint32_t size);
+Nerror_t flash_manager_uninit(void);
+Nvoid flash_manager_set_page_erase(bool enabled);
+Xvoid flash_manager_set_page_erase(_Bool enabled);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 30 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "target_config.h"  // for target_device
+L 1 "..\..\..\source\hic_hal\target_config.h" 1
+N/**
+N * @file    target_config.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef TARGET_CONFIG_H
+N#define TARGET_CONFIG_H
+N
+N#include "stddef.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h" 1
+N/* stddef.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.1.4 */
+N
+N/* Copyright (C) ARM Ltd., 1999
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N/* Copyright (C) Codemist Ltd., 1988                            */
+N/* Copyright 1991 ARM Limited. All rights reserved.             */
+N/* version 0.05 */
+N
+N/*
+N * The following types and macros are defined in several headers referred to in
+N * the descriptions of the functions declared in that header. They are also
+N * defined in this header file.
+N */
+N
+N#ifndef __stddef_h
+N#define __stddef_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __STDDEF_DECLS
+N  #define __STDDEF_DECLS
+N    #undef __CLIBNS
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS ::std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S  typedef signed long ptrdiff_t;
+N#else
+N  typedef signed int ptrdiff_t;
+N#endif
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+S   /* the unsigned integral type of the result of the sizeof operator. */
+N#endif
+N
+N#ifndef __cplusplus  /* wchar_t is a builtin type for C++ */
+N  #if !defined(__STRICT_ANSI__)
+X  #if !0L
+N  /* unconditional in non-strict C for consistency of debug info */
+N    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X    #if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #else
+N      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #endif
+N  #elif !defined(__wchar_t)
+X  #elif !0L
+S    #define __wchar_t 1
+S    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #else
+S      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #endif
+S   /*
+S    * An integral type whose range of values can represent distinct codes for
+S    * all members of the largest extended character set specified among the
+S    * supported locales; the null character shall have the code value zero and
+S    * each member of the basic character set shall have a code value when used
+S    * as the lone character in an integer character constant.
+S    */
+N  #endif
+N#endif
+N
+N#undef NULL  /* others (e.g. <stdio.h>) also define */
+N#define NULL 0
+N   /* null pointer constant. */
+N
+N#ifdef __clang__
+S  #define offsetof(t, d) __builtin_offsetof(t, d)
+N#else
+N  /* EDG uses __INTADDR__ to avoid errors when strict */
+N  #define offsetof(t, memb) ((__CLIBNS size_t)__INTADDR__(&(((t *)0)->memb)))
+N#endif
+N
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 201112L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+X#if !0L || (1L && 201112L <= 199901L) || (0L && 201103L <= __cplusplus)
+N  typedef long double max_align_t;
+N#endif
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDDEF_DECLS */
+N
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDDEF_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::ptrdiff_t;
+S      #if !defined(__STRICT_ANSI__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+S        using ::std::max_align_t;
+S      #endif
+S    #endif 
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of stddef.h */
+N
+L 26 "..\..\..\source\hic_hal\target_config.h" 2
+N#include "stdint.h"
+N 
+N#include "flash_blob.h"
+L 1 "..\..\..\source\hic_hal\flash_blob.h" 1
+N/**
+N * @file    flash_blob.h
+N * @brief   
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef FLASH_BLOB_H
+N#define FLASH_BLOB_H
+N
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Ntypedef struct {
+N    uint32_t breakpoint;
+N    uint32_t static_base;
+N    uint32_t stack_pointer;
+N} program_syscall_t;
+N
+Ntypedef struct {
+N    const uint32_t  init;
+N    const uint32_t  uninit;
+N    const uint32_t  erase_chip;
+N    const uint32_t  erase_sector;
+N    const uint32_t  program_page;
+N    const uint32_t  verify;
+N    const program_syscall_t sys_call_s;
+N    const uint32_t  program_buffer;
+N    const uint32_t  algo_start;
+N    const uint32_t  algo_size;
+N    const uint32_t *algo_blob;
+N    const uint32_t  program_buffer_size;
+N} program_target_t;
+N
+Ntypedef struct {
+N    const uint32_t start;
+N    const uint32_t size;
+N} sector_info_t;
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 29 "..\..\..\source\hic_hal\target_config.h" 2
+N#include "macro.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N/**
+N @addtogroup
+N @{
+N*/
+N
+N// This can vary from target to target and should be in the structure or flash blob
+N#define TARGET_AUTO_INCREMENT_PAGE_SIZE    (1024)
+N
+N//Additional flash and ram regions
+N#define MAX_EXTRA_FLASH_REGION                3
+N#define MAX_EXTRA_RAM_REGION                  3
+N
+Ntypedef struct region_info {
+N    uint32_t start;
+N    uint32_t end;
+N} region_info_t;
+N
+N/**
+N @struct target_cfg_t
+N @brief  The firmware configuration struct has unique about the chip its running on.
+N */
+Ntypedef struct target_cfg {
+N    uint32_t sector_size;           /*!< Number of bytes in a sector used by flash erase and filesystem */
+N    uint32_t sector_cnt;            /*!< Number of sectors a device has */
+N    uint32_t flash_start;           /*!< Address of the application entry point */
+N    uint32_t flash_end;             /*!< Address where the flash ends */
+N    uint32_t ram_start;             /*!< Lowest contigous RAM address the application uses */
+N    uint32_t ram_end;               /*!< Highest contigous RAM address the application uses */
+N    program_target_t *flash_algo;   /*!< A pointer to the flash algorithm structure */
+N    uint8_t erase_reset;            /*!< Reset after performing an erase */
+N    const sector_info_t* sectors_info; 
+N    int sector_info_length;
+N    region_info_t extra_flash[MAX_EXTRA_FLASH_REGION + 1]; //!< Extra flash regions.
+X    region_info_t extra_flash[3 + 1]; 
+N    region_info_t extra_ram[MAX_EXTRA_RAM_REGION + 1]; //!< Extra RAM regions.
+X    region_info_t extra_ram[3 + 1]; 
+N} target_cfg_t;
+N
+Nextern target_cfg_t target_device;
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 31 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N#include "settings.h"       // for config_get_automation_allowed
+L 1 "..\..\..\source\daplink\settings\settings.h" 1
+N/**
+N * @file    settings.h
+N * @brief   Access to read user configuration settings
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N#ifndef SETTINGS_H
+N#define SETTINGS_H
+N
+N#include "stdint.h"
+N#include "stdbool.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Ntypedef enum {
+N    ASSERT_SOURCE_NONE = 0,
+N    ASSERT_SOURCE_BL = 1,
+N    ASSERT_SOURCE_APP = 2
+N} assert_source_t;
+N
+Nvoid config_init(void);
+N
+N// Get/set settings residing in flash
+Nvoid config_set_auto_rst(bool on);
+Xvoid config_set_auto_rst(_Bool on);
+Nvoid config_set_automation_allowed(bool on);
+Xvoid config_set_automation_allowed(_Bool on);
+Nvoid config_set_overflow_detect(bool on);
+Xvoid config_set_overflow_detect(_Bool on);
+Nbool config_get_auto_rst(void);
+X_Bool config_get_auto_rst(void);
+Nbool config_get_automation_allowed(void);
+X_Bool config_get_automation_allowed(void);
+Nbool config_get_overflow_detect(void);
+X_Bool config_get_overflow_detect(void);
+N
+N// Get/set settings residing in shared ram
+Nvoid config_ram_set_hold_in_bl(bool hold);
+Xvoid config_ram_set_hold_in_bl(_Bool hold);
+Nvoid config_ram_set_assert(const char *file, uint16_t line);
+Nvoid config_ram_clear_assert(void);
+Nbool config_ram_get_hold_in_bl(void);
+X_Bool config_ram_get_hold_in_bl(void);
+Nbool config_ram_get_initial_hold_in_bl(void);
+X_Bool config_ram_get_initial_hold_in_bl(void);
+Nbool config_ram_get_assert(char *buf, uint16_t buf_size, uint16_t *line, assert_source_t *source);
+X_Bool config_ram_get_assert(char *buf, uint16_t buf_size, uint16_t *line, assert_source_t *source);
+Nuint8_t config_ram_add_hexdump(uint32_t hexdump);
+Nuint8_t config_ram_get_hexdumps(uint32_t **hexdumps);
+N
+N// Private - should only be called from settings.c
+Nvoid config_rom_init(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 32 "..\..\..\source\daplink\drag-n-drop\flash_decoder.c" 2
+N
+N// Set to 1 to enable debugging
+N#define DEBUG_FLASH_DECODER     0
+N
+N#if DEBUG_FLASH_DECODER
+X#if 0
+S#include "daplink_debug.h"
+S#define flash_decoder_printf    debug_msg
+N#else
+N#define flash_decoder_printf(...)
+N#endif
+N
+Ntypedef enum {
+N    DECODER_STATE_CLOSED,
+N    DECODER_STATE_OPEN,
+N    DECODER_STATE_DONE,
+N    DECODER_STATE_ERROR
+N} decoder_state_t;
+N
+Nstatic uint8_t flash_buf[FLASH_DECODER_MIN_SIZE];
+Xstatic uint8_t flash_buf[0x30];
+Nstatic decoder_state_t state = DECODER_STATE_CLOSED;
+Nstatic flash_decoder_type_t flash_type;
+Nstatic uint32_t flash_buf_pos;
+Nstatic uint32_t initial_addr;
+Nstatic uint32_t current_addr;
+Nstatic bool flash_initialized;
+Xstatic _Bool flash_initialized;
+Nstatic bool initial_addr_set;
+Xstatic _Bool initial_addr_set;
+N
+Nstatic bool flash_decoder_is_at_end(uint32_t addr, const uint8_t *data, uint32_t size);
+Xstatic _Bool flash_decoder_is_at_end(uint32_t addr, const uint8_t *data, uint32_t size);
+N
+Nflash_decoder_type_t flash_decoder_detect_type(const uint8_t *data, uint32_t size, uint32_t addr, bool addr_valid)
+Xflash_decoder_type_t flash_decoder_detect_type(const uint8_t *data, uint32_t size, uint32_t addr, _Bool addr_valid)
+N{
+N    daplink_info_t info;
+N    util_assert(size >= FLASH_DECODER_MIN_SIZE);
+X    _util_assert((size >= 0x30), "(file)", 64);
+N    // Check if this is a daplink image
+N    memcpy(&info, data + DAPLINK_INFO_OFFSET, sizeof(info));
+X    memcpy(&info, data + 0x20, sizeof(info));
+N
+N    if (DAPLINK_HIC_ID == info.hic_id) {
+X    if (0x97969901 == info.hic_id) {
+N        if (DAPLINK_BUILD_KEY_IF == info.build_key) {
+X        if (0x9B939E8F == info.build_key) {
+N            // Interface update
+N            return FLASH_DECODER_TYPE_INTERFACE;
+N        } else if (DAPLINK_BUILD_KEY_BL == info.build_key) {
+X        } else if (0x9B939D93 == info.build_key) {
+N            // Bootloader update
+N            return FLASH_DECODER_TYPE_BOOTLOADER;
+N        } else {
+N            return FLASH_DECODER_TYPE_UNKNOWN;
+N        }
+N    }
+N
+N    // Check if a valid vector table for the target can be found
+N    if (validate_bin_nvic(data)) {
+N        return FLASH_DECODER_TYPE_TARGET;
+N    }
+N
+N    // If an address is specified then the data can be decoded
+N    if (addr_valid) {
+N        // TODO - future improvement - make sure address is within target's flash
+N        return FLASH_DECODER_TYPE_TARGET;
+N    }
+N
+N    return FLASH_DECODER_TYPE_UNKNOWN;
+N}
+N
+Nerror_t flash_decoder_get_flash(flash_decoder_type_t type, uint32_t addr, bool addr_valid, uint32_t *start_addr, const flash_intf_t **flash_intf)
+Xerror_t flash_decoder_get_flash(flash_decoder_type_t type, uint32_t addr, _Bool addr_valid, uint32_t *start_addr, const flash_intf_t **flash_intf)
+N{
+N    error_t status = ERROR_SUCCESS;
+N    uint32_t flash_start_local;
+N    const flash_intf_t *flash_intf_local = 0;
+N
+N    if ((0 == start_addr) || (0 == flash_intf)) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 101);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    *start_addr = 0;
+N    *flash_intf = 0;
+N    flash_start_local = 0;
+N    flash_intf_local = 0;
+N
+N    if (daplink_is_bootloader()) {
+N        if (FLASH_DECODER_TYPE_INTERFACE == type) {
+N            if (addr_valid && (DAPLINK_ROM_IF_START != addr)) {
+X            if (addr_valid && (0x00008000 != addr)) {
+N                // Address is wrong so display error message
+N                status = ERROR_FD_INTF_UPDT_ADDR_WRONG;
+N            } else {
+N                // Setup for update
+N                flash_start_local = DAPLINK_ROM_IF_START;
+X                flash_start_local = 0x00008000;
+N                flash_intf_local = flash_intf_iap_protected;
+N            }
+N        } else if (FLASH_DECODER_TYPE_TARGET == type) {
+N            // "Target" update in this case would be a 3rd party interface application
+N            flash_start_local = DAPLINK_ROM_IF_START;
+X            flash_start_local = 0x00008000;
+N            flash_intf_local = flash_intf_iap_protected;
+N        } else {
+N            status = ERROR_FD_UNSUPPORTED_UPDATE;
+N        }
+N    } else if (daplink_is_interface()) {
+N        if (FLASH_DECODER_TYPE_BOOTLOADER == type) {
+N            if (addr_valid && (DAPLINK_ROM_BL_START != addr)) {
+X            if (addr_valid && (0x00000000 != addr)) {
+N                // Address is wrong so display error message
+N                status = ERROR_FD_BL_UPDT_ADDR_WRONG;
+N            } else {
+N                // Setup for update
+N                flash_start_local = DAPLINK_ROM_BL_START;
+X                flash_start_local = 0x00000000;
+N                flash_intf_local = flash_intf_iap_protected;
+N            }
+N        } else if (FLASH_DECODER_TYPE_TARGET == type) {
+N            flash_start_local = target_device.flash_start;
+N            flash_intf_local = flash_intf_target;
+N        } else {
+N            status = ERROR_FD_UNSUPPORTED_UPDATE;
+N        }
+N    } else {
+N        status = ERROR_FD_UNSUPPORTED_UPDATE;
+N    }
+N
+N    // Don't allow bootloader updates unless automation is allowed
+N    if (!config_get_automation_allowed() && (FLASH_DECODER_TYPE_BOOTLOADER == type)) {
+N        status = ERROR_FD_UNSUPPORTED_UPDATE;
+N    }
+N
+N    if (ERROR_SUCCESS != status) {
+N        return status;
+N    }
+N
+N    if (0 == flash_intf_local) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 157);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    *start_addr = flash_start_local;
+N    *flash_intf = flash_intf_local;
+N    return status;
+N}
+N
+Nerror_t flash_decoder_open(void)
+N{
+N    flash_decoder_printf("flash_decoder_open()\r\n");
+X    ;
+N
+N    // Stream must not be open already
+N    if (state != DECODER_STATE_CLOSED) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 172);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    memset(flash_buf, 0xff, sizeof(flash_buf));
+N    state = DECODER_STATE_OPEN;
+N    flash_type = FLASH_DECODER_TYPE_UNKNOWN;
+N    flash_buf_pos = 0;
+N    initial_addr = 0;
+N    current_addr = 0;
+N    flash_initialized = false;
+X    flash_initialized = 0;
+N    initial_addr_set = false;
+X    initial_addr_set = 0;
+N    return ERROR_SUCCESS;
+N}
+N
+Nerror_t flash_decoder_write(uint32_t addr, const uint8_t *data, uint32_t size)
+N{
+N    error_t status;
+N    flash_decoder_printf("flash_decoder_write(addr=0x%x, size=0x%x)\r\n", addr, size);
+X    ;
+N
+N    if (DECODER_STATE_OPEN != state) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 193);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    // Set the initial address the first time through
+N    if (!initial_addr_set) {
+N        initial_addr = addr;
+N        current_addr = initial_addr;
+N        flash_decoder_printf("     initial_addr=0x%x\r\n", initial_addr);
+X        ;
+N        initial_addr_set = true;
+X        initial_addr_set = 1;
+N    }
+N
+N    if (!flash_initialized) {
+N        uint32_t copy_size;
+N        bool flash_type_known = false;
+X        _Bool flash_type_known = 0;
+N        bool sequential;
+X        _Bool sequential;
+N        // Check if the data is sequential
+N        sequential = addr == current_addr;
+N        current_addr += size;
+N
+N        // Buffer data until the flash type is known
+N        if (sequential) {
+N            // Copy data into buffer
+N            copy_size = MIN(size, sizeof(flash_buf) - flash_buf_pos);
+X            copy_size = ((size) < (sizeof(flash_buf) - flash_buf_pos) ? (size) : (sizeof(flash_buf) - flash_buf_pos));
+N            memcpy(&flash_buf[flash_buf_pos], data, copy_size);
+N            flash_buf_pos += copy_size;
+N            flash_decoder_printf("    buffering %i bytes\r\n", copy_size);
+X            ;
+N            // Update vars so they no longer include the buffered data
+N            data += copy_size;
+N            size -= copy_size;
+N            addr += copy_size;
+N
+N            // If enough data has been buffered then determine the type
+N            if (flash_buf_pos >= sizeof(flash_buf)) {
+N                util_assert(sizeof(flash_buf) == flash_buf_pos);
+X                _util_assert((sizeof(flash_buf) == flash_buf_pos), "(file)", 227);
+N                // Determine flash type and get info for it
+N                flash_type = flash_decoder_detect_type(flash_buf, flash_buf_pos, initial_addr, true);
+X                flash_type = flash_decoder_detect_type(flash_buf, flash_buf_pos, initial_addr, 1);
+N                flash_decoder_printf("    Buffering complete, setting flash_type=%i\r\n", flash_type);
+X                ;
+N                flash_type_known = true;
+X                flash_type_known = 1;
+N            }
+N        } else {
+N            flash_type = FLASH_DECODER_TYPE_TARGET;
+N            flash_decoder_printf("    Non sequential addr, setting flash_type=%i\r\n", flash_type);
+X            ;
+N            flash_type_known = true;
+X            flash_type_known = 1;
+N        }
+N
+N        // If flash type is known initialize the flash manager
+N        if (flash_type_known) {
+N            const flash_intf_t *flash_intf;
+N            uint32_t flash_start_addr;
+N            status = flash_decoder_get_flash(flash_type, initial_addr, true, &flash_start_addr, &flash_intf);
+X            status = flash_decoder_get_flash(flash_type, initial_addr, 1, &flash_start_addr, &flash_intf);
+N
+N            if (ERROR_SUCCESS != status) {
+N                state = DECODER_STATE_ERROR;
+N                return status;
+N            }
+N
+N            flash_decoder_printf("    flash_start_addr=0x%x\r\n", flash_start_addr);
+X            ;
+N            // Initialize flash manager
+N            util_assert(!flash_initialized);
+X            _util_assert((!flash_initialized), "(file)", 252);
+N            status = flash_manager_init(flash_intf);
+N            flash_decoder_printf("    flash_manager_init ret %i\r\n", status);
+X            ;
+N
+N            if (ERROR_SUCCESS != status) {
+N                state = DECODER_STATE_ERROR;
+N                return status;
+N            }
+N
+N            flash_initialized = true;
+X            flash_initialized = 1;
+N        }
+N
+N        // If flash has been initalized then write out buffered data
+N        if (flash_initialized) {
+N            status = flash_manager_data(initial_addr, flash_buf, flash_buf_pos);
+N            flash_decoder_printf("    Flushing buffer initial_addr=0x%x, flash_buf_pos=%i, flash_manager_data ret=%i\r\n",
+N                                 initial_addr, flash_buf_pos, status);
+X            ;
+N					
+N//					uint8_t buf[6] = "START";
+N//					USBD_CDC_ACM_DataSend(buf, 6);
+N					
+N            if (ERROR_SUCCESS != status) {
+N                state = DECODER_STATE_ERROR;
+N                return status;
+N            }
+N        }
+N    }
+N
+N    // Write data as normal if flash has been initialized
+N    if (flash_initialized) {
+N        status = flash_manager_data(addr, data, size);
+N        flash_decoder_printf("    Writing data, addr=0x%x, size=0x%x, flash_manager_data ret %i\r\n",
+N                             addr, size, status);
+X        ;
+N//								uint8_t buf[6] = "DATEN";
+N//								USBD_CDC_ACM_DataSend(buf, 6);
+N        if (ERROR_SUCCESS != status) {
+N            state = DECODER_STATE_ERROR;
+N            return status;
+N        }
+N    }
+N
+N    // Check if this is the end of data
+N    if (flash_decoder_is_at_end(addr, data, size)) {
+N//								uint8_t buf[6] = "ENDE!";
+N//								USBD_CDC_ACM_DataSend(buf, 6);
+N        flash_decoder_printf("    End of transfer detected - addr 0x%08x, size 0x%08x\r\n",
+N                             addr, size);
+X        ;
+N        state = DECODER_STATE_DONE;
+N        return ERROR_SUCCESS_DONE;
+N    }
+N
+N    return ERROR_SUCCESS;
+N}
+N
+Nerror_t flash_decoder_close(void)
+N{
+N    error_t status = ERROR_SUCCESS;
+N    decoder_state_t prev_state = state;
+N    flash_decoder_printf("flash_decoder_close()\r\n");
+X    ;
+N
+N    if (DECODER_STATE_CLOSED == state) {
+N        util_assert(0);
+X        _util_assert((0), "(file)", 313);
+N        return ERROR_INTERNAL;
+N    }
+N
+N    state = DECODER_STATE_CLOSED;
+N
+N    if (flash_initialized) {
+N        status = flash_manager_uninit();
+N        flash_decoder_printf("    flash_manager_uninit ret %i\r\n", status);
+X        ;
+N    }
+N
+N    if ((DECODER_STATE_DONE != prev_state) &&
+N            (flash_type != FLASH_DECODER_TYPE_TARGET) &&
+N            (status == ERROR_SUCCESS)) {
+N        status = ERROR_IAP_UPDT_INCOMPLETE;
+N    }
+N
+N    return status;
+N}
+N
+Nstatic bool flash_decoder_is_at_end(uint32_t addr, const uint8_t *data, uint32_t size)
+Xstatic _Bool flash_decoder_is_at_end(uint32_t addr, const uint8_t *data, uint32_t size)
+N{
+N    uint32_t end_addr;
+N
+N    switch (flash_type) {
+N        case FLASH_DECODER_TYPE_BOOTLOADER:
+N            end_addr = DAPLINK_ROM_BL_START + DAPLINK_ROM_BL_SIZE;
+X            end_addr = 0x00000000 + 0x00007C00;
+N            break;
+N
+N        case FLASH_DECODER_TYPE_INTERFACE:
+N            end_addr = DAPLINK_ROM_IF_START + DAPLINK_ROM_IF_SIZE;
+X            end_addr = 0x00008000 + 0x00017C00;
+N            break;
+N
+N        case FLASH_DECODER_TYPE_TARGET:
+N            end_addr = target_device.flash_end;
+N            break;
+N
+N        default:
+N            return false;
+X            return 0;
+N    }
+N
+N    if (addr + size >= end_addr) {
+N        return true;
+X        return 1;
+N    } else {
+N        return false;
+X        return 0;
+N    }
+N}

@@ -1,0 +1,16 @@
+.\build\vfs_nvm.o: ..\..\..\source\daplink\drag-n-drop\vfs_nvm.c
+.\build\vfs_nvm.o: ..\..\..\source\daplink\drag-n-drop\vfs_nvm.h
+.\build\vfs_nvm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\vfs_nvm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\vfs_nvm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\IS25LP128F.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\spi.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\vfs_nvm.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\vfs_nvm.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\vfs_nvm.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\vfs_nvm.o: ..\..\..\source\daplink\compiler.h
+.\build\vfs_nvm.o: ..\..\..\source\daplink\daplink.h
+.\build\vfs_nvm.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h

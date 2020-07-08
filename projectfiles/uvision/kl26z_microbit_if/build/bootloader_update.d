@@ -1,0 +1,14 @@
+.\build\bootloader_update.o: ..\..\..\source\daplink\interface\bootloader_update.c
+.\build\bootloader_update.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\bootloader_update.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\drag-n-drop\flash_manager.h
+.\build\bootloader_update.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\drag-n-drop\flash_intf.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\error.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\util.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\bootloader.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\info.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\daplink.h
+.\build\bootloader_update.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\compiler.h
+.\build\bootloader_update.o: ..\..\..\source\daplink\crc.h

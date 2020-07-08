@@ -1,0 +1,1359 @@
+Dependencies for Project 'kl26z_microbit_if', Target 'kl26z_microbit_if': (DO NOT MODIFY !)
+CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
+F (..\..\..\source\board\microbit.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\microbit.o --list_dir ".\\build\\" --list --omf_browse .\build\microbit.crf --depend .\build\microbit.d)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\cmsis-dap\DAP.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\dap.o --list_dir ".\\build\\" --list --omf_browse .\build\dap.crf --depend .\build\dap.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\cmsis-dap\DAP_vendor.c)(0x5E0B4FD6)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\dap_vendor.o --list_dir ".\\build\\" --list --omf_browse .\build\dap_vendor.crf --depend .\build\dap_vendor.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)
+I (..\..\..\source\daplink\drag-n-drop\file_stream.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\cmsis-dap\JTAG_DP.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\jtag_dp.o --list_dir ".\\build\\" --list --omf_browse .\build\jtag_dp.crf --depend .\build\jtag_dp.d)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\cmsis-dap\SW_DP.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\sw_dp.o --list_dir ".\\build\\" --list --omf_browse .\build\sw_dp.crf --depend .\build\sw_dp.d)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\cmsis-dap\SWO.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\swo.o --list_dir ".\\build\\" --list --omf_browse .\build\swo.crf --depend .\build\swo.d)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\cmsis-dap\usbd_user_hid.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_user_hid.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_user_hid.crf --depend .\build\usbd_user_hid.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\usb_config.c)(0x5E3A9532)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\interface\bootloader_update.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\bootloader_update.o --list_dir ".\\build\\" --list --omf_browse .\build\bootloader_update.crf --depend .\build\bootloader_update.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_manager.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\bootloader.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\crc.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\circ_buf.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\circ_buf.o --list_dir ".\\build\\" --list --omf_browse .\build\circ_buf.crf --depend .\build\circ_buf.d)
+I (..\..\..\source\daplink\circ_buf.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+F (..\..\..\source\daplink\cortex_m.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\cortex_m.o --list_dir ".\\build\\" --list --omf_browse .\build\cortex_m.crf --depend .\build\cortex_m.d)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\crc16.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\crc16.o --list_dir ".\\build\\" --list --omf_browse .\build\crc16.crf --depend .\build\crc16.d)
+I (..\..\..\source\daplink\crc.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\crc32.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\crc32.o --list_dir ".\\build\\" --list --omf_browse .\build\crc32.crf --depend .\build\crc32.d)
+I (..\..\..\source\daplink\crc.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\interface\daplink.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\daplink.o --list_dir ".\\build\\" --list --omf_browse .\build\daplink.crf --depend .\build\daplink.d)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+F (..\..\..\source\daplink\error.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\error.o --list_dir ".\\build\\" --list --omf_browse .\build\error.crf --depend .\build\error.d)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\flash_hal.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flash_hal.o --list_dir ".\\build\\" --list --omf_browse .\build\flash_hal.crf --depend .\build\flash_hal.d)
+I (..\..\..\source\hic_hal\flash_hal.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\FlashPrg.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\HardFault_Handler.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\hardfault_handler.o --list_dir ".\\build\\" --list --omf_browse .\build\hardfault_handler.crf --depend .\build\hardfault_handler.d)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\info.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\info.o --list_dir ".\\build\\" --list --omf_browse .\build\info.crf --depend .\build\info.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\board.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\read_uid.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\crc.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\interface\main.c)(0x5EEC7AEB)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\main.o --list_dir ".\\build\\" --list --omf_browse .\build\main.crf --depend .\build\main.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\board.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\gpio.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)
+I (..\..\..\source\daplink\interface\tasks.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\swd_host.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\debug_cm.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\vfs_manager.h)(0x5DA474EC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\bootloader.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\sdk.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+I (..\..\..\source\daplink\drag-n-drop\selectr.h)(0x5E611390)
+F (..\..\..\source\daplink\RTX_Config.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rtx_config.o --list_dir ".\\build\\" --list --omf_browse .\build\rtx_config.crf --depend .\build\rtx_config.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_lib.c)(0x5D9DDC00)
+F (..\..\..\source\daplink\sdk_stub.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\sdk_stub.o --list_dir ".\\build\\" --list --omf_browse .\build\sdk_stub.crf --depend .\build\sdk_stub.d)
+F (..\..\..\source\daplink\interface\SVC_Table.s)(0x5D9DDC00)(--cpu Cortex-M0+ -g --apcs=interwork --cpreproc --cpreproc_opts=-DDAPLINK_VERSION=251,-DHID_ENDPOINT,-DMSC_ENDPOINT,-DCDC_ENDPOINT,-DWEBUSB_INTERFACE,-DWINUSB_INTERFACE,-DDAPLINK_IF,-DDAPLINK_BUILD_KEY=0x9B939E8F,-DINTERFACE_KL26Z,-DCPU_MKL26Z128VLH4,-DDAPLINK_HIC_ID=0x97969901,-DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT=0,-DFLASH_DRIVER_IS_FLASH_RESIDENT=1,-DDAPLINK_NO_ASSERT_FILENAMES,-DHID_LED_DEF=GPIO_LED_ON,-DCDC_LED_DEF=GPIO_LED_ON,-DMSC_LED_DEF=GPIO_LED_ON,-DUSB_PROD_STR="BBC micro:bit CMSIS-DAP"-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3--pd "__UVISION_VERSION SETA 530" --pd "_RTE_ SETA 1" --pd "CPU_MKL26Z128VFM4 SETA 1" --pd "_RTE_ SETA 1"--list .\build\svc_table.lst --xref -o .\build\svc_table.o --depend .\build\svc_table.d)
+F (..\..\..\source\daplink\interface\swd_host.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\swd_host.o --list_dir ".\\build\\" --list --omf_browse .\build\swd_host.crf --depend .\build\swd_host.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\swd_host.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\debug_cm.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\interface\swd_host_ca.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\swd_host_ca.o --list_dir ".\\build\\" --list --omf_browse .\build\swd_host_ca.crf --depend .\build\swd_host_ca.d)
+F (..\..\..\source\daplink\interface\target_flash.c)(0x5E1DD7E6)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\target_flash.o --list_dir ".\\build\\" --list --omf_browse .\build\target_flash.crf --depend .\build\target_flash.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\gpio.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\validation.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\intelhex.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\swd_host.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\debug_cm.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\util.c)(0x5E0F5CE0)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\util.o --list_dir ".\\build\\" --list --omf_browse .\build\util.crf --depend .\build\util.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\vfs_manager.h)(0x5DA474EC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\validation.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\validation.o --list_dir ".\\build\\" --list --omf_browse .\build\validation.crf --depend .\build\validation.d)
+I (..\..\..\source\daplink\validation.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\board.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\bootloader.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\circ_buf.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cm0.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cm3.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cm4.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cm4_simd.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)()
+F (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\crc.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\daplink_debug.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\cmsis-dap\debug_ca.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\cmsis-dap\debug_cm.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\error.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\file_stream.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\flash_decoder.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\flash_hal.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\flash_manager.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\flash_map.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\FlashOS.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\FlashPrg.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\gpio.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\info.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\intelhex.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\macro.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\read_uid.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)()
+F (..\..\..\source\rtos\rt_Event.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Mailbox.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_MemBox.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Mutex.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Robin.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Semaphore.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Time.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_Timer.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)()
+F (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\sdk.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\interface\swd_host.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\interface\tasks.h)(0x5D9DDC00)()
+F (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)()
+F (..\..\..\source\usb\usb.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_cdc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)()
+F (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\util.h)(0x5E0F5CE4)()
+F (..\..\..\source\daplink\validation.h)(0x5D9DDC00)()
+F (..\..\..\source\daplink\drag-n-drop\vfs_manager.h)(0x5DA474EC)()
+F (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)()
+F (..\..\..\source\daplink\drag-n-drop\file_stream.c)(0x5E0F5A34)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\file_stream.o --list_dir ".\\build\\" --list --omf_browse .\build\file_stream.crf --depend .\build\file_stream.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\file_stream.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\validation.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\intelhex.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_decoder.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\flash_decoder.c)(0x5E0B3B1C)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flash_decoder.o --list_dir ".\\build\\" --list --omf_browse .\build\flash_decoder.crf --depend .\build\flash_decoder.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_decoder.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\validation.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_manager.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\flash_intf.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flash_intf.o --list_dir ".\\build\\" --list --omf_browse .\build\flash_intf.crf --depend .\build\flash_intf.d)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\flash_manager.c)(0x5DA470C6)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flash_manager.o --list_dir ".\\build\\" --list --omf_browse .\build\flash_manager.crf --depend .\build\flash_manager.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_manager.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\iap_flash_intf.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\iap_flash_intf.o --list_dir ".\\build\\" --list --omf_browse .\build\iap_flash_intf.crf --depend .\build\iap_flash_intf.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\hic_hal\flash_hal.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\FlashPrg.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\crc.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\intelhex.c)(0x5E0B3B68)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\intelhex.o --list_dir ".\\build\\" --list --omf_browse .\build\intelhex.crf --depend .\build\intelhex.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\intelhex.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\drag-n-drop\vfs_manager.c)(0x5EEC6CF6)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\vfs_manager.o --list_dir ".\\build\\" --list --omf_browse .\build\vfs_manager.crf --depend .\build\vfs_manager.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\drag-n-drop\vfs_manager.h)(0x5DA474EC)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink_debug.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\validation.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\version_git.h)(0x5EEB2681)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\file_stream.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\vfs_user.c)(0x5EEC7862)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\vfs_user.o --list_dir ".\\build\\" --list --omf_browse .\build\vfs_user.crf --depend .\build\vfs_user.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\vfs_manager.h)(0x5DA474EC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\version_git.h)(0x5EEB2681)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\gpio.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+I (..\..\..\source\hic_hal\IS25LP128F.h)(0x5E1EFEE6)
+I (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\virtual_fs.c)(0x5EEC7899)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\virtual_fs.o --list_dir ".\\build\\" --list --omf_browse .\build\virtual_fs.crf --depend .\build\virtual_fs.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E53A4BC)
+F (..\..\..\source\daplink\drag-n-drop\vfs_nvm.c)(0x5EEC7B35)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\vfs_nvm.o --list_dir ".\\build\\" --list --omf_browse .\build\vfs_nvm.crf --depend .\build\vfs_nvm.d)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\IS25LP128F.h)(0x5E1EFEE6)
+I (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\drag-n-drop\selectr.c)(0x5E611394)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\selectr.o --list_dir ".\\build\\" --list --omf_browse .\build\selectr.crf --depend .\build\selectr.d)
+I (..\..\..\source\daplink\drag-n-drop\selectr.h)(0x5E611390)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)
+I (..\..\..\source\daplink\drag-n-drop\file_stream.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\iap\FlashDev.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flashdev.o --list_dir ".\\build\\" --list --omf_browse .\build\flashdev.crf --depend .\build\flashdev.d)
+I (..\..\..\source\hic_hal\FlashOS.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+F (..\..\..\source\hic_hal\freescale\iap\FlashPrg.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flashprg.o --list_dir ".\\build\\" --list --omf_browse .\build\flashprg.crf --depend .\build\flashprg.d)
+I (..\..\..\source\hic_hal\FlashOS.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\iap\fsl_flash.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\iap\fsl_common.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53A4BA)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\iap\fsl_flash.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\fsl_flash.o --list_dir ".\\build\\" --list --omf_browse .\build\fsl_flash.crf --depend .\build\fsl_flash.d)
+I (..\..\..\source\hic_hal\freescale\iap\fsl_flash.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\iap\fsl_common.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53A4BA)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\flash_map.c)(0x5DDD0666)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\flash_map.o --list_dir ".\\build\\" --list --omf_browse .\build\flash_map.crf --depend .\build\flash_map.d)
+I (..\..\..\source\hic_hal\flash_map.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\IS25LP128F.h)(0x5E1EFEE6)
+I (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\gpio.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\gpio.o --list_dir ".\\build\\" --list --omf_browse .\build\gpio.crf --depend .\build\gpio.d)
+I (..\..\..\source\hic_hal\gpio.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\read_uid.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\read_uid.o --list_dir ".\\build\\" --list --omf_browse .\build\read_uid.crf --depend .\build\read_uid.d)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\read_uid.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\spi.c)(0x5DDCF356)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\spi.o --list_dir ".\\build\\" --list --omf_browse .\build\spi.crf --depend .\build\spi.d)
+I (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\armcc\startup_MKL26Z4.s)(0x5D9DDC00)(--cpu Cortex-M0+ -g --apcs=interwork --cpreproc --cpreproc_opts=-DDAPLINK_VERSION=251,-DHID_ENDPOINT,-DMSC_ENDPOINT,-DCDC_ENDPOINT,-DWEBUSB_INTERFACE,-DWINUSB_INTERFACE,-DDAPLINK_IF,-DDAPLINK_BUILD_KEY=0x9B939E8F,-DINTERFACE_KL26Z,-DCPU_MKL26Z128VLH4,-DDAPLINK_HIC_ID=0x97969901,-DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT=0,-DFLASH_DRIVER_IS_FLASH_RESIDENT=1,-DDAPLINK_NO_ASSERT_FILENAMES,-DHID_LED_DEF=GPIO_LED_ON,-DCDC_LED_DEF=GPIO_LED_ON,-DMSC_LED_DEF=GPIO_LED_ON,-DUSB_PROD_STR="BBC micro:bit CMSIS-DAP"-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3--pd "__UVISION_VERSION SETA 530" --pd "_RTE_ SETA 1" --pd "CPU_MKL26Z128VFM4 SETA 1" --pd "_RTE_ SETA 1"--list .\build\startup_mkl26z4.lst --xref -o .\build\startup_mkl26z4.o --depend .\build\startup_mkl26z4.d)
+F (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\system_mkl26z4.o --list_dir ".\\build\\" --list --omf_browse .\build\system_mkl26z4.crf --depend .\build\system_mkl26z4.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\uart.c)(0x5E58F3BE)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\uart.o --list_dir ".\\build\\" --list --omf_browse .\build\uart.crf --depend .\build\uart.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\circ_buf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\kl26z\usb_config.c)(0x5E3A9532)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usb_config.o --list_dir ".\\build\\" --list --omf_browse .\build\usb_config.crf --depend .\build\usb_config.d)
+I (..\..\..\source\usb\usb_lib.c)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+F (..\..\..\source\hic_hal\freescale\usbd_kinetis.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_kinetis.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_kinetis.crf --depend .\build\usbd_kinetis.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\usb_config.c)(0x5E3A9532)
+F (..\..\..\source\hic_hal\IS25LP128F.c)(0x5ED12D7B)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\is25lp128f.o --list_dir ".\\build\\" --list --omf_browse .\build\is25lp128f.crf --depend .\build\is25lp128f.d)
+I (..\..\..\source\hic_hal\IS25LP128F.h)(0x5E1EFEE6)
+I (..\..\..\source\hic_hal\spi.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+F (..\..\..\source\rtos\cm0\HAL_CM1.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\hal_cm1.o --list_dir ".\\build\\" --list --omf_browse .\build\hal_cm1.crf --depend .\build\hal_cm1.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_MemBox.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Event.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_event.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_event.crf --depend .\build\rt_event.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Event.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_List.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_list.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_list.crf --depend .\build\rt_list.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Time.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Mailbox.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_mailbox.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_mailbox.crf --depend .\build\rt_mailbox.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Mailbox.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_MemBox.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_membox.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_membox.crf --depend .\build\rt_membox.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_MemBox.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Mutex.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_mutex.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_mutex.crf --depend .\build\rt_mutex.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Mutex.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Robin.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_robin.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_robin.crf --depend .\build\rt_robin.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Time.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Robin.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Semaphore.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_semaphore.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_semaphore.crf --depend .\build\rt_semaphore.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Semaphore.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_System.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_system.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_system.crf --depend .\build\rt_system.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Event.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Mailbox.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Semaphore.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Time.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Timer.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Robin.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Task.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_task.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_task.crf --depend .\build\rt_task.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_System.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_List.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_MemBox.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Robin.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_HAL_CM.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Time.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_time.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_time.crf --depend .\build\rt_time.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Task.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Time.h)(0x5D9DDC00)
+F (..\..\..\source\rtos\rt_Timer.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\rt_timer.o --list_dir ".\\build\\" --list --omf_browse .\build\rt_timer.crf --depend .\build\rt_timer.d)
+I (..\..\..\source\rtos\rt_TypeDef.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\RTX_Config.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_Timer.h)(0x5D9DDC00)
+I (..\..\..\source\rtos\rt_MemBox.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\settings\settings.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\settings.o --list_dir ".\\build\\" --list --omf_browse .\build\settings.crf --depend .\build\settings.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\daplink\settings\settings_rom.c)(0x5E1DD7C0)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\settings_rom.o --list_dir ".\\build\\" --list --omf_browse .\build\settings_rom.crf --depend .\build\settings_rom.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\settings\settings.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cortex_m.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\FlashPrg.h)(0x5D9DDC00)
+F (..\..\..\source\target\nordic\nrf51822\target_16.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\target_16.o --list_dir ".\\build\\" --list --omf_browse .\build\target_16.crf --depend .\build\target_16.d)
+I (..\..\..\source\hic_hal\target_config.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\target\nordic\nrf51822\flash_blob.c)(0x5D9DDC00)
+F (..\..\..\source\target\nordic\target_reset.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\target_reset.o --list_dir ".\\build\\" --list --omf_browse .\build\target_reset.crf --depend .\build\target_reset.d)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\interface\swd_host.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\flash_blob.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\debug_cm.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\cmsis-dap\DAP.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\freescale\kl26z\DAP_config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cm0plus.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmInstr.h)(0x5D9DDC00)
+I (..\..\..\source\cmsis-core\core_cmFunc.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\compiler.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\daplink.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h)(0x5D9DDC00)
+F (..\..\..\source\usb\cdc\usbd_cdc_acm.c)(0x5E170406)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_cdc_acm.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_cdc_acm.crf --depend .\build\usbd_cdc_acm.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\usbd_core.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core.crf --depend .\build\usbd_core.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+F (..\..\..\source\usb\cdc\usbd_core_cdc.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core_cdc.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core_cdc.crf --depend .\build\usbd_core_cdc.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\hid\usbd_core_hid.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core_hid.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core_hid.crf --depend .\build\usbd_core_hid.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\msc\usbd_core_msc.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core_msc.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core_msc.crf --depend .\build\usbd_core_msc.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\webusb\usbd_core_webusb.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core_webusb.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core_webusb.crf --depend .\build\usbd_core_webusb.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\info.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+F (..\..\..\source\usb\winusb\usbd_core_winusb.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_core_winusb.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_core_winusb.crf --depend .\build\usbd_core_winusb.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\hid\usbd_hid.c)(0x5D9DDC00)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_hid.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_hid.crf --depend .\build\usbd_hid.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+F (..\..\..\source\usb\msc\usbd_msc.c)(0x5E6F3378)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_msc.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_msc.crf --depend .\build\usbd_msc.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_for_lib.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_lib_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_lib.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\util.h)(0x5E0F5CE4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\daplink\macro.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\vfs_nvm.h)(0x5E836172)
+F (..\..\..\source\daplink\usb2uart\usbd_user_cdc_acm.c)(0x5E58F282)(-c --cpu Cortex-M0+ -g -O2 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\build\\" -I ..\..\..\source\usb -I ..\..\..\source\daplink\cmsis-dap -I ..\..\..\source\daplink\drag-n-drop -I ..\..\..\source\daplink\usb2uart -I ..\..\..\source\daplink\settings -I ..\..\..\source\daplink -I ..\..\..\source\daplink\interface -I ..\..\..\source\cmsis-core -I ..\..\..\source\hic_hal -I ..\..\..\source\rtos -I ..\..\..\source\hic_hal\freescale\kl26z -I ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4 -I ..\..\..\projectfiles\uvision\kl26z_bl --gnu --c99-I.\RTE\_kl26z_microbit_if-IC:\Users\Szymon\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Szymon\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3-D__UVISION_VERSION="530" -D_RTE_ -DCPU_MKL26Z128VFM4 -D_RTE_ -DDAPLINK_VERSION="251" -DHID_ENDPOINT -DMSC_ENDPOINT -DCDC_ENDPOINT -DWEBUSB_INTERFACE -DWINUSB_INTERFACE -DDAPLINK_IF -DDAPLINK_BUILD_KEY="0x9B939E8F" -DINTERFACE_KL26Z -DCPU_MKL26Z128VLH4 -DDAPLINK_HIC_ID="0x97969901" -DFLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT="0" -DFLASH_DRIVER_IS_FLASH_RESIDENT="1" -DDAPLINK_NO_ASSERT_FILENAMES -DHID_LED_DEF="GPIO_LED_ON" -DCDC_LED_DEF="GPIO_LED_ON" -DMSC_LED_DEF="GPIO_LED_ON" -DUSB_PROD_STR="BBC micro:bit CMSIS-DAP" --C99-o .\build\usbd_user_cdc_acm.o --list_dir ".\\build\\" --list --omf_browse .\build\usbd_user_cdc_acm.crf --depend .\build\usbd_user_cdc_acm.d)
+I (..\..\..\source\rtos\RTL.h)(0x5D9DDC00)
+I (..\..\..\source\usb\rl_usb.h)(0x5E53C45C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
+I (..\..\..\source\usb\usb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_def.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usb_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_cdc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_webusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_core_winusb.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_desc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_event.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_cdc_acm.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hid.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_msc.h)(0x5D9DDC00)
+I (..\..\..\source\usb\usbd_hw.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\interface\main.h)(0x5D9DDC00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53A4BC)
+I (..\..\..\source\hic_hal\target_reset.h)(0x5D9DDC00)
+I (..\..\..\source\hic_hal\uart.h)(0x5E58F3C0)
+I (..\..\..\source\daplink\drag-n-drop\flash_intf.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\error.h)(0x5D9DDC00)
+I (..\..\..\source\daplink\drag-n-drop\selectr.h)(0x5E611390)
+I (..\..\..\source\daplink\drag-n-drop\virtual_fs.h)(0x5EEC72B1)

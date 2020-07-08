@@ -1,0 +1,14 @@
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\iap\fsl_flash.c
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\iap\fsl_flash.h
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\iap\fsl_common.h
+.\build\fsl_flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\build\fsl_flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\fsl_flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\fsl_flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\fsl_flash.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\fsl_flash.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\fsl_flash.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\fsl_flash.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h

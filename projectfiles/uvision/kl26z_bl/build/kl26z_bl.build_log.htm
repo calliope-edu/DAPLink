@@ -1,0 +1,225 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.28.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Szymon Mroczek, GFI East, LIC=BVR9U-BNT26-QNNFX-FWA9Y-T85HB-IUFEL
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Essential  Version: 5.28.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.28.0.0
+Dialog DLL:      DARMCM1.DLL V1.19.2.0
+Target DLL:      UL2CM3.DLL V1.162.16.0
+Dialog DLL:      TARMCM1.DLL V1.14.1.0
+ 
+<h2>Project:</h2>
+C:\Smro\GitRepos\Calliope\DAPLink\projectfiles\uvision\kl26z_bl\kl26z_bl.uvprojx
+Project File Date:  12/02/2019
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'kl26z_bl'
+Before Build - User command #1: ..\..\..\tools\pre_build_script.bat
+Python 3.7.4
+C:\Smro\GitRepos\Calliope\DAPLink\projectfiles\uvision\kl26z_bl>python ..\..\..\tools\pre_build_script.py 
+#> Pre-build script start
+#> Getting git SHA
+#> Checking for local changes
+#> Keeping git version file since it didn't need to change
+#> Pre-build script completed written ..\..\..\source\daplink\version_git.h
+compiling kl26z_bl.c...
+compiling crc16.c...
+compiling crc32.c...
+compiling daplink.c...
+compiling error.c...
+compiling cortex_m.c...
+compiling circ_buf.c...
+compiling info.c...
+compiling sdk_stub.c...
+assembling SVC_Table.s...
+compiling HardFault_Handler.c...
+compiling flash_hal.c...
+compiling RTX_Config.c...
+compiling main.c...
+compiling validation.c...
+compiling util.c...
+compiling file_stream.c...
+compiling flash_decoder.c...
+compiling flash_intf.c...
+compiling flash_manager.c...
+compiling intelhex.c...
+compiling iap_flash_intf.c...
+compiling FlashDev.c...
+compiling vfs_user.c...
+compiling vfs_manager.c...
+compiling virtual_fs.c...
+compiling gpio.c...
+compiling flash_map.c...
+compiling FlashPrg.c...
+compiling fsl_flash.c...
+compiling read_uid.c...
+assembling startup_MKL26Z4.s...
+compiling usb_config.c...
+compiling system_MKL26Z4.c...
+compiling spi.c...
+compiling uart.c...
+compiling HAL_CM1.c...
+compiling rt_Event.c...
+compiling rt_MemBox.c...
+compiling rt_List.c...
+compiling rt_Mailbox.c...
+compiling IS25LP128F.c...
+compiling usbd_kinetis.c...
+compiling rt_Robin.c...
+compiling rt_Mutex.c...
+compiling rt_Semaphore.c...
+compiling rt_Time.c...
+compiling rt_Task.c...
+compiling rt_System.c...
+compiling rt_Timer.c...
+compiling settings_rom_stub.c...
+compiling usbd_core_msc.c...
+compiling usbd_core.c...
+compiling settings.c...
+compiling usbd_msc.c...
+linking...
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching virtual_fs.o(i.vfs_file_get_size).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rt_time.o(i.rt_dly_wait).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_board_id).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_hic_id).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_host_id).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_mac).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_target_id).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_unique_id).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_unique_id_string_descriptor).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching info.o(i.info_get_version).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching file_stream.o(i.close_bin).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching file_stream.o(i.close_hex).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching file_stream.o(i.open_bin).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.usbd_class_init).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_core.o(i.usbd_connect).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_core_msc.o(i.USBD_ReqClrFeature_MSC).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching libspace.o(.text).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching __rtentry2.o(.ARM.Collect$$rtentry$$0000000D).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching iap_flash_intf.o(i.erase_sector_size).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching iap_flash_intf.o(i.program_page_min_size).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching heapauxi.o(.text).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtexit2.o(.ARM.Collect$$rtexit$$00000004).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching kl26z_bl.o(.conststring).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching daplink.o(i.daplink_is_bootloader).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching daplink.o(i.daplink_is_interface).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching daplink.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching main.o(.emb_text).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching svc_table.o(SVC_TABLE).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching flash_intf.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching iap_flash_intf.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching virtual_fs.o(i.vfs_file_get_attr).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching virtual_fs.o(i.vfs_file_set_attr).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching flashprg.o(i.UnInit).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching gpio.o(i.gpio_get_reset_btn_no_fwrd).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Out_CDC_ReqToIF).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Out_HID_ReqToIF).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Setup_CDC_ReqToIF).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Setup_HID_ReqToIF).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Setup_WebUSB_ReqToDevice).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_EndPoint0_Setup_WinUSB_ReqToDevice).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_ReqGetDescriptor_HID).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_get_auto_rst).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_get_automation_allowed).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_get_overflow_detect).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(i.os_idle_demon).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(i.os_tmr_call).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(i.rt_chk_robin).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(i.rt_init_robin).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching sdk_stub.o(i.sdk_init).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching virtual_fs.o(i.file_change_cb_stub).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching virtual_fs.o(i.write_none).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching fsl_flash.o(i.flash_cache_clear_command_end).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching fsl_flash.o(i.flash_run_command_end).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(i.USBD_RTX_TaskInit).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_kinetis.o(i.USBD_Configure).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_kinetis.o(i.USBD_DirCtrlEP).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_kinetis.o(i.USBD_WakeUpCfg).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rt_system.o(i.os_tick_irqack).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_rom_init).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_set_auto_rst).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_set_automation_allowed).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching settings_rom_stub.o(i.config_set_overflow_detect).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usbd_msc.o(i.usbd_msc_start_stop).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching use_no_semi.o(.text).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching libinit.o(.ARM.Collect$$libinit$$00000000).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching libshutdown.o(.ARM.Collect$$libshutdown$$00000000).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching rtx_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching usb_config.o(.constdata).
+.\build\kl26z_bl.axf: Error: L6406E: No space in execution regions with .ANY selector matching indicate_semi.o(.text).
+.\build\kl26z_bl.axf: Error: L6407E: Sections of aggregate size 0x204 bytes could not fit into .ANY selector(s).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 101 error messages.
+".\build\kl26z_bl.axf" - 101 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.5.1.pack
+                ARM.CMSIS.5.5.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.2.0
+
+Package Vendor: NXP
+                http://mcuxpresso.nxp.com/cmsis_pack/repo/NXP.MKL26Z4_DFP.10.0.3.pack
+                NXP.MKL26Z4_DFP.10.0.3
+                Device Family Pack for MKL26Z4
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_kl26z_bl
+  C:\Users\smro\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include
+  C:\Users\smro\AppData\Local\Arm\Packs\NXP\MKL26Z4_DFP\10.0.3
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.2.0
+Target not created.
+Build Time Elapsed:  00:00:04
+</pre>
+</body>
+</html>

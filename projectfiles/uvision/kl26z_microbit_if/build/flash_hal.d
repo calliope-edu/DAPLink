@@ -1,0 +1,15 @@
+.\build\flash_hal.o: ..\..\..\source\daplink\flash_hal.c
+.\build\flash_hal.o: ..\..\..\source\hic_hal\flash_hal.h
+.\build\flash_hal.o: ..\..\..\source\hic_hal\FlashPrg.h
+.\build\flash_hal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\flash_hal.o: ..\..\..\source\daplink\cortex_m.h
+.\build\flash_hal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\flash_hal.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\flash_hal.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\flash_hal.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\flash_hal.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\flash_hal.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\flash_hal.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\flash_hal.o: ..\..\..\source\daplink\compiler.h
+.\build\flash_hal.o: ..\..\..\source\daplink\daplink.h
+.\build\flash_hal.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h

@@ -1,0 +1,17 @@
+.\build\microbit.o: ..\..\..\source\board\microbit.c
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\fsl_device_registers.h
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\microbit.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\microbit.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\microbit.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\microbit.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4_features.h
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\microbit.o: ..\..\..\source\daplink\compiler.h
+.\build\microbit.o: ..\..\..\source\daplink\daplink.h
+.\build\microbit.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\microbit.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\microbit.o: ..\..\..\source\daplink\cmsis-dap\DAP.h
+.\build\microbit.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\build\microbit.o: ..\..\..\source\rtos\RTL.h

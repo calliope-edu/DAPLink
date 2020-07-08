@@ -1,0 +1,13 @@
+.\build\virtual_fs.o: ..\..\..\source\daplink\drag-n-drop\virtual_fs.c
+.\build\virtual_fs.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\interface\main.h
+.\build\virtual_fs.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\virtual_fs.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\drag-n-drop\virtual_fs.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\info.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\settings\settings.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\compiler.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\macro.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\util.h
+.\build\virtual_fs.o: ..\..\..\source\daplink\drag-n-drop\vfs_nvm.h
+.\build\virtual_fs.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

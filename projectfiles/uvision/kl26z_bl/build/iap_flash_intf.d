@@ -1,0 +1,15 @@
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\drag-n-drop\iap_flash_intf.c
+.\build\iap_flash_intf.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\daplink.h
+.\build\iap_flash_intf.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\iap_flash_intf.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\iap_flash_intf.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\compiler.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\drag-n-drop\flash_intf.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\error.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\util.h
+.\build\iap_flash_intf.o: ..\..\..\source\hic_hal\flash_hal.h
+.\build\iap_flash_intf.o: ..\..\..\source\hic_hal\FlashPrg.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\crc.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\info.h
+.\build\iap_flash_intf.o: ..\..\..\source\daplink\macro.h

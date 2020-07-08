@@ -1,0 +1,16 @@
+.\build\circ_buf.o: ..\..\..\source\daplink\circ_buf.c
+.\build\circ_buf.o: ..\..\..\source\daplink\circ_buf.h
+.\build\circ_buf.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\circ_buf.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\circ_buf.o: ..\..\..\source\daplink\cortex_m.h
+.\build\circ_buf.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\circ_buf.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\circ_buf.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\circ_buf.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\circ_buf.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\circ_buf.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\circ_buf.o: ..\..\..\source\daplink\compiler.h
+.\build\circ_buf.o: ..\..\..\source\daplink\daplink.h
+.\build\circ_buf.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\circ_buf.o: ..\..\..\source\daplink\macro.h
+.\build\circ_buf.o: ..\..\..\source\daplink\util.h

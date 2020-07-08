@@ -1,0 +1,3647 @@
+L 1 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c"
+N/**
+N * @file    virtual_fs.c
+N * @brief   Implementation of virtual_fs.h
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#include "string.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h" 1
+N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
+N/* Copyright (C) Codemist Ltd., 1988-1993.                        */
+N/* Copyright 1991-1993 ARM Limited. All rights reserved.          */
+N/* version 0.04 */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N */
+N
+N/*
+N * string.h declares one type and several functions, and defines one macro
+N * useful for manipulating character arrays and other objects treated as
+N * character arrays. Various methods are used for determining the lengths of
+N * the arrays, but in all cases a char * or void * argument points to the
+N * initial (lowest addresses) character of the array. If an array is written
+N * beyond the end of an object, the behaviour is undefined.
+N */
+N
+N#ifndef __string_h
+N#define __string_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N#define _ARMABI __declspec(__nothrow)
+N
+N  #ifndef __STRING_DECLS
+N  #define __STRING_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+Nextern _ARMABI void *memcpy(void * __restrict /*s1*/,
+Xextern __declspec(__nothrow) void *memcpy(void * __restrict  ,
+N                    const void * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI void *memmove(void * /*s1*/,
+Xextern __declspec(__nothrow) void *memmove(void *  ,
+N                    const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. Copying takes place as if the n characters from the
+N    * object pointed to by s2 are first copied into a temporary array of n
+N    * characters that does not overlap the objects pointed to by s1 and s2,
+N    * and then the n characters from the temporary array are copied into the
+N    * object pointed to by s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strcpy(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string pointed to by s2 (including the terminating nul
+N    * character) into the array pointed to by s1. If copying takes place
+N    * between objects that overlap, the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncpy(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies not more than n characters (characters that follow a null
+N    * character are not copied) from the array pointed to by s2 into the array
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+N
+Nextern _ARMABI char *strcat(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends a copy of the string pointed to by s2 (including the terminating
+N    * null character) to the end of the string pointed to by s1. The initial
+N    * character of s2 overwrites the null character at the end of s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncat(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends not more than n characters (a null character and characters that
+N    * follow it are not appended) from the array pointed to by s2 to the end of
+N    * the string pointed to by s1. The initial character of s2 overwrites the
+N    * null character at the end of s1. A terminating null character is always
+N    * appended to the result.
+N    * Returns: the value of s1.
+N    */
+N
+N/*
+N * The sign of a nonzero value returned by the comparison functions is
+N * determined by the sign of the difference between the values of the first
+N * pair of characters (both interpreted as unsigned char) that differ in the
+N * objects being compared.
+N */
+N
+Nextern _ARMABI int memcmp(const void * /*s1*/, const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the first n characters of the object pointed to by s1 to the
+N    * first n characters of the object pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the object pointed to by s1 is greater than, equal to, or
+N    *          less than the object pointed to by s2.
+N    */
+Nextern _ARMABI int strcmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcasecmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2,
+N    * case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncasecmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2, case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcoll(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2, both
+N    * interpreted as appropriate to the LC_COLLATE category of the current
+N    * locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2 when both are interpreted
+N    *          as appropriate to the current locale.
+N    */
+N
+Nextern _ARMABI size_t strxfrm(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * transforms the string pointed to by s2 and places the resulting string
+N    * into the array pointed to by s1. The transformation function is such that
+N    * if the strcmp function is applied to two transformed strings, it returns
+N    * a value greater than, equal to or less than zero, corresponding to the
+N    * result of the strcoll function applied to the same two original strings.
+N    * No more than n characters are placed into the resulting array pointed to
+N    * by s1, including the terminating null character. If n is zero, s1 is
+N    * permitted to be a null pointer. If copying takes place between objects
+N    * that overlap, the behaviour is undefined.
+N    * Returns: The length of the transformed string is returned (not including
+N    *          the terminating null character). If the value returned is n or
+N    *          more, the contents of the array pointed to by s1 are
+N    *          indeterminate.
+N    */
+N
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Sextern "C++" void *memchr(void * __s, int __c, size_t __n) __attribute__((__nonnull__(1)));
+Sextern "C++" inline void *memchr(void * __s, int __c, size_t __n)
+S    { return const_cast<void *>(memchr(const_cast<const void *>(__s), __c, __n)); }
+N#else
+Nextern _ARMABI void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an unsigned char) in the
+N    * initial n characters (each interpreted as unsigned char) of the object
+N    * pointed to by s.
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the object.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strchr(char * __s, int __c)
+S    { return const_cast<char *>(strchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an char) in the string
+N    * pointed to by s (including the terminating null character).
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strcspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters not from the string pointed to by
+N    * s2. The terminating null character is not considered part of s2.
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strpbrk(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strpbrk(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strpbrk(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of any
+N    * character from the string pointed to by s2.
+N    * Returns: returns a pointer to the character, or a null pointer if no
+N    *          character form s2 occurs in s1.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strrchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strrchr(char * __s, int __c)
+S    { return const_cast<char *>(strrchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the last occurence of c (converted to a char) in the string
+N    * pointed to by s. The terminating null character is considered part of
+N    * the string.
+N    * Returns: returns a pointer to the character, or a null pointer if c does
+N    *          not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters from the string pointed to by S2
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strstr(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strstr(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strstr(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of the
+N    * sequence of characters (excluding the terminating null character) in the
+N    * string pointed to by s2.
+N    * Returns: a pointer to the located string, or a null pointer if the string
+N    *          is not found.
+N    */
+N
+Nextern _ARMABI char *strtok(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
+Nextern _ARMABI char *_strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#ifndef __STRICT_ANSI__
+Nextern _ARMABI char *strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#endif
+N   /*
+N    * A sequence of calls to the strtok function breaks the string pointed to
+N    * by s1 into a sequence of tokens, each of which is delimited by a
+N    * character from the string pointed to by s2. The first call in the
+N    * sequence has s1 as its first argument, and is followed by calls with a
+N    * null pointer as their first argument. The separator string pointed to by
+N    * s2 may be different from call to call.
+N    * The first call in the sequence searches for the first character that is
+N    * not contained in the current separator string s2. If no such character
+N    * is found, then there are no tokens in s1 and the strtok function returns
+N    * a null pointer. If such a character is found, it is the start of the
+N    * first token.
+N    * The strtok function then searches from there for a character that is
+N    * contained in the current separator string. If no such character is found,
+N    * the current token extends to the end of the string pointed to by s1, and
+N    * subsequent searches for a token will fail. If such a character is found,
+N    * it is overwritten by a null character, which terminates the current
+N    * token. The strtok function saves a pointer to the following character,
+N    * from which the next search for a token will start.
+N    * Each subsequent call, with a null pointer as the value for the first
+N    * argument, starts searching from the saved pointer and behaves as
+N    * described above.
+N    * Returns: pointer to the first character of a token, or a null pointer if
+N    *          there is no token.
+N    *
+N    * strtok_r() is a common extension which works exactly like
+N    * strtok(), but instead of storing its state in a hidden
+N    * library variable, requires the user to pass in a pointer to a
+N    * char * variable which will be used instead. Any sequence of
+N    * calls to strtok_r() passing the same char ** pointer should
+N    * behave exactly like the corresponding sequence of calls to
+N    * strtok(). This means that strtok_r() can safely be used in
+N    * multi-threaded programs, and also that you can tokenise two
+N    * strings in parallel.
+N    */
+N
+Nextern _ARMABI void *memset(void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * copies the value of c (converted to an unsigned char) into each of the
+N    * first n charactes of the object pointed to by s.
+N    * Returns: the value of s.
+N    */
+Nextern _ARMABI char *strerror(int /*errnum*/);
+Xextern __declspec(__nothrow) char *strerror(int  );
+N   /*
+N    * maps the error number in errnum to an error message string.
+N    * Returns: a pointer to the string, the contents of which are
+N    *          implementation-defined. The array pointed to shall not be
+N    *          modified by the program, but may be overwritten by a
+N    *          subsequent call to the strerror function.
+N    */
+Nextern _ARMABI size_t strlen(const char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * computes the length of the string pointed to by s.
+N    * Returns: the number of characters that precede the terminating null
+N    *          character.
+N    */
+N
+Nextern _ARMABI size_t strlcpy(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string src into the string dst, using no more than
+N    * len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src. Thus, the operation
+N    * succeeded without truncation if and only if ret < len;
+N    * otherwise, the value in ret tells you how big to make dst if
+N    * you decide to reallocate it. (That value does _not_ include
+N    * the NUL.)
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI size_t strlcat(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * concatenates the string src to the string dst, using no more
+N    * than len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src plus the original length
+N    * of dst. Thus, the operation succeeded without truncation if
+N    * and only if ret < len; otherwise, the value in ret tells you
+N    * how big to make dst if you decide to reallocate it. (That
+N    * value does _not_ include the NUL.)
+N    * 
+N    * If no NUL is encountered within the first len bytes of dst,
+N    * then the length of dst is considered to have been equal to
+N    * len for the purposes of the return value (as if there were a
+N    * NUL at dst[len]). Thus, the return value in this case is len
+N    * + strlen(src).
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI void _membitcpybl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpybb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+N    /*
+N     * Copies or moves a piece of memory from one place to another,
+N     * with one-bit granularity. So you can start or finish a copy
+N     * part way through a byte, and you can copy between regions
+N     * with different alignment within a byte.
+N     * 
+N     * All these functions have the same prototype: two void *
+N     * pointers for destination and source, then two integers
+N     * giving the bit offset from those pointers, and finally the
+N     * number of bits to copy.
+N     * 
+N     * Just like memcpy and memmove, the "cpy" functions copy as
+N     * fast as they can in the assumption that the memory regions
+N     * do not overlap, while the "move" functions cope correctly
+N     * with overlap.
+N     *
+N     * Treating memory as a stream of individual bits requires
+N     * defining a convention about what order those bits are
+N     * considered to be arranged in. The above functions support
+N     * multiple conventions:
+N     * 
+N     *  - the "bl" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in little-endian fashion, so that the LSB comes
+N     *    first. (For example, membitcpybl(a,b,0,7,1) would copy
+N     *    the MSB of the byte at b to the LSB of the byte at a.)
+N     * 
+N     *  - the "bb" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in big-endian fashion, so that the MSB comes
+N     *    first.
+N     * 
+N     *  - the "hl" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in little-endian fashion.
+N     * 
+N     *  - the "hb" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in big-endian fashion.
+N     * 
+N     *  - the "wl" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in little-endian fashion.
+N     * 
+N     *  - the "wb" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in big-endian fashion.
+N     */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STRING_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STRING_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::memcpy;
+S      using ::std::memmove;
+S      using ::std::strcpy;
+S      using ::std::strncpy;
+S      using ::std::strcat;
+S      using ::std::strncat;
+S      using ::std::memcmp;
+S      using ::std::strcmp;
+S      using ::std::strncmp;
+S      using ::std::strcasecmp;
+S      using ::std::strncasecmp;
+S      using ::std::strcoll;
+S      using ::std::strxfrm;
+S      using ::std::memchr;
+S      using ::std::strchr;
+S      using ::std::strcspn;
+S      using ::std::strpbrk;
+S      using ::std::strrchr;
+S      using ::std::strspn;
+S      using ::std::strstr;
+S      using ::std::strtok;
+S#ifndef __STRICT_ANSI__
+S      using ::std::strtok_r;
+S#endif
+S      using ::std::_strtok_r;
+S      using ::std::memset;
+S      using ::std::strerror;
+S      using ::std::strlen;
+S      using ::std::strlcpy;
+S      using ::std::strlcat;
+S      using ::std::_membitcpybl;
+S      using ::std::_membitcpybb;
+S      using ::std::_membitcpyhl;
+S      using ::std::_membitcpyhb;
+S      using ::std::_membitcpywl;
+S      using ::std::_membitcpywb;
+S      using ::std::_membitmovebl;
+S      using ::std::_membitmovebb;
+S      using ::std::_membitmovehl;
+S      using ::std::_membitmovehb;
+S      using ::std::_membitmovewl;
+S      using ::std::_membitmovewb;
+S    #endif /* __STRING_NO_EXPORTS */
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of string.h */
+N
+L 23 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "main.h"
+L 1 "..\..\..\source\daplink\interface\main.h" 1
+N/**
+N * @file    main.h
+N * @brief
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef MAIN_H
+N#define MAIN_H
+N
+N#include "stdint.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 26 "..\..\..\source\daplink\interface\main.h" 2
+N#include "stdbool.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 27 "..\..\..\source\daplink\interface\main.h" 2
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// LED state
+Ntypedef enum main_led_state {
+N    MAIN_LED_DEF = 0,
+N    MAIN_LED_FLASH,
+N    MAIN_LED_FLASH_PERMANENT
+N} main_led_state_t;
+N
+Ntypedef enum main_usb_connect {
+N    USB_DISCONNECTED,
+N    USB_CONNECTING,
+N    USB_CONNECTED,
+N    USB_CHECK_CONNECTED,
+N    USB_CONFIGURED,
+N    USB_DISCONNECTING
+N} main_usb_connect_t;
+N
+Nvoid main_reset_target(uint8_t send_unique_id);
+Nvoid main_usb_set_test_mode(bool enabled);
+Xvoid main_usb_set_test_mode(_Bool enabled);
+Nvoid main_usb_configure_event(void);
+Nvoid main_usb_busy_event(void);
+Nvoid main_powerdown_event(void);
+Nvoid main_disable_debug_event(void);
+Nvoid main_hid_send_event(void);
+Nvoid main_cdc_send_event(void);
+Nvoid main_msc_disconnect_event(void);
+Nvoid main_msc_delay_disconnect_event(void);
+Nvoid main_force_msc_disconnect_event(void);
+Nvoid main_blink_hid_led(main_led_state_t state);
+Nvoid main_blink_msc_led(main_led_state_t state);
+Nvoid main_blink_cdc_led(main_led_state_t state);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 24 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "virtual_fs.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\virtual_fs.h" 1
+N/**
+N * @file    virtual_fs.h
+N * @brief   FAT 12/16 filesystem handling
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef VIRTUAL_FS_H
+N#define VIRTUAL_FS_H
+N
+N#include "stdint.h"
+N#include "stdbool.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define VFS_CLUSTER_SIZE        0x1000
+N#define VFS_SECTOR_SIZE         512
+N#define VFS_INVALID_SECTOR      0xFFFFFFFF
+N#define VFS_FILE_INVALID        0
+N#define VFS_MAX_FILES           16
+N
+Ntypedef char vfs_filename_t[11];
+N
+Ntypedef enum {
+N    VFS_FILE_ATTR_READ_ONLY     = (1 << 0),
+N    VFS_FILE_ATTR_HIDDEN        = (1 << 1),
+N    VFS_FILE_ATTR_SYSTEM        = (1 << 2),
+N    VFS_FILE_ATTR_VOLUME_LABEL  = (1 << 3),
+N    VFS_FILE_ATTR_SUB_DIR       = (1 << 4),
+N    VFS_FILE_ATTR_ARCHIVE       = (1 << 5),
+N} vfs_file_attr_bit_t;
+N
+Ntypedef enum {
+N    VFS_FILE_CREATED = 0,   /*!< A new file was created */
+N    VFS_FILE_DELETED,       /*!< An existing file was deleted */
+N    VFS_FILE_CHANGED,       /*!< Some attribute of the file changed.
+N                                  Note: when a file is deleted or
+N                                  created a file changed
+N                                  notification will also occur*/
+N} vfs_file_change_t;
+N
+Ntypedef void *vfs_file_t;
+Ntypedef uint32_t vfs_sector_t;
+N
+N// Callback for when data is written to a file on the virtual filesystem
+Ntypedef void (*vfs_write_cb_t)(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+N// Callback for when data is ready from the virtual filesystem
+Ntypedef uint32_t (*vfs_read_cb_t)(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+N// Callback for when a file's attributes are changed on the virtual filesystem.  Note that the 'file' parameter
+N// can be saved and compared to other files to see if they are referencing the same object.  The
+N// same cannot be done with new_file_data since it points to a temporary buffer.
+Ntypedef void (*vfs_file_change_cb_t)(const vfs_filename_t filename, vfs_file_change_t change,
+N                                     vfs_file_t file, vfs_file_t new_file_data);
+N
+N// Initialize the filesystem with the given size and name
+Nvoid vfs_init(const vfs_filename_t drive_name, uint32_t disk_size);
+N
+N// Get the total size of the virtual filesystem
+Nuint32_t vfs_get_total_size(void);
+N
+N// Add a file to the virtual FS and return a handle to this file.
+N// This must be called before vfs_read or vfs_write are called.
+N// Adding a new file after vfs_read or vfs_write have been called results in undefined behavior.
+Nvfs_file_t vfs_create_file(const vfs_filename_t filename, vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32_t len);
+N
+N// Set the attributes of a file
+Nvoid vfs_file_set_attr(vfs_file_t file, vfs_file_attr_bit_t attr);
+N
+N// Get the starting sector of this file.
+N// NOTE - If the file size is 0 there is no starting
+N// sector so VFS_INVALID_SECTOR will be returned.
+Nvfs_sector_t vfs_file_get_start_sector(vfs_file_t file);
+N
+N// Get the size of the file.
+Nuint32_t vfs_file_get_size(vfs_file_t file);
+N
+N// Get the attributes of a file
+Nvfs_file_attr_bit_t vfs_file_get_attr(vfs_file_t file);
+N
+N// Set the callback when a file is created, deleted or has atributes changed.
+Nvoid vfs_set_file_change_callback(vfs_file_change_cb_t cb);
+N
+N// Read one or more sectors from the virtual filesystem
+Nvoid vfs_read(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors);
+N
+N// Read one or more sectors from the flash filesystem
+Nvoid ffs_read(uint32_t sector, uint8_t *buf, uint32_t num_of_sectors);
+N
+N// Write one or more sectors to the virtual filesystem
+Nvoid vfs_write(uint32_t sector, const uint8_t *buf, uint32_t num_of_sectors);
+N
+N// Write one or more sectors to the flash filesystem
+Nvoid ffs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors);
+N
+N// Read one or more sectors from the FLASH directory
+Nuint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+N
+N// Write one or more sectors to the FLASH directory
+Nvoid write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+N
+N// Read one or more sectors from one of the FLASH files
+Nuint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+N
+N// Write one or more sectors to one of the FLASH files
+Nvoid write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+N
+Nuint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count);
+N
+Nuint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 25 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "info.h"
+L 1 "..\..\..\source\daplink\info.h" 1
+N/**
+N * @file    info.h
+N * @brief   methods to get information about the board
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef INFO_H
+N#define INFO_H
+N
+N#include "stdbool.h"
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Nvoid info_init(void);
+Nvoid info_set_uuid_target(uint32_t *uuid_data);
+Nvoid info_crc_compute(void);
+N
+N
+N// Get the 48 digit unique ID as a null terminated string.
+N// This is the string used as the USB serial number.
+N// This string is made up of the following:
+N// <board ID><4 reserved bytes><host ID><hic ID>
+Nconst char *info_get_unique_id(void);
+N
+N// Get the 4 digit board ID as a null terminated string
+Nconst char *info_get_board_id(void);
+N
+N// Get the 32 digit ID of the processor running daplink as a null terminated string
+Nconst char *info_get_host_id(void);
+N
+N// Get the 32 digit ID of the target processor as a null terminated string
+Nconst char *info_get_target_id(void);
+N
+N// Get the 8 digit hic ID as a null terminated string
+Nconst char *info_get_hic_id(void);
+N
+N// Get the 4 digit version ID as a null terminated string
+Nconst char *info_get_version(void);
+N
+N// Get the 12 digit mac as a null terminated string
+Nconst char *info_get_mac(void);
+N
+N
+N// Get the string descriptor for for the unique_id
+N// This is in the format of a USB string descriptor
+N// offset 0, size 1, bLength
+N// offset 1, size 1, bDescriptorType always 3
+N// offset 2, size n, bString - unicode encoded unique id
+Nconst char *info_get_unique_id_string_descriptor(void);
+N
+N
+N// Check if various regions are present
+Nbool info_get_bootloader_present(void);
+X_Bool info_get_bootloader_present(void);
+Nbool info_get_interface_present(void);
+X_Bool info_get_interface_present(void);
+Nbool info_get_config_admin_present(void);
+X_Bool info_get_config_admin_present(void);
+Nbool info_get_config_user_present(void);
+X_Bool info_get_config_user_present(void);
+N
+N// Get the CRCs of various regions.
+N// The CRC returned is only valid if
+N// the given region is present.
+Nuint32_t info_get_crc_bootloader(void);
+Nuint32_t info_get_crc_interface(void);
+Nuint32_t info_get_crc_config_admin(void);
+Nuint32_t info_get_crc_config_user(void);
+N
+N// Get version info as an integer
+Nuint32_t info_get_bootloader_version(void);
+Nuint32_t info_get_interface_version(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 26 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "settings.h"
+L 1 "..\..\..\source\daplink\settings\settings.h" 1
+N/**
+N * @file    settings.h
+N * @brief   Access to read user configuration settings
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N#ifndef SETTINGS_H
+N#define SETTINGS_H
+N
+N#include "stdint.h"
+N#include "stdbool.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+Ntypedef enum {
+N    ASSERT_SOURCE_NONE = 0,
+N    ASSERT_SOURCE_BL = 1,
+N    ASSERT_SOURCE_APP = 2
+N} assert_source_t;
+N
+Nvoid config_init(void);
+N
+N// Get/set settings residing in flash
+Nvoid config_set_auto_rst(bool on);
+Xvoid config_set_auto_rst(_Bool on);
+Nvoid config_set_automation_allowed(bool on);
+Xvoid config_set_automation_allowed(_Bool on);
+Nvoid config_set_overflow_detect(bool on);
+Xvoid config_set_overflow_detect(_Bool on);
+Nbool config_get_auto_rst(void);
+X_Bool config_get_auto_rst(void);
+Nbool config_get_automation_allowed(void);
+X_Bool config_get_automation_allowed(void);
+Nbool config_get_overflow_detect(void);
+X_Bool config_get_overflow_detect(void);
+N
+N// Get/set settings residing in shared ram
+Nvoid config_ram_set_hold_in_bl(bool hold);
+Xvoid config_ram_set_hold_in_bl(_Bool hold);
+Nvoid config_ram_set_assert(const char *file, uint16_t line);
+Nvoid config_ram_clear_assert(void);
+Nbool config_ram_get_hold_in_bl(void);
+X_Bool config_ram_get_hold_in_bl(void);
+Nbool config_ram_get_initial_hold_in_bl(void);
+X_Bool config_ram_get_initial_hold_in_bl(void);
+Nbool config_ram_get_assert(char *buf, uint16_t buf_size, uint16_t *line, assert_source_t *source);
+X_Bool config_ram_get_assert(char *buf, uint16_t buf_size, uint16_t *line, assert_source_t *source);
+Nuint8_t config_ram_add_hexdump(uint32_t hexdump);
+Nuint8_t config_ram_get_hexdumps(uint32_t **hexdumps);
+N
+N// Private - should only be called from settings.c
+Nvoid config_rom_init(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 27 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "compiler.h"
+L 1 "..\..\..\source\daplink\compiler.h" 1
+N/**
+N * @file    compiler.h
+N * @brief   Special asserts and macros
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef COMPILER_H
+N#define COMPILER_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define COMPILER_CONCAT_(a, b) a##b
+N#define COMPILER_CONCAT(a, b) COMPILER_CONCAT_(a, b)
+N
+N// Divide by zero if the the expression is false.  This
+N// causes an error at compile time.
+N//
+N// The special value '__COUNTER__' is used to create a unique value to
+N// append to 'compiler_assert_' to create a unique token.  This prevents
+N// conflicts resulting from the same enum being declared multiple times.
+N#define COMPILER_ASSERT(e) enum { COMPILER_CONCAT(compiler_assert_, __COUNTER__) = 1/((e) ? 1 : 0) }
+N
+N#define __at(_addr) __attribute__ ((at(_addr)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "macro.h"
+L 1 "..\..\..\source\daplink\macro.h" 1
+N/**
+N * @file    macro.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef MACRO_H
+N#define MACRO_H
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define ELEMENTS_IN_ARRAY(array)        (sizeof(array)/sizeof(array[0]))
+N
+N#define MB(size)                        ((size) * 1024 * 1024)
+N
+N#define KB(size)                        ((size) * 1024)
+N
+N#define MIN(a,b)                        ((a) < (b) ? (a) : (b))
+N
+N#define MAX(a,b)                        ((a) > (b) ? (a) : (b))
+N
+N#define ROUND_UP(value, boundary)       ((value) + ((boundary) - (value)) % (boundary))
+N
+N#define ROUND_DOWN(value, boundary)     ((value) - ((value) % (boundary)))
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 29 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "util.h"
+L 1 "..\..\..\source\daplink\util.h" 1
+N/**
+N * @file    util.h
+N * @brief   useful things
+N *
+N * DAPLink Interface Firmware
+N * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the "License"); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * http://www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef UTIL_H
+N#define UTIL_H
+N
+N#include "stdbool.h"
+N#include "stdint.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N// Write the value to the address specified and return the size
+Nuint32_t util_write_hex8(char *str, uint8_t value);
+Nuint32_t util_write_hex16(char *str, uint16_t value);
+Nuint32_t util_write_hex32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32(char *str, uint32_t value);
+Nuint32_t util_write_uint32_zp(char *str, uint32_t value, uint16_t total_size);
+Nuint32_t util_write_string(char *str, const char *data);
+N
+Nuint32_t util_div_round_up(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round_down(uint32_t dividen, uint32_t divisor);
+Nuint32_t util_div_round(uint32_t dividen, uint32_t divisor);
+N
+N#if !(defined(DAPLINK_NO_ASSERT_FILENAMES) && defined(DAPLINK_BL))
+X#if !(1L && 0L)
+N// With the filename enabled.
+N#define util_assert(expression) _util_assert((expression), __FILE__, __LINE__)
+N#else
+S// Filename disabled to save code size.
+S#define util_assert(expression) _util_assert((expression), "(file)", __LINE__)
+N#endif
+Nvoid _util_assert(bool expression, const char *filename, uint16_t line);
+Xvoid _util_assert(_Bool expression, const char *filename, uint16_t line);
+N
+Nvoid util_assert_clear(void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 30 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "vfs_nvm.h"
+L 1 "..\..\..\source\daplink\drag-n-drop\vfs_nvm.h" 1
+N/**
+N * @file    vfs_nvm.h
+N * @brief   FAT 12/16 filesystem non-volatile memory management
+N */
+N
+N#ifndef VFS_NVM_H
+N#define VFS_NVM_H
+N
+N#include "stdint.h"
+N#include "stdbool.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N
+N/* NVM MEMORY LAYOUT
+N * START ADDR   -   NAME           - SIZE
+N * 0x00000000   -   DIR REGION     - 0x00001000
+N * 0x00001000   -   DATA REGION    - 0x00FCF000
+N * 0x00FD0000   -   FAT REGION     - 0x00020000
+N * 0X00FF0000   -   REWRITE BUFFER - 0X00010000
+N */
+N
+N#define VFS_NVM_FAT_ADDR 0xFEC000u                              // starting address for FAT table in the FLASH directory
+N#define VFS_NVM_FAT_SIZE 16384u                                 // maximum size for maximum number of 65425 clusters allowed
+N
+N#define VFS_NVM_FILE_ADDR 0x1000                                // starting address for storage of files in FLASH directory
+N#define VFS_NVM_FILE_SIZE (VFS_NVM_FAT_ADDR-VFS_NVM_FILE_ADDR)  // size for files in a FLASH directory
+N
+N#define VFS_NVM_DIR_ADDR 0x000000u                              // starting address for FLASH directory entry
+N#define VFS_NVM_DIR_SIZE (VFS_NVM_FILE_ADDR-VFS_NVM_DIR_ADDR)   // size for 128 FatDirectoryEntries (32 bytes each)
+N
+N
+Nvoid vfs_nvm_init(void);
+N
+Nuint8_t vfs_nvm_is_available(void);
+N
+Nvoid vfs_nvm_read_FAT(uint8_t *buf, uint32_t offset, uint32_t len);
+N
+Nvoid vfs_nvm_write_FAT(const uint8_t *buf, uint32_t offset, uint32_t len);
+N
+Nvoid vfs_nvm_setup_FAT(void);
+N
+Nvoid vfs_nvm_read_DIR(uint8_t *buf, uint32_t offset, uint32_t len);
+N
+Nvoid vfs_nvm_write_DIR(const uint8_t *buf, uint32_t offset, uint32_t len);
+N
+Nvoid vfs_nvm_setup_DIR(void);
+N
+Nvoid vfs_nvm_read_FILE(uint8_t *buf, uint32_t offset, uint32_t len);
+N
+Nvoid vfs_nvm_write_FILE(const uint8_t *buf, uint32_t offset, uint32_t len);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif //VFS_NVM_H
+L 31 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N#include "stdlib.h"
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h" 1
+N/* stdlib.h: ANSI draft (X3J11 May 88) library header, section 4.10 */
+N/* Copyright (C) Codemist Ltd., 1988-1993.                          */
+N/* Copyright 1991-1998,2014 ARM Limited. All rights reserved.       */
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N 
+N/*
+N * stdlib.h declares four types, several general purpose functions,
+N * and defines several macros.
+N */
+N
+N#ifndef __stdlib_h
+N#define __stdlib_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N#if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X#if 0L || (1L && !0L)
+N  /* armclang and non-strict armcc allow 'long long' in system headers */
+N  #define __LONGLONG long long
+N#else
+S  /* strict armcc has '__int64' */
+S  #define __LONGLONG __int64
+N#endif
+N
+N#define _ARMABI __declspec(__nothrow)
+N#define _ARMABI_PURE __declspec(__nothrow) __attribute__((const))
+N#define _ARMABI_NORETURN __declspec(__nothrow) __declspec(__noreturn)
+N#define _ARMABI_THROW
+N
+N  #ifndef __STDLIB_DECLS
+N  #define __STDLIB_DECLS
+N
+N  /*
+N   * Some of these declarations are new in C99.  To access them in C++
+N   * you can use -D__USE_C99_STDLIB (or -D__USE_C99ALL).
+N   */
+N  #ifndef __USE_C99_STDLIB
+N    #if defined(__USE_C99_ALL) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+X    #if 0L || (1L && 199901L <= 199901L) || (0L && 201103L <= __cplusplus)
+N      #define __USE_C99_STDLIB 1
+N    #endif
+N  #endif
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS ::std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+N#ifndef __cplusplus  /* wchar_t is a builtin type for C++ */
+N  #if !defined(__STRICT_ANSI__)
+X  #if !0L
+N   /* unconditional in non-strict C for consistency of debug info */
+N   #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X   #if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S    typedef unsigned int wchar_t; /* see <stddef.h> */
+N   #else
+N    typedef unsigned short wchar_t; /* see <stddef.h> */
+N   #endif
+N  #elif !defined(__wchar_t)
+X  #elif !0L
+S    #define __wchar_t 1
+S   #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+S    typedef unsigned int wchar_t; /* see <stddef.h> */
+S   #else
+S    typedef unsigned short wchar_t; /* see <stddef.h> */
+S   #endif
+N  #endif
+N#endif
+N
+Ntypedef struct div_t { int quot, rem; } div_t;
+N   /* type of the value returned by the div function. */
+Ntypedef struct ldiv_t { long int quot, rem; } ldiv_t;
+N   /* type of the value returned by the ldiv function. */
+N#if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+X#if !0L || 1
+Ntypedef struct lldiv_t { __LONGLONG quot, rem; } lldiv_t;
+Xtypedef struct lldiv_t { long long quot, rem; } lldiv_t;
+N   /* type of the value returned by the lldiv function. */
+N#endif
+N
+N#ifdef __EXIT_FAILURE
+S#  define EXIT_FAILURE __EXIT_FAILURE
+S   /*
+S    * an integral expression which may be used as an argument to the exit
+S    * function to return unsuccessful termination status to the host
+S    * environment.
+S    */
+N#else
+N#  define EXIT_FAILURE 1  /* unixoid */
+N#endif
+N#define EXIT_SUCCESS 0
+N   /*
+N    * an integral expression which may be used as an argument to the exit
+N    * function to return successful termination status to the host
+N    * environment.
+N    */
+N
+N   /*
+N    * Defining __USE_ANSI_EXAMPLE_RAND at compile time switches to
+N    * the example implementation of rand() and srand() provided in
+N    * the ANSI C standard. This implementation is very poor, but is
+N    * provided for completeness.
+N    */
+N#ifdef __USE_ANSI_EXAMPLE_RAND
+S#define srand _ANSI_srand
+S#define rand _ANSI_rand
+S#define RAND_MAX 0x7fff
+N#else
+N#define RAND_MAX 0x7fffffff
+N#endif
+N   /*
+N    * RAND_MAX: an integral constant expression, the value of which
+N    * is the maximum value returned by the rand function.
+N    */
+Nextern _ARMABI int __aeabi_MB_CUR_MAX(void);
+Xextern __declspec(__nothrow) int __aeabi_MB_CUR_MAX(void);
+N#define MB_CUR_MAX ( __aeabi_MB_CUR_MAX() )
+N   /*
+N    * a positive integer expression whose value is the maximum number of bytes
+N    * in a multibyte character for the extended character set specified by the
+N    * current locale (category LC_CTYPE), and whose value is never greater
+N    * than MB_LEN_MAX.
+N    */
+N
+N   /*
+N    * If the compiler supports signalling nans as per N965 then it
+N    * will define __SUPPORT_SNAN__, in which case a user may define
+N    * _WANT_SNAN in order to obtain a compliant version of the strtod
+N    * family of functions.
+N    */
+N#if defined(__SUPPORT_SNAN__) && defined(_WANT_SNAN)
+X#if 0L && 0L
+S#pragma import(__use_snan)
+N#endif
+N
+Nextern _ARMABI double atof(const char * /*nptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) double atof(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to double
+N    * representation.
+N    * Returns: the converted value.
+N    */
+Nextern _ARMABI int atoi(const char * /*nptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int atoi(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to int
+N    * representation.
+N    * Returns: the converted value.
+N    */
+Nextern _ARMABI long int atol(const char * /*nptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) long int atol(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to long int
+N    * representation.
+N    * Returns: the converted value.
+N    */
+N#if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+X#if !0L || 1
+Nextern _ARMABI __LONGLONG atoll(const char * /*nptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) long long atoll(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to
+N    * long long int representation.
+N    * Returns: the converted value.
+N    */
+N#endif
+N
+Nextern _ARMABI double strtod(const char * __restrict /*nptr*/, char ** __restrict /*endptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) double strtod(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to double
+N    * representation. First it decomposes the input string into three parts:
+N    * an initial, possibly empty, sequence of white-space characters (as
+N    * specified by the isspace function), a subject sequence resembling a
+N    * floating point constant; and a final string of one or more unrecognised
+N    * characters, including the terminating null character of the input string.
+N    * Then it attempts to convert the subject sequence to a floating point
+N    * number, and returns the result. A pointer to the final string is stored
+N    * in the object pointed to by endptr, provided that endptr is not a null
+N    * pointer.
+N    * Returns: the converted value if any. If no conversion could be performed,
+N    *          zero is returned. If the correct value is outside the range of
+N    *          representable values, plus or minus HUGE_VAL is returned
+N    *          (according to the sign of the value), and the value of the macro
+N    *          ERANGE is stored in errno. If the correct value would cause
+N    *          underflow, zero is returned and the value of the macro ERANGE is
+N    *          stored in errno.
+N    */
+N#if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+X#if !0L || 1
+Nextern _ARMABI float strtof(const char * __restrict /*nptr*/, char ** __restrict /*endptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) float strtof(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+Nextern _ARMABI long double strtold(const char * __restrict /*nptr*/, char ** __restrict /*endptr*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) long double strtold(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * same as strtod, but return float and long double respectively.
+N    */
+N#endif
+Nextern _ARMABI long int strtol(const char * __restrict /*nptr*/,
+Xextern __declspec(__nothrow) long int strtol(const char * __restrict  ,
+N                        char ** __restrict /*endptr*/, int /*base*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to long int
+N    * representation. First it decomposes the input string into three parts:
+N    * an initial, possibly empty, sequence of white-space characters (as
+N    * specified by the isspace function), a subject sequence resembling an
+N    * integer represented in some radix determined by the value of base, and a
+N    * final string of one or more unrecognised characters, including the
+N    * terminating null character of the input string. Then it attempts to
+N    * convert the subject sequence to an integer, and returns the result.
+N    * If the value of base is 0, the expected form of the subject sequence is
+N    * that of an integer constant (described in ANSI Draft, section 3.1.3.2),
+N    * optionally preceded by a '+' or '-' sign, but not including an integer
+N    * suffix. If the value of base is between 2 and 36, the expected form of
+N    * the subject sequence is a sequence of letters and digits representing an
+N    * integer with the radix specified by base, optionally preceded by a plus
+N    * or minus sign, but not including an integer suffix. The letters from a
+N    * (or A) through z (or Z) are ascribed the values 10 to 35; only letters
+N    * whose ascribed values are less than that of the base are permitted. If
+N    * the value of base is 16, the characters 0x or 0X may optionally precede
+N    * the sequence of letters and digits following the sign if present.
+N    * A pointer to the final string is stored in the object
+N    * pointed to by endptr, provided that endptr is not a null pointer.
+N    * Returns: the converted value if any. If no conversion could be performed,
+N    *          zero is returned and nptr is stored in *endptr.
+N    *          If the correct value is outside the range of
+N    *          representable values, LONG_MAX or LONG_MIN is returned
+N    *          (according to the sign of the value), and the value of the
+N    *          macro ERANGE is stored in errno.
+N    */
+Nextern _ARMABI unsigned long int strtoul(const char * __restrict /*nptr*/,
+Xextern __declspec(__nothrow) unsigned long int strtoul(const char * __restrict  ,
+N                                       char ** __restrict /*endptr*/, int /*base*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * converts the initial part of the string pointed to by nptr to unsigned
+N    * long int representation. First it decomposes the input string into three
+N    * parts: an initial, possibly empty, sequence of white-space characters (as
+N    * determined by the isspace function), a subject sequence resembling an
+N    * unsigned integer represented in some radix determined by the value of
+N    * base, and a final string of one or more unrecognised characters,
+N    * including the terminating null character of the input string. Then it
+N    * attempts to convert the subject sequence to an unsigned integer, and
+N    * returns the result. If the value of base is zero, the expected form of
+N    * the subject sequence is that of an integer constant (described in ANSI
+N    * Draft, section 3.1.3.2), optionally preceded by a '+' or '-' sign, but
+N    * not including an integer suffix. If the value of base is between 2 and
+N    * 36, the expected form of the subject sequence is a sequence of letters
+N    * and digits representing an integer with the radix specified by base,
+N    * optionally preceded by a '+' or '-' sign, but not including an integer
+N    * suffix. The letters from a (or A) through z (or Z) stand for the values
+N    * 10 to 35; only letters whose ascribed values are less than that of the
+N    * base are permitted. If the value of base is 16, the characters 0x or 0X
+N    * may optionally precede the sequence of letters and digits following the
+N    * sign, if present. A pointer to the final string is stored in the object
+N    * pointed to by endptr, provided that endptr is not a null pointer.
+N    * Returns: the converted value if any. If no conversion could be performed,
+N    *          zero is returned and nptr is stored in *endptr.
+N    *          If the correct value is outside the range of
+N    *          representable values, ULONG_MAX is returned, and the value of
+N    *          the macro ERANGE is stored in errno.
+N    */
+N
+N/* C90 reserves all names beginning with 'str' */
+Nextern _ARMABI __LONGLONG strtoll(const char * __restrict /*nptr*/,
+Xextern __declspec(__nothrow) long long strtoll(const char * __restrict  ,
+N                                  char ** __restrict /*endptr*/, int /*base*/)
+N                          __attribute__((__nonnull__(1)));
+N   /*
+N    * as strtol but returns a long long int value.  If the correct value is
+N    * outside the range of representable values,  LLONG_MAX or LLONG_MIN is
+N    * returned (according to the sign of the value), and the value of the
+N    * macro ERANGE is stored in errno.
+N    */
+Nextern _ARMABI unsigned __LONGLONG strtoull(const char * __restrict /*nptr*/,
+Xextern __declspec(__nothrow) unsigned long long strtoull(const char * __restrict  ,
+N                                            char ** __restrict /*endptr*/, int /*base*/)
+N                                   __attribute__((__nonnull__(1)));
+N   /*
+N    * as strtoul but returns an unsigned long long int value.  If the correct
+N    * value is outside the range of representable values, ULLONG_MAX is returned,
+N    * and the value of the macro ERANGE is stored in errno.
+N    */
+N
+Nextern _ARMABI int rand(void);
+Xextern __declspec(__nothrow) int rand(void);
+N   /*
+N    * Computes a sequence of pseudo-random integers in the range 0 to RAND_MAX.
+N    * Uses an additive generator (Mitchell & Moore) of the form:
+N    *   Xn = (X[n-24] + X[n-55]) MOD 2^31
+N    * This is described in section 3.2.2 of Knuth, vol 2. It's period is
+N    * in excess of 2^55 and its randomness properties, though unproven, are
+N    * conjectured to be good. Empirical testing since 1958 has shown no flaws.
+N    * Returns: a pseudo-random integer.
+N    */
+Nextern _ARMABI void srand(unsigned int /*seed*/);
+Xextern __declspec(__nothrow) void srand(unsigned int  );
+N   /*
+N    * uses its argument as a seed for a new sequence of pseudo-random numbers
+N    * to be returned by subsequent calls to rand. If srand is then called with
+N    * the same seed value, the sequence of pseudo-random numbers is repeated.
+N    * If rand is called before any calls to srand have been made, the same
+N    * sequence is generated as when srand is first called with a seed value
+N    * of 1.
+N    */
+N
+Nstruct _rand_state { int __x[57]; };
+Nextern _ARMABI int _rand_r(struct _rand_state *);
+Xextern __declspec(__nothrow) int _rand_r(struct _rand_state *);
+Nextern _ARMABI void _srand_r(struct _rand_state *, unsigned int);
+Xextern __declspec(__nothrow) void _srand_r(struct _rand_state *, unsigned int);
+Nstruct _ANSI_rand_state { int __x[1]; };
+Nextern _ARMABI int _ANSI_rand_r(struct _ANSI_rand_state *);
+Xextern __declspec(__nothrow) int _ANSI_rand_r(struct _ANSI_rand_state *);
+Nextern _ARMABI void _ANSI_srand_r(struct _ANSI_rand_state *, unsigned int);
+Xextern __declspec(__nothrow) void _ANSI_srand_r(struct _ANSI_rand_state *, unsigned int);
+N   /*
+N    * Re-entrant variants of both flavours of rand, which operate on
+N    * an explicitly supplied state buffer.
+N    */
+N
+Nextern _ARMABI void *calloc(size_t /*nmemb*/, size_t /*size*/);
+Xextern __declspec(__nothrow) void *calloc(size_t  , size_t  );
+N   /*
+N    * allocates space for an array of nmemb objects, each of whose size is
+N    * 'size'. The space is initialised to all bits zero.
+N    * Returns: either a null pointer or a pointer to the allocated space.
+N    */
+Nextern _ARMABI void free(void * /*ptr*/);
+Xextern __declspec(__nothrow) void free(void *  );
+N   /*
+N    * causes the space pointed to by ptr to be deallocated (i.e., made
+N    * available for further allocation). If ptr is a null pointer, no action
+N    * occurs. Otherwise, if ptr does not match a pointer earlier returned by
+N    * calloc, malloc or realloc or if the space has been deallocated by a call
+N    * to free or realloc, the behaviour is undefined.
+N    */
+Nextern _ARMABI void *malloc(size_t /*size*/);
+Xextern __declspec(__nothrow) void *malloc(size_t  );
+N   /*
+N    * allocates space for an object whose size is specified by 'size' and whose
+N    * value is indeterminate.
+N    * Returns: either a null pointer or a pointer to the allocated space.
+N    */
+Nextern _ARMABI void *realloc(void * /*ptr*/, size_t /*size*/);
+Xextern __declspec(__nothrow) void *realloc(void *  , size_t  );
+N   /*
+N    * changes the size of the object pointed to by ptr to the size specified by
+N    * size. The contents of the object shall be unchanged up to the lesser of
+N    * the new and old sizes. If the new size is larger, the value of the newly
+N    * allocated portion of the object is indeterminate. If ptr is a null
+N    * pointer, the realloc function behaves like a call to malloc for the
+N    * specified size. Otherwise, if ptr does not match a pointer earlier
+N    * returned by calloc, malloc or realloc, or if the space has been
+N    * deallocated by a call to free or realloc, the behaviour is undefined.
+N    * If the space cannot be allocated, the object pointed to by ptr is
+N    * unchanged. If size is zero and ptr is not a null pointer, the object it
+N    * points to is freed.
+N    * Returns: either a null pointer or a pointer to the possibly moved
+N    *          allocated space.
+N    */
+N#if !defined(__STRICT_ANSI__)
+X#if !0L
+Nextern _ARMABI int posix_memalign(void ** /*ret*/, size_t /*alignment*/, size_t /*size*/);
+Xextern __declspec(__nothrow) int posix_memalign(void **  , size_t  , size_t  );
+N   /*
+N    * allocates space for an object of size 'size', aligned to a
+N    * multiple of 'alignment' (which must be a power of two and at
+N    * least 4).
+N    *
+N    * On success, a pointer to the allocated object is stored in
+N    * *ret, and zero is returned. On failure, the return value is
+N    * either ENOMEM (allocation failed because no suitable piece of
+N    * memory was available) or EINVAL (the 'alignment' parameter was
+N    * invalid).
+N    */
+N#endif
+Ntypedef int (*__heapprt)(void *, char const *, ...);
+Nextern _ARMABI void __heapstats(int (* /*dprint*/)(void * /*param*/,
+Xextern __declspec(__nothrow) void __heapstats(int (*  )(void *  ,
+N                                           char const * /*format*/, ...),
+N                        void * /*param*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * reports current heap statistics (eg. number of free blocks in
+N    * the free-list). Output is as implementation-defined free-form
+N    * text, provided via the dprint function. `param' gives an
+N    * extra data word to pass to dprint. You can call
+N    * __heapstats(fprintf,stdout) by casting fprintf to the above
+N    * function type; the typedef `__heapprt' is provided for this
+N    * purpose.
+N    *
+N    * `dprint' will not be called while the heap is being examined,
+N    * so it can allocate memory itself without trouble.
+N    */
+Nextern _ARMABI int __heapvalid(int (* /*dprint*/)(void * /*param*/,
+Xextern __declspec(__nothrow) int __heapvalid(int (*  )(void *  ,
+N                                           char const * /*format*/, ...),
+N                       void * /*param*/, int /*verbose*/) __attribute__((__nonnull__(1)));
+N   /*
+N    * performs a consistency check on the heap. Errors are reported
+N    * through dprint, like __heapstats. If `verbose' is nonzero,
+N    * full diagnostic information on the heap state is printed out.
+N    *
+N    * This routine probably won't work if the heap isn't a
+N    * contiguous chunk (for example, if __user_heap_extend has been
+N    * overridden).
+N    *
+N    * `dprint' may be called while the heap is being examined or
+N    * even in an invalid state, so it must perform no memory
+N    * allocation. In particular, if `dprint' calls (or is) a stdio
+N    * function, the stream it outputs to must already have either
+N    * been written to or been setvbuf'ed, or else the system will
+N    * allocate buffer space for it on the first call to dprint.
+N    */
+Nextern _ARMABI_NORETURN void abort(void);
+Xextern __declspec(__nothrow) __declspec(__noreturn) void abort(void);
+N   /*
+N    * causes abnormal program termination to occur, unless the signal SIGABRT
+N    * is being caught and the signal handler does not return. Whether open
+N    * output streams are flushed or open streams are closed or temporary
+N    * files removed is implementation-defined.
+N    * An implementation-defined form of the status 'unsuccessful termination'
+N    * is returned to the host environment by means of a call to
+N    * raise(SIGABRT).
+N    */
+N
+Nextern _ARMABI int atexit(void (* /*func*/)(void)) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) int atexit(void (*  )(void)) __attribute__((__nonnull__(1)));
+N   /*
+N    * registers the function pointed to by func, to be called without its
+N    * arguments at normal program termination. It is possible to register at
+N    * least 32 functions.
+N    * Returns: zero if the registration succeeds, nonzero if it fails.
+N    */
+N#if defined(__EDG__) && !defined(__GNUC__)
+X#if 1L && !1L
+S#define __LANGUAGE_LINKAGE_CHANGES_FUNCTION_TYPE
+N#endif
+N#if defined(__cplusplus) && defined(__LANGUAGE_LINKAGE_CHANGES_FUNCTION_TYPE) 
+X#if 0L && 0L 
+S    /* atexit that takes a ptr to a function with C++ linkage 
+S     * but not in GNU mode  
+S     */
+S    typedef void (* __C_exitfuncptr)();
+S    extern "C++"
+S    inline int atexit(void (* __func)()) {
+S      return atexit((__C_exitfuncptr)__func);
+S    }
+N#endif
+N
+N
+Nextern _ARMABI_NORETURN void exit(int /*status*/);
+Xextern __declspec(__nothrow) __declspec(__noreturn) void exit(int  );
+N   /*
+N    * causes normal program termination to occur. If more than one call to the
+N    * exit function is executed by a program, the behaviour is undefined.
+N    * First, all functions registered by the atexit function are called, in the
+N    * reverse order of their registration.
+N    * Next, all open output streams are flushed, all open streams are closed,
+N    * and all files created by the tmpfile function are removed.
+N    * Finally, control is returned to the host environment. If the value of
+N    * status is zero or EXIT_SUCCESS, an implementation-defined form of the
+N    * status 'successful termination' is returned. If the value of status is
+N    * EXIT_FAILURE, an implementation-defined form of the status
+N    * 'unsuccessful termination' is returned. Otherwise the status returned
+N    * is implementation-defined.
+N    */
+N
+Nextern _ARMABI_NORETURN void _Exit(int /*status*/);
+Xextern __declspec(__nothrow) __declspec(__noreturn) void _Exit(int  );
+N   /*
+N    * causes normal program termination to occur. No functions registered
+N    * by the atexit function are called.
+N    * In this implementation, all open output streams are flushed, all
+N    * open streams are closed, and all files created by the tmpfile function
+N    * are removed.
+N    * Control is returned to the host environment. The status returned to
+N    * the host environment is determined in the same way as for 'exit'.
+N    */     
+N
+Nextern _ARMABI char *getenv(const char * /*name*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *getenv(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * searches the environment list, provided by the host environment, for a
+N    * string that matches the string pointed to by name. The set of environment
+N    * names and the method for altering the environment list are
+N    * implementation-defined.
+N    * Returns: a pointer to a string associated with the matched list member.
+N    *          The array pointed to shall not be modified by the program, but
+N    *          may be overwritten by a subsequent call to the getenv function.
+N    *          If the specified name cannot be found, a null pointer is
+N    *          returned.
+N    */
+N
+Nextern _ARMABI int  system(const char * /*string*/);
+Xextern __declspec(__nothrow) int  system(const char *  );
+N   /*
+N    * passes the string pointed to by string to the host environment to be
+N    * executed by a command processor in an implementation-defined manner.
+N    * A null pointer may be used for string, to inquire whether a command
+N    * processor exists.
+N    *
+N    * Returns: If the argument is a null pointer, the system function returns
+N    *          non-zero only if a command processor is available. If the
+N    *          argument is not a null pointer, the system function returns an
+N    *          implementation-defined value.
+N    */
+N
+Nextern _ARMABI_THROW void *bsearch(const void * /*key*/, const void * /*base*/,
+Xextern  void *bsearch(const void *  , const void *  ,
+N              size_t /*nmemb*/, size_t /*size*/,
+N              int (* /*compar*/)(const void *, const void *)) __attribute__((__nonnull__(1,2,5)));
+N   /*
+N    * searches an array of nmemb objects, the initial member of which is
+N    * pointed to by base, for a member that matches the object pointed to by
+N    * key. The size of each member of the array is specified by size.
+N    * The contents of the array shall be in ascending sorted order according to
+N    * a comparison function pointed to by compar, which is called with two
+N    * arguments that point to the key object and to an array member, in that
+N    * order. The function shall return an integer less than, equal to, or
+N    * greater than zero if the key object is considered, respectively, to be
+N    * less than, to match, or to be greater than the array member.
+N    * Returns: a pointer to a matching member of the array, or a null pointer
+N    *          if no match is found. If two members compare as equal, which
+N    *          member is matched is unspecified.
+N    */
+N#if defined(__cplusplus) && defined(__LANGUAGE_LINKAGE_CHANGES_FUNCTION_TYPE)
+X#if 0L && 0L
+S    /* bsearch that takes a ptr to a function with C++ linkage 
+S     * but not in GNU mode
+S     */
+S    typedef int (* __C_compareprocptr)(const void *, const void *);
+S    extern "C++"
+S    void *bsearch(const void * __key, const void * __base,
+S              size_t __nmemb, size_t __size,
+S              int (* __compar)(const void *, const void *)) __attribute__((__nonnull__(1,2,5)));
+S    extern "C++"
+S    inline void *bsearch(const void * __key, const void * __base,
+S              size_t __nmemb, size_t __size,
+S              int (* __compar)(const void *, const void *)) {
+S      return bsearch(__key, __base, __nmemb, __size, (__C_compareprocptr)__compar);
+S    }
+N#endif
+N
+N
+Nextern _ARMABI_THROW void qsort(void * /*base*/, size_t /*nmemb*/, size_t /*size*/,
+Xextern  void qsort(void *  , size_t  , size_t  ,
+N           int (* /*compar*/)(const void *, const void *)) __attribute__((__nonnull__(1,4)));
+N   /*
+N    * sorts an array of nmemb objects, the initial member of which is pointed
+N    * to by base. The size of each object is specified by size.
+N    * The contents of the array shall be in ascending order according to a
+N    * comparison function pointed to by compar, which is called with two
+N    * arguments that point to the objects being compared. The function shall
+N    * return an integer less than, equal to, or greater than zero if the first
+N    * argument is considered to be respectively less than, equal to, or greater
+N    * than the second. If two members compare as equal, their order in the
+N    * sorted array is unspecified.
+N    */
+N
+N#if defined(__cplusplus) && defined(__LANGUAGE_LINKAGE_CHANGES_FUNCTION_TYPE)
+X#if 0L && 0L
+S    /* qsort that takes a ptr to a function with C++ linkage 
+S     * but not in GNU mode
+S     */    
+S    extern "C++"
+S    void qsort(void * __base, size_t __nmemb, size_t __size,
+S               int (* __compar)(const void *, const void *)) __attribute__((__nonnull__(1,4)));
+S    extern "C++"
+S    inline void qsort(void * __base, size_t __nmemb, size_t __size,
+S                      int (* __compar)(const void *, const void *)) {
+S      qsort(__base, __nmemb, __size, (__C_compareprocptr)__compar);
+S    }
+N#endif
+N
+Nextern _ARMABI_PURE int abs(int /*j*/);
+Xextern __declspec(__nothrow) __attribute__((const)) int abs(int  );
+N   /*
+N    * computes the absolute value of an integer j. If the result cannot be
+N    * represented, the behaviour is undefined.
+N    * Returns: the absolute value.
+N    */
+N
+Nextern _ARMABI_PURE div_t div(int /*numer*/, int /*denom*/);
+Xextern __declspec(__nothrow) __attribute__((const)) div_t div(int  , int  );
+N   /*
+N    * computes the quotient and remainder of the division of the numerator
+N    * numer by the denominator denom. If the division is inexact, the resulting
+N    * quotient is the integer of lesser magnitude that is the nearest to the
+N    * algebraic quotient. If the result cannot be represented, the behaviour is
+N    * undefined; otherwise, quot * denom + rem shall equal numer.
+N    * Returns: a structure of type div_t, comprising both the quotient and the
+N    *          remainder. the structure shall contain the following members,
+N    *          in either order.
+N    *          int quot; int rem;
+N    */
+Nextern _ARMABI_PURE long int labs(long int /*j*/);
+Xextern __declspec(__nothrow) __attribute__((const)) long int labs(long int  );
+N   /*
+N    * computes the absolute value of an long integer j. If the result cannot be
+N    * represented, the behaviour is undefined.
+N    * Returns: the absolute value.
+N    */
+N#ifdef __cplusplus
+S   extern "C++" inline _ARMABI_PURE long abs(long int x) { return labs(x); }
+N#endif
+N
+Nextern _ARMABI_PURE ldiv_t ldiv(long int /*numer*/, long int /*denom*/);
+Xextern __declspec(__nothrow) __attribute__((const)) ldiv_t ldiv(long int  , long int  );
+N   /*
+N    * computes the quotient and remainder of the division of the numerator
+N    * numer by the denominator denom. If the division is inexact, the sign of
+N    * the resulting quotient is that of the algebraic quotient, and the
+N    * magnitude of the resulting quotient is the largest integer less than the
+N    * magnitude of the algebraic quotient. If the result cannot be represented,
+N    * the behaviour is undefined; otherwise, quot * denom + rem shall equal
+N    * numer.
+N    * Returns: a structure of type ldiv_t, comprising both the quotient and the
+N    *          remainder. the structure shall contain the following members,
+N    *          in either order.
+N    *          long int quot; long int rem;
+N    */
+N#ifdef __cplusplus
+S   extern "C++" inline _ARMABI_PURE ldiv_t div(long int __numer, long int __denom) {
+S       return ldiv(__numer, __denom);
+S   }
+N#endif
+N
+N#if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+X#if !0L || 1
+Nextern _ARMABI_PURE __LONGLONG llabs(__LONGLONG /*j*/);
+Xextern __declspec(__nothrow) __attribute__((const)) long long llabs(long long  );
+N   /*
+N    * computes the absolute value of a long long integer j. If the
+N    * result cannot be represented, the behaviour is undefined.
+N    * Returns: the absolute value.
+N    */
+N#ifdef __cplusplus
+S   extern "C++" inline _ARMABI_PURE __LONGLONG abs(__LONGLONG x) { return llabs(x); }
+N#endif
+N
+Nextern _ARMABI_PURE lldiv_t lldiv(__LONGLONG /*numer*/, __LONGLONG /*denom*/);
+Xextern __declspec(__nothrow) __attribute__((const)) lldiv_t lldiv(long long  , long long  );
+N   /*
+N    * computes the quotient and remainder of the division of the numerator
+N    * numer by the denominator denom. If the division is inexact, the sign of
+N    * the resulting quotient is that of the algebraic quotient, and the
+N    * magnitude of the resulting quotient is the largest integer less than the
+N    * magnitude of the algebraic quotient. If the result cannot be represented,
+N    * the behaviour is undefined; otherwise, quot * denom + rem shall equal
+N    * numer.
+N    * Returns: a structure of type lldiv_t, comprising both the quotient and the
+N    *          remainder. the structure shall contain the following members,
+N    *          in either order.
+N    *          long long quot; long long rem;
+N    */
+N#ifdef __cplusplus
+S   extern "C++" inline _ARMABI_PURE lldiv_t div(__LONGLONG __numer, __LONGLONG __denom) {
+S       return lldiv(__numer, __denom);
+S   }
+N#endif
+N#endif
+N
+N#if !(__ARM_NO_DEPRECATED_FUNCTIONS)
+N/*
+N * ARM real-time divide functions for guaranteed performance
+N */
+Ntypedef struct __sdiv32by16 { int quot, rem; } __sdiv32by16;
+Ntypedef struct __udiv32by16 { unsigned int quot, rem; } __udiv32by16;
+N   /* used int so that values return in separate regs, although 16-bit */
+Ntypedef struct __sdiv64by32 { int rem, quot; } __sdiv64by32;
+N
+N__value_in_regs extern _ARMABI_PURE __sdiv32by16 __rt_sdiv32by16(
+X__value_in_regs extern __declspec(__nothrow) __attribute__((const)) __sdiv32by16 __rt_sdiv32by16(
+N     int /*numer*/,
+N     short int /*denom*/);
+N   /*
+N    * Signed divide: (16-bit quot), (16-bit rem) = (32-bit) / (16-bit)
+N    */
+N__value_in_regs extern _ARMABI_PURE __udiv32by16 __rt_udiv32by16(
+X__value_in_regs extern __declspec(__nothrow) __attribute__((const)) __udiv32by16 __rt_udiv32by16(
+N     unsigned int /*numer*/,
+N     unsigned short /*denom*/);
+N   /*
+N    * Unsigned divide: (16-bit quot), (16-bit rem) = (32-bit) / (16-bit)
+N    */
+N__value_in_regs extern _ARMABI_PURE __sdiv64by32 __rt_sdiv64by32(
+X__value_in_regs extern __declspec(__nothrow) __attribute__((const)) __sdiv64by32 __rt_sdiv64by32(
+N     int /*numer_h*/, unsigned int /*numer_l*/,
+N     int /*denom*/);
+N   /*
+N    * Signed divide: (32-bit quot), (32-bit rem) = (64-bit) / (32-bit)
+N    */
+N#endif
+N
+N/*
+N * ARM floating-point mask/status function (for both hardfp and softfp)
+N */
+Nextern _ARMABI unsigned int __fp_status(unsigned int /*mask*/, unsigned int /*flags*/);
+Xextern __declspec(__nothrow) unsigned int __fp_status(unsigned int  , unsigned int  );
+N   /*
+N    * mask and flags are bit-fields which correspond directly to the
+N    * floating point status register in the FPE/FPA and fplib.  
+N    * __fp_status returns the current value of the status register,
+N    * and also sets the writable bits of the word
+N    * (the exception control and flag bytes) to:
+N    *
+N    *     new = (old & ~mask) ^ flags;
+N    */
+N#define __fpsr_IXE  0x100000
+N#define __fpsr_UFE  0x80000
+N#define __fpsr_OFE  0x40000
+N#define __fpsr_DZE  0x20000
+N#define __fpsr_IOE  0x10000
+N
+N#define __fpsr_IXC  0x10
+N#define __fpsr_UFC  0x8
+N#define __fpsr_OFC  0x4
+N#define __fpsr_DZC  0x2
+N#define __fpsr_IOC  0x1
+N
+N/*
+N * Multibyte Character Functions.
+N * The behaviour of the multibyte character functions is affected by the
+N * LC_CTYPE category of the current locale. For a state-dependent encoding,
+N * each function is placed into its initial state by a call for which its
+N * character pointer argument, s, is a null pointer. Subsequent calls with s
+N * as other than a null pointer cause the internal state of the function to be
+N * altered as necessary. A call with s as a null pointer causes these functions
+N * to return a nonzero value if encodings have state dependency, and a zero
+N * otherwise. After the LC_CTYPE category is changed, the shift state of these
+N * functions is indeterminate.
+N */
+Nextern _ARMABI int mblen(const char * /*s*/, size_t /*n*/);
+Xextern __declspec(__nothrow) int mblen(const char *  , size_t  );
+N   /*
+N    * If s is not a null pointer, the mblen function determines the number of
+N    * bytes compromising the multibyte character pointed to by s. Except that
+N    * the shift state of the mbtowc function is not affected, it is equivalent
+N    * to   mbtowc((wchar_t *)0, s, n);
+N    * Returns: If s is a null pointer, the mblen function returns a nonzero or
+N    *          zero value, if multibyte character encodings, respectively, do
+N    *          or do not have state-dependent encodings. If s is not a null
+N    *          pointer, the mblen function either returns a 0 (if s points to a
+N    *          null character), or returns the number of bytes that compromise
+N    *          the multibyte character (if the next n of fewer bytes form a
+N    *          valid multibyte character), or returns -1 (they do not form a
+N    *          valid multibyte character).
+N    */
+Nextern _ARMABI int mbtowc(wchar_t * __restrict /*pwc*/,
+Xextern __declspec(__nothrow) int mbtowc(wchar_t * __restrict  ,
+N                   const char * __restrict /*s*/, size_t /*n*/);
+N   /*
+N    * If s is not a null pointer, the mbtowc function determines the number of
+N    * bytes that compromise the multibyte character pointed to by s. It then
+N    * determines the code for value of type wchar_t that corresponds to that
+N    * multibyte character. (The value of the code corresponding to the null
+N    * character is zero). If the multibyte character is valid and pwc is not a
+N    * null pointer, the mbtowc function stores the code in the object pointed
+N    * to by pwc. At most n bytes of the array pointed to by s will be examined.
+N    * Returns: If s is a null pointer, the mbtowc function returns a nonzero or
+N    *          zero value, if multibyte character encodings, respectively, do
+N    *          or do not have state-dependent encodings. If s is not a null
+N    *          pointer, the mbtowc function either returns a 0 (if s points to
+N    *          a null character), or returns the number of bytes that
+N    *          compromise the converted multibyte character (if the next n of
+N    *          fewer bytes form a valid multibyte character), or returns -1
+N    *          (they do not form a valid multibyte character).
+N    */
+Nextern _ARMABI int wctomb(char * /*s*/, wchar_t /*wchar*/);
+Xextern __declspec(__nothrow) int wctomb(char *  , wchar_t  );
+N   /*
+N    * determines the number of bytes need to represent the multibyte character
+N    * corresponding to the code whose value is wchar (including any change in
+N    * shift state). It stores the multibyte character representation in the
+N    * array object pointed to by s (if s is not a null pointer). At most
+N    * MB_CUR_MAX characters are stored. If the value of wchar is zero, the
+N    * wctomb function is left in the initial shift state).
+N    * Returns: If s is a null pointer, the wctomb function returns a nonzero or
+N    *          zero value, if multibyte character encodings, respectively, do
+N    *          or do not have state-dependent encodings. If s is not a null
+N    *          pointer, the wctomb function returns a -1 if the value of wchar
+N    *          does not correspond to a valid multibyte character, or returns
+N    *          the number of bytes that compromise the multibyte character
+N    *          corresponding to the value of wchar.
+N    */
+N
+N/*
+N * Multibyte String Functions.
+N * The behaviour of the multibyte string functions is affected by the LC_CTYPE
+N * category of the current locale.
+N */
+Nextern _ARMABI size_t mbstowcs(wchar_t * __restrict /*pwcs*/,
+Xextern __declspec(__nothrow) size_t mbstowcs(wchar_t * __restrict  ,
+N                      const char * __restrict /*s*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+N   /*
+N    * converts a sequence of multibyte character that begins in the initial
+N    * shift state from the array pointed to by s into a sequence of
+N    * corresponding codes and stores not more than n codes into the array
+N    * pointed to by pwcs. No multibyte character that follow a null character
+N    * (which is converted into a code with value zero) will be examined or
+N    * converted. Each multibyte character is converted as if by a call to
+N    * mbtowc function, except that the shift state of the mbtowc function is
+N    * not affected. No more than n elements will be modified in the array
+N    * pointed to by pwcs. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: If an invalid multibyte character is encountered, the mbstowcs
+N    *          function returns (size_t)-1. Otherwise, the mbstowcs function
+N    *          returns the number of array elements modified, not including
+N    *          a terminating zero code, if any.
+N    */
+Nextern _ARMABI size_t wcstombs(char * __restrict /*s*/,
+Xextern __declspec(__nothrow) size_t wcstombs(char * __restrict  ,
+N                      const wchar_t * __restrict /*pwcs*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+N   /*
+N    * converts a sequence of codes that correspond to multibyte characters
+N    * from the array pointed to by pwcs into a sequence of multibyte
+N    * characters that begins in the initial shift state and stores these
+N    * multibyte characters into the array pointed to by s, stopping if a
+N    * multibyte character would exceed the limit of n total bytes or if a
+N    * null character is stored. Each code is converted as if by a call to the
+N    * wctomb function, except that the shift state of the wctomb function is
+N    * not affected. No more than n elements will be modified in the array
+N    * pointed to by s. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: If a code is encountered that does not correspond to a valid
+N    *          multibyte character, the wcstombs function returns (size_t)-1.
+N    *          Otherwise, the wcstombs function returns the number of bytes
+N    *          modified, not including a terminating null character, if any.
+N    */
+N
+Nextern _ARMABI void __use_realtime_heap(void);
+Xextern __declspec(__nothrow) void __use_realtime_heap(void);
+Nextern _ARMABI void __use_realtime_division(void);
+Xextern __declspec(__nothrow) void __use_realtime_division(void);
+Nextern _ARMABI void __use_two_region_memory(void);
+Xextern __declspec(__nothrow) void __use_two_region_memory(void);
+Nextern _ARMABI void __use_no_heap(void);
+Xextern __declspec(__nothrow) void __use_no_heap(void);
+Nextern _ARMABI void __use_no_heap_region(void);
+Xextern __declspec(__nothrow) void __use_no_heap_region(void);
+N
+Nextern _ARMABI char const *__C_library_version_string(void);
+Xextern __declspec(__nothrow) char const *__C_library_version_string(void);
+Nextern _ARMABI int __C_library_version_number(void);
+Xextern __declspec(__nothrow) int __C_library_version_number(void);
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDLIB_DECLS */
+N
+N  #if _AEABI_PORTABILITY_LEVEL != 0 && !defined _AEABI_PORTABLE
+X  #if _AEABI_PORTABILITY_LEVEL != 0 && !0L
+S    #define _AEABI_PORTABLE
+N  #endif
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDLIB_NO_EXPORTS
+S      #if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+S        using ::std::atoll;
+S        using ::std::lldiv_t;
+S      #endif /* !defined(__STRICT_ANSI__) || __USE_C99_STDLIB */
+S      using ::std::div_t;
+S      using ::std::ldiv_t;
+S      using ::std::atof;
+S      using ::std::atoi;
+S      using ::std::atol;
+S      using ::std::strtod;
+S#if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+S      using ::std::strtof;
+S      using ::std::strtold;
+S#endif
+S      using ::std::strtol;
+S      using ::std::strtoul;
+S      using ::std::strtoll;
+S      using ::std::strtoull;
+S      using ::std::rand;
+S      using ::std::srand;
+S      using ::std::_rand_state;
+S      using ::std::_rand_r;
+S      using ::std::_srand_r;
+S      using ::std::_ANSI_rand_state;
+S      using ::std::_ANSI_rand_r;
+S      using ::std::_ANSI_srand_r;
+S      using ::std::calloc;
+S      using ::std::free;
+S      using ::std::malloc;
+S      using ::std::realloc;
+S#if !defined(__STRICT_ANSI__)
+S      using ::std::posix_memalign;
+S#endif
+S      using ::std::__heapprt;
+S      using ::std::__heapstats;
+S      using ::std::__heapvalid;
+S      using ::std::abort;
+S      using ::std::atexit;
+S      using ::std::exit;
+S      using ::std::_Exit;
+S      using ::std::getenv;
+S      using ::std::system;
+S      using ::std::bsearch;
+S      using ::std::qsort;
+S      using ::std::abs;
+S      using ::std::div;
+S      using ::std::labs;
+S      using ::std::ldiv;
+S      #if !defined(__STRICT_ANSI__) || __USE_C99_STDLIB
+S        using ::std::llabs;
+S        using ::std::lldiv;
+S      #endif /* !defined(__STRICT_ANSI__) || __USE_C99_STDLIB */
+S#if !(__ARM_NO_DEPRECATED_FUNCTIONS)
+S      using ::std::__sdiv32by16;
+S      using ::std::__udiv32by16;
+S      using ::std::__sdiv64by32;
+S      using ::std::__rt_sdiv32by16;
+S      using ::std::__rt_udiv32by16;
+S      using ::std::__rt_sdiv64by32;
+S#endif
+S      using ::std::__fp_status;
+S      using ::std::mblen;
+S      using ::std::mbtowc;
+S      using ::std::wctomb;
+S      using ::std::mbstowcs;
+S      using ::std::wcstombs;
+S      using ::std::__use_realtime_heap;
+S      using ::std::__use_realtime_division;
+S      using ::std::__use_two_region_memory;
+S      using ::std::__use_no_heap;
+S      using ::std::__use_no_heap_region;
+S      using ::std::__C_library_version_string;
+S      using ::std::__C_library_version_number;
+S      using ::std::size_t;
+S      using ::std::__aeabi_MB_CUR_MAX;
+S    #endif /* __STDLIB_NO_EXPORTS */
+N  #endif /* __cplusplus */
+N
+N#undef __LONGLONG
+N
+N#endif /* __stdlib_h */
+N
+N/* end of stdlib.h */
+L 32 "..\..\..\source\daplink\drag-n-drop\virtual_fs.c" 2
+N
+N// Virtual file system driver
+N// Limitations:
+N//   - files must be contiguous
+N//   - data written cannot be read back
+N//   - data should only be read once
+N
+N// FAT16 limitations +- safety margin
+N#define FAT_CLUSTERS_MAX (65525 - 100)
+N#define FAT_CLUSTERS_MIN (4086 + 100)
+N
+Ntypedef struct {
+N    uint8_t boot_sector[11];
+N    /* DOS 2.0 BPB - Bios Parameter Block, 11 bytes */
+N    uint16_t bytes_per_sector;
+N    uint8_t  sectors_per_cluster;
+N    uint16_t reserved_logical_sectors;
+N    uint8_t  num_fats;
+N    uint16_t max_root_dir_entries;
+N    uint16_t total_logical_sectors;
+N    uint8_t  media_descriptor;
+N    uint16_t logical_sectors_per_fat;
+N    /* DOS 3.31 BPB - Bios Parameter Block, 12 bytes */
+N    uint16_t physical_sectors_per_track;
+N    uint16_t heads;
+N    uint32_t hidden_sectors;
+N    uint32_t big_sectors_on_drive;
+N    /* Extended BIOS Parameter Block, 26 bytes */
+N    uint8_t  physical_drive_number;
+N    uint8_t  not_used;
+N    uint8_t  boot_record_signature;
+N    uint32_t volume_id;
+N    char     volume_label[11];
+N    char     file_system_type[8];
+N    /* bootstrap data in bytes 62-509 */
+N    uint8_t  bootstrap[448];
+N    /* These entries in place of bootstrap code are the *nix partitions */
+N    //uint8_t  partition_one[16];
+N    //uint8_t  partition_two[16];
+N    //uint8_t  partition_three[16];
+N    //uint8_t  partition_four[16];
+N    /* Mandatory value at bytes 510-511, must be 0xaa55 */
+N    uint16_t signature;
+N} __attribute__((packed)) mbr_t;
+N
+Ntypedef struct file_allocation_table {
+N    uint8_t f[512];
+N} file_allocation_table_t;
+N
+Ntypedef struct FatDirectoryEntry {
+N    vfs_filename_t filename;
+N    uint8_t attributes;
+N    uint8_t reserved;
+N    uint8_t creation_time_ms;
+N    uint16_t creation_time;
+N    uint16_t creation_date;
+N    uint16_t accessed_date;
+N    uint16_t first_cluster_high_16;
+N    uint16_t modification_time;
+N    uint16_t modification_date;
+N    uint16_t first_cluster_low_16;
+N    uint32_t filesize;
+N} __attribute__((packed)) FatDirectoryEntry_t;
+NCOMPILER_ASSERT(sizeof(FatDirectoryEntry_t) == 32);
+Xenum { compiler_assert_0 = 1/((sizeof(FatDirectoryEntry_t) == 32) ? 1 : 0) };
+N
+N// to save RAM all files must be in the first root dir entry (512 bytes)
+N//  but 2 actually exist on disc (32 entries) to accomodate hidden OS files,
+N//  folders and metadata
+Ntypedef struct root_dir {
+N    FatDirectoryEntry_t f[32];
+N} root_dir_t;
+N
+Ntypedef struct virtual_media {
+N    vfs_read_cb_t read_cb;
+N    vfs_write_cb_t write_cb;
+N    uint32_t length;
+N} virtual_media_t;
+N
+Nstatic void ffs_init(void);
+Nstatic uint32_t read_zero(uint32_t offset, uint8_t *data, uint32_t size);
+Nstatic void write_none(uint32_t offset, const uint8_t *data, uint32_t size);
+N
+Nstatic uint32_t read_mbr(uint32_t offset, uint8_t *data, uint32_t size);
+Nstatic uint32_t read_flash_mbr(uint32_t offset, uint8_t *data, uint32_t size);
+Nstatic uint32_t read_fat(uint32_t offset, uint8_t *data, uint32_t size);
+Nstatic uint32_t read_flash_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors);
+Nstatic void write_flash_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors);
+Nstatic uint32_t read_dir(uint32_t offset, uint8_t *data, uint32_t size);
+Nstatic void write_dir(uint32_t offset, const uint8_t *data, uint32_t size);
+Nstatic void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t change,
+N                                vfs_file_t file, vfs_file_t new_file_data);
+Nstatic uint32_t cluster_to_sector(uint32_t cluster_idx);
+Nstatic bool filename_valid(const vfs_filename_t filename);
+Xstatic _Bool filename_valid(const vfs_filename_t filename);
+Nstatic bool filename_character_valid(char character);
+Xstatic _Bool filename_character_valid(char character);
+Nstatic int vfs_strncmp(const void * a, const void * b);
+N
+N// If sector size changes update comment below
+NCOMPILER_ASSERT(0x0200 == VFS_SECTOR_SIZE);
+Xenum { compiler_assert_1 = 1/((0x0200 == 512) ? 1 : 0) };
+N// If root directory size changes update max_root_dir_entries
+NCOMPILER_ASSERT(0x0020 == sizeof(root_dir_t) / sizeof(FatDirectoryEntry_t));
+Xenum { compiler_assert_2 = 1/((0x0020 == sizeof(root_dir_t) / sizeof(FatDirectoryEntry_t)) ? 1 : 0) };
+Nstatic const mbr_t mbr_tmpl = {
+N    /*uint8_t[11]*/.boot_sector = {
+N        0xEB, 0x3C, 0x90,
+N        'M', 'S', 'D', '0', 'S', '4', '.', '1' // OEM Name in text (8 chars max)
+N    },
+N    /*uint16_t*/.bytes_per_sector           = 0x0200,       // 512 bytes per sector
+N    /*uint8_t */.sectors_per_cluster        = 0x08,         // 4k cluser
+N    /*uint16_t*/.reserved_logical_sectors   = 0x0001,       // mbr is 1 sector
+N    /*uint8_t */.num_fats                   = 0x02,         // 2 FATs
+N    /*uint16_t*/.max_root_dir_entries       = 0x0020,       // 32 dir entries (max)
+N    /*uint16_t*/.total_logical_sectors      = 0x1f50,       // sector size * # of sectors = drive size
+N    /*uint8_t */.media_descriptor           = 0xf8,         // fixed disc = F8, removable = F0
+N    /*uint16_t*/.logical_sectors_per_fat    = 0x0001,       // FAT is 1k - ToDO:need to edit this
+N    /*uint16_t*/.physical_sectors_per_track = 0x0001,       // flat
+N    /*uint16_t*/.heads                      = 0x0001,       // flat
+N    /*uint32_t*/.hidden_sectors             = 0x00000000,   // before mbt, 0
+N    /*uint32_t*/.big_sectors_on_drive       = 0x00000000,   // 4k sector. not using large clusters
+N    /*uint8_t */.physical_drive_number      = 0x00,
+N    /*uint8_t */.not_used                   = 0x00,         // Current head. Linux tries to set this to 0x1
+N    /*uint8_t */.boot_record_signature      = 0x29,         // signature is present
+N    /*uint32_t*/.volume_id                  = 0x27021974,   // serial number
+N    // needs to match the root dir label
+N    /*char[11]*/.volume_label               = {'D', 'A', 'P', 'L', 'I', 'N', 'K', '-', 'D', 'N', 'D'},
+N    // unused by msft - just a label (FAT, FAT12, FAT16)
+N    /*char[8] */.file_system_type           = {'F', 'A', 'T', '1', '6', ' ', ' ', ' '},
+N
+N    /* Executable boot code that starts the operating system */
+N    /*uint8_t[448]*/.bootstrap = {
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+N        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+N    },
+N    // Set signature to 0xAA55 to make drive bootable
+N    /*uint16_t*/.signature = 0x0000,
+N};
+N
+Nenum virtual_media_idx_t {
+N    MEDIA_IDX_MBR = 0,
+N    MEDIA_IDX_FAT1,
+N    MEDIA_IDX_FAT2,
+N    MEDIA_IDX_ROOT_DIR,
+N
+N    MEDIA_IDX_COUNT
+N};
+N
+N// Note - everything in virtual media must be a multiple of VFS_SECTOR_SIZE
+Nconst virtual_media_t virtual_media_tmpl[] = {
+N    /*  Read CB         Write CB        Region Size                 Region Name     */
+N    {   read_mbr,       write_none,     VFS_SECTOR_SIZE         },  /* MBR          */
+X    {   read_mbr,       write_none,     512         },   
+N    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT1         */
+N    {   read_fat,       write_none,     0 /* Set at runtime */  },  /* FAT2         */
+N    {   read_dir,       write_dir,      VFS_SECTOR_SIZE * 2     },  /* Root Dir     */
+X    {   read_dir,       write_dir,      512 * 2     },   
+N    /* Raw filesystem contents follow */
+N};
+N
+Nconst virtual_media_t virtual_media_tmpl_ffs[] = {
+N    /*  Read CB         Write CB         Region Size                 Region Name     */
+N    {   read_flash_mbr, write_none,      VFS_SECTOR_SIZE         },  /* MBR          */
+X    {   read_flash_mbr, write_none,      512         },   
+N    {   read_flash_fat, write_flash_fat, 0 /* Set at runtime */  },  /* FAT1         */
+N    {   read_flash_fat, write_none,      0 /* Set at runtime */  },  /* FAT2         */
+N    {   read_flash_dir, write_flash_dir, VFS_NVM_DIR_SIZE        },  /* Root Dir     */
+X    {   read_flash_dir, write_flash_dir, (0x1000-0x000000u)        },   
+N    {   read_flash_file,write_flash_file,VFS_NVM_FILE_SIZE       },  /* Data         */
+X    {   read_flash_file,write_flash_file,(0xFEC000u-0x1000)       },   
+N    /* Raw filesystem contents follow */
+N};
+N// Keep virtual_media_idx_t in sync with virtual_media_tmpl
+NCOMPILER_ASSERT(MEDIA_IDX_COUNT == ELEMENTS_IN_ARRAY(virtual_media_tmpl));
+Xenum { compiler_assert_3 = 1/((MEDIA_IDX_COUNT == (sizeof(virtual_media_tmpl)/sizeof(virtual_media_tmpl[0]))) ? 1 : 0) };
+N
+Nstatic const FatDirectoryEntry_t root_dir_entry = {
+N    /*uint8_t[11] */ .filename = {""},
+N    /*uint8_t */ .attributes = VFS_FILE_ATTR_VOLUME_LABEL | VFS_FILE_ATTR_ARCHIVE,
+N    /*uint8_t */ .reserved = 0x00,
+N    /*uint8_t */ .creation_time_ms = 0x00,
+N    /*uint16_t*/ .creation_time = 0x0000,
+N    /*uint16_t*/ .creation_date = 0x0000,
+N    /*uint16_t*/ .accessed_date = 0x0000,
+N    /*uint16_t*/ .first_cluster_high_16 = 0x0000,
+N    /*uint16_t*/ .modification_time = 0x8E41,
+N    /*uint16_t*/ .modification_date = 0x32bb,
+N    /*uint16_t*/ .first_cluster_low_16 = 0x0000,
+N    /*uint32_t*/ .filesize = 0x00000000
+N};
+N
+Nstatic const FatDirectoryEntry_t dir_entry_tmpl = {
+N    /*uint8_t[11] */ .filename = {""},
+N    /*uint8_t */ .attributes = 0x00,
+N    /*uint8_t */ .reserved = 0x00,
+N    /*uint8_t */ .creation_time_ms = 0x00,
+N    /*uint16_t*/ .creation_time = 0x0000,
+N    /*uint16_t*/ .creation_date = 0x4876,
+N    /*uint16_t*/ .accessed_date = 0x4876,
+N    /*uint16_t*/ .first_cluster_high_16 = 0x0000,
+N    /*uint16_t*/ .modification_time = 0x83dc,
+N    /*uint16_t*/ .modification_date = 0x4876,
+N    /*uint16_t*/ .first_cluster_low_16 = 0x0000,
+N    /*uint32_t*/ .filesize = 0x00000000
+N};
+N
+Nmbr_t mbr;
+Nmbr_t mbr_ffs;
+Nfile_allocation_table_t fat;
+Nvirtual_media_t virtual_media[16];
+Nvirtual_media_t virtual_media_ffs[16];
+Nroot_dir_t dir_current;
+Nuint8_t file_count;
+Nvfs_file_change_cb_t file_change_cb;
+Nuint32_t virtual_media_idx;
+Nuint32_t virtual_media_idx_ffs;
+Nuint32_t fat_idx;
+Nuint32_t dir_idx;
+Nuint32_t data_start;
+N
+N// Virtual media must be larger than the template
+NCOMPILER_ASSERT(sizeof(virtual_media) > sizeof(virtual_media_tmpl));
+Xenum { compiler_assert_4 = 1/((sizeof(virtual_media) > sizeof(virtual_media_tmpl)) ? 1 : 0) };
+NCOMPILER_ASSERT(sizeof(virtual_media_ffs) > sizeof(virtual_media_tmpl_ffs));
+Xenum { compiler_assert_5 = 1/((sizeof(virtual_media_ffs) > sizeof(virtual_media_tmpl_ffs)) ? 1 : 0) };
+N
+Nstatic void write_fat_internal(file_allocation_table_t *fat, uint32_t idx, uint16_t val)
+N{
+N    uint32_t low_idx;
+N    uint32_t high_idx;
+N    low_idx = idx * 2 + 0;
+N    high_idx = idx * 2 + 1;
+N
+N    // Assert that this is still within the fat table
+N    if (high_idx >= ELEMENTS_IN_ARRAY(fat->f)) {
+X    if (high_idx >= (sizeof(fat->f)/sizeof(fat->f[0]))) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 281);
+N        return;
+N    }
+N
+N    fat->f[low_idx] = (val >> 0) & 0xFF;
+N    fat->f[high_idx] = (val >> 8) & 0xFF;
+N}
+N
+Nvoid vfs_init(const vfs_filename_t drive_name, uint32_t disk_size)
+N{
+N    uint32_t i;
+N    uint32_t num_clusters;
+N    uint32_t total_sectors;
+N    // Clear everything
+N    memset(&mbr, 0, sizeof(mbr));
+N    memset(&fat, 0, sizeof(fat));
+N    fat_idx = 0;
+N    memset(&virtual_media, 0, sizeof(virtual_media));
+N    memset(&dir_current, 0, sizeof(dir_current));
+N    dir_idx = 0;
+N    file_count = 0;
+N    file_change_cb = file_change_cb_stub;
+N    virtual_media_idx = 0;
+N    data_start = 0;
+N
+N    // Initialize MBR
+N    memcpy(&mbr, &mbr_tmpl, sizeof(mbr_t));
+N    mbr.signature = 0xAA55u;
+N    total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
+X    total_sectors = ((disk_size + ((64) * 1024)) / mbr.bytes_per_sector);
+N
+N    // Make sure this is the right size for a FAT16 volume
+N    if (total_sectors < FAT_CLUSTERS_MIN * mbr.sectors_per_cluster) {
+X    if (total_sectors < (4086 + 100) * mbr.sectors_per_cluster) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 313);
+N        total_sectors = FAT_CLUSTERS_MIN * mbr.sectors_per_cluster;
+X        total_sectors = (4086 + 100) * mbr.sectors_per_cluster;
+N    } else if (total_sectors > FAT_CLUSTERS_MAX * mbr.sectors_per_cluster) {
+X    } else if (total_sectors > (65525 - 100) * mbr.sectors_per_cluster) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 316);
+N        total_sectors = FAT_CLUSTERS_MAX * mbr.sectors_per_cluster;
+X        total_sectors = (65525 - 100) * mbr.sectors_per_cluster;
+N    }
+N    if (total_sectors >= 0x10000) {
+N        mbr.total_logical_sectors = 0;
+N        mbr.big_sectors_on_drive  = total_sectors;  
+N    } else {
+N        mbr.total_logical_sectors = total_sectors;
+N        mbr.big_sectors_on_drive  = 0;  
+N    }
+N    // FAT table will likely be larger than needed, but this is allowed by the
+N    // fat specification
+N    num_clusters = total_sectors / mbr.sectors_per_cluster;
+N    mbr.logical_sectors_per_fat = (num_clusters * 2 + VFS_SECTOR_SIZE - 1) / VFS_SECTOR_SIZE;
+X    mbr.logical_sectors_per_fat = (num_clusters * 2 + 512 - 1) / 512;
+N    // Initailize virtual media
+N    memcpy(&virtual_media, &virtual_media_tmpl, sizeof(virtual_media_tmpl));
+N    virtual_media[MEDIA_IDX_FAT1].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
+X    virtual_media[MEDIA_IDX_FAT1].length = 512 * mbr.logical_sectors_per_fat;
+N    virtual_media[MEDIA_IDX_FAT2].length = VFS_SECTOR_SIZE * mbr.logical_sectors_per_fat;
+X    virtual_media[MEDIA_IDX_FAT2].length = 512 * mbr.logical_sectors_per_fat;
+N    // Initialize indexes
+N    virtual_media_idx = MEDIA_IDX_COUNT;
+N
+N    data_start = 0;
+N
+N    for (i = 0; i < ELEMENTS_IN_ARRAY(virtual_media_tmpl); i++) {
+X    for (i = 0; i < (sizeof(virtual_media_tmpl)/sizeof(virtual_media_tmpl[0])); i++) {
+N        data_start += virtual_media[i].length;
+N    }
+N
+N    // Initialize FAT
+N    fat_idx = 0;
+N    write_fat_internal(&fat, fat_idx, 0xFFF8);    // Media type "media_descriptor"
+N    fat_idx++;
+N    write_fat_internal(&fat, fat_idx, 0xFFFF);    // FAT12 - always 0xFFF (no meaning), FAT16 - dirty/clean (clean = 0xFFFF)
+N    fat_idx++;
+N    // Initialize root dir
+N    dir_idx = 0;
+N    dir_current.f[dir_idx] = root_dir_entry;
+N    memcpy(dir_current.f[dir_idx].filename, drive_name, sizeof(dir_current.f[0].filename));
+N    dir_idx++;
+N
+N    ffs_init();
+N
+N}
+N
+Nstatic void ffs_init(void)
+N{
+N    if (vfs_nvm_is_available()!=0u)
+N    {
+N        uint32_t num_clusters;
+N        uint32_t total_sectors;
+N
+N        // Initialize MBR
+N        memcpy(&mbr_ffs, &mbr_tmpl, sizeof(mbr_t));
+N        mbr_ffs.max_root_dir_entries = 128u;
+N
+N        //total_sectors = ((disk_size + KB(64)) / mbr.bytes_per_sector);
+N        total_sectors = VFS_NVM_FILE_SIZE / mbr_ffs.bytes_per_sector;
+X        total_sectors = (0xFEC000u-0x1000) / mbr_ffs.bytes_per_sector;
+N        // Make sure this is the right size for a FAT16 volume
+N        if (total_sectors < FAT_CLUSTERS_MIN * mbr_ffs.sectors_per_cluster) {
+X        if (total_sectors < (4086 + 100) * mbr_ffs.sectors_per_cluster) {
+N            total_sectors = FAT_CLUSTERS_MIN * mbr_ffs.sectors_per_cluster;
+X            total_sectors = (4086 + 100) * mbr_ffs.sectors_per_cluster;
+N        } else if (total_sectors > FAT_CLUSTERS_MAX * mbr_ffs.sectors_per_cluster) {
+X        } else if (total_sectors > (65525 - 100) * mbr_ffs.sectors_per_cluster) {
+N            total_sectors = FAT_CLUSTERS_MAX * mbr_ffs.sectors_per_cluster;
+X            total_sectors = (65525 - 100) * mbr_ffs.sectors_per_cluster;
+N        }
+N        if (total_sectors >= 0x10000) {
+N            mbr_ffs.total_logical_sectors = 0;
+N            mbr_ffs.big_sectors_on_drive  = total_sectors;
+N        } else {
+N            mbr_ffs.total_logical_sectors = total_sectors;
+N            mbr_ffs.big_sectors_on_drive  = 0;
+N        }
+N        // FAT table will likely be larger than needed, but this is allowed by the
+N        // fat specification
+N        num_clusters = total_sectors / mbr_ffs.sectors_per_cluster;
+N        mbr_ffs.logical_sectors_per_fat = (num_clusters * 2 + VFS_SECTOR_SIZE - 1) / VFS_SECTOR_SIZE;
+X        mbr_ffs.logical_sectors_per_fat = (num_clusters * 2 + 512 - 1) / 512;
+N        // Initailize virtual media
+N
+N        memset(&virtual_media_ffs, 0, sizeof(virtual_media_ffs));
+N        memcpy(&virtual_media_ffs, &virtual_media_tmpl_ffs, sizeof(virtual_media_tmpl_ffs));
+N
+N        virtual_media_ffs[MEDIA_IDX_FAT1].length = VFS_SECTOR_SIZE * mbr_ffs.logical_sectors_per_fat;
+X        virtual_media_ffs[MEDIA_IDX_FAT1].length = 512 * mbr_ffs.logical_sectors_per_fat;
+N        virtual_media_ffs[MEDIA_IDX_FAT2].length = VFS_SECTOR_SIZE * mbr_ffs.logical_sectors_per_fat;
+X        virtual_media_ffs[MEDIA_IDX_FAT2].length = 512 * mbr_ffs.logical_sectors_per_fat;
+N
+N        virtual_media_idx_ffs = 5u;
+N
+N        // Validate FAT table in the FLASH memory
+N        uint8_t cluster_zero[2];
+N
+N        vfs_nvm_read_FAT(cluster_zero, 0u, 2u);
+N
+N        if ((cluster_zero[0] == 0xF8u) && (cluster_zero[1] == 0xFFu))
+N        {
+N            // FAT table already exists in the FLASH memory
+N
+N            // Validate FLASH directory in the FLASH memory
+N            FatDirectoryEntry_t de;
+N
+N            vfs_nvm_read_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
+N
+N            if (de.filename[0] == 0xFFu)
+N            {
+N                // FLASH directory does not exist in the FLASH memory, initialize
+N                vfs_nvm_setup_DIR();
+N
+N                memcpy(&de, &root_dir_entry, sizeof(root_dir_entry));
+N                memcpy(&(de.filename), "FLASH      ", 11u);
+N                vfs_nvm_write_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
+N            }
+N            else
+N            {
+N                // FLASH directory already exists in the FLASH memory, do nothing
+N            }
+N        }
+N        else
+N        {
+N            // FAT table does not exist in the FLASH memory
+N            // initialize start of FAT in the FLASH memory with FAT from the RAM
+N            // also initialize DIR region as it makes no sense to keep old and possibly invalid content
+N            FatDirectoryEntry_t de;
+N
+N            vfs_nvm_setup_FAT();
+N            vfs_nvm_setup_DIR();
+N
+N            memcpy(&de, &root_dir_entry, sizeof(root_dir_entry));
+N            memcpy(&(de.filename), "FLASH      ", 11u);
+N            vfs_nvm_write_DIR((uint8_t*)(&de), 0u, sizeof(FatDirectoryEntry_t));
+N        }
+N    }
+N}
+N
+Nuint32_t vfs_get_total_size()
+N{
+N    uint32_t size;
+N    if (mbr.total_logical_sectors > 0) {
+N        size = mbr.total_logical_sectors * mbr.bytes_per_sector;
+N    } else if (mbr.big_sectors_on_drive > 0) {
+N        size = mbr.big_sectors_on_drive * mbr.bytes_per_sector;
+N    } else {
+N        size = 0;
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 453);
+N    }
+N    return size;
+N}
+N
+Nvfs_file_t vfs_create_file(const vfs_filename_t filename, vfs_read_cb_t read_cb, vfs_write_cb_t write_cb, uint32_t len)
+N{
+N    uint32_t first_cluster;
+N    FatDirectoryEntry_t *de;
+N    uint32_t clusters;
+N    uint32_t cluster_size;
+N    uint32_t i;
+N    util_assert(filename_valid(filename));
+X    _util_assert((filename_valid(filename)), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 465);
+N    // Compute the number of clusters in the file
+N    cluster_size = mbr.bytes_per_sector * mbr.sectors_per_cluster;
+N    clusters = (len + cluster_size - 1) / cluster_size;
+N    // Write the cluster chain to the fat table
+N    first_cluster = 0;
+N
+N    if (len > 0) {
+N        first_cluster = fat_idx;
+N
+N        for (i = 0; i < clusters - 1; i++) {
+N            write_fat_internal(&fat, fat_idx, fat_idx + 1);
+N            fat_idx++;
+N        }
+N
+N        write_fat_internal(&fat, fat_idx, 0xFFFF);
+N        fat_idx++;
+N    }
+N
+N    // Update directory entry
+N    if (dir_idx >= ELEMENTS_IN_ARRAY(dir_current.f)) {
+X    if (dir_idx >= (sizeof(dir_current . f)/sizeof(dir_current . f[0]))) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 486);
+N        return VFS_FILE_INVALID;
+X        return 0;
+N    }
+N
+N    de = &dir_current.f[dir_idx];
+N    dir_idx++;
+N    memcpy(de, &dir_entry_tmpl, sizeof(dir_entry_tmpl));
+N    memcpy(de->filename, filename, 11);
+N    de->filesize = len;
+N    de->first_cluster_high_16 = (first_cluster >> 16) & 0xFFFF;
+N    de->first_cluster_low_16 = (first_cluster >> 0) & 0xFFFF;
+N
+N    // Update virtual media
+N    if (virtual_media_idx >= ELEMENTS_IN_ARRAY(virtual_media)) {
+X    if (virtual_media_idx >= (sizeof(virtual_media)/sizeof(virtual_media[0]))) {
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 500);
+N        return VFS_FILE_INVALID;
+X        return 0;
+N    }
+N
+N    virtual_media[virtual_media_idx].read_cb = read_zero;
+N    virtual_media[virtual_media_idx].write_cb = write_none;
+N
+N    if (0 != read_cb) {
+N        virtual_media[virtual_media_idx].read_cb = read_cb;
+N    }
+N
+N    if (0 != write_cb) {
+N        virtual_media[virtual_media_idx].write_cb = write_cb;
+N    }
+N
+N    virtual_media[virtual_media_idx].length = clusters * mbr.bytes_per_sector * mbr.sectors_per_cluster;
+N    virtual_media_idx++;
+N    file_count += 1;
+N    return de;
+N}
+N
+Nvoid vfs_file_set_attr(vfs_file_t file, vfs_file_attr_bit_t attr)
+N{
+N    FatDirectoryEntry_t *de = file;
+N    de->attributes = attr;
+N}
+N
+Nvfs_sector_t vfs_file_get_start_sector(vfs_file_t file)
+N{
+N    FatDirectoryEntry_t *de = file;
+N
+N    if (vfs_file_get_size(file) == 0) {
+N        return VFS_INVALID_SECTOR;
+X        return 0xFFFFFFFF;
+N    }
+N
+N    return cluster_to_sector(de->first_cluster_low_16);
+N}
+N
+Nuint32_t vfs_file_get_size(vfs_file_t file)
+N{
+N    FatDirectoryEntry_t *de = file;
+N    return de->filesize;
+N}
+N
+Nvfs_file_attr_bit_t vfs_file_get_attr(vfs_file_t file)
+N{
+N    FatDirectoryEntry_t *de = file;
+N    return (vfs_file_attr_bit_t)de->attributes;
+N}
+N
+Nvoid vfs_set_file_change_callback(vfs_file_change_cb_t cb)
+N{
+N    file_change_cb = cb;
+N}
+N
+Nvoid vfs_read(uint32_t requested_sector, uint8_t *buf, uint32_t num_sectors)
+N{
+N    uint8_t i = 0;
+N    uint32_t current_sector;
+N    // Zero out the buffer
+N    memset(buf, 0, num_sectors * VFS_SECTOR_SIZE);
+X    memset(buf, 0, num_sectors * 512);
+N    current_sector = 0;
+N
+N    for (i = 0; i < virtual_media_idx; i++) {
+N        uint32_t vm_sectors = virtual_media[i].length / VFS_SECTOR_SIZE;
+X        uint32_t vm_sectors = virtual_media[i].length / 512;
+N        uint32_t vm_start = current_sector;
+N        uint32_t vm_end = current_sector + vm_sectors;
+N
+N        // Data can be used in this sector
+N        if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+N            uint32_t sector_offset;
+N            uint32_t sectors_to_write = vm_end - requested_sector;
+N            sectors_to_write = MIN(sectors_to_write, num_sectors);
+X            sectors_to_write = ((sectors_to_write) < (num_sectors) ? (sectors_to_write) : (num_sectors));
+N            sector_offset = requested_sector - current_sector;
+N            virtual_media[i].read_cb(sector_offset, buf, sectors_to_write);
+N            // Update requested sector
+N            requested_sector += sectors_to_write;
+N            num_sectors -= sectors_to_write;
+N        }
+N
+N        // If there is no more data to be read then break
+N        if (num_sectors == 0) {
+N            break;
+N        }
+N
+N        // Move to the next virtual media entry
+N        current_sector += vm_sectors;
+N    }
+N}
+N
+Nvoid ffs_read(uint32_t requested_sector, uint8_t *buf, uint32_t num_sectors)
+N{
+N    if (vfs_nvm_is_available()!=0u)
+N    {
+N        uint8_t i = 0;
+N        uint32_t current_sector;
+N        // Zero out the buffer
+N        memset(buf, 0, num_sectors * VFS_SECTOR_SIZE);
+X        memset(buf, 0, num_sectors * 512);
+N        current_sector = 0;
+N
+N        for (i = 0; i < virtual_media_idx_ffs; i++) {
+N            uint32_t vm_sectors = virtual_media_ffs[i].length / VFS_SECTOR_SIZE;
+X            uint32_t vm_sectors = virtual_media_ffs[i].length / 512;
+N            uint32_t vm_start = current_sector;
+N            uint32_t vm_end = current_sector + vm_sectors;
+N
+N            // Data can be used in this sector
+N            if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+N                uint32_t sector_offset;
+N                uint32_t sectors_to_write = vm_end - requested_sector;
+N                sectors_to_write = MIN(sectors_to_write, num_sectors);
+X                sectors_to_write = ((sectors_to_write) < (num_sectors) ? (sectors_to_write) : (num_sectors));
+N                sector_offset = requested_sector - current_sector;
+N                virtual_media_ffs[i].read_cb(sector_offset, buf, sectors_to_write);
+N                // Update requested sector
+N                requested_sector += sectors_to_write;
+N                num_sectors -= sectors_to_write;
+N            }
+N
+N            // If there is no more data to be read then break
+N            if (num_sectors == 0) {
+N                break;
+N            }
+N
+N            // Move to the next virtual media entry
+N            current_sector += vm_sectors;
+N        }
+N    }
+N    else
+N    {
+N        /* */
+N    }
+N}
+N
+Nvoid vfs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors)
+N{
+N    uint8_t i = 0;
+N    uint32_t current_sector;
+N    current_sector = 0;
+N
+N    for (i = 0; i < virtual_media_idx; i++) {
+N        uint32_t vm_sectors = virtual_media[i].length / VFS_SECTOR_SIZE;
+X        uint32_t vm_sectors = virtual_media[i].length / 512;
+N        uint32_t vm_start = current_sector;
+N        uint32_t vm_end = current_sector + vm_sectors;
+N
+N        // Data can be used in this sector
+N        if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+N            uint32_t sector_offset;
+N            uint32_t sectors_to_read = vm_end - requested_sector;
+N            sectors_to_read = MIN(sectors_to_read, num_sectors);
+X            sectors_to_read = ((sectors_to_read) < (num_sectors) ? (sectors_to_read) : (num_sectors));
+N            sector_offset = requested_sector - current_sector;
+N            virtual_media[i].write_cb(sector_offset, buf, sectors_to_read);
+N            // Update requested sector
+N            requested_sector += sectors_to_read;
+N            num_sectors -= sectors_to_read;
+N        }
+N
+N        // If there is no more data to be read then break
+N        if (num_sectors == 0) {
+N            break;
+N        }
+N
+N        // Move to the next virtual media entry
+N        current_sector += vm_sectors;
+N    }
+N}
+N
+Nvoid ffs_write(uint32_t requested_sector, const uint8_t *buf, uint32_t num_sectors)
+N{
+N    if (vfs_nvm_is_available()!=0u)
+N    {
+N        uint8_t i = 0;
+N        uint32_t current_sector;
+N        current_sector = 0;
+N
+N        for (i = 0; i < virtual_media_idx_ffs; i++) {
+N            uint32_t vm_sectors = virtual_media_ffs[i].length / VFS_SECTOR_SIZE;
+X            uint32_t vm_sectors = virtual_media_ffs[i].length / 512;
+N            uint32_t vm_start = current_sector;
+N            uint32_t vm_end = current_sector + vm_sectors;
+N
+N            // Data can be used in this sector
+N            if ((requested_sector >= vm_start) && (requested_sector < vm_end)) {
+N                uint32_t sector_offset;
+N                uint32_t sectors_to_read = vm_end - requested_sector;
+N                sectors_to_read = MIN(sectors_to_read, num_sectors);
+X                sectors_to_read = ((sectors_to_read) < (num_sectors) ? (sectors_to_read) : (num_sectors));
+N                sector_offset = requested_sector - current_sector;
+N                virtual_media_ffs[i].write_cb(sector_offset, buf, sectors_to_read);
+N                // Update requested sector
+N                requested_sector += sectors_to_read;
+N                num_sectors -= sectors_to_read;
+N            }
+N
+N            // If there is no more data to be read then break
+N            if (num_sectors == 0) {
+N                break;
+N            }
+N
+N            // Move to the next virtual media entry
+N            current_sector += vm_sectors;
+N        }
+N    }
+N    else
+N    {
+N        /* */
+N    }
+N}
+N
+Nuint32_t read_flash_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+X    uint32_t byte_offset = sector_offset * 512;
+N    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+X    uint32_t num_bytes = num_sectors * 512;
+N
+N    vfs_nvm_read_DIR(data, byte_offset, num_bytes);
+N
+N	return num_bytes;
+N}
+N
+Nvoid write_flash_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+N{
+N    FatDirectoryEntry_t old_entry;
+N    FatDirectoryEntry_t new_entry;
+N
+N    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+X    uint32_t byte_offset = sector_offset * 512;
+N    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+X    uint32_t num_bytes = num_sectors * 512;
+N    uint32_t idx = 0u;
+N
+N    for (idx = 0u; idx < num_bytes; idx += sizeof(FatDirectoryEntry_t))
+N    {
+N        vfs_nvm_read_DIR((uint8_t*)(&old_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+N
+N        if (memcmp(&old_entry, &data[idx], sizeof(FatDirectoryEntry_t)) != 0u)
+N        {
+N            if (vfs_strncmp(&data[idx], "SELECTR HEX") == 0u)
+N            {
+N                memcpy(&new_entry, &data[idx], sizeof(FatDirectoryEntry_t));
+N                new_entry.attributes = VFS_FILE_ATTR_READ_ONLY
+N                                     | VFS_FILE_ATTR_HIDDEN
+N                                     | VFS_FILE_ATTR_SYSTEM
+N                                     | VFS_FILE_ATTR_ARCHIVE;
+N
+N                vfs_nvm_write_DIR((uint8_t*)(&new_entry), byte_offset + idx, sizeof(FatDirectoryEntry_t));
+N            }
+N            else
+N            {
+N                vfs_nvm_write_DIR(&data[idx], byte_offset + idx, sizeof(FatDirectoryEntry_t));
+N            }
+N        }
+N        else
+N        {
+N            /* */
+N        }
+N    }
+N}
+N
+Nuint32_t read_flash_file(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+X    uint32_t byte_offset = sector_offset * 512;
+N    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+X    uint32_t num_bytes = num_sectors * 512;
+N
+N    vfs_nvm_read_FILE(data, byte_offset, num_bytes);
+N
+N    return num_bytes;
+N}
+N
+Nvoid write_flash_file(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t byte_offset = sector_offset * VFS_SECTOR_SIZE;
+X    uint32_t byte_offset = sector_offset * 512;
+N    uint32_t num_bytes = num_sectors * VFS_SECTOR_SIZE;
+X    uint32_t num_bytes = num_sectors * 512;
+N
+N    vfs_nvm_write_FILE(data, byte_offset, num_bytes);
+N}
+N
+Nuint8_t vfs_get_flash_names_srtd(vfs_filename_t* filename, uint8_t max_count)
+N{
+N    uint16_t addr = 0u;
+N    uint8_t filenames_found = 0u;
+N    FatDirectoryEntry_t de;
+N
+N    for (addr = 0u; addr < VFS_NVM_DIR_SIZE; addr+=sizeof(FatDirectoryEntry_t))
+X    for (addr = 0u; addr < (0x1000-0x000000u); addr+=sizeof(FatDirectoryEntry_t))
+N    {
+N        vfs_nvm_read_DIR((uint8_t*)(&de), addr, sizeof(FatDirectoryEntry_t));
+N
+N        if (filename_valid(de.filename) != 0u)
+N        {
+N            if ((vfs_strncmp((de.filename), "SELECTR HEX")!=0) && ((de.attributes & VFS_FILE_ATTR_HIDDEN) == 0u))
+N            {
+N                if (strncmp("HEX", (const char *)(&(de.filename[8])), 3) == 0)
+N                {
+N                    if (filenames_found < max_count)
+N                    {
+N                        memcpy(&(filename[filenames_found]), &(de.filename), sizeof(vfs_filename_t));
+N                        filenames_found++;
+N                    }
+N                    else
+N                    {
+N                        // filename buffer full
+N                        // terminate the for loop
+N                        addr = VFS_NVM_DIR_SIZE;
+X                        addr = (0x1000-0x000000u);
+N                    }
+N                }
+N                else
+N                {
+N                    // skip non-HEX files
+N                }
+N            }
+N            else
+N            {
+N                // skip the "selector" file and hidden files
+N            }
+N        }
+N        else
+N        {
+N            // filename invalid, not a file?
+N        }
+N    }
+N
+N    qsort(filename, filenames_found, sizeof(vfs_filename_t), vfs_strncmp);
+N
+N    return filenames_found;
+N}
+N
+Nuint8_t vfs_find_flash_file(vfs_filename_t filename, uint16_t * const first_cluster, uint32_t * const filesize)
+N{
+N    uint16_t addr = 0u;
+N    uint8_t result = 0u;
+N    FatDirectoryEntry_t de;
+N
+N    *first_cluster = 0xFFFFu;
+N    *filesize = 0u;
+N
+N    if (filename_valid(filename)!=0u)
+N    {
+N        for (addr = 0u; addr < VFS_NVM_DIR_SIZE; addr+=sizeof(FatDirectoryEntry_t))
+X        for (addr = 0u; addr < (0x1000-0x000000u); addr+=sizeof(FatDirectoryEntry_t))
+N        {
+N            vfs_nvm_read_DIR((uint8_t*)(&de), addr, sizeof(FatDirectoryEntry_t));
+N
+N            if (vfs_strncmp(de.filename, filename) == 0u)
+N            {
+N                // filename is matching, finalize
+N                *first_cluster = de.first_cluster_low_16;
+N                *filesize = de.filesize;
+N
+N                // terminate the for loop
+N                addr = VFS_NVM_DIR_SIZE;
+X                addr = (0x1000-0x000000u);
+N
+N                result = 1u;
+N            }
+N            else
+N            {
+N                // filename is not matching, continue searching
+N                result = 0u;
+N            }
+N        }
+N    }
+N    else
+N    {
+N        // filename is invalid, skip
+N        result = 0u;
+N    }
+N
+N    return result;
+N}
+N
+N
+Nstatic uint32_t read_zero(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t read_size = VFS_SECTOR_SIZE * num_sectors;
+X    uint32_t read_size = 512 * num_sectors;
+N    memset(data, 0, read_size);
+N    return read_size;
+N}
+N
+Nstatic void write_none(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+N{
+N    // Do nothing
+N}
+N
+Nstatic uint32_t read_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t read_size = sizeof(mbr_t);
+N    COMPILER_ASSERT(sizeof(mbr_t) <= VFS_SECTOR_SIZE);
+X    enum { compiler_assert_6 = 1/((sizeof(mbr_t) <= 512) ? 1 : 0) };
+N
+N    if (sector_offset != 0) {
+N        // Don't worry about reading other sectors
+N        return 0;
+N    }
+N
+N    memcpy(data, &mbr, read_size);
+N    return read_size;
+N}
+N
+Nstatic uint32_t read_flash_mbr(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t read_size = sizeof(mbr_t);
+N    COMPILER_ASSERT(sizeof(mbr_t) <= VFS_SECTOR_SIZE);
+X    enum { compiler_assert_7 = 1/((sizeof(mbr_t) <= 512) ? 1 : 0) };
+N
+N    if (sector_offset != 0) {
+N        // Don't worry about reading other sectors
+N        return 0;
+N    }
+N
+N    memcpy(data, &mbr_ffs, read_size);
+N    return read_size;
+N}
+N
+N/* No need to handle writes to the mbr */
+N
+Nstatic uint32_t read_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    uint32_t read_size = sizeof(file_allocation_table_t);
+N    COMPILER_ASSERT(sizeof(file_allocation_table_t) <= VFS_SECTOR_SIZE);
+X    enum { compiler_assert_8 = 1/((sizeof(file_allocation_table_t) <= 512) ? 1 : 0) };
+N
+N    if (sector_offset != 0) {
+N        // Don't worry about reading other sectors
+N        return 0;
+N    }
+N
+N    memcpy(data, &fat, read_size);
+N    return read_size;
+N}
+N
+Nstatic uint32_t read_flash_fat(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    vfs_nvm_read_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+X    vfs_nvm_read_FAT(data, (sector_offset * 512), (num_sectors * 512));
+N
+N    return num_sectors * VFS_SECTOR_SIZE;
+X    return num_sectors * 512;
+N}
+N
+Nstatic void write_flash_fat(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+N{
+N    vfs_nvm_write_FAT(data, (sector_offset * VFS_SECTOR_SIZE), (num_sectors * VFS_SECTOR_SIZE));
+X    vfs_nvm_write_FAT(data, (sector_offset * 512), (num_sectors * 512));
+N}
+N
+Nstatic uint32_t read_dir(uint32_t sector_offset, uint8_t *data, uint32_t num_sectors)
+N{
+N    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(dir_current)) {
+X    if ((sector_offset + num_sectors) * 512 > sizeof(dir_current)) {
+N        // Trying to read too much of the root directory
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 934);
+N        return 0;
+N    }
+N   
+N    // Zero buffer data is VFS_SECTOR_SIZE max
+N    memset(data, 0, VFS_SECTOR_SIZE);
+X    memset(data, 0, 512);
+N
+N    if (sector_offset == 0) { //Handle the first 512 bytes
+N        // Copy data that is actually created in the directory
+N        memcpy(data, &dir_current.f[0], dir_idx*sizeof(FatDirectoryEntry_t));
+N    }
+N
+N    return num_sectors * VFS_SECTOR_SIZE;
+X    return num_sectors * 512;
+N}
+N
+Nstatic void write_dir(uint32_t sector_offset, const uint8_t *data, uint32_t num_sectors)
+N{
+N    FatDirectoryEntry_t *old_entry;
+N    FatDirectoryEntry_t *new_entry;
+N    uint32_t start_index;
+N    uint32_t num_entries;
+N    uint32_t i;
+N
+N    if ((sector_offset + num_sectors) * VFS_SECTOR_SIZE > sizeof(dir_current)) {
+X    if ((sector_offset + num_sectors) * 512 > sizeof(dir_current)) {
+N        // Trying to write too much of the root directory
+N        util_assert(0);
+X        _util_assert((0), "..\\..\\..\\source\\daplink\\drag-n-drop\\virtual_fs.c", 959);
+N        return;
+N    }
+N
+N    start_index = sector_offset * VFS_SECTOR_SIZE / sizeof(FatDirectoryEntry_t);
+X    start_index = sector_offset * 512 / sizeof(FatDirectoryEntry_t);
+N    num_entries = num_sectors * VFS_SECTOR_SIZE / sizeof(FatDirectoryEntry_t);
+X    num_entries = num_sectors * 512 / sizeof(FatDirectoryEntry_t);
+N    old_entry = &dir_current.f[start_index];
+N    new_entry = (FatDirectoryEntry_t *)data;
+N    // If this is the first sector start at index 1 to get past drive name
+N    i = 0 == sector_offset ? 1 : 0;
+N
+N    for (; i < num_entries; i++) {
+N        bool same_name;
+X        _Bool same_name;
+N
+N        if (0 == memcmp(&old_entry[i], &new_entry[i], sizeof(FatDirectoryEntry_t))) {
+N            continue;
+N        }
+N
+N        // If were at this point then something has changed in the file
+N        same_name = (0 == memcmp(old_entry[i].filename, new_entry[i].filename, sizeof(new_entry[i].filename))) ? 1 : 0;
+N        // Changed
+N        file_change_cb(new_entry[i].filename, VFS_FILE_CHANGED, (vfs_file_t)&old_entry[i], (vfs_file_t)&new_entry[i]);
+N
+N        // Deleted
+N        if (0xe5 == (uint8_t)new_entry[i].filename[0]) {
+N            file_change_cb(old_entry[i].filename, VFS_FILE_DELETED, (vfs_file_t)&old_entry[i], (vfs_file_t)&new_entry[i]);
+N            continue;
+N        }
+N
+N        // Created
+N        if (!same_name && filename_valid(new_entry[i].filename)) {
+N            file_change_cb(new_entry[i].filename, VFS_FILE_CREATED, (vfs_file_t)&old_entry[i], (vfs_file_t)&new_entry[i]);
+N            continue;
+N        }
+N    }
+N
+N    memcpy(&dir_current.f[start_index], data, num_sectors * VFS_SECTOR_SIZE);
+X    memcpy(&dir_current.f[start_index], data, num_sectors * 512);
+N}
+N
+Nstatic void file_change_cb_stub(const vfs_filename_t filename, vfs_file_change_t change, vfs_file_t file, vfs_file_t new_file_data)
+N{
+N    // Do nothing
+N}
+N
+Nstatic uint32_t cluster_to_sector(uint32_t cluster_idx)
+N{
+N    uint32_t sectors_before_data = data_start / mbr.bytes_per_sector;
+N    return sectors_before_data + (cluster_idx - 2) * mbr.sectors_per_cluster;
+N}
+N
+Nstatic bool filename_valid(const vfs_filename_t  filename)
+Xstatic _Bool filename_valid(const vfs_filename_t  filename)
+N{
+N    // Information on valid 8.3 filenames can be found in
+N    // the microsoft hardware whitepaper:
+N    //
+N    // Microsoft Extensible Firmware Initiative
+N    // FAT32 File System Specification
+N    // FAT: General Overview of On-Disk Format
+N    const char invalid_starting_chars[] = {
+N        0xE5, // Deleted
+N        0x00, // Deleted (and all following entries are free)
+N        0x20, // Space not allowed as first character
+N    };
+N    uint32_t i;
+N
+N    // Check for invalid starting characters
+N    for (i = 0; i < sizeof(invalid_starting_chars); i++) {
+N        if (invalid_starting_chars[i] == filename[0]) {
+N            return false;
+X            return 0;
+N        }
+N    }
+N
+N    // Make sure all the characters are valid
+N    for (i = 0; i < sizeof(vfs_filename_t); i++) {
+N        if (!filename_character_valid(filename[i])) {
+N            return false;
+X            return 0;
+N        }
+N    }
+N
+N    // All checks have passed so filename is valid
+N    return true;
+X    return 1;
+N}
+N
+Nstatic bool filename_character_valid(char character)
+Xstatic _Bool filename_character_valid(char character)
+N{
+N    const char invalid_chars[] = {0x22, 0x2A, 0x2B, 0x2C, 0x2E, 0x2F, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x5B, 0x5C, 0x5D, 0x7C};
+N    uint32_t i;
+N
+N    // Lower case characters are not allowed
+N    if ((character >= 'a') && (character <= 'z')) {
+N        return false;
+X        return 0;
+N    }
+N
+N    // Values less than 0x20 are not allowed except 0x5
+N    if ((character < 0x20) && (character != 0x5)) {
+N        return false;
+X        return 0;
+N    }
+N
+N    // Check for special characters that are not allowed
+N    for (i = 0; i < sizeof(invalid_chars); i++) {
+N        if (invalid_chars[i] == character) {
+N            return false;
+X            return 0;
+N        }
+N    }
+N
+N    // All of the checks have passed so this is a valid file name character
+N    return true;
+X    return 1;
+N}
+N
+Nstatic int vfs_strncmp(const void * a, const void * b)
+N{
+N    return strncmp((const char *)a, (const char *)b, 11);
+N}

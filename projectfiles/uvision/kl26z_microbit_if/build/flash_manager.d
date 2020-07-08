@@ -1,0 +1,9 @@
+.\build\flash_manager.o: ..\..\..\source\daplink\drag-n-drop\flash_manager.c
+.\build\flash_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\flash_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\flash_manager.o: ..\..\..\source\daplink\drag-n-drop\flash_manager.h
+.\build\flash_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\flash_manager.o: ..\..\..\source\daplink\drag-n-drop\flash_intf.h
+.\build\flash_manager.o: ..\..\..\source\daplink\error.h
+.\build\flash_manager.o: ..\..\..\source\daplink\util.h
+.\build\flash_manager.o: ..\..\..\source\daplink\macro.h

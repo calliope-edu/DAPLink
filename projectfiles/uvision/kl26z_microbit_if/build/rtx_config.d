@@ -1,0 +1,16 @@
+.\build\rtx_config.o: ..\..\..\source\daplink\RTX_Config.c
+.\build\rtx_config.o: ..\..\..\source\rtos\RTL.h
+.\build\rtx_config.o: ..\..\..\source\daplink\util.h
+.\build\rtx_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\rtx_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\rtx_config.o: ..\..\..\source\daplink\cortex_m.h
+.\build\rtx_config.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\rtx_config.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\rtx_config.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\rtx_config.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\rtx_config.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\rtx_config.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\rtx_config.o: ..\..\..\source\daplink\compiler.h
+.\build\rtx_config.o: ..\..\..\source\daplink\daplink.h
+.\build\rtx_config.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h
+.\build\rtx_config.o: ..\..\..\source\rtos\RTX_lib.c

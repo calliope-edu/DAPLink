@@ -1,0 +1,15 @@
+.\build\hardfault_handler.o: ..\..\..\source\daplink\HardFault_Handler.c
+.\build\hardfault_handler.o: ..\..\..\source\daplink\settings\settings.h
+.\build\hardfault_handler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\hardfault_handler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\hardfault_handler.o: ..\..\..\source\daplink\util.h
+.\build\hardfault_handler.o: ..\..\..\source\daplink\cortex_m.h
+.\build\hardfault_handler.o: ..\..\..\source\hic_hal\freescale\kl26z\IO_Config.h
+.\build\hardfault_handler.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\MKL26Z4.h
+.\build\hardfault_handler.o: ..\..\..\source\cmsis-core\core_cm0plus.h
+.\build\hardfault_handler.o: ..\..\..\source\cmsis-core\core_cmInstr.h
+.\build\hardfault_handler.o: ..\..\..\source\cmsis-core\core_cmFunc.h
+.\build\hardfault_handler.o: ..\..\..\source\hic_hal\freescale\kl26z\MKL26Z4\system_MKL26Z4.h
+.\build\hardfault_handler.o: ..\..\..\source\daplink\compiler.h
+.\build\hardfault_handler.o: ..\..\..\source\daplink\daplink.h
+.\build\hardfault_handler.o: ..\..\..\source\hic_hal\freescale\kl26z\daplink_addr.h

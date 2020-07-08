@@ -1,0 +1,12 @@
+.\build\selectr.o: ..\..\..\source\daplink\drag-n-drop\selectr.c
+.\build\selectr.o: ..\..\..\source\daplink\drag-n-drop\selectr.h
+.\build\selectr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\selectr.o: ..\..\..\source\daplink\drag-n-drop\virtual_fs.h
+.\build\selectr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\selectr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\selectr.o: ..\..\..\source\daplink\drag-n-drop\vfs_nvm.h
+.\build\selectr.o: ..\..\..\source\daplink\util.h
+.\build\selectr.o: ..\..\..\source\hic_hal\uart.h
+.\build\selectr.o: ..\..\..\source\daplink\drag-n-drop\file_stream.h
+.\build\selectr.o: ..\..\..\source\daplink\error.h
+.\build\selectr.o: ..\..\..\source\daplink\interface\main.h

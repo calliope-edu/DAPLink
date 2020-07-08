@@ -1,0 +1,9 @@
+.\build\rt_task.o: ..\..\..\source\rtos\rt_Task.c
+.\build\rt_task.o: ..\..\..\source\rtos\rt_TypeDef.h
+.\build\rt_task.o: ..\..\..\source\rtos\RTX_Config.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_System.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_Task.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_List.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_MemBox.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_Robin.h
+.\build\rt_task.o: ..\..\..\source\rtos\rt_HAL_CM.h
