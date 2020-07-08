@@ -49,6 +49,7 @@
 // Timers events
 #define FLAGS_MAIN_90MS         (1 << 0)
 #define FLAGS_MAIN_30MS         (1 << 1)
+#define FLAGS_MAIN_900MS        (1 << 3)
 // Reset events
 #define FLAGS_MAIN_RESET        (1 << 2)
 // Other Events
@@ -113,14 +114,23 @@ static U64 stk_main_task[MAIN_TASK_STACK / sizeof(U64)];
 __task void timer_task_30mS(void)
 {
     uint8_t i = 0;
+    uint8_t j = 0;
     os_itv_set(3); // 30mS
 
     while (1) {
         os_itv_wait();
         os_evt_set(FLAGS_MAIN_30MS, main_task_id);
 
-        if (!(i++ % 3)) {
+        i++;
+        if (i == 3u) {
+            i = 0u;
             os_evt_set(FLAGS_MAIN_90MS, main_task_id);
+        }
+
+        j++;
+        if (j == 30u) {
+            j = 0u;
+            os_evt_set(FLAGS_MAIN_900MS, main_task_id);
         }
     }
 }
@@ -206,14 +216,17 @@ __task void main_task(void)
     // button state
     uint8_t reset_pressed = 0;
     uint16_t reset_pressed_timer = 0u;
+
+    // Get a reference to this task
+    main_task_id = os_tsk_self();
+
+    // Start timer tasks
+    os_tsk_create_user(timer_task_30mS, TIMER_TASK_30_PRIORITY, (void *)stk_timer_30_task, TIMER_TASK_30_STACK);
+
     // Initialize settings - required for asserts to work
     config_init();
     // Update bootloader if it is out of date
     bootloader_check_and_update();
-    // Get a reference to this task
-    main_task_id = os_tsk_self();
-    // Initialize NV memory for filesystem
-    vfs_nvm_init();
     // leds
     gpio_init();
     // Turn to LED default settings
@@ -227,14 +240,17 @@ __task void main_task(void)
     prerun_target_config();
     // Update versions and IDs
     info_init();
+
+    os_evt_wait_or(FLAGS_MAIN_900MS, NO_TIMEOUT);
+    // Initialize NV memory for filesystem
+    vfs_nvm_init();
+
     // USB
     usbd_init();
     vfs_mngr_fs_enable(true);
     usbd_connect(0);
     usb_state = USB_CONNECTING;
     usb_state_count = USB_CONNECT_DELAY;
-    // Start timer tasks
-    os_tsk_create_user(timer_task_30mS, TIMER_TASK_30_PRIORITY, (void *)stk_timer_30_task, TIMER_TASK_30_STACK);
 
     while (1) {
         os_evt_wait_or(FLAGS_MAIN_RESET             // Put target in reset state
