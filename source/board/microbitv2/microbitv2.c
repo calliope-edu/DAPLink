@@ -471,12 +471,12 @@ static uint8_t target_set_state_microbit(target_state_t state)
 const board_info_t g_board_info = {
     .info_version = kBoardInfoVersion,
     .family_id = kNordic_Nrf52_FamilyID,
-    .daplink_url_name = "MICROBITHTM",
-    .daplink_drive_name = "MICROBIT",
-    .daplink_target_url = "https://microbit.org/device/?id=@B&v=@V",
+    .daplink_url_name = "CALLIOPEHTM",
+    .daplink_drive_name = "MINI",
+    .daplink_target_url = "https://calliope.cc",
     .prerun_board_config = prerun_board_config,
     .target_cfg = &target_device_nrf52833,
     .target_set_state = target_set_state_microbit,
-    .board_vendor = "Micro:bit Educational Foundation",
-    .board_name = "BBC micro:bit V2",
+    .board_vendor = "CALLIOPE",
+    .board_name = "Calliope mini V3",
 };
