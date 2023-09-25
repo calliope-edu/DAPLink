@@ -25,8 +25,8 @@
 #define M0_RESERVED_VECT_OFFSET     (4 * 4)
 #define M0_RESERVED_VECT_SIZE       (3 * 4) // Size for mem fault, bus fault and usage fault vectors
 
-#define PWR_LED_ON_MAX_BRIGHTNESS       255 // Max LED Brightness (PC Connected)
-#define PWR_LED_INIT_FADE_BRIGHTNESS    200 // Initial fade LED Brightness
+#define PWR_LED_ON_MAX_BRIGHTNESS       170 // Max LED Brightness (PC Connected)
+#define PWR_LED_INIT_FADE_BRIGHTNESS    120 // Initial fade LED Brightness
 #define PWR_LED_ON_BATT_BRIGHTNESS      100 // LED Brightness while being powered by battery
 #define PWR_LED_FADEOUT_MIN_BRIGHTNESS  80  // Minimum LED brightness when fading out
 #define PWR_LED_SLEEP_STATE_DEFAULT     true
