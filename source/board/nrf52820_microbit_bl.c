@@ -74,9 +74,9 @@ const target_family_descriptor_t *g_target_family = NULL;
 const board_info_t g_board_info = {
     .info_version               = kBoardInfoVersion,
     .board_id                   = BOARD_ID_MB_2_2_833,
-    .daplink_url_name           = "HELP_FAQHTM",
+    .daplink_url_name           = "CALLIOPEHTM",
     .daplink_drive_name         = "MAINTENANCE",
-    .daplink_target_url         = "https://microbit.org/device/?id=@B&v=@V&bl=1",
+    .daplink_target_url         = "https://calliope.cc",
     .target_cfg                 = &target_device,
 };
 
