@@ -3,7 +3,7 @@ common:
         - HID_LED_DEF=GPIO_LED_ON
         - CDC_LED_DEF=GPIO_LED_ON
         - MSC_LED_DEF=GPIO_LED_ON
-        - USB_PROD_STR="BBC micro:bit CMSIS-DAP"
+        - USB_PROD_STR="Calliope mini V3 CMSIS-DAP"
         - IO_CONFIG_OVERRIDE
         - DAP_DEFAULT_SWJ_CLOCK=6000000     # Results in one slow delay of 3 cycles 
         - BOARD_USB_BMAXPOWER=0x96
