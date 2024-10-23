@@ -68,7 +68,7 @@ jobs:
         progen generate -t make_gcc_arm -p nrf52820_microbit_bl -b
         
     - name: Upload test artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: firmware-dev-${{github.run_number}}
         path: |
